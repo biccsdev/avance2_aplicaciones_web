@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="pago.css">
+    <title>Pantalla de pago</title>
+</head>
+
+<body class="app-bg">
+
+    <header class="main-header">
+
+        <div class="header-left">
+            <img class="logo" src="../imgs/logo.png" alt="Logo de JoystickMX">
+        </div>
+
+
+        <div class="header-center">
+            <span class="search-label">Busqueda de productos</span>
+            <div class="search-container">
+                <input class="search-input" type="text" placeholder="Search">
+                <img class="search-icon" src="../imgs/lupa.png" alt="Icono de búsqueda">
+            </div>
+        </div>
+
+
+
+
+        <div class="header-right">
+
+            <div class="user-panel-button">
+                <span class="margin-label">.</span>
+                <img src="../imgs/carrito.png" alt="Icono de carrito de compras" class="cart-icon">
+            </div>
+
+
+            <div class="user-panel-button">
+                <span class="margin-label">.</span>
+                <button class="admin-button">Pedidos</button>
+            </div>
+
+
+            <div class="user-info">
+                <span class="margin-label">.</span>
+                <button class="user-profile-button">
+                    <div class="user-icon">
+                        <img class="icono-usuario" src="../imgs/icono_user_super_prime.png" alt="Icono de usuario">
+                    </div>
+                    <span>Sebastian Borquez</span>
+                </button>
+            </div>
+
+
+
+
+        </div>
+
+    </header>
+
+    <main class="main">
+        <div class="resumen-carrito">
+            <div class="detalles">
+                <h2 class=" Carro-detalles:">Carrito de Compras:</h2>
+                <div class="detalles-item-carrito">
+                    <span>Call of Duty: Ghosts</span>
+                    <span>x1</span>
+                </div>
+                <div class="detalles-item-carrito">
+                    <span>The battle of Polytopia</span>
+                    <span>x2</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-metodo-pago">
+
+            <div class="opciones-pago">
+                <h2 class="panel-titulo">Metodo De Pago</h2>
+
+                <label class="radio-row paypal-row">
+                    <img src="../imgs/paypal.png" alt="PayPal" class="icono-paypal">
+                    <input type="radio" name="pago" value="paypal" checked />
+                </label>
+
+                <label class="radio-row">
+                    <span>Contra entrega</span>
+                    <input type="radio" name="pago" value="contra-entrega" />
+                </label>
+
+                <label class="radio-row">
+                    <span>Tarjeta de Credito o Debito</span>
+                    <input type="radio" name="pago"  />
+                </label>
+
+                <div class="tarjeta-form">
+                    <label>
+                        <span class="label-small">Numero de Tarjeta</span>
+                        <input type="text" inputmode="numeric" maxlength="19"  />
+                    </label>
+                    <label>
+                        <span class="label-small">Nombre de Titular De La Tarjeta:</span>
+                        <input type="text"  />
+                    </label>
+                    <label> <span class="label-small">Fecha de Expiracion </span>
+                        <input type="text" maxlength="5"  />
+                    </label>
+                    <label> <span class="label-small">CVV</span>
+                        <input type="password" inputmode="numeric" maxlength="3"  />
+                    </label>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="panel-resumen-total">
+            <h2 class="panel-titulo">Cuenta</h2>
+            <div class="resumen-row">
+                <span>Productos (2):</span>
+                <span class="monto">$1500.0</span>
+            </div>
+            <div class="resumen-row">
+                <span>Envio:</span>
+                <span class="monto">$100.0</span>
+            </div>
+            <div class="resumen-row total">
+                <span>Total:</span>
+                <span class="monto">$1600.0</span>
+            </div>
+            <button class="btn-confirmar">Confirmar Pedido</button>
+        </div>
+
+    </main>
+
+</body>
+
+</html>

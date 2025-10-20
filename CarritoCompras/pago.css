@@ -1,0 +1,175 @@
+@import url("../Header/header.css");
+
+.main {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.resumen-carrito {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 40px;
+    width: 85%;
+    box-sizing: border-box;
+    padding: 20px 0px 40px 160px;
+}
+
+.detalles {
+    background: #D1A7FF;
+    width: 370px;
+    height: 750px;
+    padding: 22px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.detalles-item-carrito {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 0;
+}
+
+.detalles-item-carrito>span:first-child {
+    flex: 0 0 auto;
+}
+
+.detalles-item-carrito>span:last-child {
+    flex: 0 0 auto;
+    margin-left: 16px;
+    text-align: right;
+    min-width: 70px;
+    font-weight: 600;
+}
+
+
+
+.panel-metodo-pago {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 48px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px 460px 40px 0px;
+}
+
+.opciones-pago {
+    background: #D1A7FF;
+    width: 550px;
+    height: 750px;
+    padding: 22px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.opciones-pago .panel-titulo {
+    color: #000;
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0 0 10px 0;
+}
+
+.opciones-pago .radio-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.opciones-pago .radio-row span {
+    color: #CDFFF1;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.opciones-pago .icono-paypal {
+    width: 200px;
+    height: 60px;
+}
+
+.opciones-pago .radio-row input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #333;
+}
+
+.opciones-pago .tarjeta-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.opciones-pago .tarjeta-form .label-small {
+    color: #000;
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+}
+
+.opciones-pago .tarjeta-form input {
+    background-color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 10px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.tarjeta-form {
+    width: 80%;
+}
+
+
+.panel-resumen-total {
+    background-color: #D1A7FF;
+    padding: 24px;
+    width: 400px;
+    height: 320px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-resumen-total .panel-titulo {
+    font-size: 2rem;
+    margin: 0 0 16px 0;
+}
+
+.panel-resumen-total .resumen-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    margin-bottom: 12px;
+    width: 100%;
+}
+
+.panel-resumen-total .resumen-row.total {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 8px;
+}
+
+.panel-resumen-total .btn-confirmar {
+    background-color: #7E48C5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.panel-resumen-total .btn-confirmar:hover {
+    background-color: #6A3EAE;
+}
