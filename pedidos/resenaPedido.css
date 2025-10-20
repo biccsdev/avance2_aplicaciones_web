@@ -1,0 +1,53 @@
+@import url("../global.css");
+
+.review-main {
+  width: 100%;
+  padding: var(--space-6) var(--space-5) var(--space-10);
+}
+
+.review-card {
+  width: 100%;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.review-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-2);
+}
+
+.review-cover {
+  width: 64px;
+  height: 80px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  box-shadow: var(--shadow-md);
+  flex: 0 0 auto;
+}
+
+.textarea {
+  min-height: 180px;
+  resize: vertical;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  .review-card {
+    max-width: 720px;
+  }
+
+  .review-cover {
+    width: 84px;
+    height: 108px;
+  }
+
+  .textarea {
+    min-height: 220px;
+  }
+}
+
+
