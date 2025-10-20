@@ -1,12 +1,5 @@
 @import url("../global.css");
 
-body {
-  margin: 0;
-  font-family: var(--font-sans);
-  color: var(--text-primary);
-  background: var(--gradient-app);
-}
-
 .flex-container{
     display: flex;
     height: 100vh;
@@ -23,7 +16,7 @@ body {
     row-gap: 2vw;
     margin: 0%;
     padding: 2vw 0%;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .videojuego-item{
