@@ -40,7 +40,7 @@
 
 @media (min-width: 800px) {
   .brand-header { padding-top: 12px !important; }
-  .auth-card { height: auto !important; margin-top:  calc(-1 * var(--space-8)) !important; }
+  .auth-card { height: auto !important; margin-top:  calc(-1 * var(--space-8)) !important; padding-top:10px; padding-bottom:10px }
 }
 
 .login-card { padding-bottom: max(var(--space-6), var(--safe-bottom)); }
