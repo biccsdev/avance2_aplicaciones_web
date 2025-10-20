@@ -17,3 +17,19 @@ header{
     height: 100%;
     border: none;
 }
+
+.filtro-busqueda{
+    width: 80%;
+    background-color: var(--gray-100);
+    align-self: start;
+    justify-self: center;
+    margin-top: 25%;
+}
+
+.filtro > h3{
+    max-width: 100%;
+    font-size: 1.4em;
+    font-weight: 600;
+    margin: 5%;
+}
+
