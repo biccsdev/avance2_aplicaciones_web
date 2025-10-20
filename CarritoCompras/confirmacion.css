@@ -114,3 +114,69 @@
 .btn-cancelar:hover {
     background: #A9362F;
 }
+
+/* ------------------------------------
+   Responsive
+------------------------------------- */
+
+@media (max-width: 1024px) {
+    .texto-titulo {
+        font-size: var(--font-size-xxlarge);
+        padding: 0px 40px 0px;
+    }
+
+    .resumen {
+        gap: 32px;
+        padding: 20px 40px 40px 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .texto-titulo {
+        font-size: 28px;
+        padding: 0px 16px 0px;
+        margin-bottom: 8px;
+    }
+
+    .resumen {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .detalles {
+        width: 100%;
+        border-radius: 12px;
+    }
+
+    .confirmacion {
+        width: 100%;
+        max-width: none;
+        padding: 24px 16px;
+        border-radius: 12px;
+    }
+
+    .confirmar-pedido {
+        font-size: 30px;
+        letter-spacing: 1px;
+    }
+
+    .acciones {
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+
+    .btn-aceptar,
+    .btn-cancelar {
+        flex: 1 1 140px;
+    }
+}
+
+@media (max-width: 480px) {
+    .btn-aceptar,
+    .btn-cancelar {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+}

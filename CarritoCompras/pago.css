@@ -173,3 +173,107 @@
 .panel-resumen-total .btn-confirmar:hover {
     background-color: #6A3EAE;
 }
+
+/* ------------------------------------
+   Responsive
+------------------------------------- */
+
+@media (max-width: 1200px) {
+    .resumen-carrito {
+        width: 100%;
+        padding: 20px 40px 40px 40px;
+        gap: 24px;
+    }
+
+    .panel-metodo-pago {
+        padding: 20px 40px 40px 40px;
+        gap: 32px;
+    }
+
+    .opciones-pago {
+        width: 520px;
+    }
+}
+
+@media (max-width: 900px) {
+    .resumen-carrito {
+        padding: 16px;
+        gap: 16px;
+        flex-direction: column;
+    }
+
+    .detalles {
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+    }
+
+    .main{
+        flex-direction: column-reverse;
+    }
+
+    .panel-metodo-pago {
+        padding: 16px;
+        gap: 16px;
+        flex-direction: column;
+    }
+
+    .opciones-pago {
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+    }
+
+    .tarjeta-form {
+        width: 100%;
+    }
+
+    .panel-resumen-total {
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+    }
+}
+
+@media (max-width: 520px) {
+    .main {
+        padding: 20px 12px;
+    }
+
+    .resumen-carrito {
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .opciones-pago .panel-titulo {
+        font-size: 20px;
+    }
+
+    .opciones-pago .radio-row {
+        gap: 12px;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .opciones-pago .icono-paypal {
+        width: 160px;
+        height: 48px;
+    }
+
+    .opciones-pago .radio-row input[type="radio"] {
+        width: 18px;
+        height: 18px;
+    }
+
+    .panel-resumen-total .panel-titulo {
+        font-size: 1.5rem;
+    }
+
+    .panel-resumen-total {
+        padding: 16px;
+    }
+
+    .panel-resumen-total .btn-confirmar {
+        padding: 12px;
+    }
+}
