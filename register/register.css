@@ -1,0 +1,48 @@
+
+.auth-title { margin-bottom: var(--space-6); }
+
+.field-row {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.field { display: grid; gap: var(--space-2); }
+
+@media (min-width: 520px) {
+  .field-row { grid-template-columns: 1fr 1fr; }
+}
+
+.terms {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  align-items: start;
+  gap: var(--space-3);
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.terms input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  accent-color: var(--primary-500);
+}
+
+.header-brand {
+  font-size: var(--font-size-large) !important;
+  display:flex !important;
+  align-items: center !important;
+  padding-left: 12px !important;
+  justify-content: center !important;
+}
+
+.brand-title { color: var(--color-white); }
+
+@media (min-width: 800px) {
+  .brand-header { padding-top: 12px !important; }
+  .auth-card { height: auto !important; margin-top:  calc(-1 * var(--space-8)) !important; }
+}
+
+.login-card { padding-bottom: max(var(--space-6), var(--safe-bottom)); }
+
+
