@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="carrito.css">
+    <title>Carrito de compras</title>
+</head>
+
+<body class="app-bg">
+
+    <header class="main-header">
+
+        <div class="header-left">
+            <img class="logo" src="../imgs/logo.png" alt="Logo de JoystickMX">
+        </div>
+
+
+        <div class="header-center">
+            <span class="search-label">Busqueda de productos</span>
+            <div class="search-container">
+                <input class="search-input" type="text" placeholder="Search">
+                <img class="search-icon" src="../imgs/lupa.png" alt="Icono de búsqueda">
+            </div>
+        </div>
+
+
+
+
+        <div class="header-right">
+
+            <div class="user-panel-button">
+                <span class="margin-label">.</span>
+                <img src="../imgs/carrito.png" alt="Icono de carrito de compras" class="cart-icon">
+            </div>
+
+
+            <div class="user-panel-button">
+                <span class="margin-label">.</span>
+                <button class="admin-button">Pedidos</button>
+            </div>
+
+
+            <div class="user-info">
+                <span class="margin-label">.</span>
+                <button class="user-profile-button">
+                    <div class="user-icon">
+                        <img class="icono-usuario" src="../imgs/icono_user_super_prime.png" alt="Icono de usuario">
+                    </div>
+                    <span>Sebastian Borquez</span>
+                </button>
+            </div>
+
+
+
+
+        </div>
+
+    </header>
+
+
+    <main class="main">
+
+        <h1 class="texto-titulo">
+            Carrito
+            <img src="../imgs/carrito.png" alt="Carrito de compras" class="icono-carrito">
+        </h1>
+
+
+        <div class="carrito-container">
+            <div class="container-productos">
+                <div class="productos-header">
+                    <span class="col-producto"></span>
+                    <span class="col-precio">Precio</span>
+                </div>
+
+                <div class="productos-lista">
+
+
+                    <article class="producto-item">
+                        <div class="producto-info">
+                            <img class="producto-img" src="../imgs/ghosts.png" alt="carlos ghosts">
+                            <div class="producto-meta">
+                                <h2 class="producto-nombre">Call of Duty: Ghosts - PlayStation 4</h2>
+                                <div class="producto-cantidad">
+                                    <button class="btn-menos">-</button>
+                                    <span class="qty-num">1</span>
+                                    <button class="btn-mas">+</button>
+                                </div>
+                                <button class="btn-eliminar">Eliminar del carro</button>
+                            </div>
+                        </div>
+                        <div class="producto-precio">$600.00</div>
+                    </article>
+
+                    <article class="producto-item">
+                        <div class="producto-info">
+                            <img class="producto-img" src="../imgs/poly.png" alt="polytopia">
+                            <div class="producto-meta">
+                                <h2 class="producto-nombre">The Battle of Polytopia - PC</h2>
+                                <div class="producto-cantidad">
+                                    <button class="btn-menos">-</button>
+                                    <span class="qty-num">1</span>
+                                    <button class="btn-mas">+</button>
+                                </div>
+                                <button class="btn-eliminar">Eliminar del carro</button>
+                            </div>
+                        </div>
+                        <div class="producto-precio">$450.00</div>
+                    </article>
+
+
+
+
+                </div>
+
+            </div>
+
+            <aside class="orden-resumen">
+                <h2 class="resumen">
+                    <span class="resumen-titulo">Subtotal:</span>
+                    <span class="resumen-subtotal">$1500.00</span>
+                </h2>
+                <p class="resumen-texto">*Se pueden aplicar tarifas extras </p>
+                <button class="btn-pago">Proceder al pago</button>
+            </aside>
+        </div>
+
+    </main>
+
+</body>
+
+</html>

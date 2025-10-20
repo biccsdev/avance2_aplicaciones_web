@@ -1,3 +1,32 @@
 
 @import url("../../Header/header.css");
 
+.title{
+    color: rgb(255, 255, 255);
+    font-size: 4rem;
+    text-align: center;
+    margin-bottom: var(--space-8);
+    font-weight: normal;
+}
+
+.buttons-div{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: var(--space-6);
+
+}
+
+
+.panel-button {
+    background-color: #2C2C2C;
+    color: var(--color-white);
+    border-radius: var(--radius-sm);
+    font-size: var(--space-7);
+    cursor: pointer;
+    min-width: 330px;
+    min-height: 72px;
+    border: none;
+}

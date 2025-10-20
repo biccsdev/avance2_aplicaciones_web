@@ -1,0 +1,201 @@
+
+@import url(../../../Header/header.css);
+
+body{
+    color: var(--color-white)
+}
+
+
+.form-main {
+    margin-top: var(--space-8);
+    display: flex;
+    flex-wrap: wrap; 
+    gap: var(--space-12);
+    max-width: 1200px;
+    margin-left: auto; 
+    margin-right: auto;
+    align-items: flex-start;
+}
+
+.sidebar-image {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.sidebar-image h1 {
+    font-size: var(--font-size-xxlarge);
+    font-weight: 700;
+    margin-bottom: var(--space-4);
+    text-align: center;
+}
+
+.img-producto {
+    width: 400px;
+    height: 400px;
+    display: grid;
+    place-items: center;
+
+}
+
+.upload-icon{
+    width: 50px;
+    height: 50px;
+}
+
+
+.upload-div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.upload-label{
+    align-items: start;
+    text-align: left;
+    font-size: 30px;
+}
+
+.upload-button {
+    background: none;
+    border: none;
+    color: var(--color-white);
+    font-size: 32px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    text-align: start;
+    
+}
+
+
+.form-producto {
+    flex: 1; 
+    min-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4); 
+}
+
+.form-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-div label {
+    margin-bottom: var(--space-2);
+    font-weight: 600;
+    font-size: var(--font-size-large);
+}
+
+
+.form-producto input, .form-producto select {
+    width: 400px;
+    padding: var(--space-3);
+    border-radius: var(--radius-sm);
+    border: none;
+    background-color: var(--color-white);
+    color: var(--gray-800);
+    font-size: var(--font-size-medium);
+    ;
+
+}
+
+.button-div {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: var(--space-4);
+    gap: 460px;
+}
+
+.btn-crear {
+    border: none;
+    background-color: #11d911; 
+    color: var(--gray-900);
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--font-size-large);
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+
+}
+
+.btn-crear:hover {
+    opacity: 0.9;
+}
+
+
+
+.btn-eliminar {
+    border: none;
+    background-color: #000000; 
+    color: white;
+    padding: var(--space-3) var(--space-6);
+    font-size: var(--font-size-large);
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+
+
+}
+
+.btn-eliminar:hover {
+    opacity: 0.9;
+}   
+
+
+.confirmacion-div {
+    flex: 1;
+    display: flex;             
+    flex-direction: column;     
+    align-items: center;        
+    gap: var(--space-6);        
+    
+    margin-top: var(--space-12); 
+    width: 100%;              
+}
+
+.confirmacion-div span {
+    font-size: 24px; 
+    font-weight: 800;
+    color: var(--color-black);      
+    text-align: center;           
+    line-height: 1.5;              
+}   
+
+.confirmation-buttons {
+    display: flex;              
+    flex-direction: column;
+    gap: var(--space-4);        
+}
+
+.eliminar-button, .cancelar-button {
+    border: none;
+    padding: var(--space-3) var(--space-8);
+    font-size: var(--font-size-large);
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+}
+
+.eliminar-button:hover,
+.cancelar-button:hover {
+    opacity: 0.85;
+}
+
+.eliminar-button {
+    background-color: #000000;
+    color: var(--color-white);
+}
+
+.cancelar-button {
+    background-color: aqua;
+    color: var(--gray-800);
+}
+
+

@@ -1,0 +1,212 @@
+@import url( "../../../Header/header.css");
+
+.div-main {
+    margin-top: var(--space-8);
+    display: flex;
+    flex-wrap: wrap; 
+    gap: var(--space-12);
+    max-width: 1400px;
+    padding: 0 var(--space-6);
+    margin-left: auto; 
+    margin-right: auto;
+    align-items: flex-start;
+}
+
+.sidebar-filter {
+    flex: 1;
+    min-width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+}
+
+.title {
+    font-size: 43px;
+    font-weight: 500;
+    color: white;
+    margin-bottom: var(--space-6);
+}
+
+.filter-label {
+    font-size: var(--font-size-medium);
+    color: white;
+    font-weight: 600;
+}
+
+.input-filter {
+    width: 100%;
+    padding: var(--space-3);
+    border-radius: var(--radius-sm);
+    border: none;
+    background-color: var(--color-white);
+    color: var(--gray-800);
+    font-size: var(--font-size-medium);
+}
+
+.main-users {
+    flex: 2; 
+    min-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4); 
+    align-items: center;
+}
+
+.user-item {
+    width: 100%;
+    padding: var(--space-4);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: row;
+    align-items: center; 
+    gap: var(--space-4);
+    background-color: #D1A7FF;
+    color: #000;
+}
+
+.user-icon-container {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+
+.user-data {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    text-align: left;
+}
+
+.user-data h4, .user-data h6 {
+    margin: 0;
+    line-height: 1.4; 
+}
+
+.user-data h4 {
+    font-size: var(--font-size-large);
+    font-weight: 700;
+}
+
+.user-data h6 {
+    font-size: var(--font-size-medium);
+    font-weight: 400;
+    color: var(--gray-800);
+}
+
+.user-status {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-small);
+    color: var(--gray-700);
+    margin-top: var(--space-1);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #11d911;
+    border-radius: 50%;
+}
+
+.user-btns {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: var(--space-2);
+}
+
+.btn-activar, .btn-desactivar, .btn-eliminar {
+    border: none;
+    color: var(--color-white);
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-size-medium);
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    min-width: 100px;
+    text-align: center;
+    transition: opacity 0.2s;
+    
+}
+
+.btn-cancelar {
+    border: none;
+    color: var(--color-black);
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-size-medium);
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    min-width: 100px;
+    text-align: center;
+    transition: opacity 0.2s;
+    background-color: aquamarine;
+    
+}
+
+
+
+.btn-invisible {
+    border: none;
+    color: var(--color-white);
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-size-medium);
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    min-width: 100px;
+    text-align: center;
+    transition: opacity 0.2s;
+    visibility: hidden;
+}
+
+
+.btn-activar:hover, .btn-desactivar:hover, .btn-eliminar:hover {
+    opacity: 0.65;
+}
+
+
+.btn-activar { 
+    background-color: #11d911;
+    color: #000;
+    }
+
+
+.btn-desactivar { 
+    background-color: #ff4d4f; 
+    color: #000; 
+    }
+
+
+.btn-eliminar {
+     background-color: #000000;
+      color: white
+
+    }
+
+.confirmacion-gap{
+    visibility: hidden;
+    
+}
+
+.confirmacion{
+    text-align: center;
+    font-size: 32px;
+    font-weight: 900;
+    margin-bottom: var(--space-6);
+}
+
+
+
+.btn-formateo{
+    min-height: 48px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    min-width: 400px;
+}
