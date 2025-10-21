@@ -88,12 +88,6 @@
   font-weight: 600;
 }
 
-.btn-rate {
-  width: 140px;
-  height: 36px;
-  border-radius: 10px;
-}
-
 .order-summary {
   margin-top: var(--space-5);
   padding-top: var(--space-4);

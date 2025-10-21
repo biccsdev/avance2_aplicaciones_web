@@ -29,15 +29,14 @@
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: var(--surface);
   display: grid;
   place-items: center;
   box-shadow: var(--shadow-md);
 }
 
 .avatar-img {
-  width: 42px;
-  height: 42px;
+  width: 64px;
+  height: 64px;
   object-fit: contain;
 }
 
@@ -95,8 +94,8 @@
 }
 
 .edit-icon {
-  width: 22px;
-  height: 22px;
+  width: 42px;
+  height: 42px;
   object-fit: contain;
 }
 

@@ -1,69 +1,68 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escribir Reseña</title>
-    <link rel="stylesheet" href="../global.css">
-    <link rel="stylesheet" href="../Header/header.css">
-    <link rel="stylesheet" href="resenaPedido.css">
-</head>
-<body class="app-bg-animated">
-    <header class="main-header">
-        <div class="header-left">
-            <img class="logo" src="../imgs/logo.png" alt="Logo de JoystickMX">
-        </div>
-
-        <div class="header-center">
-            <span class="search-label">Busqueda de productos</span>
-            <div class="search-container">
-                <input class="search-input" type="text" placeholder="Search">
-                <img class="search-icon" src="../imgs/lupa.png" alt="Icono de búsqueda">
-            </div>
-        </div>
-
-        <div class="header-right">
-            <div class="user-panel-button">
-                <span class="margin-label">.</span>
-                <img src="../imgs/carrito.png" alt="Icono de carrito de compras" class="cart-icon">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Escribir Reseña</title>
+        <link rel="stylesheet" href="../global.css">
+        <link rel="stylesheet" href="../Header/header.css">
+        <link rel="stylesheet" href="resenaPedido.css">
+        <link rel="icon" type="image/png" href="../imgs/icono_app.png">
+    </head>
+    <body class="app-bg-animated">
+        <header class="main-header">
+            <div class="header-left">
+                <img class="logo" src="../imgs/logo.png" alt="Logo de JoystickMX">
             </div>
 
-            <div class="user-panel-button">
-                <span class="margin-label">.</span>
-                <button class="admin-button">Pedidos</button>
+            <div class="header-center">
+                <span class="search-label">Busqueda de productos</span>
+                <div class="search-container">
+                    <input class="search-input" type="text" placeholder="Search">
+                    <img class="search-icon" src="../imgs/lupa.png" alt="Icono de búsqueda">
+                </div>
             </div>
 
-            <div class="user-info">
-                <span class="margin-label">.</span>
-                <button class="user-profile-button">
-                    <div class="user-icon">
-                        <img class="icono-usuario" src="../imgs/icono_user_super_prime.png" alt="Icono de usuario">
-                    </div>
-                    <span>Sebastian Borquez</span>
-                </button>
+            <div class="header-right">
+                <div class="user-panel-button">
+                    <span class="margin-label">.</span>
+                    <img src="../imgs/carrito.png" alt="Icono de carrito de compras" class="cart-icon">
+                </div>
+
+                <div class="user-panel-button">
+                    <span class="margin-label">.</span>
+                    <button class="admin-button">Pedidos</button>
+                </div>
+
+                <div class="user-info">
+                    <span class="margin-label">.</span>
+                    <button class="user-profile-button">
+                        <div class="user-icon">
+                            <img class="icono-usuario" src="../imgs/icono_user_super_prime.png" alt="Icono de usuario">
+                        </div>
+                        <span>Sebastian Borquez</span>
+                    </button>
+                </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <main class="review-main">
-        <section class="auth-card review-card">
-            <div class="review-head">
-                <h1 class="auth-title">Escribir Reseña:</h1>
-                <img class="review-cover" src="../imgs/gtav.png" alt="Portada del juego">
-            </div>
+        <main class="review-main">
+            <section class="auth-card review-card">
+                <div class="review-head">
+                    <h1 class="auth-title">Escribir Reseña:</h1>
+                    <img class="review-cover" src="../imgs/gtav.png" alt="Portada del juego">
+                </div>
 
-            <form class="form" action="#" method="post">
-                <label class="form-label" for="titulo">Titulo de la Reseña</label>
-                <input class="input" id="titulo" name="titulo" type="text" placeholder="Me gustó" required>
+                <form class="form" action="#" method="post">
+                    <label class="form-label" for="titulo">Titulo de la Reseña</label>
+                    <input class="input" id="titulo" name="titulo" type="text" placeholder="Me gustó" required>
 
-                <label class="form-label" for="descripcion">Descripcion:</label>
-                <textarea class="input textarea" id="descripcion" name="descripcion" placeholder="Escribe tu reseña..." rows="8" required></textarea>
+                    <label class="form-label" for="descripcion">Descripcion:</label>
+                    <textarea class="input textarea" id="descripcion" name="descripcion" placeholder="Escribe tu reseña..." rows="8" required></textarea>
 
-                <button class="btn btn-primary" type="submit">Enviar Reseña</button>
-            </form>
-        </section>
-    </main>
-</body>
+                    <button class="btn btn-primary" type="submit">Enviar Reseña</button>
+                </form>
+            </section>
+        </main>
+    </body>
 </html>
-
-
