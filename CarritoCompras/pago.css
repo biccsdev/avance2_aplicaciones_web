@@ -3,29 +3,57 @@
 .main {
     display: flex;
     justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
     padding: 40px 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .resumen-carrito {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 40px;
-    width: 85%;
-    box-sizing: border-box;
-    padding: 20px 0px 40px 160px;
+    flex-shrink: 0;
 }
 
 .detalles {
     background: #D1A7FF;
     width: 370px;
-    height: 750px;
+    min-height: 700px;
     padding: 22px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 8px;
+    border-radius: 8px;
 }
+
+.panel-metodo-pago {
+    flex-shrink: 0;
+}
+
+.opciones-pago {
+    background: #D1A7FF;
+    width: 550px;
+    min-height: 700px;
+    padding: 22px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-radius: 8px;
+}
+
+.panel-resumen-total {
+    background-color: #D1A7FF;
+    padding: 24px;
+    width: 340px;
+    height: auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+
+}
+
 
 .detalles-item-carrito {
     display: flex;
@@ -45,29 +73,6 @@
     text-align: right;
     min-width: 70px;
     font-weight: 600;
-}
-
-
-
-.panel-metodo-pago {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 48px;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 20px 460px 40px 0px;
-}
-
-.opciones-pago {
-    background: #D1A7FF;
-    width: 550px;
-    height: 750px;
-    padding: 22px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
 }
 
 .opciones-pago .panel-titulo {
@@ -128,20 +133,11 @@
     width: 80%;
 }
 
-
-.panel-resumen-total {
-    background-color: #D1A7FF;
-    padding: 24px;
-    width: 400px;
-    height: 320px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-}
-
 .panel-resumen-total .panel-titulo {
     font-size: 2rem;
     margin: 0 0 16px 0;
+    color: #000;
+    font-weight: 500;
 }
 
 .panel-resumen-total .resumen-row {
@@ -150,12 +146,23 @@
     font-size: 1rem;
     margin-bottom: 12px;
     width: 100%;
+    color: #000;
 }
 
 .panel-resumen-total .resumen-row.total {
     font-weight: bold;
     font-size: 1.1rem;
     margin-top: 8px;
+}
+
+.panel-resumen-total .resumen-row span:first-child {
+    text-align: left;
+    flex: 1;
+}
+
+.panel-resumen-total .resumen-row span:last-child {
+    text-align: right;
+    flex: 1;
 }
 
 .panel-resumen-total .btn-confirmar {
@@ -174,75 +181,45 @@
     background-color: #6A3EAE;
 }
 
-/* ------------------------------------
-   Responsive
-------------------------------------- */
+/* ---------Responsive----------- */
 
 @media (max-width: 1200px) {
-    .resumen-carrito {
-        width: 100%;
-        padding: 20px 40px 40px 40px;
-        gap: 24px;
+
+    .main {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        gap: 20px;
     }
 
+    .resumen-carrito,
     .panel-metodo-pago {
-        padding: 20px 40px 40px 40px;
-        gap: 32px;
+        padding: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 
-    .opciones-pago {
-        width: 520px;
+    .detalles,
+    .opciones-pago,
+    .panel-resumen-total {
+        width: 100%;
+        max-width: 700px;
+        min-height: auto;
+        height: auto;
     }
 }
 
 @media (max-width: 900px) {
-    .resumen-carrito {
-        padding: 16px;
-        gap: 16px;
-        flex-direction: column;
-    }
-
-    .detalles {
-        width: 100%;
-        height: auto;
-        border-radius: 12px;
-    }
-
-    .main{
+    .main {
         flex-direction: column-reverse;
     }
 
-    .panel-metodo-pago {
-        padding: 16px;
-        gap: 16px;
-        flex-direction: column;
-    }
-
-    .opciones-pago {
-        width: 100%;
-        height: auto;
-        border-radius: 12px;
-    }
-
-    .tarjeta-form {
-        width: 100%;
-    }
-
-    .panel-resumen-total {
-        width: 100%;
-        height: auto;
-        border-radius: 12px;
-    }
 }
 
 @media (max-width: 520px) {
     .main {
         padding: 20px 12px;
-    }
-
-    .resumen-carrito {
-        gap: 12px;
-        padding: 12px;
     }
 
     .opciones-pago .panel-titulo {
