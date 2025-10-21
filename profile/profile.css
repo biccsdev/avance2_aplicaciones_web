@@ -1,0 +1,138 @@
+@import url("../global.css");
+
+/* ------------------------------------
+   Layout
+------------------------------------- */
+.profile-container {
+  padding: var(--space-6) var(--space-5) var(--space-10);
+}
+
+.profile-title {
+  color: var(--color-white);
+  font-size: 28px;
+  margin: 0 0 var(--space-5) 0;
+}
+
+.profile-card {
+  padding: var(--space-6);
+}
+
+.profile-row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--space-5);
+  align-items: center;
+}
+
+/* Avatar */
+.avatar-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--surface);
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-md);
+}
+
+.avatar-img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+/* Info */
+.profile-info {
+  display: grid;
+  gap: 6px;
+}
+
+.profile-name {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--color-white);
+  line-height: 1.1;
+}
+
+.profile-email {
+  color: var(--color-white);
+  opacity: 0.9;
+  font-size: 13px;
+}
+
+.profile-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.status-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--success-500);
+  box-shadow: 0 0 0 4px var(--ring-color);
+}
+
+.status-label {
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+/* Edit button (pencil icon style) */
+.edit-button {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  border: 0;
+  background: var(--surface);
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+}
+
+.edit-icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.edit-button:active { box-shadow: var(--shadow-sm); }
+
+/* Actions */
+.profile-actions {
+  margin-top: var(--space-6);
+}
+
+.btn-danger {
+  color: var(--color-white);
+  background: linear-gradient(180deg, var(--danger-500), #d62828);
+}
+
+.logout-button {
+  max-width: 220px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+}
+
+/* ------------------------------------
+   Responsive
+------------------------------------- */
+@media (max-width: 768px) {
+  .profile-container { padding: var(--space-5) var(--space-4) var(--space-10); }
+  .profile-title { font-size: 24px; }
+  .profile-card { padding: var(--space-5); }
+  .avatar-circle { width: 56px; height: 56px; }
+  .avatar-img { width: 38px; height: 38px; }
+}
+
+@media (min-width: 920px) {
+  .profile-container { max-width: 920px; }
+  .profile-title { font-size: 32px; }
+}
+
+
