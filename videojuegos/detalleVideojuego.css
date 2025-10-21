@@ -23,7 +23,6 @@ header{
     width: 80%;
     grid-template-rows: 40vw 20vw;
     grid-template-columns: 40% 60%;
-    border: 1px solid;
 }
 
 .videojuego-imagen{
@@ -44,34 +43,34 @@ header{
 
 .videojuego-info > .videojuego-nombre{
     color: var(--color-white);
-    font-size: 1.3em;
+    font-size: 1.3vw;
 }
 
 .videojuego-info > .videojuego-existencias{
     color: var(--color-white);
     max-width: 100%;
-    font-size: 0.9em;
+    font-size: 1vw;
     font-weight: 300;
     margin: 2% 0%;
 }
 
 .videojuego-info > .videojuego-precio{
     color: var(--color-white);
-    font-size: 1.2em;
+    font-size: 1.2vw;
     font-weight: 400;
 }
 
 .videojuego-descripcion{
     max-width: 100%;
     color: var(--color-white);
-    font-size: 0.9em;
+    font-size: 1.1vw;
     margin: 0px;
     font-weight: 300;
 }
 
 .btn-carrito{
     display: flex;
-    height: 100%;
+    height: fit-content;
     margin: 2% 0%;
     font-size: 0.8em;
 }
