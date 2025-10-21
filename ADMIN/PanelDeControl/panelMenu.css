@@ -30,3 +30,8 @@
     min-height: 72px;
     border: none;
 }
+
+a {
+    text-decoration: none;
+    color: inherit;
+}

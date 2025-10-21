@@ -126,6 +126,11 @@
     font-size: var(--font-size-medium);
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 /* Responsive */
 @media (max-width: 992px) {
     .div-main { gap: var(--space-8); padding: 0 var(--space-6); flex-direction: column; align-items: center;}

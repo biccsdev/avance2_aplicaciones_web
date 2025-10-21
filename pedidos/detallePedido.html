@@ -1,96 +1,109 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Detalle del pedido</title>
-        <link rel="stylesheet" href="../global.css">
-        <link rel="stylesheet" href="../Header/header.css">
-        <link rel="stylesheet" href="detallePedido.css">
-        <link rel="icon" type="image/png" href="../imgs/icono_app.png">
-    </head>
 
-    <body class="app-bg-animated">
-        <header class="main-header">
-            <div class="header-left">
-                <img class="logo" src="../imgs/logo.png" alt="Logo de JoystickMX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del pedido</title>
+    <link rel="stylesheet" href="../global.css">
+    <link rel="stylesheet" href="../Header/header.css">
+    <link rel="stylesheet" href="detallePedido.css">
+    <link rel="icon" type="image/png" href="../imgs/icono_app.png">
+</head>
+
+<body class="app-bg-animated">
+    <header class="main-header">
+        <div class="header-left">
+            <a href="../Videojuegos/index.html">
+            <img class="logo" src="../imgs/logo.png" alt="Logo de JoystickMX">
+            </a>
+        </div>
+
+        <div class="header-center">
+            <span class="search-label">Busqueda de productos</span>
+            <div class="search-container">
+                <input class="search-input" type="text" placeholder="Search">
+                <img class="search-icon" src="../imgs/lupa.png" alt="Icono de búsqueda">
             </div>
+        </div>
 
-            <div class="header-center">
-                <span class="search-label">Busqueda de productos</span>
-                <div class="search-container">
-                    <input class="search-input" type="text" placeholder="Search">
-                    <img class="search-icon" src="../imgs/lupa.png" alt="Icono de búsqueda">
-                </div>
-            </div>
-
-            <div class="header-right">
-                <div class="user-panel-button">
-                    <span class="margin-label">.</span>
+        <div class="header-right">
+            <div class="user-panel-button">
+                <span class="margin-label">.</span>
+                <a href="../CarritoCompras/carrito.html">
                     <img src="../imgs/carrito.png" alt="Icono de carrito de compras" class="cart-icon">
-                </div>
+                </a>
+            </div>
 
-                <div class="user-panel-button">
-                    <span class="margin-label">.</span>
+
+            <div class="user-panel-button">
+                <span class="margin-label">.</span>
+                <a href="pedidos.html">
                     <button class="admin-button">Pedidos</button>
-                </div>
+                </a>
+            </div>
 
-                <div class="user-info">
-                    <span class="margin-label">.</span>
+
+            <div class="user-info">
+                <span class="margin-label">.</span>
+                <a href="../profile/profile.html">
                     <button class="user-profile-button">
                         <div class="user-icon">
                             <img class="icono-usuario" src="../imgs/icono_user_super_prime.png" alt="Icono de usuario">
                         </div>
                         <span>Sebastian Borquez</span>
                     </button>
+                </a>
+            </div>
+    </header>
+
+    <main class="order-page">
+        <section class="order-panel">
+            <div class="panel-head">
+                <h1 class="panel-title brand-title">Detalles del pedido</h1>
+                <span class="panel-price-label text-muted">Precio</span>
+            </div>
+
+            <ul class="order-items">
+                <li class="order-item">
+                    <span class="oi-price">$600</span>
+                    <img class="oi-cover" src="../imgs/ghosts.png" alt="Call of Duty: Ghosts">
+                    <div class="oi-body">
+                        <h3 class="oi-title">Call of Duty: Ghosts - PlayStation 4</h3>
+                        <div class="oi-qty">Unidades: 1</div>
+                        <a href="resenaPedido.html">
+                        <button class="btn btn-primary btn-rate">Valorar</button>
+                        </a>
+                    </div>
+                </li>
+
+                <li class="order-item">
+                    <span class="oi-price">$450</span>
+                    <img class="oi-cover" src="../imgs/poly.png" alt="The Battle Of Polytopia">
+                    <div class="oi-body">
+                        <h3 class="oi-title">The Battle Of Polytopia - PC</h3>
+                        <div class="oi-qty">Unidades: 2</div>
+                        <button class="btn btn-primary btn-rate">Valorar</button>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="order-summary">
+                <div class="summary-row">
+                    <span class="summary-label">Productos (2):</span>
+                    <span class="summary-amount">$1500.0</span>
+                </div>
+                <div class="summary-row">
+                    <span class="summary-label">Envio:</span>
+                    <span class="summary-amount">$100.0</span>
+                </div>
+                <div class="summary-row summary-total">
+                    <span class="summary-label">Total:</span>
+                    <span class="summary-amount">$1600.0</span>
                 </div>
             </div>
-        </header>
+        </section>
+    </main>
+</body>
 
-        <main class="order-page">
-            <section class="order-panel">
-                <div class="panel-head">
-                    <h1 class="panel-title brand-title">Detalles del pedido</h1>
-                    <span class="panel-price-label text-muted">Precio</span>
-                </div>
-
-                <ul class="order-items">
-                    <li class="order-item">
-                        <span class="oi-price">$600</span>
-                        <img class="oi-cover" src="../imgs/ghosts.png" alt="Call of Duty: Ghosts">
-                        <div class="oi-body">
-                            <h3 class="oi-title">Call of Duty: Ghosts - PlayStation 4</h3>
-                            <div class="oi-qty">Unidades: 1</div>
-                            <button class="btn btn-primary btn-rate">Valorar</button>
-                        </div>
-                    </li>
-
-                    <li class="order-item">
-                        <span class="oi-price">$450</span>
-                        <img class="oi-cover" src="../imgs/poly.png" alt="The Battle Of Polytopia">
-                        <div class="oi-body">
-                            <h3 class="oi-title">The Battle Of Polytopia - PC</h3>
-                            <div class="oi-qty">Unidades: 2</div>
-                            <button class="btn btn-primary btn-rate">Valorar</button>
-                        </div>
-                    </li>
-                </ul>
-
-                <div class="order-summary">
-                    <div class="summary-row">
-                        <span class="summary-label">Productos (2):</span>
-                        <span class="summary-amount">$1500.0</span>
-                    </div>
-                    <div class="summary-row">
-                        <span class="summary-label">Envio:</span>
-                        <span class="summary-amount">$100.0</span>
-                    </div>
-                    <div class="summary-row summary-total">
-                        <span class="summary-label">Total:</span>
-                        <span class="summary-amount">$1600.0</span>
-                    </div>
-                </div>
-            </section>
-        </main>
-    </body>
 </html>

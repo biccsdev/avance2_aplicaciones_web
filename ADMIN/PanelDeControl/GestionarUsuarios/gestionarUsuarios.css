@@ -187,6 +187,11 @@
     }
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 @media (max-width: 480px) {
     .title {
         font-size: 26px;

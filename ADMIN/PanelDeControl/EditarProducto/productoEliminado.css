@@ -204,3 +204,8 @@ body{
     height: 350px;
     
 }
+
+a {
+    text-decoration: none;
+    color: inherit;
+}

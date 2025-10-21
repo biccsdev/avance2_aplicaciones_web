@@ -1,5 +1,5 @@
-@import url("../global.css");
-@import url("../Header/header.css");
+@import url("../../../global.css");
+@import url("../../../Header/header.css");
 
 body{
     height: 100vh;

@@ -34,6 +34,11 @@
   resize: vertical;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 /* Desktop */
 @media (min-width: 768px) {
   .review-card {
@@ -48,6 +53,8 @@
   .textarea {
     min-height: 220px;
   }
+
+  
 }
 
 

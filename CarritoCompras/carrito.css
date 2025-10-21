@@ -200,6 +200,11 @@
     background-color: var(--primary-600);
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 /* ------------------------------------
    Responsive
 ------------------------------------- */

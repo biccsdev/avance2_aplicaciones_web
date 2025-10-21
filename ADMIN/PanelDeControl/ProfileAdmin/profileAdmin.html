@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
     <link rel="stylesheet" href="../../../global.css">
     <link rel="stylesheet" href="../../../Header/header.css">
     <link rel="icon" type="image/png" href="../../../imgs/icono_app.png">
-    <link rel="stylesheet" href="usuarioEliminado.css">
-    <title>Usuario Eliminado</title>
+    <link rel="icon" type="image/png" href="../imgs/icono_app.png">
+    <link rel="stylesheet" href="profileAdmin.css">
 </head>
+
 <body class="app-bg-animated">
     <header class="main-header">
         
@@ -44,7 +47,7 @@
 
             <div class="user-info">
                 <span class="admin-label">ADMIN</span>
-                <a href="../ProfileAdmin/profileAdmin.html">
+                <a href="profileAdmin.html">
                 <button class="user-profile-button">
                     <div class="user-icon">
                        <img class="icono-usuario" src="../../../imgs/icono_user_super_prime.png" alt="Icono de usuario">
@@ -61,51 +64,39 @@
 
     </header>
 
+    <main class="profile-container container-center">
+        <h1 class="brand-title profile-title">Perfil</h1>
 
-
-
-
-<main class="div-main">
-
-        <div class="sidebar-filter">
-            <h1 class="title">Gestionar Usuarios</h1>
-
-            <div class="user-item">
-                <div class="user-icon-container">
-                    <img src="../../../imgs/icono_user_super_prime.png" alt="Icono de usuario">
-                </div>
-
-                <div class="user-data">
-                    <h4>Sebastian Borquez</h4>
-                    <h6>sonic15622@gmail.com</h6>
-                    <div class="user-status">
-                        <span class="status-dot"></span>
-                        <span>Cuenta activa</span>
+        <section class="profile-card surface-glass shadow-lg rounded-lg">
+            <div class="profile-row">
+                <div class="profile-avatar">
+                    <div class="avatar-circle">
+                        <img src="../../../imgs/icono_user_super_prime.png" alt="Avatar" class="avatar-img">
                     </div>
-
-
                 </div>
 
-                <div class="user-btns">
-                    <button class="btn-invisible">Activar</button>
-                    <button class="btn-invisible">Desactivar</button>
-                    <button class="btn-invisible">Eliminar</button>
+                <div class="profile-info">
+                    <h2 class="profile-name">Sebastian<br>Borquez</h2>
+                    <div class="profile-email">sebastian.borquez252115@potros.itson.edu.mx</div>
+
+                    <div class="profile-status">
+                        <span class="status-dot"></span>
+                        <span class="status-label">Cuenta activa</span>
+                    </div>
                 </div>
+
+                <a href="editProfileAdmin.html">
+                <button class="edit-button" aria-label="Editar perfil">
+                    <img src="../../../imgs/icono_edit_user.png" alt="Editar" class="edit-icon">
+                </button>
+                </a>
             </div>
 
-        </div>
-
-        <div class="main-users">
-
-            <h1 class="confirmacion-gap">Usuario Eliminado</h1>
-            <img class="basura-icon" src="../../../imgs/basura.png" alt="Usuario Eliminado">
-            <h1 class="confirmacion">Usuario Eliminado</h1>
-
-
-
-
-        </div>
+            <div class="profile-actions">
+                <button class="btn btn-danger logout-button">Cerrar Sesion</button>
+            </div>
+        </section>
     </main>
-
 </body>
+
 </html>

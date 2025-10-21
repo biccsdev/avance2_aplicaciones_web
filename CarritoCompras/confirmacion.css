@@ -59,6 +59,11 @@
     text-align: center;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 .confirmacion {
     flex: 1;
     max-width: 560px;

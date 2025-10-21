@@ -198,6 +198,11 @@ body{
     color: var(--gray-800);
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 
 /* Responsive */
 @media (max-width: 992px) {
