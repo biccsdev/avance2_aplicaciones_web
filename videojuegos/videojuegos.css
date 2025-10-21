@@ -11,6 +11,7 @@
     list-style-type: none;
     display: grid;
     grid-template-columns: repeat(5, 17.6%);
+    grid-auto-rows: 29.6vw;
     justify-content: space-evenly;
     align-content: space-evenly;
     row-gap: 2vw;
@@ -54,15 +55,20 @@
 
 .videojuego-info > .videojuego-nombre{
     max-width: 100%;
-    font-size: 0.85em;
-    font-weight: 450;
+    font-size: 85%;
+    font-weight: 500;
     margin: 0px;
 }
 
 .videojuego-info > .videojuego-precio{
     max-width: 100%;
-    font-size: 0.95em;
+    font-size: 100%;
     margin: 0px;
+    font-weight: 800;
+}
+
+.btn-carrito{
+    display: none;
 }
 
 .videojuego-imagen{
@@ -72,7 +78,6 @@
     grid-row-start: 1;
     grid-row-end: 2;
     padding: 3% 3% 0% 3%;
-    
 }
 
 .videojuego-imagen > img{
@@ -88,15 +93,56 @@
     .videojuego-lista{
         display: grid;
         grid-template-columns: 80%;
+        grid-auto-rows: 30vw;
         row-gap: 5vw;
     }
 
+    .videojuego-item{
+        border-radius: 0.5em;
+    }
+
+    .videojuego{
+        grid-template-columns: 30% 70%;
+        grid-template-rows: 100%;
+    }
+
+    .videojuego-imagen{
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        padding: 3%;
+    }
+
+    .videojuego-imagen > img{
+        border-radius: 0.5em;
+    }
+
+    .videojuego-info{
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        justify-content: space-evenly;
+    }
+
     .videojuego-info > .videojuego-nombre{
-        font-size: 1em;
+        font-size: 2.6vw;
     }
 
     .videojuego-info > .videojuego-precio{
-        font-size: 1.5em;
+        font-size: 3vw;
+    }
+
+    .btn-carrito{
+        display: block;
+        width: fit-content;
+        padding: 5%;
+        font-weight: bold;
+        font-size: 3vw;
+        border: 0;
+        border-radius: 0.7em;
+        transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
     }
 }
 
@@ -105,30 +151,18 @@
     .videojuego-lista{
         display: grid;
         grid-template-columns: repeat(3, 30%);
+        grid-auto-rows: 50.45vw;
         row-gap: 2.5vw;
     }
 
-    .videojuego-info > .videojuego-nombre{
-        font-size: 0.8em;
-    }
-
-    .videojuego-info > .videojuego-precio{
-        font-size: 0.9em;
-    }
 }
 
 @media (min-width: 768px) and (max-width: 992px){
     .videojuego-lista{
         display: grid;
         grid-template-columns: repeat(4, 22%);
+        grid-auto-rows: 37.86vw;
         row-gap: 2.4vw;
         padding: 2.4vw 0%;
-    }
-    .videojuego-info > .videojuego-nombre{
-        font-size: 0.8em;
-    }
-    
-    .videojuego-info > .videojuego-precio{
-        font-size: 0.9em;
     }
 }

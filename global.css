@@ -120,7 +120,7 @@ body {
 
 body {
   margin: 0;
-  font-family: var(--font-sans);
+  font-family: var(--font-sans-nunito);
   color: var(--text-primary);
   background: var(--bg-page);
   -webkit-font-smoothing: antialiased;
@@ -239,7 +239,7 @@ video {
 }
 
 .brand-title {
-  font-family: var(--font-heading);
+  font-family: var(--font-heading-nunito);
   font-weight: 700;
   letter-spacing: 0.02em;
 }
