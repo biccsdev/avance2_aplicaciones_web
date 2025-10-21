@@ -155,3 +155,50 @@
       color: white
 
     }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .div-main {
+        gap: var(--space-6);
+        padding: 0 var(--space-4);
+        flex-direction: column;
+    }
+    .title {
+        font-size: 32px;
+    }
+    .main-users {
+        min-width: 0;
+        width: 100%;
+    }
+    .user-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .user-btns {
+        width: 100%;
+        margin-left: 0;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .btn-activar, .btn-desactivar, .btn-eliminar {
+        flex: 1;
+        min-width: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 26px;
+    }
+    .user-data h4 {
+        font-size: var(--font-size-medium);
+    }
+    .user-data h6 {
+        font-size: var(--font-size-small);
+    }
+    .btn-activar, .btn-desactivar, .btn-eliminar {
+        padding: var(--space-2) var(--space-3);
+        font-size: var(--font-size-small);
+    }
+}

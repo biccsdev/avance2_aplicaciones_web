@@ -1,0 +1,69 @@
+@import url("../global.css");
+
+/* Layout */
+.profile-container {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-5) var(--space-12);
+  color: var(--color-white);
+}
+
+.page-title {
+  margin: var(--space-6) 0 var(--space-6);
+  text-align: center;
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+.profile-form {
+  background: var(--surface-ghost);
+  padding: var(--space-6);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+}
+
+.required-mark {
+  color: var(--color-white);
+  margin-left: 2px;
+}
+
+.save-btn {
+  margin-top: var(--space-6);
+  height: 48px;
+  border-radius: var(--radius-md);
+  font-weight: 800;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  .profile-container {
+    max-width: 720px;
+  }
+
+  .page-title {
+    font-size: 1.9rem;
+  }
+
+  .profile-form {
+    padding: var(--space-8);
+  }
+
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-5);
+  }
+}
+

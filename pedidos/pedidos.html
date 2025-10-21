@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos</title>
+    <link rel="stylesheet" href="../global.css">
+    <link rel="stylesheet" href="../Header/header.css">
+    <link rel="stylesheet" href="pedidos.css">
+</head>
+
+<body class="app-bg">
+    <!-- Header reutilizado -->
+    <header class="main-header">
+        <div class="header-left">
+            <img class="logo" src="../imgs/logo.png" alt="Logo de JoystickMX">
+        </div>
+
+        <div class="header-center">
+            <span class="search-label">Busqueda de productos</span>
+            <div class="search-container">
+                <input class="search-input" type="text" placeholder="Search">
+                <img class="search-icon" src="../imgs/lupa.png" alt="Icono de búsqueda">
+            </div>
+        </div>
+
+        <div class="header-right">
+            <div class="user-panel-button">
+                <span class="margin-label">.</span>
+                <img src="../imgs/carrito.png" alt="Icono de carrito de compras" class="cart-icon">
+            </div>
+
+            <div class="user-panel-button">
+                <span class="margin-label">.</span>
+                <button class="admin-button">Pedidos</button>
+            </div>
+
+            <div class="user-info">
+                <span class="margin-label">.</span>
+                <button class="user-profile-button">
+                    <div class="user-icon">
+                        <img class="icono-usuario" src="../imgs/icono_user_super_prime.png" alt="Icono de usuario">
+                    </div>
+                    <span>Sebastian Borquez</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="orders-container">
+        <h1 class="orders-title brand-title">Pedidos</h1>
+
+        <form class="form orders-filter" role="search">
+            <label class="form-label" for="orderNumber">Numero de pedido</label>
+            <input class="input" id="orderNumber" type="text" placeholder="Ej. 68" value="8" />
+        </form>
+
+        <ul class="orders-list">
+            <li class="order-card">
+                <div class="order-info">
+                    <div class="order-head">
+                        <h3 class="order-id">Pedido #67</h3>
+                        <span class="order-date text-muted">12/10/25</span>
+                    </div>
+                    <div class="order-meta">
+                        <div class="order-row"><span class="text-muted">total:</span> <strong class="order-total">$342</strong></div>
+                        <div class="order-row"><span class="order-customer">Sebastian</span></div>
+                    </div>
+                    <div class="order-actions">
+                        <button class="btn btn-primary order-details">Detalles</button>
+                    </div>
+                </div>
+                <div class="order-status">
+                    <div class="status-item"><span class="status-label">Entregado</span><span class="dot dot-success dot-active"></span></div>
+                    <div class="status-item"><span class="status-label">Enviado</span><span class="dot dot-info"></span></div>
+                    <div class="status-item"><span class="status-label">Pendiente</span><span class="dot dot-warning"></span></div>
+                </div>
+            </li>
+
+            <li class="order-card">
+                <div class="order-info">
+                    <div class="order-head">
+                        <h3 class="order-id">Pedido #68</h3>
+                        <span class="order-date text-muted">23/11/25</span>
+                    </div>
+                    <div class="order-meta">
+                        <div class="order-row"><span class="text-muted">total:</span> <strong class="order-total">$900</strong></div>
+                        <div class="order-row"><span class="order-customer">Sebastian</span></div>
+                    </div>
+                    <div class="order-actions">
+                        <button class="btn btn-primary order-details">Detalles</button>
+                    </div>
+                </div>
+                <div class="order-status">
+                    <div class="status-item"><span class="status-label">Entregado</span><span class="dot dot-success"></span></div>
+                    <div class="status-item"><span class="status-label">Enviado</span><span class="dot dot-info dot-active"></span></div>
+                    <div class="status-item"><span class="status-label">Pendiente</span><span class="dot dot-warning"></span></div>
+                </div>
+            </li>
+        </ul>
+    </main>
+</body>
+
+</html>
+

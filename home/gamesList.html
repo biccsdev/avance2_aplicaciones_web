@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de juegos</title>
+    <link rel="stylesheet" href="../global.css">
+    <link rel="stylesheet" href="../Header/header.css">
+</head>
+<body class="app-bg">
+    <header class="main-header">
+        
+        <div class="header-left">
+            <img class="logo" src="../imgs/logo.png" alt="Logo de JoystickMX" >
+        </div>
+
+
+        <div class="header-center">
+            <span class="search-label">Busqueda de productos</span>
+            <div class="search-container">
+                <input class="search-input" type="text" placeholder="Search">
+                <img class="search-icon" src="../imgs/lupa.png" alt="Icono de búsqueda">
+            </div>
+        </div>
+
+
+
+
+        <div class="header-right">
+
+            <div class="user-panel-button">
+<span class="margin-label">.</span>
+<img src="../imgs/carrito.png" alt="Icono de carrito de compras" class="cart-icon">
+            </div>
+
+
+            <div class="user-panel-button"> 
+                <span class="margin-label">.</span>
+            <button class="admin-button">Pedidos</button>
+            </div>
+
+
+            <div class="user-info">
+                <span class="margin-label">.</span>
+                <button class="user-profile-button">
+                    <div class="user-icon">
+                       <img class="icono-usuario" src="../imgs/icono_user_super_prime.png" alt="Icono de usuario">
+                    </div>
+                    <span>Sebastian Borquez</span>
+                </button>
+            </div>
+
+
+
+
+        </div>
+
+    </header>
+
+    <main class="games-container">
+        <section class="games-filters">
+            <div class="gf-head">
+                <span class="gf-title">Precio</span>
+                <span class="gf-amount">$0-3000</span>
+            </div>
+            <input class="gf-range" type="range" min="0" max="3000" value="3000" aria-label="Rango de precio">
+            <div class="gf-select-row">
+                <select class="gf-select" aria-label="Plataforma">
+                    <option selected>Plataforma</option>
+                    <option>Xbox</option>
+                    <option>PlayStation</option>
+                    <option>Nintendo</option>
+                    <option>PC</option>
+                </select>
+            </div>
+        </section>
+
+        <ul class="games-list">
+            <li class="game-card">
+                <img class="game-cover" src="../imgs/gtav.png" alt="">
+                <div class="game-info">
+                    <h3 class="game-title">Grand Theft Auto V: Premium Edition (Xbox One)</h3>
+                    <div class="game-price">$399</div>
+                    <button class="btn btn-dark btn-add">Agregar al carrito</button>
+                </div>
+            </li>
+            <li class="game-card">
+                <img class="game-cover" src="../imgs/Uncharted_4_box_artwork.jpg" alt="">
+                <div class="game-info">
+                    <h3 class="game-title">Uncharted 4: A Thief's End (PS4)</h3>
+                    <div class="game-price">$399</div>
+                    <button class="btn btn-dark btn-add">Agregar al carrito</button>
+                </div>
+            </li>
+            <li class="game-card">
+                <img class="game-cover" src="../imgs/gofow.jpg" alt="">
+                <div class="game-info">
+                    <h3 class="game-title">God of War Ragnarök (PS5)</h3>
+                    <div class="game-price">$399</div>
+                    <button class="btn btn-dark btn-add">Agregar al carrito</button>
+                </div>
+            </li>
+        </ul>
+    </main>
+
+</body>
+</html>

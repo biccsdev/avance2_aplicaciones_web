@@ -199,3 +199,56 @@ body{
 }
 
 
+/* Responsive */
+@media (max-width: 992px) {
+    .form-main {
+        gap: var(--space-8);
+        padding: 0 var(--space-6);
+        flex-direction: column; align-items: center;
+    }
+    .img-producto {
+        width: 320px;
+        height: 320px;
+    }
+    .form-producto input,
+    .form-producto select {
+        width: 100%;
+    }
+    .button-div {
+        gap: var(--space-6);
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar-image h1 {
+        font-size: var(--font-size-xlarge);
+    }
+    .upload-button { font-size: 24px; }
+    .upload-label { font-size: 22px; }
+    .img-producto {
+        width: 260px;
+        height: 260px;
+    }
+    .confirmacion-div span {
+        font-size: 20px;
+        padding: 0 var(--space-2);
+    }
+    .eliminar-button, .cancelar-button {
+        width: 100%;
+        font-size: var(--font-size-medium);
+        padding: var(--space-3) var(--space-6);
+    }
+}
+
+@media (max-width: 480px) {
+    .form-main { padding: 0 var(--space-4); }
+    .img-producto {
+        width: 200px;
+        height: 200px;
+    }
+    .sidebar-image { min-width: 0; }
+    .form-producto { min-width: 0; }
+    .button-div { flex-direction: column; align-items: stretch; gap: var(--space-3); }
+    .btn-crear, .btn-eliminar { width: 100%; font-size: var(--font-size-medium); }
+}
