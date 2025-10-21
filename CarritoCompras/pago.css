@@ -24,6 +24,8 @@
     flex-direction: column;
     gap: 8px;
     border-radius: 8px;
+    max-height: 700px;
+    overflow-y: auto;
 }
 
 .panel-metodo-pago {
