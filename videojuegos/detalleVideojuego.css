@@ -1,0 +1,10 @@
+@import url("../global.css");
+@import url("../Header/header.css");
+
+body{
+    height: 100vh;
+}
+
+header{
+    height: 20%;
+}
