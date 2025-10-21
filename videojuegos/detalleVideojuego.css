@@ -1,10 +1,82 @@
 @import url("../global.css");
 @import url("../Header/header.css");
+@import url("./index.css");
 
 body{
     height: 100vh;
 }
 
 header{
-    height: 20%;
+    height: fit-content;
+}
+
+.flex-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+}
+
+.videojuego-detalle{
+    align-self: center;
+    display: grid;
+    width: 80%;
+    grid-template-rows: 40vw 20vw;
+    grid-template-columns: 40% 60%;
+    border: 1px solid;
+}
+
+.videojuego-imagen{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    padding: 5% 5% 0% 5%;
+}
+
+.videojuego-info{
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    overflow: auto;
+}
+
+.videojuego-info > .videojuego-nombre{
+    color: var(--color-white);
+    font-size: 1.3em;
+}
+
+.videojuego-info > .videojuego-existencias{
+    color: var(--color-white);
+    max-width: 100%;
+    font-size: 0.9em;
+    font-weight: 300;
+    margin: 2% 0%;
+}
+
+.videojuego-info > .videojuego-precio{
+    color: var(--color-white);
+    font-size: 1.2em;
+    font-weight: 400;
+}
+
+.videojuego-descripcion{
+    max-width: 100%;
+    color: var(--color-white);
+    font-size: 0.9em;
+    margin: 0px;
+    font-weight: 300;
+}
+
+.btn-carrito{
+    display: flex;
+    height: 100%;
+    margin: 2% 0%;
+    font-size: 0.8em;
+}
+
+.videojuego-especificaciones{
+    color: var(--color-white);
+    font-size: 1em;
 }
