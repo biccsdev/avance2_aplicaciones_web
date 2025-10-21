@@ -48,6 +48,8 @@
   --gradient-app: linear-gradient(180deg, #2f2fa2 0%, #6a38e6 55%, #c77af5 100%);
   --gradient-brand: linear-gradient(135deg, var(--primary-500) 0%, var(--accent-pink) 100%);
 
+  --gradient-app-animated: linear-gradient(45deg, #2f2fa2 0%, #6a38e6 55%, #c77af5 100%);
+
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -231,6 +233,28 @@ video {
   min-height: 100dvh;
   background: var(--gradient-app);
   padding-bottom: var(--safe-bottom);
+}
+
+.app-bg-animated{
+  min-height: 100vh;
+  min-height: 100svh;
+  min-height: 100dvh;
+  background: var(--gradient-app-animated);
+  padding-bottom: var(--safe-bottom);
+  background-size: 400% 400%;
+  animation: gradienteAnimacion 10s ease infinite;
+}
+
+@keyframes gradienteAnimacion{
+    0%{
+      background-position: 0% 50%;
+    }
+    50%{
+      background-position: 100% 50%;
+    }
+    100%{
+      background-position: 0% 50%;
+    }
 }
 
 .brand-header {

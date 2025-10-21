@@ -2,7 +2,7 @@
 
 .review-main {
   width: 100%;
-  padding: var(--space-6) var(--space-5) var(--space-10);
+  padding: var(--space-16) var(--space-5) var(--space-10);
 }
 
 .review-card {

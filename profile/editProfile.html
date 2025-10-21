@@ -1,97 +1,93 @@
 <!DOCTYPE html>
 <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Editar perfil</title>
+        <link rel="stylesheet" href="../global.css">
+        <link rel="stylesheet" href="../Header/header.css">
+        <link rel="stylesheet" href="editProfile.css">
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar perfil</title>
-    <link rel="stylesheet" href="../global.css">
-    <link rel="stylesheet" href="../Header/header.css">
-    <link rel="stylesheet" href="editProfile.css">
-</head>
-
-<body class="app-bg">
-    <!-- Header reutilizado -->
-    <header class="main-header">
-        <div class="header-left">
-            <img class="logo" src="../imgs/logo.png" alt="Logo de JoystickMX">
-        </div>
-
-        <div class="header-center">
-            <span class="search-label">Busqueda de productos</span>
-            <div class="search-container">
-                <input class="search-input" type="text" placeholder="Search">
-                <img class="search-icon" src="../imgs/lupa.png" alt="Icono de búsqueda">
-            </div>
-        </div>
-
-        <div class="header-right">
-            <div class="user-panel-button">
-                <span class="margin-label">.</span>
-                <img src="../imgs/carrito.png" alt="Icono de carrito de compras" class="cart-icon">
+    <body class="app-bg">
+        <header class="main-header">
+            <div class="header-left">
+                <img class="logo" src="../imgs/logo.png" alt="Logo de JoystickMX">
             </div>
 
-            <div class="user-panel-button">
-                <span class="margin-label">.</span>
-                <button class="admin-button">Pedidos</button>
+            <div class="header-center">
+                <span class="search-label">Busqueda de productos</span>
+                <div class="search-container">
+                    <input class="search-input" type="text" placeholder="Search">
+                    <img class="search-icon" src="../imgs/lupa.png" alt="Icono de búsqueda">
+                </div>
             </div>
 
-            <div class="user-info">
-                <span class="margin-label">.</span>
-                <button class="user-profile-button">
-                    <div class="user-icon">
-                        <img class="icono-usuario" src="../imgs/icono_user_super_prime.png" alt="Icono de usuario">
+            <div class="header-right">
+                <div class="user-panel-button">
+                    <span class="margin-label">.</span>
+                    <img src="../imgs/carrito.png" alt="Icono de carrito de compras" class="cart-icon">
+                </div>
+
+                <div class="user-panel-button">
+                    <span class="margin-label">.</span>
+                    <button class="admin-button">Pedidos</button>
+                </div>
+
+                <div class="user-info">
+                    <span class="margin-label">.</span>
+                    <button class="user-profile-button">
+                        <div class="user-icon">
+                            <img class="icono-usuario" src="../imgs/icono_user_super_prime.png" alt="Icono de usuario">
+                        </div>
+                        <span>Sebastian Borquez</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="profile-container">
+            <h1 class="page-title">Mi informacion</h1>
+
+            <form class="form profile-form" action="#" method="post">
+                <div class="form-field">
+                    <label class="form-label" for="nombre">Nombre</label>
+                    <input class="input" id="nombre" name="nombre" type="text" placeholder="Sebastian">
+                </div>
+
+                <div class="form-field">
+                    <label class="form-label" for="apellidos">Apellidos</label>
+                    <input class="input" id="apellidos" name="apellidos" type="text" placeholder="Borquez Huerta">
+                </div>
+
+                <div class="form-field">
+                    <label class="form-label" for="contrasena">Contraseña</label>
+                    <input class="input" id="contrasena" name="contrasena" type="password" placeholder="********">
+                </div>
+
+                <div class="form-field">
+                    <label class="form-label" for="telefono">Teléfono</label>
+                    <input class="input" id="telefono" name="telefono" type="tel" placeholder="+52">
+                </div>
+
+                <div class="form-field">
+                    <label class="form-label" for="calle">Calle</label>
+                    <input class="input" id="calle" name="calle" type="text" placeholder="">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-field">
+                        <label class="form-label" for="numExterior">Número exterior<span class="required-mark" aria-hidden="true">*</span></label>
+                        <input class="input" id="numExterior" name="numExterior" type="text" placeholder="Número exterior" required>
                     </div>
-                    <span>Sebastian Borquez</span>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <main class="profile-container">
-        <h1 class="page-title">Mi informacion</h1>
-
-        <form class="form profile-form" action="#" method="post">
-            <div class="form-field">
-                <label class="form-label" for="nombre">Nombre</label>
-                <input class="input" id="nombre" name="nombre" type="text" placeholder="Sebastian">
-            </div>
-
-            <div class="form-field">
-                <label class="form-label" for="apellidos">Apellidos</label>
-                <input class="input" id="apellidos" name="apellidos" type="text" placeholder="Borquez Huerta">
-            </div>
-
-            <div class="form-field">
-                <label class="form-label" for="contrasena">Contraseña</label>
-                <input class="input" id="contrasena" name="contrasena" type="password" placeholder="********">
-            </div>
-
-            <div class="form-field">
-                <label class="form-label" for="telefono">Teléfono</label>
-                <input class="input" id="telefono" name="telefono" type="tel" placeholder="+52">
-            </div>
-
-            <div class="form-field">
-                <label class="form-label" for="calle">Calle</label>
-                <input class="input" id="calle" name="calle" type="text" placeholder="">
-            </div>
-
-            <div class="form-row">
-                <div class="form-field">
-                    <label class="form-label" for="numExterior">Número exterior<span class="required-mark" aria-hidden="true">*</span></label>
-                    <input class="input" id="numExterior" name="numExterior" type="text" placeholder="Número exterior" required>
+                    <div class="form-field">
+                        <label class="form-label" for="colonia">Colonia<span class="required-mark" aria-hidden="true">*</span></label>
+                        <input class="input" id="colonia" name="colonia" type="text" placeholder="Colonia" required>
+                    </div>
                 </div>
-                <div class="form-field">
-                    <label class="form-label" for="colonia">Colonia<span class="required-mark" aria-hidden="true">*</span></label>
-                    <input class="input" id="colonia" name="colonia" type="text" placeholder="Colonia" required>
-                </div>
-            </div>
 
-            <button class="btn btn-dark save-btn" type="submit">Guardar</button>
-        </form>
-    </main>
-</body>
-
+                <button class="btn btn-dark save-btn" type="submit">Guardar</button>
+            </form>
+        </main>
+    </body>
 </html>
-
