@@ -3,7 +3,7 @@
 @import url("./index.css");
 
 body{
-    height: 100vh;
+    height: 100%;
 }
 
 header{
@@ -21,7 +21,7 @@ header{
     align-self: center;
     display: grid;
     width: 70%;
-    grid-template-rows: 35vw 25vw;
+    grid-template-rows: 35vw auto;
     grid-template-columns: 40% 60%;
 }
 
@@ -126,7 +126,8 @@ header{
 
 .videojuego-reseñas{
     width: 100%;
-    margin: 0%;
+    height: 100%;
+    margin: 0% 0% 3% 0%;
     padding: 0%;
     display: flex;
     flex-direction: column;
@@ -135,37 +136,116 @@ header{
 
 .videojuego-reseña{
     width: 100%;
-    height: 100%;
-    height: fit-content;
+    max-height: fit-content;
     display: grid;
     grid-template-columns: 10% 75% 15%;
     background-color: var(--primary-300);
 }
 
 .reseña{
-    font-size: 1.4vw;
+    max-width: 100%;
+    max-height: 100%;
     margin-left: 2%;
 }
 
 .reseña > h3{
     margin: 3% 0%;
+    font-size: 1.5vw;
 }
 
 .reseña > h4{
     margin: 0%;
+    font-size: 1.2vw;
 }
 
 .reseña > p{
     text-align: justify;
     margin: 3% 0%;
+    font-size: 1.2vw;
 }
 
 .calificacion{
+    max-width: 100%;
+    max-height: 100%;
     justify-self: center;
-    font-size: 1.7vw;
+    font-size: 1.5vw;
+}
+
+.icono{
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .icono > img{
     max-width: 100%;
     max-height: 100%;
+}
+
+@media (max-width: 576px){
+    .videojuego-detalle{
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .videojuego-precio-carrito{
+        width: 100%;
+        height: 5vh;
+        flex-direction: column;
+
+    }
+
+    .btn-carrito{
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        font-size: 3vw;
+    }
+
+    .videojuego-info > .videojuego-nombre{
+        font-size: 4vw;
+    }
+
+    .videojuego-info > .videojuego-existencias{
+        font-size: 3vw;
+    }
+
+    .videojuego-precio-carrito > .videojuego-precio{
+        font-size: 4.5vw;
+    }
+
+    .videojuego-descripcion{
+        font-size: 3vw;
+    }
+
+    .videojuego-especificaciones{
+        font-size: 3vw;
+    }
+
+    .reseñas-container{
+        width: 90%;
+    }
+
+    .reseña > h3{
+        font-size: 3vw;
+    }
+
+    .reseña > h4{
+        margin: 0%;
+        font-size: 2vw;
+    }
+
+    .reseña > p{
+        text-align: justify;
+        margin: 3% 0%;
+        font-size: 2vw;
+    }
+
+    .calificacion{
+        max-width: 100%;
+        max-height: 100%;
+        justify-self: center;
+        font-size: 2vw;
+    }
+
 }
