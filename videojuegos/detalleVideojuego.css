@@ -20,8 +20,8 @@ header{
 .videojuego-detalle{
     align-self: center;
     display: grid;
-    width: 80%;
-    grid-template-rows: 40vw 20vw;
+    width: 70%;
+    grid-template-rows: 35vw 25vw;
     grid-template-columns: 40% 60%;
 }
 
@@ -30,7 +30,8 @@ header{
     grid-row-end: 2;
     grid-column-start: 1;
     grid-column-end: 2;
-    padding: 5% 5% 0% 5%;
+    padding: 2%;
+    margin: 0%;
 }
 
 .videojuego-info{
@@ -38,44 +39,133 @@ header{
     grid-row-end: 2;
     grid-column-start: 2;
     grid-column-end: 3;
-    overflow: auto;
 }
 
 .videojuego-info > .videojuego-nombre{
     color: var(--color-white);
-    font-size: 1.3vw;
+    font-size: 1.8vw;
+    padding-top: 2%;
 }
 
 .videojuego-info > .videojuego-existencias{
     color: var(--color-white);
     max-width: 100%;
-    font-size: 1vw;
+    font-size: 1.2vw;
     font-weight: 300;
-    margin: 2% 0%;
+    margin: 3% 0% 0% 0%;
 }
 
-.videojuego-info > .videojuego-precio{
+.videojuego-precio-carrito{
+    max-width: 100%;
+    height: 15%;
+    display: flex;
+    align-items: center;
+}
+
+.videojuego-precio-carrito > .videojuego-precio{
+    width: 50%;
     color: var(--color-white);
-    font-size: 1.2vw;
+    font-size: 1.9vw;
     font-weight: 400;
+    margin: 0%;
 }
 
 .videojuego-descripcion{
     max-width: 100%;
+    max-height: 100%;
     color: var(--color-white);
     font-size: 1.1vw;
-    margin: 0px;
+    padding-right: 2%;
+    margin-top: 2%;
     font-weight: 300;
+    overflow: auto;
+    text-align: justify;
 }
 
 .btn-carrito{
     display: flex;
-    height: fit-content;
-    margin: 2% 0%;
-    font-size: 0.8em;
+    width: 50%;
+    height: 80%;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 1.3vw;
+    padding: 3%;
+}
+
+.btn-carrito > img{
+    height: 100%;
 }
 
 .videojuego-especificaciones{
+    width: 100%;
     color: var(--color-white);
-    font-size: 1em;
+    font-size: 1.4vw;
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+.especificacion{
+    font-weight: 700;
+}
+
+.reseñas-container{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+
+.titulo-reseñas{
+    max-width: 100%;
+    max-height: 100%;
+    color: var(--color-white);
+    font-size: 3vw;
+    font-weight: 400;
+    margin: 3% 0%;
+}
+
+.videojuego-reseñas{
+    width: 100%;
+    margin: 0%;
+    padding: 0%;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+}
+
+.videojuego-reseña{
+    width: 100%;
+    height: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: 10% 75% 15%;
+    background-color: var(--primary-300);
+}
+
+.reseña{
+    font-size: 1.4vw;
+    margin-left: 2%;
+}
+
+.reseña > h3{
+    margin: 3% 0%;
+}
+
+.reseña > h4{
+    margin: 0%;
+}
+
+.reseña > p{
+    text-align: justify;
+    margin: 3% 0%;
+}
+
+.calificacion{
+    justify-self: center;
+    font-size: 1.7vw;
+}
+
+.icono > img{
+    max-width: 100%;
+    max-height: 100%;
 }
