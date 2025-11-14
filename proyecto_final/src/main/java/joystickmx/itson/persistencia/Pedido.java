@@ -12,9 +12,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
+import joystickmx.itson.enums.EstadoPedido;
 
 /**
  *
@@ -29,12 +32,16 @@ public class Pedido implements Serializable {
 
     private LocalDate fechaPedido;
 
-    private String estadoPedido;
+    private EstadoPedido estadoPedido;
 
     private Float totalPagado;
 
     @Embedded
     private DireccionEnvio direccionEnvio;
+    
+    
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    private List<DetallePedido> detalles;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "idCliente")
@@ -46,7 +53,7 @@ public class Pedido implements Serializable {
     public Pedido() {
     }
 
-    public Pedido(Long idPedido, LocalDate fechaPedido, String estadoPedido, Float totalPagado, DireccionEnvio direccionEnvio, Cliente cliente, Pago pago) {
+    public Pedido(Long idPedido, LocalDate fechaPedido, EstadoPedido estadoPedido, Float totalPagado, DireccionEnvio direccionEnvio, Cliente cliente, Pago pago) {
         this.idPedido = idPedido;
         this.fechaPedido = fechaPedido;
         this.estadoPedido = estadoPedido;
@@ -55,6 +62,30 @@ public class Pedido implements Serializable {
         this.cliente = cliente;
         this.pago = pago;
     }
+
+    public Pedido(Long idPedido, LocalDate fechaPedido, EstadoPedido estadoPedido, Float totalPagado, DireccionEnvio direccionEnvio, List<DetallePedido> detalles, Cliente cliente, Pago pago) {
+        this.idPedido = idPedido;
+        this.fechaPedido = fechaPedido;
+        this.estadoPedido = estadoPedido;
+        this.totalPagado = totalPagado;
+        this.direccionEnvio = direccionEnvio;
+        this.detalles = detalles;
+        this.cliente = cliente;
+        this.pago = pago;
+    }
+
+    public List<DetallePedido> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetallePedido> detalles) {
+        this.detalles = detalles;
+    }
+    
+    
+    
+    
+    
 
     public Pago getPago() {
         return pago;
@@ -80,11 +111,11 @@ public class Pedido implements Serializable {
         this.fechaPedido = fechaPedido;
     }
 
-    public String getEstadoPedido() {
+    public EstadoPedido getEstadoPedido() {
         return estadoPedido;
     }
 
-    public void setEstadoPedido(String estadoPedido) {
+    public void setEstadoPedido(EstadoPedido estadoPedido) {
         this.estadoPedido = estadoPedido;
     }
 

@@ -19,17 +19,17 @@ public class Administrador extends Usuario {
     
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAdministrador;
-
-    public Long getIdAdministrador() {
-        return idAdministrador;
-    }
-
-    public void setIdAdministrador(Long idAdministrador) {
-        this.idAdministrador = idAdministrador;
-    }
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long idAdministrador;
+//
+//    public Long getIdAdministrador() {
+//        return idAdministrador;
+//    }
+//
+//    public void setIdAdministrador(Long idAdministrador) {
+//        this.idAdministrador = idAdministrador;
+//    }
 
     
 

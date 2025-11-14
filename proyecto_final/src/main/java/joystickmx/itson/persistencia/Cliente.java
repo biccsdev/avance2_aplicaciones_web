@@ -24,9 +24,9 @@ public class Cliente extends Usuario {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idCliente;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Long idCliente;
 
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos;
@@ -37,13 +37,13 @@ public class Cliente extends Usuario {
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Resena> resenas;
 
-    public Long getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(Long idCliente) {
-        this.idCliente = idCliente;
-    }
+//    public Long getIdCliente() {
+//        return idCliente;
+//    }
+//
+//    public void setIdCliente(Long idCliente) {
+//        this.idCliente = idCliente;
+//    }
 
     public List<Pedido> getPedidos() {
         return pedidos;

@@ -1,5 +1,7 @@
 package joystickmx.itson.dominio;
 import java.time.LocalDate;
+import java.util.List;
+import joystickmx.itson.persistencia.DetallePedido;
 /**
  * PedidoDTO - Data Transfer Object para Pedido
  *
@@ -23,6 +25,10 @@ public class PedidoDTO {
     private String calle;
     private int numero;
     private String colonia;
+    
+    
+    
+    private List<DetallePedido> detalles;
 
     /**
      * Método constructor para instanciar la clase PedidoDTO
@@ -46,8 +52,37 @@ public class PedidoDTO {
         this.colonia = colonia;
     }
 
+    public PedidoDTO(String idPedido, String estadoPedido, float totalPagado, LocalDate fechaPedido, String direccionEnvio, String calle, int numero, String colonia, List<DetallePedido> detalles) {
+        this.idPedido = idPedido;
+        this.estadoPedido = estadoPedido;
+        this.totalPagado = totalPagado;
+        this.fechaPedido = fechaPedido;
+        this.direccionEnvio = direccionEnvio;
+        this.calle = calle;
+        this.numero = numero;
+        this.colonia = colonia;
+        this.detalles = detalles;
+    }
+
+    
+    
+    
+    
+    
+    public List<DetallePedido> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetallePedido> detalles) {
+        this.detalles = detalles;
+    }
+    
+    
+    
+
     /**
      * Getters para cada atributo de la clase 
+     * @return 
      */
     public String getIdPedido(){
         return idPedido;
