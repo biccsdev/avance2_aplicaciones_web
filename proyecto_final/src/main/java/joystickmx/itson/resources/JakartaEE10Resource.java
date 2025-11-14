@@ -1,4 +1,4 @@
-package torres.victor.itson.proyecto_final.resources;
+package joystickmx.itson.resources;
 
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
