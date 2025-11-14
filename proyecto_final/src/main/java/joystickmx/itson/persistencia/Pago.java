@@ -24,7 +24,7 @@ public class Pago {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPago;
 
-    private Double monto;
+    private Float monto;
 
     private String metodoPago;
 
@@ -39,7 +39,7 @@ public class Pago {
     public Pago() {
     }
 
-    public Pago(Long idPago, Double monto, String metodoPago, String estadoPago, LocalDate fechaPago, Pedido pedido) {
+    public Pago(Long idPago, Float monto, String metodoPago, String estadoPago, LocalDate fechaPago, Pedido pedido) {
         this.idPago = idPago;
         this.monto = monto;
         this.metodoPago = metodoPago;
@@ -58,11 +58,11 @@ public class Pago {
         this.idPago = idPago;
     }
 
-    public Double getMonto() {
+    public Float getMonto() {
         return monto;
     }
 
-    public void setMonto(Double monto) {
+    public void setMonto(Float monto) {
         this.monto = monto;
     }
 

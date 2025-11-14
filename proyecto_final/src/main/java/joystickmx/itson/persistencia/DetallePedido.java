@@ -91,8 +91,6 @@ public class DetallePedido implements Serializable {
         return importe;
     }
 
-    // No hacemos setter de Importe porque es generado por la DB
-
     public Pedido getPedido() {
         return pedido;
     }

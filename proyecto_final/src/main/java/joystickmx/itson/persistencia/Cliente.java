@@ -30,9 +30,12 @@ public class Cliente extends Usuario {
 
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos;
-    
+
     @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Carrito carrito;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Resena> resenas;
 
     public Long getIdCliente() {
         return idCliente;
@@ -56,6 +59,14 @@ public class Cliente extends Usuario {
 
     public void setCarrito(Carrito carrito) {
         this.carrito = carrito;
+    }
+
+    public List<Resena> getResenas() {
+        return resenas;
+    }
+
+    public void setResenas(List<Resena> resenas) {
+        this.resenas = resenas;
     }
     
     

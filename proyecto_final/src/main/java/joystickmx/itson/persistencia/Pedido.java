@@ -31,7 +31,7 @@ public class Pedido implements Serializable {
 
     private String estadoPedido;
 
-    private Double totalPagado;
+    private Float totalPagado;
 
     @Embedded
     private DireccionEnvio direccionEnvio;
@@ -46,7 +46,7 @@ public class Pedido implements Serializable {
     public Pedido() {
     }
 
-    public Pedido(Long idPedido, LocalDate fechaPedido, String estadoPedido, Double totalPagado, DireccionEnvio direccionEnvio, Cliente cliente, Pago pago) {
+    public Pedido(Long idPedido, LocalDate fechaPedido, String estadoPedido, Float totalPagado, DireccionEnvio direccionEnvio, Cliente cliente, Pago pago) {
         this.idPedido = idPedido;
         this.fechaPedido = fechaPedido;
         this.estadoPedido = estadoPedido;
@@ -88,11 +88,11 @@ public class Pedido implements Serializable {
         this.estadoPedido = estadoPedido;
     }
 
-    public Double getTotalPagado() {
+    public Float getTotalPagado() {
         return totalPagado;
     }
 
-    public void setTotalPagado(Double totalPagado) {
+    public void setTotalPagado(Float totalPagado) {
         this.totalPagado = totalPagado;
     }
 

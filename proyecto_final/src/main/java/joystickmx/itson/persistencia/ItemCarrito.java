@@ -87,11 +87,11 @@ public class ItemCarrito implements Serializable {
     }
     
     @Transient
-    public Double getSubtotal() {
+    public Float getSubtotal() {
         if (videojuego != null && cantidad != null) {
             return videojuego.getPrecio() * cantidad;
         }
-        return 0.0;
+        return 0.0f;
     }
     
     @Override

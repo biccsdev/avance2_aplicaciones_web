@@ -4,6 +4,7 @@
  */
 package joystickmx.itson.persistencia;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -59,22 +60,23 @@ public class Videojuego implements Serializable {
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-        name = "VideojuegosCategorias",
-        joinColumns = @JoinColumn(name = "idVideojuego"),
-        inverseJoinColumns = @JoinColumn(name = "idCategoria")
+            name = "VideojuegosCategorias",
+            joinColumns = @JoinColumn(name = "idVideojuego"),
+            inverseJoinColumns = @JoinColumn(name = "idCategoria")
     )
     private List<Categoria> categorias;
 
     @OneToMany(mappedBy = "videojuego")
     private List<DetallePedido> detallesPedidos;
 
-
     @OneToMany(mappedBy = "videojuego")
     private List<ItemCarrito> itemsCarrito;
 
+    @OneToMany(mappedBy = "videojuego", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Resena> resenas;
+
     public Videojuego() {
     }
-
 
     public Long getIdVideojuego() {
         return idVideojuego;
