@@ -20,7 +20,6 @@
     <module>joystick_negocio</module>
           
     <module>joystickmx_presentacion</module>
-      
   </modules>
       
   <properties>
