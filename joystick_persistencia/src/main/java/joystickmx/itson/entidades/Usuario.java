@@ -1,8 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package joystickmx.itson.persistencia;
+package joystickmx.itson.entidades;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
@@ -12,14 +8,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
 import java.io.Serializable;
-import java.util.Objects;
+
+
 
 /**
  *
  * @author sonic
  */
 @Entity
+@Table(name="usuarios")
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Usuario implements Serializable {
 
@@ -44,8 +43,7 @@ public class Usuario implements Serializable {
     @Embedded
     private Direccion direccion;
 
-    public Usuario() {
-    }
+    public Usuario() {}
 
     public Usuario(Long idUsuario, String nombres, String apellidoPaterno, String apellidoMaterno, String email, String contrasenia, String telefono, boolean isActive, Direccion direccion) {
         this.idUsuario = idUsuario;
@@ -157,7 +155,4 @@ public class Usuario implements Serializable {
     public String toString() {
         return "Usuario[ idUsuario=" + idUsuario + " ]";
     }
-
-    
-    
 }

@@ -1,8 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package joystickmx.itson.persistencia;
+package joystickmx.itson.entidades;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
@@ -17,6 +13,7 @@ import jakarta.persistence.OneToOne;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
+import joystickmx.itson.entidades.DireccionEnvio;
 import joystickmx.itson.enums.EstadoPedido;
 
 /**
