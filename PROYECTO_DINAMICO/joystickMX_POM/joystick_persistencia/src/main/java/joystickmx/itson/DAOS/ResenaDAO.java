@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package joystickmx.itson.persistencia;
+package joystickmx.itson.DAOS;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -59,14 +59,12 @@ public class ResenaDAO {
         try {
             em.getTransaction().begin();
             
-            // 1. Encontrar la reseña
             Resena resena = em.find(Resena.class, idResena); //
             
             if (resena == null) {
                 throw new PersistenciaException("No se encontró la reseña con ID: " + idResena);
             }
-            
-            // 2. Eliminarla (Hard Delete)
+
             em.remove(resena);
             
             em.getTransaction().commit();
