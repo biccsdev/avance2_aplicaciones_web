@@ -14,10 +14,7 @@ import java.util.List;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.conexion.Conexion;
 import joystickmx.itson.entidades.Usuario;
-<<<<<<< Updated upstream
-=======
 import joystickmx.itson.enums.EstadoUsuario;
->>>>>>> Stashed changes
 
 /**
  *
