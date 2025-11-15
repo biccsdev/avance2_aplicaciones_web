@@ -14,6 +14,10 @@ import java.util.List;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.conexion.Conexion;
 import joystickmx.itson.entidades.Usuario;
+<<<<<<< Updated upstream
+=======
+import joystickmx.itson.enums.EstadoUsuario;
+>>>>>>> Stashed changes
 
 /**
  *
@@ -23,24 +27,6 @@ public class UsuarioDAO {
 
     protected EntityManager getEntityManager() {
         return Conexion.crearConexion();
-    }
-
-    public void crearUsuario(Usuario usuario) throws PersistenciaException {
-        EntityManager em = getEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.persist(usuario);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
-            throw new PersistenciaException("Error al persistir el usuario: " + e.getMessage());
-        } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
-        }
     }
 
     public Usuario actualizar(Usuario usuario) throws PersistenciaException {
@@ -93,6 +79,12 @@ public class UsuarioDAO {
         }
     }
 
+    /**
+     * Busca un usuario por su email.
+     * @param email El email a buscar.
+     * @return El Usuario encontrado, o null si el email no existe.
+     * @throws PersistenciaException Si ocurre un error de JPA.
+     */
     public Usuario buscarPorEmail(String email) throws PersistenciaException {
         EntityManager em = getEntityManager();
         try {
@@ -115,12 +107,18 @@ public class UsuarioDAO {
         }
     }
 
-    public void habilitarUsuario(String email) throws PersistenciaException {
+    /**
+     * Método privado reutilizable para cambiar el estado de un usuario.
+     *
+     * @param email El email del usuario a modificar.
+     * @param nuevoEstado El nuevo estado a asignar (ACTIVO, INACTIVO, ELIMINADO).
+     * @throws PersistenciaException Si no se encuentra el usuario o falla la BD.
+     */
+    private void actualizarEstadoUsuario(String email, EstadoUsuario nuevoEstado) throws PersistenciaException {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
 
-            // 1. Buscar el usuario usando una consulta por email
             Usuario usuario;
             try {
                 TypedQuery<Usuario> query = em.createQuery(
@@ -133,21 +131,18 @@ public class UsuarioDAO {
                 throw new PersistenciaException("No se encontró el usuario con email: " + email);
             }
 
-            // 2. Cambiar el estado
-            usuario.setIsActive(true); //
+            usuario.setEstadoUsuario(nuevoEstado);
 
-            // 3. JPA guarda el cambio al hacer commit.
             em.getTransaction().commit();
 
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            // Propagar la excepción (ya sea la nuestra o una nueva)
             if (e instanceof PersistenciaException) {
                 throw (PersistenciaException) e;
             }
-            throw new PersistenciaException("Error al habilitar el usuario: " + e.getMessage());
+            throw new PersistenciaException("Error al actualizar estado del usuario: " + e.getMessage());
         } finally {
             if (em.isOpen()) {
                 em.close();
@@ -155,43 +150,77 @@ public class UsuarioDAO {
         }
     }
 
-    public void deshabilitarUsuario(String email) throws PersistenciaException {
+    /**
+     * Cambia el estado de un usuario a ACTIVO.
+     * @param email El email del usuario a activar.
+     * @throws PersistenciaException Si ocurre un error.
+     */
+    public void activarUsuario(String email) throws PersistenciaException {
+        actualizarEstadoUsuario(email, EstadoUsuario.ACTIVO);
+    }
+
+    /**
+     * Cambia el estado de un usuario a INACTIVO.
+     * @param email El email del usuario a desactivar.
+     * @throws PersistenciaException Si ocurre un error.
+     */
+    public void desactivarUsuario(String email) throws PersistenciaException {
+        actualizarEstadoUsuario(email, EstadoUsuario.INACTIVO);
+    }
+
+    /**
+     * Realiza un "soft delete" cambiando el estado a ELIMINADO.
+     * @param email El email del usuario a eliminar.
+     * @throws PersistenciaException Si ocurre un error.
+     */
+    public void eliminarUsuario(String email) throws PersistenciaException {
+        actualizarEstadoUsuario(email, EstadoUsuario.ELIMINADO);
+    }
+
+    /**
+     * Método privado genérico para buscar usuarios según su estado.
+     *
+     * @param estado El EstadoUsuario (ACTIVO, INACTIVO, ELIMINADO) a buscar.
+     * @return Una lista de usuarios que coinciden con ese estado.
+     * @throws PersistenciaException Si ocurre un error en la consulta.
+     */
+    private List<Usuario> buscarPorEstado(EstadoUsuario estado) throws PersistenciaException {
         EntityManager em = getEntityManager();
         try {
-            em.getTransaction().begin();
-
-            // 1. Buscar el usuario usando una consulta por email
-            Usuario usuario;
-            try {
-                TypedQuery<Usuario> query = em.createQuery(
-                        "SELECT u FROM Usuario u WHERE u.email = :email",
-                        Usuario.class
-                );
-                query.setParameter("email", email);
-                usuario = query.getSingleResult();
-            } catch (NoResultException e) {
-                throw new PersistenciaException("No se encontró el usuario con email: " + email);
-            }
-
-            // 2. Cambiar el estado
-            usuario.setIsActive(false); //
-
-            // 3. JPA guarda el cambio al hacer commit.
-            em.getTransaction().commit();
+            TypedQuery<Usuario> query = em.createQuery(
+                    "SELECT u FROM Usuario u WHERE u.estadoUsuario = :estado",
+                    Usuario.class
+            );
+            query.setParameter("estado", estado);
+            return query.getResultList();
 
         } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
-            if (e instanceof PersistenciaException) {
-                throw (PersistenciaException) e;
-            }
-            throw new PersistenciaException("Error al deshabilitar el usuario: " + e.getMessage());
+            throw new PersistenciaException("Error al buscar usuarios por estado: " + e.getMessage());
         } finally {
             if (em.isOpen()) {
                 em.close();
             }
         }
+    }
+
+    /**
+     * Busca y retorna todos los usuarios cuyo estado es HABILITADO.
+     *
+     * @return Lista de usuarios activos.
+     * @throws PersistenciaException Si ocurre un error.
+     */
+    public List<Usuario> buscarUsuariosActivos() throws PersistenciaException {
+        return buscarPorEstado(EstadoUsuario.ACTIVO);
+    }
+
+    /**
+     * Busca y retorna todos los usuarios cuyo estado es INHABILITADO.
+     *
+     * @return Lista de usuarios inactivos.
+     * @throws PersistenciaException Si ocurre un error.
+     */
+    public List<Usuario> buscarUsuariosInactivos() throws PersistenciaException {
+        return buscarPorEstado(EstadoUsuario.INACTIVO);
     }
 
 }

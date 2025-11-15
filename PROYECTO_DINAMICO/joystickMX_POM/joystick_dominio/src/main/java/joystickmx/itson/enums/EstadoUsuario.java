@@ -9,5 +9,5 @@ package joystickmx.itson.enums;
  * @author sonic
  */
 public enum EstadoUsuario {
-    
+    ACTIVO, INACTIVO, ELIMINADO
 }

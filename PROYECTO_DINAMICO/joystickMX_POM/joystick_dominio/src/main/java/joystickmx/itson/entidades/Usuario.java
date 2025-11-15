@@ -17,6 +17,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import java.io.Serializable;
+import joystickmx.itson.enums.EstadoUsuario;
 
 
 /**
@@ -61,8 +62,8 @@ public class Usuario implements Serializable {
     @NotBlank(message = "El telefono no puede estar vacío.")
     private String telefono;
     
-    @Column(name = "is_active", nullable = false)
-    private boolean isActive;
+    @Column(name = "estadoUsuario", nullable = false)
+    private EstadoUsuario estadoUsuario;
 
     @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
@@ -78,7 +79,7 @@ public class Usuario implements Serializable {
             String email, 
             String contrasenia, 
             String telefono, 
-            boolean isActive, 
+            EstadoUsuario isActive, 
             Direccion direccion
     ) {
         this.idUsuario = idUsuario;
@@ -88,7 +89,7 @@ public class Usuario implements Serializable {
         this.email = email;
         this.contrasenia = contrasenia;
         this.telefono = telefono;
-        this.isActive = isActive;
+        this.estadoUsuario = estadoUsuario;
         this.direccion = direccion;
     }
     
@@ -120,9 +121,15 @@ public class Usuario implements Serializable {
 
     public void setTelefono(String telefono) {this.telefono = telefono;}
 
-    public boolean isIsActive() {return isActive;}
+    public EstadoUsuario getEstadoUsuario() {
+        return estadoUsuario;
+    }
 
-    public void setIsActive(boolean isActive) {this.isActive = isActive;}
+    public void setEstadoUsuario(EstadoUsuario estadoUsuario) {
+        this.estadoUsuario = estadoUsuario;
+    }
+    
+    
 
     public Direccion getDireccion() {return direccion;}
 
