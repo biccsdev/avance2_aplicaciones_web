@@ -6,6 +6,8 @@ package pruebas;
 
 import jakarta.persistence.EntityManager;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import joystickmx.itson.conexion.Conexion;
 import joystickmx.itson.entidades.Categoria;
 import joystickmx.itson.entidades.Videojuego;
@@ -40,6 +42,11 @@ public class PruebaPersistencia {
             juego.setDesarrollador("Santa Monica Studio");
             juego.setFechaLanzamiento(LocalDate.of(2022, 11, 9));
             juego.setPlataforma("PlayStation 5");
+            juego.setHabilitado(true);
+            
+            List<Categoria> categoriasParaJuego = new ArrayList<>();
+            categoriasParaJuego.add(categoriaAccion);
+            juego.setCategorias(categoriasParaJuego);
             
 
             em.persist(juego);

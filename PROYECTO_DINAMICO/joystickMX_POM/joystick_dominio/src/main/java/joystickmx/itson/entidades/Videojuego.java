@@ -39,6 +39,9 @@ public class Videojuego implements Serializable {
     @Column(nullable = false, length = 100)
     @NotBlank(message = "El nombre no puede estar vacío.")
     private String nombre;
+    
+    @Column(name = "habilitado", nullable = false)
+    private boolean habilitado = true; 
 
     @Column(length = 300)
     private String descripcion;
@@ -84,6 +87,48 @@ public class Videojuego implements Serializable {
     private List<Resena> resenas;
 
     public Videojuego() {}
+
+    public Videojuego(Long idVideojuego, String nombre, boolean habilitado, String descripcion, Float precio, Integer existencias, byte[] imagen, String desarrollador, LocalDate fechaLanzamiento, String plataforma, List<Categoria> categorias, List<DetallePedido> detallesPedidos, List<ItemCarrito> itemsCarrito, List<Resena> resenas) {
+        this.idVideojuego = idVideojuego;
+        this.nombre = nombre;
+        this.habilitado = habilitado;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.existencias = existencias;
+        this.imagen = imagen;
+        this.desarrollador = desarrollador;
+        this.fechaLanzamiento = fechaLanzamiento;
+        this.plataforma = plataforma;
+        this.categorias = categorias;
+        this.detallesPedidos = detallesPedidos;
+        this.itemsCarrito = itemsCarrito;
+        this.resenas = resenas;
+    }
+
+    public Videojuego(Long idVideojuego, String nombre, boolean habilitado, String descripcion, Float precio, Integer existencias, byte[] imagen, String desarrollador, LocalDate fechaLanzamiento, String plataforma, List<DetallePedido> detallesPedidos) {
+        this.idVideojuego = idVideojuego;
+        this.nombre = nombre;
+        this.habilitado = habilitado;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.existencias = existencias;
+        this.imagen = imagen;
+        this.desarrollador = desarrollador;
+        this.fechaLanzamiento = fechaLanzamiento;
+        this.plataforma = plataforma;
+        this.detallesPedidos = detallesPedidos;
+    }
+
+    public boolean isHabilitado() {
+        return habilitado;
+    }
+
+    public void setHabilitado(boolean habilitado) {
+        this.habilitado = habilitado;
+    }
+    
+
+    
 
     public Long getIdVideojuego() {return idVideojuego;}
 
