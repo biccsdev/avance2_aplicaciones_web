@@ -49,11 +49,11 @@ public class Pedido implements Serializable {
     @PositiveOrZero(message = "No se aceptan valores negativos.")
     private Float totalPagado;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.EAGER)
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "direccion_envio", nullable = false)
     private DireccionEnvio direccionEnvio;
         
-    @OneToMany(mappedBy = "pedido", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "pedido", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private List<DetallePedido> detalles;
 
     @ManyToOne(optional = false)

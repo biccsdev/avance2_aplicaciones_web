@@ -40,7 +40,7 @@ public class ItemCarrito implements Serializable {
     @JoinColumn(name = "id_carrito", nullable = false)
     private Carrito carrito;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_videojuego", nullable = false)
     private Videojuego videojuego;
 

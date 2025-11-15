@@ -66,7 +66,7 @@ public class Videojuego implements Serializable {
     @Column(nullable = false, length = 50)
     private String plataforma;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "videojuego_categoria",
             joinColumns = @JoinColumn(name = "id_videojuego"),

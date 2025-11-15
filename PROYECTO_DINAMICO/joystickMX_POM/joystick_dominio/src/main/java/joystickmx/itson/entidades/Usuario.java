@@ -64,7 +64,7 @@ public class Usuario implements Serializable {
     @Column(name = "is_active", nullable = false)
     private boolean isActive;
 
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.EAGER)
+    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     @JoinColumn(nullable = false)
     private Direccion direccion;
 

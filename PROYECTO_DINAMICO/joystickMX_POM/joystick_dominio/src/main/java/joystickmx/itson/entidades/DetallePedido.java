@@ -46,7 +46,7 @@ public class DetallePedido implements Serializable {
     @JoinColumn(name = "id_pedido", nullable = false)
     private Pedido pedido;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_videojuego", nullable = false)
     private Videojuego videojuego;
 
