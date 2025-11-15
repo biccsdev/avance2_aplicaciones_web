@@ -1,4 +1,7 @@
 package joystickmx.itson.DTO;
+
+import joystickmx.itson.enums.EstadoUsuario;
+
 /**
  * UsuarioDTO - Data Transfer Object para Usuario
  *
@@ -17,7 +20,7 @@ public class UsuarioDTO {
     private String apellidoMaterno;
     private String email;
     private String telefono;
-    private boolean isActive;
+    private EstadoUsuario estadoUsuario;
     private String rol;
     private DireccionDTO direccion;
 
@@ -32,7 +35,7 @@ public class UsuarioDTO {
      * @param apellidoMaterno Representa el apellido materno del usuario
      * @param email Representa el email del usuario
      * @param telefono Representa el telédono del usuario
-     * @param isActive Representa si es usuario esta activo o no
+     * @param estadoUsuario Representa el estado del usuario
      * @param rol
      * @param direccion Representa la dirección del usuario
      */
@@ -40,26 +43,26 @@ public class UsuarioDTO {
 
     
     
-    public UsuarioDTO(String idUsuario, String nombres, String apellidoPaterno, String apellidoMaterno, String email, String telefono, boolean isActive, String rol, DireccionDTO direccion) {
+    public UsuarioDTO(String idUsuario, String nombres, String apellidoPaterno, String apellidoMaterno, String email, String telefono, EstadoUsuario estadoUsuario, String rol, DireccionDTO direccion) {
         this.idUsuario = idUsuario;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.email = email;
         this.telefono = telefono;
-        this.isActive = isActive;
+        this.estadoUsuario = estadoUsuario;
         this.rol = rol;
         this.direccion = direccion;
     }
 
-    public UsuarioDTO(String idUsuario, String nombres, String apellidoPaterno, String apellidoMaterno, String email, String telefono, boolean isActive, String rol) {
+    public UsuarioDTO(String idUsuario, String nombres, String apellidoPaterno, String apellidoMaterno, String email, String telefono, EstadoUsuario estadoUsuario, String rol) {
         this.idUsuario = idUsuario;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.email = email;
         this.telefono = telefono;
-        this.isActive = isActive;
+        this.estadoUsuario = estadoUsuario;
         this.rol = rol;
     }
     
@@ -119,13 +122,16 @@ public class UsuarioDTO {
         this.telefono = telefono;
     }
 
-    public boolean isIsActive() {
-        return isActive;
+    public EstadoUsuario getEstadoUsuario() {
+        return estadoUsuario;
     }
 
-    public void setIsActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setEstadoUsuario(EstadoUsuario estadoUsuario) {
+        this.estadoUsuario = estadoUsuario;
     }
+    
+    
+
 
     public String getRol() {
         return rol;

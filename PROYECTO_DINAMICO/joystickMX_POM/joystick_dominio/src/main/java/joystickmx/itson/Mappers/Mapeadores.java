@@ -99,7 +99,7 @@ public class Mapeadores {
                 entity.getApellidoMaterno(),
                 entity.getEmail(),
                 entity.getTelefono(),
-                entity.isIsActive(),
+                entity.getEstadoUsuario(),
                 rol,
                 toDTO(entity.getDireccion()) 
         );

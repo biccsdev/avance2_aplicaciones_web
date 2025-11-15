@@ -8,6 +8,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
 import joystickmx.itson.Excepciones.PersistenciaException;
+import joystickmx.itson.conexion.Conexion;
 import joystickmx.itson.entidades.Videojuego;
 
 /**

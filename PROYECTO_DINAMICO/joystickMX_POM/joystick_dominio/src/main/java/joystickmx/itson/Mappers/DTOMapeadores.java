@@ -7,6 +7,7 @@ import joystickmx.itson.entidades.Carrito;
 import joystickmx.itson.entidades.Cliente;
 import joystickmx.itson.entidades.Direccion;
 import joystickmx.itson.entidades.DireccionEnvio;
+import joystickmx.itson.enums.EstadoUsuario;
 
 /**
  *
@@ -50,7 +51,7 @@ public class DTOMapeadores {
         
 
 
-        cliente.setIsActive(true); 
+        cliente.setEstadoUsuario(EstadoUsuario.ACTIVO); 
         cliente.setCarrito(new Carrito());
 
 
