@@ -1,4 +1,4 @@
-package joystickmx.itson.dominio;
+package joystickmx.itson.DTO;
 import java.time.LocalDate;
 /**
  * PagoDTO - Data Transfer Object para Pago

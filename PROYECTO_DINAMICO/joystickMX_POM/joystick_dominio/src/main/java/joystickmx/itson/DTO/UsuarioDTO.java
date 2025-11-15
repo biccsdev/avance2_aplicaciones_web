@@ -1,4 +1,4 @@
-package joystickmx.itson.dominio;
+package joystickmx.itson.DTO;
 /**
  * UsuarioDTO - Data Transfer Object para Usuario
  *

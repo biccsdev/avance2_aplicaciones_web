@@ -1,4 +1,4 @@
-package joystickmx.itson.dominio;
+package joystickmx.itson.DTO;
 import java.time.LocalDate;
 /**
  * ResenaDTO - Data Transfer Object para Resena

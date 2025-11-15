@@ -1,4 +1,4 @@
-package joystickmx.itson.dominio;
+package joystickmx.itson.DTO;
 import java.time.LocalDate;
 /**
  * VideojuegoDTO - Data Transfer Object para Videojuego
