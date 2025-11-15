@@ -22,22 +22,17 @@ public class DireccionDAO {
         try {
             em.getTransaction().begin();
             
-            // 1. Encontrar al usuario por su email
             TypedQuery<Usuario> query = em.createQuery(
                     "SELECT u FROM Usuario u WHERE u.email = :email", Usuario.class);
             query.setParameter("email", email);
             Usuario usuario = query.getSingleResult();
 
-            // 2. Obtener la dirección existente (es una entidad "managed")
             Direccion direccionExistente = usuario.getDireccion();
 
-            // 3. Actualizar los campos de la entidad "managed"
-            // JPA detectará estos cambios (dirty checking) y generará el UPDATE.
             direccionExistente.setCalle(datosNuevos.getCalle());
             direccionExistente.setNumero(datosNuevos.getNumero());
             direccionExistente.setColonia(datosNuevos.getColonia());
 
-            // 4. Confirmar la transacción
             em.getTransaction().commit();
             return true;
             

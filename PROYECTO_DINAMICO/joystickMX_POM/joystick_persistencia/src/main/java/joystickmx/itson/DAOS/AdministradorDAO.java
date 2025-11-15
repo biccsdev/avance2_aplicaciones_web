@@ -8,7 +8,6 @@ import jakarta.persistence.EntityManager;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.conexion.Conexion;
 import joystickmx.itson.entidades.Administrador;
-import joystickmx.itson.entidades.Usuario;
 
 /**
  *
