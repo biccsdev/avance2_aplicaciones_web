@@ -60,7 +60,7 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(mappedBy = "pedido", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Pago pago;
 
     public Pedido() {}
