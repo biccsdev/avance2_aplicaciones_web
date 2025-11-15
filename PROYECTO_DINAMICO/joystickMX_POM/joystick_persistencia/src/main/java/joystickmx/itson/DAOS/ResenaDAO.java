@@ -83,7 +83,7 @@ public class ResenaDAO {
 
     /**
      * Busca todas las reseñas asociadas a un videojuego por su nombre.
-     * @param nombreVideojuego El nombre (completo o parcial) del videojuego.
+     * @param nombreVideojuego El nombre del videojuego.
      * @return Una lista de reseñas, o una lista vacía si no hay.
      * @throws PersistenciaException Si ocurre un error de consulta.
      */
@@ -91,7 +91,6 @@ public class ResenaDAO {
         EntityManager em = getEntityManager();
         try {
             TypedQuery<Resena> query = em.createQuery(
-                // Se cambió 'LIKE' por '=' para una coincidencia exacta
                 "SELECT r FROM Resena r WHERE r.videojuego.nombre = :nombreVideojuego", 
                 Resena.class
             );
