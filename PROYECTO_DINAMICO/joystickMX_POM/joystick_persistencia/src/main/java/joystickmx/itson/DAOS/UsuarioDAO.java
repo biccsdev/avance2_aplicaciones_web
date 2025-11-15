@@ -58,23 +58,23 @@ public class UsuarioDAO {
         }
     }
 
-    public List<Usuario> buscarTodos() throws PersistenciaException {
-        EntityManager em = getEntityManager();
-        try {
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaQuery<Usuario> cq = cb.createQuery(Usuario.class);
-            Root<Usuario> root = cq.from(Usuario.class);
-            cq.select(root);
-            TypedQuery<Usuario> query = em.createQuery(cq);
-            return query.getResultList();
-        } catch (Exception e) {
-            throw new PersistenciaException("Error al buscar todos los usuarios: " + e.getMessage());
-        } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
-        }
-    }
+//    public List<Usuario> buscarTodos() throws PersistenciaException {
+//        EntityManager em = getEntityManager();
+//        try {
+//            CriteriaBuilder cb = em.getCriteriaBuilder();
+//            CriteriaQuery<Usuario> cq = cb.createQuery(Usuario.class);
+//            Root<Usuario> root = cq.from(Usuario.class);
+//            cq.select(root);
+//            TypedQuery<Usuario> query = em.createQuery(cq);
+//            return query.getResultList();
+//        } catch (Exception e) {
+//            throw new PersistenciaException("Error al buscar todos los usuarios: " + e.getMessage());
+//        } finally {
+//            if (em.isOpen()) {
+//                em.close();
+//            }
+//        }
+//    }
 
     /**
      * Busca un usuario por su email.
@@ -86,10 +86,10 @@ public class UsuarioDAO {
         EntityManager em = getEntityManager();
         try {
             TypedQuery<Usuario> query = em.createQuery(
-                    "SELECT u FROM usuarios u WHERE u.EMAIL = :EMAIL",
+                    "SELECT u FROM Usuario u WHERE u.email = :email",
                     Usuario.class
             );
-            query.setParameter("EMAIL", email);
+            query.setParameter("email", email);
 
             return query.getSingleResult();
 
@@ -172,52 +172,6 @@ public class UsuarioDAO {
      */
     public void eliminarUsuario(String email) throws PersistenciaException {
         actualizarEstadoUsuario(email, EstadoUsuario.ELIMINADO);
-    }
-
-    /**
-     * Método privado genérico para buscar usuarios según su estado.
-     *
-     * @param estado El EstadoUsuario (ACTIVO, INACTIVO, ELIMINADO) a buscar.
-     * @return Una lista de usuarios que coinciden con ese estado.
-     * @throws PersistenciaException Si ocurre un error en la consulta.
-     */
-    private List<Usuario> buscarPorEstado(EstadoUsuario estado) throws PersistenciaException {
-        EntityManager em = getEntityManager();
-        try {
-            TypedQuery<Usuario> query = em.createQuery(
-                    "SELECT u FROM Usuario u WHERE u.estadoUsuario = :estado",
-                    Usuario.class
-            );
-            query.setParameter("estado", estado);
-            return query.getResultList();
-
-        } catch (Exception e) {
-            throw new PersistenciaException("Error al buscar usuarios por estado: " + e.getMessage());
-        } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
-        }
-    }
-
-    /**
-     * Busca y retorna todos los usuarios cuyo estado es HABILITADO.
-     *
-     * @return Lista de usuarios activos.
-     * @throws PersistenciaException Si ocurre un error.
-     */
-    public List<Usuario> buscarUsuariosActivos() throws PersistenciaException {
-        return buscarPorEstado(EstadoUsuario.ACTIVO);
-    }
-
-    /**
-     * Busca y retorna todos los usuarios cuyo estado es INHABILITADO.
-     *
-     * @return Lista de usuarios inactivos.
-     * @throws PersistenciaException Si ocurre un error.
-     */
-    public List<Usuario> buscarUsuariosInactivos() throws PersistenciaException {
-        return buscarPorEstado(EstadoUsuario.INACTIVO);
     }
 
 }
