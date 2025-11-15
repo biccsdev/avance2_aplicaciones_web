@@ -18,6 +18,12 @@ public class CategoriaDTO {
     private String nombre;
     private String descripcion;
 
+    public CategoriaDTO() {
+    }
+
+    
+    
+    
     /**
      * Método constructor para instanciar la clase CategoríaDTO
      * @param idCategoria Representa el identificador de la categoría

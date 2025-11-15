@@ -1,5 +1,6 @@
 package joystickmx.itson.DTO;
 import java.time.LocalDate;
+import java.util.List;
 /**
  * CarritoDTO - Data Transfer Object para Carrito
  *
@@ -11,32 +12,62 @@ import java.time.LocalDate;
  * @author Yuri Germán García López ID: 00000252583
  */
 public class CarritoDTO {
-    
-    /**
-     * Declaración de atributos de carrito
-     */
+
     private String idCarrito;
     private LocalDate fechaCreacion;
+    private List<ItemCarritoDTO> items;
+    private Float total; 
 
-    /**
-     * Método constructor para instanciar la clase CarritoDTO
-     * @param idCarrito Representa el identificador del carrito
-     * @param fechaCreacion Representa la decha de creación del carrito
-     */
-    public CarritoDTO(String idCarrito, LocalDate fechaCreacion) {
-        this.idCarrito = idCarrito;
-        this.fechaCreacion = fechaCreacion;
+    public CarritoDTO() {
     }
 
-    /**
-     * Getters para cada atributo de la clase
-     */
+    public CarritoDTO(String idCarrito, LocalDate fechaCreacion, List<ItemCarritoDTO> items, Float total) {
+        this.idCarrito = idCarrito;
+        this.fechaCreacion = fechaCreacion;
+        this.items = items;
+        this.total = total;
+    }
+
+    
+    
+    
+    
     public String getIdCarrito() {
         return idCarrito;
+    }
+
+    public void setIdCarrito(String idCarrito) {
+        this.idCarrito = idCarrito;
     }
 
     public LocalDate getFechaCreacion() {
         return fechaCreacion;
     }
+
+    public void setFechaCreacion(LocalDate fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public List<ItemCarritoDTO> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ItemCarritoDTO> items) {
+        this.items = items;
+    }
+
+    public Float getTotal() {
+        return total;
+    }
+
+    public void setTotal(Float total) {
+        this.total = total;
+    }
+
+
   
+    
+    
+    
+    
 }

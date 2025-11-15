@@ -1,5 +1,6 @@
 package joystickmx.itson.DTO;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 /**
  * PagoDTO - Data Transfer Object para Pago
  *
@@ -12,45 +13,68 @@ import java.time.LocalDate;
  */
 public class PagoDTO {
     
-    /**
-     * Declaración de atributos de pago
-     */
-    private float monto;
-    private String metodoPago;
-    private LocalDate fechaPago;
-    private String estadoPago;
+    private String idPago;
+    private Float monto;
+    private String metodoPago; // String del enum
+    private String estadoPago; 
+    private LocalDateTime fechaPago;
 
-    /**
-     * Método constructor para instanciar la clase PagoDTO
-     * @param monto Representa el monto del pago
-     * @param metodoPago Representa el método de pago
-     * @param fechaPago Representa la fecha en que se realizó el pago
-     * @param estadoPago Representa el estado del pago
-     */
-    public PagoDTO(float monto, String metodoPago, LocalDate fechaPago, String estadoPago) {
-        this.monto = monto;
-        this.metodoPago = metodoPago;
-        this.fechaPago = fechaPago;
-        this.estadoPago = estadoPago;
+    public PagoDTO() {
     }
 
-    /**
-     * Getters para cada atributo de la clase
-     */
-    public float getMonto() {
+    public PagoDTO(String idPago, Float monto, String metodoPago, String estadoPago, LocalDateTime fechaPago) {
+        this.idPago = idPago;
+        this.monto = monto;
+        this.metodoPago = metodoPago;
+        this.estadoPago = estadoPago;
+        this.fechaPago = fechaPago;
+    }
+
+    public String getIdPago() {
+        return idPago;
+    }
+
+    public void setIdPago(String idPago) {
+        this.idPago = idPago;
+    }
+
+    public Float getMonto() {
         return monto;
+    }
+
+    public void setMonto(Float monto) {
+        this.monto = monto;
     }
 
     public String getMetodoPago() {
         return metodoPago;
     }
 
-    public LocalDate getFechaPago() {
-        return fechaPago;
+    public void setMetodoPago(String metodoPago) {
+        this.metodoPago = metodoPago;
     }
 
     public String getEstadoPago() {
         return estadoPago;
     }
+
+    public void setEstadoPago(String estadoPago) {
+        this.estadoPago = estadoPago;
+    }
+
+    public LocalDateTime getFechaPago() {
+        return fechaPago;
+    }
+
+    public void setFechaPago(LocalDateTime fechaPago) {
+        this.fechaPago = fechaPago;
+    }
+
+
+    
+    
+    
+    
+    
     
 }

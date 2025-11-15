@@ -10,103 +10,140 @@ package joystickmx.itson.DTO;
  * @author Yuri Germán García López ID: 00000252583
  */
 public class UsuarioDTO {
-    
-    /**
-     * Declaración de atributos de usuario
-     */
+
     private String idUsuario;
-    private String nombre;
+    private String nombres;
     private String apellidoPaterno;
     private String apellidoMaterno;
     private String email;
     private String telefono;
-    private String contrasenia;
     private boolean isActive;
-    private String direccion;
-    private String calle;
-    private int numero;
-    private String colonia;
+    private String rol;
+    private DireccionDTO direccion;
 
-    /**
+    
+    
+    
+        /**
      * Método constructor para instanciar la clase UsuarioDTO
      * @param idUsuario Representa el identificador del usuario
-     * @param nombre Representa el/los nombre del usuario
+     * @param nombres
      * @param apellidoPaterno Representa el apellido paterno del usuario
      * @param apellidoMaterno Representa el apellido materno del usuario
      * @param email Representa el email del usuario
      * @param telefono Representa el telédono del usuario
-     * @param contrasenia Representa la contraseña del usuario
      * @param isActive Representa si es usuario esta activo o no
+     * @param rol
      * @param direccion Representa la dirección del usuario
-     * @param calle Representa la calle de la dirección del usuario
-     * @param numero Representa el número de la dirección del usuario
-     * @param colonia Representa la colonia de la dirección del usuario
      */
-    public UsuarioDTO(String idUsuario, String nombre, String apellidoPaterno, String apellidoMaterno, String email, String telefono, String contrasenia, boolean isActive, String direccion, String calle, int numero, String colonia) {
+
+
+    
+    
+    public UsuarioDTO(String idUsuario, String nombres, String apellidoPaterno, String apellidoMaterno, String email, String telefono, boolean isActive, String rol, DireccionDTO direccion) {
         this.idUsuario = idUsuario;
-        this.nombre = nombre;
+        this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
         this.email = email;
         this.telefono = telefono;
-        this.contrasenia = contrasenia;
         this.isActive = isActive;
+        this.rol = rol;
         this.direccion = direccion;
-        this.calle = calle;
-        this.numero = numero;
-        this.colonia = colonia;
     }
 
-    /**
-     * Getters para cada atributo de la clase
-     */
-    
-    public String getIdUsuario(){
-        return idUsuario;
+    public UsuarioDTO(String idUsuario, String nombres, String apellidoPaterno, String apellidoMaterno, String email, String telefono, boolean isActive, String rol) {
+        this.idUsuario = idUsuario;
+        this.nombres = nombres;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.email = email;
+        this.telefono = telefono;
+        this.isActive = isActive;
+        this.rol = rol;
     }
     
-    public String getNombre() {
-        return nombre;
+        /**
+     * Getters para cada atributo de la clase
+     * @return 
+     */
+    
+
+    
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getNombres() {
+        return nombres;
+    }
+
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
     }
 
     public String getApellidoPaterno() {
         return apellidoPaterno;
     }
 
+    public void setApellidoPaterno(String apellidoPaterno) {
+        this.apellidoPaterno = apellidoPaterno;
+    }
+
     public String getApellidoMaterno() {
         return apellidoMaterno;
+    }
+
+    public void setApellidoMaterno(String apellidoMaterno) {
+        this.apellidoMaterno = apellidoMaterno;
     }
 
     public String getEmail() {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getTelefono() {
         return telefono;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 
     public boolean isIsActive() {
         return isActive;
     }
 
-    public String getDireccion() {
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public DireccionDTO getDireccion() {
         return direccion;
     }
 
-    public String getCalle() {
-        return calle;
+    public void setDireccion(DireccionDTO direccion) {
+        this.direccion = direccion;
     }
 
-    public int getNumero() {
-        return numero;
-    }
 
-    public String getColonia() {
-        return colonia;
-    }
+    
 
 }

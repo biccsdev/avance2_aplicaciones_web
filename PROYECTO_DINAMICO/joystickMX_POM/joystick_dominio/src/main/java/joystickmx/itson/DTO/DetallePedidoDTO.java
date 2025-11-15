@@ -10,39 +10,69 @@ package joystickmx.itson.DTO;
  * @author Yuri Germán García López ID: 00000252583
  */
 public class DetallePedidoDTO {
-    
-    /**
-     * Declaración de atributos de detalle de pedido
-     */
-    private int cantidad;
-    private float importe;
-    private float precioUnitario;
 
-    /**
-     * Método constructor para instanciar la clase DetallePedidoDTO
-     * @param cantidad Representa la cantidad de productos en el pedido
-     * @param importe Representa el importe del pedido
-     * @param precioUnitario Representa el precio unitario de cada producto del pedido
-     */
-    public DetallePedidoDTO(int cantidad, float importe, float precioUnitario) {
-        this.cantidad = cantidad;
-        this.importe = importe;
-        this.precioUnitario = precioUnitario;
+    private String idVideojuego;
+    private String nombreVideojuego;
+    
+    private Integer cantidad;
+    private Float precioUnitario;
+    private Float importe; 
+
+    public DetallePedidoDTO() {
     }
 
-    /**
-     * Getters para cada atributo de la clase
-     */
-    public int getCantidad() {
+    public DetallePedidoDTO(String idVideojuego, String nombreVideojuego, Integer cantidad, Float precioUnitario, Float importe) {
+        this.idVideojuego = idVideojuego;
+        this.nombreVideojuego = nombreVideojuego;
+        this.cantidad = cantidad;
+        this.precioUnitario = precioUnitario;
+        this.importe = importe;
+    }
+
+    public String getIdVideojuego() {
+        return idVideojuego;
+    }
+
+    public void setIdVideojuego(String idVideojuego) {
+        this.idVideojuego = idVideojuego;
+    }
+
+    public String getNombreVideojuego() {
+        return nombreVideojuego;
+    }
+
+    public void setNombreVideojuego(String nombreVideojuego) {
+        this.nombreVideojuego = nombreVideojuego;
+    }
+
+    public Integer getCantidad() {
         return cantidad;
     }
 
-    public float getImporte() {
+    public void setCantidad(Integer cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public Float getPrecioUnitario() {
+        return precioUnitario;
+    }
+
+    public void setPrecioUnitario(Float precioUnitario) {
+        this.precioUnitario = precioUnitario;
+    }
+
+    public Float getImporte() {
         return importe;
     }
 
-    public float getPrecioUnitario() {
-        return precioUnitario;
+    public void setImporte(Float importe) {
+        this.importe = importe;
     }
+
+
+    
+    
+    
+    
     
 }

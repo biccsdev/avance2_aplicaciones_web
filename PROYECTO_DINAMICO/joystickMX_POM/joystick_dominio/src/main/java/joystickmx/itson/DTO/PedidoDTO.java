@@ -1,5 +1,6 @@
 package joystickmx.itson.DTO;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -14,61 +15,67 @@ import java.util.List;
  */
 public class PedidoDTO {
     
-    /**
-     * Declaración de atributos de pedido
-     */
     private String idPedido;
-    private String estadoPedido;
-    private float totalPagado;
-    private LocalDate fechaPedido;
-    private String direccionEnvio;
-    private String calle;
-    private int numero;
-    private String colonia;
-    
-    
-    
+    private String estadoPedido; // String del Enum
+    private Float totalPagado;
+    private LocalDateTime fechaPedido;
+    private DireccionDTO direccionEnvio;
     private List<DetallePedidoDTO> detalles;
+    private PagoDTO pago;
 
-    /**
-     * Método constructor para instanciar la clase PedidoDTO
-     * @param idPedido Representa el identificador del pedido
-     * @param estadoPedido Representa el estado del pedido
-     * @param totalPagado Representa el total pagado por el pedido
-     * @param fechaPedido Representa la fecha del pedido
-     * @param direccionEnvio Representa la dirección completa de envío
-     * @param calle Representa la calle de la dirección de envío que indicó el usuario
-     * @param numero Representa el número de la dirección de envío que indicó el usuario
-     * @param colonia Representa la colonia de la dirección de envío que indicó el usuario
-     */
-    public PedidoDTO(String idPedido, String estadoPedido, float totalPagado, LocalDate fechaPedido, String direccionEnvio, String calle, int numero, String colonia) {
-        this.idPedido = idPedido;
-        this.estadoPedido = estadoPedido;
-        this.totalPagado = totalPagado;
-        this.fechaPedido = fechaPedido;
-        this.direccionEnvio = direccionEnvio;
-        this.calle = calle;
-        this.numero = numero;
-        this.colonia = colonia;
+    public PedidoDTO() {
     }
 
-    public PedidoDTO(String idPedido, String estadoPedido, float totalPagado, LocalDate fechaPedido, String direccionEnvio, String calle, int numero, String colonia, List<DetallePedidoDTO> detalles) {
+    public PedidoDTO(String idPedido, String estadoPedido, Float totalPagado, LocalDateTime fechaPedido, DireccionDTO direccionEnvio, List<DetallePedidoDTO> detalles, PagoDTO pago) {
         this.idPedido = idPedido;
         this.estadoPedido = estadoPedido;
         this.totalPagado = totalPagado;
         this.fechaPedido = fechaPedido;
         this.direccionEnvio = direccionEnvio;
-        this.calle = calle;
-        this.numero = numero;
-        this.colonia = colonia;
         this.detalles = detalles;
+        this.pago = pago;
     }
 
-    
-    
-    
-    
-    
+    public String getIdPedido() {
+        return idPedido;
+    }
+
+    public void setIdPedido(String idPedido) {
+        this.idPedido = idPedido;
+    }
+
+    public String getEstadoPedido() {
+        return estadoPedido;
+    }
+
+    public void setEstadoPedido(String estadoPedido) {
+        this.estadoPedido = estadoPedido;
+    }
+
+    public Float getTotalPagado() {
+        return totalPagado;
+    }
+
+    public void setTotalPagado(Float totalPagado) {
+        this.totalPagado = totalPagado;
+    }
+
+    public LocalDateTime getFechaPedido() {
+        return fechaPedido;
+    }
+
+    public void setFechaPedido(LocalDateTime fechaPedido) {
+        this.fechaPedido = fechaPedido;
+    }
+
+    public DireccionDTO getDireccionEnvio() {
+        return direccionEnvio;
+    }
+
+    public void setDireccionEnvio(DireccionDTO direccionEnvio) {
+        this.direccionEnvio = direccionEnvio;
+    }
+
     public List<DetallePedidoDTO> getDetalles() {
         return detalles;
     }
@@ -76,44 +83,15 @@ public class PedidoDTO {
     public void setDetalles(List<DetallePedidoDTO> detalles) {
         this.detalles = detalles;
     }
+
+    public PagoDTO getPago() {
+        return pago;
+    }
+
+    public void setPago(PagoDTO pago) {
+        this.pago = pago;
+    }
     
     
-    
-
-    /**
-     * Getters para cada atributo de la clase 
-     * @return 
-     */
-    public String getIdPedido(){
-        return idPedido;
-    }
-    
-    public String getEstadoPedido() {
-        return estadoPedido;
-    }
-
-    public float getTotalPagado() {
-        return totalPagado;
-    }
-
-    public LocalDate getFechaPedido() {
-        return fechaPedido;
-    }
-
-    public String getDireccionEnvio() {
-        return direccionEnvio;
-    }
-
-    public String getCalle() {
-        return calle;
-    }
-
-    public int getNumero() {
-        return numero;
-    }
-
-    public String getColonia() {
-        return colonia;
-    }
     
 }
