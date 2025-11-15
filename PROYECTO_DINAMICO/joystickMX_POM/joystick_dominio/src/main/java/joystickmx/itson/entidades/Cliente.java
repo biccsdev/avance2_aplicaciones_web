@@ -26,10 +26,10 @@ import java.util.List;
 @DiscriminatorValue("cliente")
 public class Cliente extends Usuario implements Serializable{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_cliente")
-    private Long idCliente;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "id_cliente")
+//    private Long idCliente;
 
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
     private List<Pedido> pedidos;
@@ -40,9 +40,9 @@ public class Cliente extends Usuario implements Serializable{
     @OneToMany(mappedBy = "cliente", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Resena> resenas;
 
-    public Long getIdCliente() {return idCliente;}
-
-    public void setIdCliente(Long idCliente) {this.idCliente = idCliente;}
+//    public Long getIdCliente() {return idCliente;}
+//
+//    public void setIdCliente(Long idCliente) {this.idCliente = idCliente;}
 
     public List<Pedido> getPedidos() {return pedidos;}
 

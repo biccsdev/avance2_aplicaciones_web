@@ -22,14 +22,14 @@ import java.io.Serializable;
 @DiscriminatorValue("admin")
 public class Administrador extends Usuario implements Serializable{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_administrador")
-    private Long id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "id_administrador")
+//    private Long id;
 
     public Administrador() {}
     
-    public Long getId() {return id;}
-
-    public void setId(Long id) {this.id = id;}
+//    public Long getId() {return id;}
+//
+//    public void setId(Long id) {this.id = id;}
 }
