@@ -12,6 +12,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import joystickmx.itson.DTO.AdministradorDTO;
+import joystickmx.itson.DTO.ClienteDTO;
 import joystickmx.itson.DTO.UsuarioDTO;
 import joystickmx.itson.Factory.FactoryBO;
 import joystickmx.negocio.exception.NegocioException;
@@ -82,13 +84,13 @@ public class LoginServlet extends HttpServlet {
 
             HttpSession session = request.getSession(true);
             session.setAttribute("usuario", usuario);
-            session.setAttribute("rol", usuario.getRol());
-            session.setAttribute("idUsuario", usuario.getIdUsuario());
+            //session.setAttribute("rol", usuario.getRol());
+            //session.setAttribute("idUsuario", usuario.getIdUsuario());
 
-            if ("admin".equals(usuario.getRol())) {
-                response.sendRedirect(request.getContextPath() + "/admin/panel-menu.jsp");
-            } else {
-                response.sendRedirect(request.getContextPath() + "/");
+            if (usuario instanceof AdministradorDTO) { //
+                response.sendRedirect(request.getContextPath() + "/admin/panel"); // A futuro
+            } else if (usuario instanceof ClienteDTO) { //
+                response.sendRedirect(request.getContextPath() + "/home");
             }
 
         } catch (NegocioException e) {

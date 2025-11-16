@@ -7,6 +7,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -24,62 +26,92 @@ import joystickmx.itson.enums.MetodoPago;
  */
 @Entity
 @Table(name = "Pagos")
-public class Pago implements Serializable{
+public class Pago implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pago")
     private Long idPago;
-    
+
     @Column(nullable = false)
     @PositiveOrZero(message = "No se permiten montos negativos.")
     private Float monto;
-    
+
     @Enumerated(value = EnumType.STRING)
     @Column(name = "metodo_pago", nullable = false)
     private MetodoPago metodoPago;
-    
+
     @Enumerated(value = EnumType.STRING)
     @Column(name = "estado_pago", nullable = false)
     private EstadoPago estadoPago;
-    
+
     @Column(name = "fecha_hora_pago", nullable = false)
     @FutureOrPresent(message = "La fecha del pago no puede ser menor que la actual.")
     private LocalDateTime fechaPago;
 
-    public Pago() {}
+    @OneToOne
+    @JoinColumn(name = "id_pedido")
+    private Pedido pedido;
 
-    public Pago(
-            Long idPago, 
-            Float monto, 
-            MetodoPago metodoPago, 
-            EstadoPago estadoPago, 
-            LocalDateTime fechaPago
-    ) {
+    public Pago() {
+    }
+
+    public Pago(Long idPago, Float monto, MetodoPago metodoPago, EstadoPago estadoPago, LocalDateTime fechaPago, Pedido pedido) {
         this.idPago = idPago;
         this.monto = monto;
         this.metodoPago = metodoPago;
         this.estadoPago = estadoPago;
         this.fechaPago = fechaPago;
+        this.pedido = pedido;
     }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
+    }
+
     
-    public Long getIdPago() {return idPago;}
 
-    public void setIdPago(Long idPago) {this.idPago = idPago;}
+    public Long getIdPago() {
+        return idPago;
+    }
 
-    public Float getMonto() {return monto;}
+    public void setIdPago(Long idPago) {
+        this.idPago = idPago;
+    }
 
-    public void setMonto(Float monto) {this.monto = monto;}
+    public Float getMonto() {
+        return monto;
+    }
 
-    public MetodoPago getMetodoPago() {return metodoPago;}
+    public void setMonto(Float monto) {
+        this.monto = monto;
+    }
 
-    public void setMetodoPago(MetodoPago metodoPago) {this.metodoPago = metodoPago;}
+    public MetodoPago getMetodoPago() {
+        return metodoPago;
+    }
 
-    public EstadoPago getEstadoPago() {return estadoPago;}
+    public void setMetodoPago(MetodoPago metodoPago) {
+        this.metodoPago = metodoPago;
+    }
 
-    public void setEstadoPago(EstadoPago estadoPago) {this.estadoPago = estadoPago;}
+    public EstadoPago getEstadoPago() {
+        return estadoPago;
+    }
 
-    public LocalDateTime getFechaPago() {return fechaPago;}
+    public void setEstadoPago(EstadoPago estadoPago) {
+        this.estadoPago = estadoPago;
+    }
 
-    public void setFechaPago(LocalDateTime fechaPago) {this.fechaPago = fechaPago;}
+    public LocalDateTime getFechaPago() {
+        return fechaPago;
+    }
+
+    public void setFechaPago(LocalDateTime fechaPago) {
+        this.fechaPago = fechaPago;
+    }
 }
