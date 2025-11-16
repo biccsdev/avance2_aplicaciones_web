@@ -2,11 +2,11 @@ package joystickmx.itson.BO;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import joystickmx.itson.DAOS.VideojuegoDAO;
 import joystickmx.itson.DTO.VideojuegoDTO;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.Mappers.DTOMapeadores;
 import joystickmx.itson.Mappers.Mapeadores;
+import joystickmx.itson.interfaces.IVideojuegoDAO;
 import joystickmx.negocio.exception.NegocioException;
 
 /**
@@ -16,9 +16,9 @@ import joystickmx.negocio.exception.NegocioException;
  */
 public class VideojuegoBO {
     
-    private final VideojuegoDAO videojuegoDAO;
+    private final IVideojuegoDAO videojuegoDAO;
 
-    public VideojuegoBO(VideojuegoDAO videojuegoDAO) {
+    public VideojuegoBO(IVideojuegoDAO videojuegoDAO) {
         this.videojuegoDAO = videojuegoDAO;
     }
 

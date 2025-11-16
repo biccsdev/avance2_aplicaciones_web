@@ -2,10 +2,10 @@ package joystickmx.itson.BO;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import joystickmx.itson.DAOS.CategoriaDAO;
 import joystickmx.itson.DTO.CategoriaDTO;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.Mappers.Mapeadores;
+import joystickmx.itson.interfaces.ICategoriaDAO;
 import joystickmx.negocio.exception.NegocioException;
 
 /**
@@ -14,9 +14,9 @@ import joystickmx.negocio.exception.NegocioException;
  */
 public class CategoriaBO {
 
-    private final CategoriaDAO categoriaDAO;
+    private final ICategoriaDAO categoriaDAO;
 
-    public CategoriaBO(CategoriaDAO categoriaDAO) {
+    public CategoriaBO(ICategoriaDAO categoriaDAO) {
         this.categoriaDAO = categoriaDAO;
     }
 

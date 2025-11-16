@@ -9,6 +9,7 @@ import joystickmx.itson.Mappers.Mapeadores;
 import joystickmx.itson.entidades.Administrador;
 import joystickmx.itson.entidades.Direccion;
 import joystickmx.itson.enums.EstadoUsuario;
+import joystickmx.itson.interfaces.IAdministradorDAO;
 import joystickmx.negocio.exception.NegocioException;
 
 /**
@@ -18,9 +19,9 @@ import joystickmx.negocio.exception.NegocioException;
  */
 public class AdministradorBO {
     
-    private final AdministradorDAO adminDAO;
+    private final IAdministradorDAO adminDAO;
 
-    public AdministradorBO(AdministradorDAO adminDAO) {
+    public AdministradorBO(IAdministradorDAO adminDAO) {
         this.adminDAO = adminDAO;
     }
 

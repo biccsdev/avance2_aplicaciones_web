@@ -1,11 +1,13 @@
 package joystickmx.itson.BO;
 
-import joystickmx.itson.DAOS.UsuarioDAO;
+import joystickmx.itson.DTO.DireccionDTO;
 import joystickmx.itson.DTO.UsuarioDTO;
-import joystickmx.itson.DTO.UsuarioRegistroDTO;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.Mappers.DTOMapeadores;
 import joystickmx.itson.Mappers.Mapeadores;
+import joystickmx.itson.entidades.Direccion;
+import joystickmx.itson.entidades.Usuario;
+import joystickmx.itson.interfaces.IUsuarioDAO;
 import joystickmx.negocio.exception.NegocioException;
 
 /**
@@ -15,9 +17,9 @@ import joystickmx.negocio.exception.NegocioException;
  */
 public class UsuarioBO {
     
-    private final UsuarioDAO usuarioDAO;
+    private final IUsuarioDAO usuarioDAO;
 
-    public UsuarioBO(UsuarioDAO usuarioDAO) {
+    public UsuarioBO(IUsuarioDAO usuarioDAO) {
         this.usuarioDAO = usuarioDAO;
     }
     // Puse un UsuarioRegistroDTO por mientras, ya que pienso que esta clase ni siquiera debería existir jaja

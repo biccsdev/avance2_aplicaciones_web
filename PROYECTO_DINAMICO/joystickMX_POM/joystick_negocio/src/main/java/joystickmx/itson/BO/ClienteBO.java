@@ -2,7 +2,6 @@ package joystickmx.itson.BO;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import joystickmx.itson.DAOS.ClienteDAO;
 import joystickmx.itson.DTO.ClienteDTO;
 import joystickmx.itson.DTO.UsuarioDTO;
 import joystickmx.itson.DTO.UsuarioRegistroDTO;
@@ -10,6 +9,7 @@ import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.Mappers.DTOMapeadores;
 import joystickmx.itson.Mappers.Mapeadores;
 import joystickmx.itson.entidades.Cliente;
+import joystickmx.itson.interfaces.IClienteDAO;
 import joystickmx.negocio.exception.NegocioException;
 
 /**
@@ -19,9 +19,9 @@ import joystickmx.negocio.exception.NegocioException;
  */
 public class ClienteBO {
     
-    private final ClienteDAO clienteDAO;
+    private final IClienteDAO clienteDAO;
 
-    public ClienteBO(ClienteDAO clienteDAO) {
+    public ClienteBO(IClienteDAO clienteDAO) {
         this.clienteDAO = clienteDAO;
     }
 

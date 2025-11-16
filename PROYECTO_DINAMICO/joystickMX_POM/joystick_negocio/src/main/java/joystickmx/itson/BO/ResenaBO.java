@@ -6,11 +6,11 @@ package joystickmx.itson.BO;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import joystickmx.itson.DAOS.ResenaDAO;
 import joystickmx.itson.DTO.ResenaDTO;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.Mappers.DTOMapeadores;
 import joystickmx.itson.Mappers.Mapeadores;
+import joystickmx.itson.interfaces.IResenaDAO;
 import joystickmx.negocio.exception.NegocioException;
 
 /**
@@ -20,9 +20,9 @@ import joystickmx.negocio.exception.NegocioException;
  */
 public class ResenaBO {
     
-    private final ResenaDAO resenaDAO;
+    private final IResenaDAO resenaDAO;
 
-    public ResenaBO(ResenaDAO resenaDAO) {
+    public ResenaBO(IResenaDAO resenaDAO) {
         this.resenaDAO = resenaDAO;
     }
 

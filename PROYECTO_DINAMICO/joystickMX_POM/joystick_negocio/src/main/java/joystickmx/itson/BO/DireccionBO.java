@@ -1,10 +1,10 @@
 package joystickmx.itson.BO;
 
-import joystickmx.itson.DAOS.DireccionDAO;
 import joystickmx.itson.DTO.DireccionDTO;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.Mappers.DTOMapeadores;
 import joystickmx.itson.entidades.Direccion;
+import joystickmx.itson.interfaces.IDireccionDAO;
 import joystickmx.negocio.exception.NegocioException;
 
 /**
@@ -13,9 +13,9 @@ import joystickmx.negocio.exception.NegocioException;
  */
 public class DireccionBO {
     
-    private final DireccionDAO direccionDAO;
+    private final IDireccionDAO direccionDAO;
 
-    public DireccionBO(DireccionDAO direccionDAO) {
+    public DireccionBO(IDireccionDAO direccionDAO) {
         this.direccionDAO = direccionDAO;
     }
 

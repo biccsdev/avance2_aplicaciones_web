@@ -1,6 +1,5 @@
 package joystickmx.itson.BO;
 
-import joystickmx.itson.DAOS.CarritoDAO;
 import joystickmx.itson.DTO.CarritoDTO;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.Mappers.DTOMapeadores;
@@ -8,6 +7,7 @@ import joystickmx.itson.Mappers.Mapeadores;
 import joystickmx.itson.entidades.Carrito;
 import joystickmx.itson.entidades.Cliente;
 import joystickmx.itson.entidades.ItemCarrito;
+import joystickmx.itson.interfaces.ICarritoDAO;
 import joystickmx.negocio.exception.NegocioException;
 
 /**
@@ -16,9 +16,9 @@ import joystickmx.negocio.exception.NegocioException;
  */
 public class CarritoBO {
 
-    private final CarritoDAO carritoDAO;
+    private final ICarritoDAO carritoDAO;
 
-    public CarritoBO(CarritoDAO carritoDAO) {
+    public CarritoBO(ICarritoDAO carritoDAO) {
         this.carritoDAO = carritoDAO;
     }
 
