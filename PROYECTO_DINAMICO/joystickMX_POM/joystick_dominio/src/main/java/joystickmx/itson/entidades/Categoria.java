@@ -10,6 +10,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,7 +37,7 @@ public class Categoria implements Serializable {
     private String descripcion;
 
     @ManyToMany(mappedBy = "categorias", fetch = FetchType.LAZY)
-    private List<Videojuego> videojuegos;
+    private List<Videojuego> videojuegos = new ArrayList<>();;
 
     public Long getIdCategoria() {return idCategoria;}
 

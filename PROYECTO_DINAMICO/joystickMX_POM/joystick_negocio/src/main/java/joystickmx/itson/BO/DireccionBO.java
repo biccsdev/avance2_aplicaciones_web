@@ -12,19 +12,19 @@ import joystickmx.negocio.exception.NegocioException;
  * @author PC Gamer
  */
 public class DireccionBO {
-    
-    private final IDireccionDAO direccionDAO;
-
-    public DireccionBO(IDireccionDAO direccionDAO) {
-        this.direccionDAO = direccionDAO;
-    }
-
-    public boolean modificarDireccion(String email, DireccionDTO dto) throws NegocioException {
-        try {
-            Direccion datosNuevos = DTOMapeadores.toDireccionEntity(dto);
-            return this.direccionDAO.actualizarDireccion(datosNuevos) != null;
-        } catch (PersistenciaException e) {
-            throw new NegocioException("Error al modificar la dirección: " + e.getMessage(), e);
-        }
-    }
+//    
+//    private final IDireccionDAO direccionDAO;
+//
+//    public DireccionBO(IDireccionDAO direccionDAO) {
+//        this.direccionDAO = direccionDAO;
+//    }                                                                                                             //INNECESSSARIIA
+//
+//    public boolean modificarDireccion(String email, DireccionDTO dto) throws NegocioException {
+//        try {
+//            Direccion datosNuevos = DTOMapeadores.toDireccionEntity(dto);
+//            return this.direccionDAO.actualizarDireccion(datosNuevos) != null;
+//        } catch (PersistenciaException e) {
+//            throw new NegocioException("Error al modificar la dirección: " + e.getMessage(), e);
+//        }
+//    }
 }

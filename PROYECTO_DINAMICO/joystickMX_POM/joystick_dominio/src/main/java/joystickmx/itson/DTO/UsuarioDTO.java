@@ -14,7 +14,7 @@ import joystickmx.itson.enums.EstadoUsuario;
  */
 public class UsuarioDTO {
 
-    private String idUsuario;
+    private Long idUsuario;
     private String nombres;
     private String apellidoPaterno;
     private String apellidoMaterno;
@@ -22,18 +22,20 @@ public class UsuarioDTO {
     private String telefono;
     private String estadoUsuario;
     private DireccionDTO direccion;
+    private String rol; 
 
     public UsuarioDTO() {}
     
     public UsuarioDTO(
-            String idUsuario, 
+            Long idUsuario, 
             String nombres, 
             String apellidoPaterno, 
             String apellidoMaterno, 
             String email, 
             String telefono, 
             String estadoUsuario,
-            DireccionDTO direccion
+            DireccionDTO direccion,
+            String rol
     ) {
         this.idUsuario = idUsuario;
         this.nombres = nombres;
@@ -43,6 +45,7 @@ public class UsuarioDTO {
         this.telefono = telefono;
         this.estadoUsuario = estadoUsuario;
         this.direccion = direccion;
+        this.rol = rol;
     }
     
     public UsuarioDTO(
@@ -62,14 +65,18 @@ public class UsuarioDTO {
         this.estadoUsuario = estadoUsuario;
         this.direccion = direccion;
     }
+    
+    
+    
+    
 
     /**
      * Getters para cada atributo de la clase
      * @return
      */
-    public String getIdUsuario() {return idUsuario;}
+    public Long getIdUsuario() {return idUsuario;}
 
-    public void setIdUsuario(String idUsuario) {this.idUsuario = idUsuario;}
+    public void setIdUsuario(Long idUsuario) {this.idUsuario = idUsuario;}
 
     public String getNombres() {return nombres;}
 
@@ -98,4 +105,15 @@ public class UsuarioDTO {
     public DireccionDTO getDireccion() {return direccion;}
 
     public void setDireccion(DireccionDTO direccion) {this.direccion = direccion;}
+    
+    public String getRol() { 
+        return rol;
+    }
+
+    public void setRol(String rol) { 
+        this.rol = rol;
+    }
+    
+    
+    
 }

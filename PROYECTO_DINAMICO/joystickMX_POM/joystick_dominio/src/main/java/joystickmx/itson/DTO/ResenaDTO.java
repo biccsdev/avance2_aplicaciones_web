@@ -12,32 +12,29 @@ import java.time.LocalDate;
  */
 public class ResenaDTO {
     
-    private String idResena;
+    private Long idResena;
     private float calificacion;
     private String comentario;
     private LocalDate fechaResena;
     // Pienso que a lo mejor se debería referenciar a las clases tal cual, pero no sé...
-    private String idCliente;
-    private String nombreCliente;
-    private String idVideojuego; // Pienso que la reseña también debería referenciar al videojuego
+    private Long idCliente;
+    private Long idVideojuego; // Pienso que la reseña también debería referenciar al videojuego
 
     public ResenaDTO() {}
 
     public ResenaDTO(
-            String idResena, 
+            Long idResena, 
             float calificacion, 
             String comentario, 
             LocalDate fechaResena, 
-            String idCliente, 
-            String nombreCliente,
-            String idVideojuego
+            Long idCliente, 
+            Long idVideojuego
     ) {
         this.idResena = idResena;
         this.calificacion = calificacion;
         this.comentario = comentario;
         this.fechaResena = fechaResena;
         this.idCliente = idCliente;
-        this.nombreCliente = nombreCliente;
         this.idVideojuego = idVideojuego;
     }
 
@@ -45,19 +42,16 @@ public class ResenaDTO {
             float calificacion, 
             String comentario, 
             LocalDate fechaResena, 
-            String idCliente, 
+            Long idCliente, 
             String nombreCliente
     ) {
         this.calificacion = calificacion;
         this.comentario = comentario;
         this.fechaResena = fechaResena;
         this.idCliente = idCliente;
-        this.nombreCliente = nombreCliente;
     }
     
-    public String getIdResena() {return idResena;}
 
-    public void setIdResena(String idResena) {this.idResena = idResena;}
 
     public float getCalificacion() {return calificacion;}
 
@@ -71,15 +65,37 @@ public class ResenaDTO {
 
     public void setFechaResena(LocalDate fechaResena) {this.fechaResena = fechaResena;}
 
-    public String getIdCliente() {return idCliente;}
 
-    public void setIdCliente(String idCliente) {this.idCliente = idCliente;}
 
-    public String getNombreCliente() {return nombreCliente;}
 
-    public void setNombreCliente(String nombreCliente) {this.nombreCliente = nombreCliente;}
 
-    public String getIdVideojuego() {return idVideojuego;}
+    public Long getIdResena() {
+        return idResena;
+    }
 
-    public void setIdVideojuego(String idVideojuego) {this.idVideojuego = idVideojuego;}
+    public void setIdResena(Long idResena) {
+        this.idResena = idResena;
+    }
+
+    public Long getIdCliente() {
+        return idCliente;
+    }
+
+    public void setIdCliente(Long idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public Long getIdVideojuego() {
+        return idVideojuego;
+    }
+
+    public void setIdVideojuego(Long idVideojuego) {
+        this.idVideojuego = idVideojuego;
+    }
+
+
+
+
+    
+    
 }

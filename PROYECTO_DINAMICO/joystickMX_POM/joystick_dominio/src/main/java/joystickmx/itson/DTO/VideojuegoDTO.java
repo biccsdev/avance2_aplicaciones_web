@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class VideojuegoDTO {
     
-    private String idVideojuego;
+    private Long idVideojuego;
     private String nombre;
     private String descripcion;
     private Float precio;
@@ -29,7 +29,7 @@ public class VideojuegoDTO {
     public VideojuegoDTO() {}
 
     public VideojuegoDTO(
-            String idVideojuego, 
+            Long idVideojuego, 
             String nombre, 
             String descripcion, 
             Float precio, 
@@ -86,7 +86,21 @@ public class VideojuegoDTO {
      * Getters para cada atributo de la clase
      * @return 
      */
-    public String getIdVideojuego() {return idVideojuego;}
+    public Long getIdVideojuego() {return idVideojuego;}
+
+    public void setIdVideojuego(Long idVideojuego) {
+        this.idVideojuego = idVideojuego;
+    }
+
+    public void setFechaLanzamiento(LocalDate fechaLanzamiento) {
+        this.fechaLanzamiento = fechaLanzamiento;
+    }
+
+    public void setPlataforma(String plataforma) {
+        this.plataforma = plataforma;
+    }
+    
+    
 
     public String getPlataforma() {return plataforma;}
 

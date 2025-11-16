@@ -11,53 +11,41 @@ package joystickmx.itson.DTO;
  */
 public class DetallePedidoDTO {
     
-    private String idDetallePedido;
+    private Long idDetallePedido;
     private Integer cantidad;
     private Float precioUnitario;
-    private Float importe; 
-    private String idVideojuego;
-    private String nombreVideojuego;
-    private String idPedido;
+    private Long idVideojuego;
+    private Long idPedido;
 
     public DetallePedidoDTO() {}
 
     public DetallePedidoDTO(
-            String idDetallePedido, 
+            Long idDetallePedido, 
             Integer cantidad, 
             Float precioUnitario, 
-            Float importe, 
-            String idVideojuego, 
-            String nombreVideojuego, 
-            String idPedido
+            Long idVideojuego, 
+            Long idPedido
     ) {
         this.idDetallePedido = idDetallePedido;
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
-        this.importe = importe;
         this.idVideojuego = idVideojuego;
-        this.nombreVideojuego = nombreVideojuego;
         this.idPedido = idPedido;
     }
 
     public DetallePedidoDTO(
             Integer cantidad, 
             Float precioUnitario, 
-            Float importe, 
-            String idVideojuego, 
-            String nombreVideojuego, 
-            String idPedido
+            Long idVideojuego, 
+            Long idPedido
     ) {
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
-        this.importe = importe;
         this.idVideojuego = idVideojuego;
-        this.nombreVideojuego = nombreVideojuego;
         this.idPedido = idPedido;
     }
 
-    public String getIdDetallePedido() {return idDetallePedido;}
 
-    public void setNombreVideojuego(String nombreVideojuego) {this.nombreVideojuego = nombreVideojuego;}
 
     public Integer getCantidad() {return cantidad;}
 
@@ -67,17 +55,36 @@ public class DetallePedidoDTO {
 
     public void setPrecioUnitario(Float precioUnitario) {this.precioUnitario = precioUnitario;}
 
-    public Float getImporte() {return importe;}
 
-    public void setImporte(Float importe) {this.importe = importe;}
+
+    public Long getIdDetallePedido() {
+        return idDetallePedido;
+    }
+
+    public void setIdDetallePedido(Long idDetallePedido) {
+        this.idDetallePedido = idDetallePedido;
+    }
+
+    public Long getIdVideojuego() {
+        return idVideojuego;
+    }
+
+    public void setIdVideojuego(Long idVideojuego) {
+        this.idVideojuego = idVideojuego;
+    }
+
+    public Long getIdPedido() {
+        return idPedido;
+    }
+
+    public void setIdPedido(Long idPedido) {
+        this.idPedido = idPedido;
+    }
+
+
     
-    public String getIdVideojuego() {return idVideojuego;}
 
-    public void setIdVideojuego(String idVideojuego) {this.idVideojuego = idVideojuego;}
 
-    public String getNombreVideojuego() {return nombreVideojuego;}
 
-    public String getIdPedido() {return idPedido;}
 
-    public void setIdPedido(String idPedido) {this.idPedido = idPedido;}
 }

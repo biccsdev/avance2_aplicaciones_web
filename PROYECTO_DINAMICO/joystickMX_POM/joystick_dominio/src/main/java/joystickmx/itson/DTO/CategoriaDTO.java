@@ -14,7 +14,7 @@ public class CategoriaDTO {
     /**
      * Declaración de atributos de categoría
      */
-    private String idCategoria;
+    private Long idCategoria;
     private String nombre;
     private String descripcion;
 
@@ -26,7 +26,7 @@ public class CategoriaDTO {
      * @param nombre Representa el nombre de la categoría
      * @param descripcion Representa la descripción de la categoría 
      */
-    public CategoriaDTO(String idCategoria, String nombre, String descripcion) {
+    public CategoriaDTO(Long idCategoria, String nombre, String descripcion) {
         this.idCategoria = idCategoria;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -36,10 +36,25 @@ public class CategoriaDTO {
      * Getters para cada atributo de la clase 
      */
     
-    public String getIdCategoria() {return idCategoria;}
+    public Long getIdCategoria() {return idCategoria;}
 
     public String getNombre() {return nombre;}
 
     public String getDescripcion() {return descripcion;}
+
+    public void setIdCategoria(Long idCategoria) {
+        this.idCategoria = idCategoria;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+    
+    
+    
     
 }

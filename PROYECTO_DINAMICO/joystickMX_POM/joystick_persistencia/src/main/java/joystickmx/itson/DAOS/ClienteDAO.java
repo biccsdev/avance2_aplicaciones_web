@@ -2,76 +2,54 @@ package joystickmx.itson.DAOS;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
+import jakarta.persistence.PersistenceException;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
 import joystickmx.itson.Excepciones.PersistenciaException;
-import joystickmx.itson.conexion.Conexion;
 import joystickmx.itson.entidades.Cliente;
 import joystickmx.itson.enums.EstadoUsuario;
+import joystickmx.itson.interfaces.IClienteDAO;
 
 /**
  *
  * @author sonic
  * @author biccs
  */
-public class ClienteDAO {
+public class ClienteDAO extends BaseDAO implements IClienteDAO {
     
-    protected EntityManager getEntityManager() {
-        return Conexion.crearConexion();
+    public ClienteDAO(EntityManager em) {
+        super(em);
     }
     
+    @Override
     public void crearCliente(Cliente cliente) throws PersistenciaException {
-        EntityManager em = getEntityManager();
         try {
-            em.getTransaction().begin();
             em.persist(cliente);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
+        } catch (PersistenceException e) {
             throw new PersistenciaException("Error al persistir el cliente: " + e.getMessage());
-        } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
         }
     }
 
+    @Override
     public Cliente actualizarCliente(Cliente cliente) throws PersistenciaException {
-        EntityManager em = getEntityManager();
         try {
-            em.getTransaction().begin();
-            Cliente managedCliente = em.merge(cliente);
-            em.getTransaction().commit();
-            return managedCliente;
-        } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                em.getTransaction().rollback();
-            }
+            return em.merge(cliente);
+        } catch (PersistenceException e) {
             throw new PersistenciaException("Error al actualizar el cliente: " + e.getMessage());
-        } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
         }
     }
 
+    @Override
     public Cliente buscarPorId(Long idCliente) throws PersistenciaException {
-        EntityManager em = getEntityManager();
         try {
             return em.find(Cliente.class, idCliente);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw new PersistenciaException("Error al buscar cliente por ID: " + e.getMessage());
-        } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
         }
     }
 
+    @Override
     public Cliente buscarPorEmail(String email) throws PersistenciaException {
-        EntityManager em = getEntityManager();
         try {
             TypedQuery<Cliente> query = em.createQuery(
                     "SELECT c FROM Cliente c WHERE c.email = :email",
@@ -81,34 +59,25 @@ public class ClienteDAO {
             return query.getSingleResult();
         } catch (NoResultException e) {
             return null;
-        } catch (Exception e) {
+        } catch (PersistenceException e) {
             throw new PersistenciaException("Error al buscar cliente por email: " + e.getMessage());
-        } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
         }
     }
 
+    @Override
     public List<Cliente> buscarTodos() throws PersistenciaException {
-        EntityManager em = getEntityManager();
         try {
             TypedQuery<Cliente> query = em.createQuery(
                     "SELECT c FROM Cliente c",
                     Cliente.class
             );
             return query.getResultList();
-        } catch (Exception e) {
+        } catch (PersistenceException e) {
             throw new PersistenciaException("Error al buscar todos los clientes: " + e.getMessage());
-        } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
         }
     }
 
     private List<Cliente> buscarPorEstado(EstadoUsuario estado) throws PersistenciaException {
-        EntityManager em = getEntityManager();
         try {
             TypedQuery<Cliente> query = em.createQuery(
                     "SELECT c FROM Cliente c WHERE c.estadoUsuario = :estadoUsuario",
@@ -116,25 +85,23 @@ public class ClienteDAO {
             );
             query.setParameter("estadoUsuario", estado);
             return query.getResultList();
-        } catch (Exception e) {
+        } catch (PersistenceException e) {
             throw new PersistenciaException("Error al buscar clientes por estado: " + e.getMessage());
-        } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
         }
     }
 
+    @Override
     public List<Cliente> buscarClientesActivos() throws PersistenciaException {
         return buscarPorEstado(EstadoUsuario.ACTIVO);
     }
 
+    @Override
     public List<Cliente> buscarClientesInactivos() throws PersistenciaException {
         return buscarPorEstado(EstadoUsuario.INACTIVO);
     }
 
+    @Override
     public List<Cliente> buscarPorNombre(String nombre) throws PersistenciaException {
-        EntityManager em = getEntityManager();
         try {
             TypedQuery<Cliente> query = em.createQuery(
                     "SELECT c FROM Cliente c WHERE c.nombres LIKE :nombre OR c.apellidoPaterno LIKE :nombre OR c.apellidoMaterno LIKE :nombre",
@@ -142,12 +109,8 @@ public class ClienteDAO {
             );
             query.setParameter("nombre", "%" + nombre + "%");
             return query.getResultList();
-        } catch (Exception e) {
+        } catch (PersistenceException e) {
             throw new PersistenciaException("Error al buscar clientes por nombre: " + e.getMessage());
-        } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
         }
     }
 }

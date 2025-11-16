@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  */
 public class PagoDTO {
     
-    private String idPago;
+    private Long idPago;
     private Float monto;
     private String metodoPago; // String del enum
     private String estadoPago; 
@@ -21,7 +21,7 @@ public class PagoDTO {
     public PagoDTO() {}
 
     public PagoDTO(
-            String idPago, 
+            Long idPago, 
             Float monto, 
             String metodoPago, 
             String estadoPago, 
@@ -46,9 +46,9 @@ public class PagoDTO {
         this.fechaPago = fechaPago;
     }
     
-    public String getIdPago() {return idPago;}
+    public Long getIdPago() {return idPago;}
 
-    public void setIdPago(String idPago) {this.idPago = idPago;}
+    public void setIdPago(Long idPago) {this.idPago = idPago;}
 
     public Float getMonto() {return monto;}
 

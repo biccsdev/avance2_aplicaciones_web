@@ -80,7 +80,8 @@ public class Usuario implements Serializable {
             String contrasenia, 
             String telefono, 
             EstadoUsuario isActive, 
-            Direccion direccion
+            Direccion direccion,
+            EstadoUsuario estadoUsuario
     ) {
         this.idUsuario = idUsuario;
         this.nombres = nombres;
@@ -92,6 +93,23 @@ public class Usuario implements Serializable {
         this.estadoUsuario = estadoUsuario;
         this.direccion = direccion;
     }
+
+    public Usuario(Long idUsuario, String nombres, String apellidoPaterno, String apellidoMaterno, String email, String contrasenia, String telefono, Direccion direccion) {
+        this.idUsuario = idUsuario;
+        this.nombres = nombres;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.email = email;
+        this.contrasenia = contrasenia;
+        this.telefono = telefono;
+        this.direccion = direccion;
+    }
+    
+    
+    
+    
+    
+    
     
     public Long getIdUsuario() {return idUsuario;}
 

@@ -18,6 +18,7 @@ import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import joystickmx.itson.enums.EstadoPedido;
 
@@ -54,7 +55,7 @@ public class Pedido implements Serializable {
     private DireccionEnvio direccionEnvio;
         
     @OneToMany(mappedBy = "pedido", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    private List<DetallePedido> detalles;
+    private List<DetallePedido> detalles = new ArrayList<>();;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_cliente")

@@ -4,9 +4,11 @@ package joystickmx.itson.Mappers;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import joystickmx.itson.DTO.CarritoDTO;
 import joystickmx.itson.DTO.CategoriaDTO;
 import joystickmx.itson.DTO.DetallePedidoDTO;
 import joystickmx.itson.DTO.DireccionDTO;
+import joystickmx.itson.DTO.ItemCarritoDTO;
 import joystickmx.itson.DTO.PagoDTO;
 import joystickmx.itson.DTO.PedidoDTO;
 import joystickmx.itson.DTO.ResenaDTO;
@@ -18,13 +20,13 @@ import joystickmx.itson.entidades.Cliente;
 import joystickmx.itson.entidades.DetallePedido;
 import joystickmx.itson.entidades.Direccion;
 import joystickmx.itson.entidades.DireccionEnvio;
+import joystickmx.itson.entidades.ItemCarrito;
 import joystickmx.itson.entidades.Pago;
 import joystickmx.itson.entidades.Pedido;
 import joystickmx.itson.entidades.Resena;
 import joystickmx.itson.entidades.Videojuego;
 import joystickmx.itson.enums.EstadoPago;
 import joystickmx.itson.enums.EstadoPedido;
-import joystickmx.itson.enums.EstadoUsuario;
 import joystickmx.itson.enums.MetodoPago;
 
 /**
@@ -33,13 +35,14 @@ import joystickmx.itson.enums.MetodoPago;
  */
 public class DTOMapeadores {
     
-    
-    
-
     public static Direccion toDireccionEntity(DireccionDTO dto) {
         if (dto == null) return null;
         
         Direccion entity = new Direccion();
+        
+        if (dto.getIdDireccion() != null) {
+            entity.setIdDireccion(dto.getIdDireccion());
+        }
         entity.setCalle(dto.getCalle());
         entity.setNumero(dto.getNumero());
         entity.setColonia(dto.getColonia());
@@ -47,6 +50,10 @@ public class DTOMapeadores {
         return entity;
     }
 
+    /**
+     * Convierte un DireccionDTO en una *nueva* entidad DireccionEnvio.
+     * Respeta la regla de negocio de que DireccionEnvio es una tabla separada.
+     */
     public static DireccionEnvio toDireccionEnvioEntity(DireccionDTO dto) {
         if (dto == null) return null;
         
@@ -69,8 +76,7 @@ public class DTOMapeadores {
         cliente.setEmail(dto.getEmail());
         cliente.setTelefono(dto.getTelefono());
         cliente.setContrasenia(dto.getContrasenia());
-        cliente.setEstadoUsuario(EstadoUsuario.ACTIVO); 
-        cliente.setCarrito(new Carrito());
+        
         
         if (dto.getDireccion() != null) 
             cliente.setDireccion(toDireccionEntity(dto.getDireccion()));
@@ -78,15 +84,13 @@ public class DTOMapeadores {
         return cliente;
     }
 
-    //pendiente los demas mappers
     public static Videojuego toVideojuegoEntity(VideojuegoDTO dto){
         if(dto == null) return null;
         
         Videojuego entity = new Videojuego();
         
-        // Valida si tiene ID, en caso de ser un videojuego nuevo a ser registrado
         if(dto.getIdVideojuego() != null)
-            entity.setIdVideojuego(Long.valueOf(dto.getIdVideojuego()));
+            entity.setIdVideojuego(dto.getIdVideojuego());
         
         entity.setNombre(dto.getNombre());
         entity.setDescripcion(dto.getDescripcion());
@@ -97,15 +101,15 @@ public class DTOMapeadores {
         entity.setFechaLanzamiento(dto.getFechaLanzamiento());
         entity.setPlataforma(dto.getPlataforma());
         entity.setUrlImagen(dto.getUrlImagen());
-//        List<Categoria> categorias = new ArrayList<>();
-//        for(CategoriaDTO dto : dto.getCategorias())
-//            categorias.add(toEntityCategoria(dto));
-        entity.setCategorias(dto.
-                getCategorias().
-                stream().
-                map(DTOMapeadores::toCategoriaEntity).
-                collect(Collectors.toList())
-        );
+        
+        if (dto.getCategorias() != null) {
+            entity.setCategorias(dto.
+                    getCategorias().
+                    stream().
+                    map(DTOMapeadores::toCategoriaEntity).
+                    collect(Collectors.toList())
+            );
+        }
         
         if(dto.getResenas() != null)
             entity.setResenas(dto.getResenas().stream().map(DTOMapeadores::toResenaEntity).collect(Collectors.toList()));
@@ -114,38 +118,37 @@ public class DTOMapeadores {
     }
     
     public static Categoria toCategoriaEntity(CategoriaDTO dto){
+        if (dto == null) return null;
         Categoria entity = new Categoria();
         
         if(dto.getIdCategoria() != null)
-            entity.setIdCategoria(Long.valueOf(dto.getIdCategoria()));
+            entity.setIdCategoria(dto.getIdCategoria());
         
         entity.setNombre(dto.getNombre());
         entity.setDescripcion(dto.getDescripcion());
-        // Quizás falte mapear los videojuegos de la categoría, aunque podría derivar en un mapeo infinito.
         return entity;
     }
     
     public static Resena toResenaEntity(ResenaDTO dto){
+        if (dto == null) return null;
         Resena entity = new Resena();
         
         if(dto.getIdResena() != null)
-            entity.setIdResena(Long.valueOf(dto.getIdResena()));
+            entity.setIdResena(dto.getIdResena());
         
         entity.setCalificacion(dto.getCalificacion());
         entity.setComentario(dto.getComentario());
         entity.setFechaResena(dto.getFechaResena());
         
-        // Si tiene el id del cliente
         if(dto.getIdCliente() != null){
             Cliente cliente = new Cliente();
-            cliente.setIdUsuario(Long.valueOf(dto.getIdCliente()));
+            cliente.setIdUsuario(dto.getIdCliente());
             entity.setCliente(cliente);
         }
         
-        // Si tiene el id del videojuego
         if(dto.getIdVideojuego() != null){
             Videojuego videojuego = new Videojuego();
-            videojuego.setIdVideojuego(Long.valueOf(dto.getIdVideojuego()));
+            videojuego.setIdVideojuego(dto.getIdVideojuego());
             entity.setVideojuego(videojuego);
         }
         
@@ -153,14 +156,16 @@ public class DTOMapeadores {
     }
     
     public static Pedido toPedidoEntity(PedidoDTO dto){
+        if (dto == null) return null;
         Pedido entity = new Pedido();
         
         if(dto.getIdPedido() != null)
-            entity.setIdPedido(Long.valueOf(dto.getIdPedido()));
+            entity.setIdPedido(dto.getIdPedido());
         
         entity.setFechaPedido(dto.getFechaPedido());
         entity.setEstadoPedido(EstadoPedido.valueOf(dto.getEstadoPedido()));
         entity.setTotalPagado(dto.getTotalPagado());
+        
         entity.setDireccionEnvio(toDireccionEnvioEntity(dto.getDireccionEnvio()));
         
         if(dto.getDetalles() != null)
@@ -168,7 +173,7 @@ public class DTOMapeadores {
         
         if(dto.getIdCliente() != null){
             Cliente cliente = new Cliente();
-            cliente.setIdUsuario(Long.valueOf(dto.getIdCliente()));
+            cliente.setIdUsuario(dto.getIdCliente());
             entity.setCliente(cliente);
         }
         
@@ -179,23 +184,24 @@ public class DTOMapeadores {
     }
     
     public static DetallePedido toDetallePedidoEntity(DetallePedidoDTO dto){
+        if (dto == null) return null;
         DetallePedido entity = new DetallePedido();
         
-        if(entity.getIdDetallePedido() != null)
-            entity.setIdDetallePedido(Long.valueOf(dto.getIdDetallePedido()));
+        if(dto.getIdDetallePedido() != null)
+            entity.setIdDetallePedido(dto.getIdDetallePedido());
         
         entity.setCantidad(dto.getCantidad());
         entity.setPrecioUnitario(dto.getPrecioUnitario());
         
         if(dto.getIdVideojuego() != null){
             Videojuego videojuego = new Videojuego();
-            videojuego.setIdVideojuego(Long.valueOf(dto.getIdVideojuego()));
+            videojuego.setIdVideojuego(dto.getIdVideojuego());
             entity.setVideojuego(videojuego);
         }
         
         if(dto.getIdPedido() != null){
             Pedido pedido = new Pedido();
-            pedido.setIdPedido(Long.valueOf(dto.getIdPedido()));
+            pedido.setIdPedido(dto.getIdPedido());
             entity.setPedido(pedido);
         }
         
@@ -210,10 +216,11 @@ public class DTOMapeadores {
     }
     
     public static Pago toPagoEntity(PagoDTO dto){
+        if (dto == null) return null;
         Pago entity = new Pago();
         
         if(dto.getIdPago() != null)
-            entity.setIdPago(Long.valueOf(dto.getIdPago()));
+            entity.setIdPago(dto.getIdPago());
         
         entity.setMonto(dto.getMonto());
         entity.setMetodoPago(MetodoPago.valueOf(dto.getMetodoPago()));
@@ -222,4 +229,49 @@ public class DTOMapeadores {
         
         return entity;
     }
+    
+    public static Carrito toCarritoEntity(CarritoDTO dto) {
+        if (dto == null) return null;
+        Carrito entity = new Carrito();
+        
+        if (dto.getIdCarrito() != null) {
+            entity.setIdCarrito(dto.getIdCarrito());
+        }
+        entity.setFechaCreacion(dto.getFechaCreacion());
+        if (dto.getItems() != null) {
+            entity.setItems(dto.getItems().stream()
+                    .map(DTOMapeadores::toItemCarritoEntity)
+                    .collect(Collectors.toList()));
+        }
+        return entity;
+    }
+
+    public static ItemCarrito toItemCarritoEntity(ItemCarritoDTO dto) {
+        if (dto == null) return null;
+        ItemCarrito entity = new ItemCarrito();
+
+        if (dto.getIdItemCarrito() != null) {
+            entity.setIdItemCarrito(dto.getIdItemCarrito());
+        }
+        entity.setCantidad(dto.getCantidad());
+
+        if (dto.getIdCarrito() != null) {
+            Carrito carrito = new Carrito();
+            carrito.setIdCarrito(dto.getIdCarrito());
+            entity.setCarrito(carrito);
+        }
+
+        if (dto.getIdVideojuego() != null) {
+            Videojuego videojuego = new Videojuego();
+            videojuego.setIdVideojuego(dto.getIdVideojuego());
+            entity.setVideojuego(videojuego);
+        }
+        return entity;
+    }
+    
+    
+    
+    
+    
+    
 }

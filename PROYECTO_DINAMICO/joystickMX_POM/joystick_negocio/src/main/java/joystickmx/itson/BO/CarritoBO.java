@@ -1,6 +1,7 @@
 package joystickmx.itson.BO;
 
 import joystickmx.itson.DTO.CarritoDTO;
+import joystickmx.itson.DTO.ItemCarritoDTO;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.Mappers.DTOMapeadores;
 import joystickmx.itson.Mappers.Mapeadores;
@@ -32,7 +33,9 @@ public class CarritoBO {
 
     public CarritoDTO actualizarCarrito(CarritoDTO dto) throws NegocioException {
         try {
-            return Mapeadores.toDTO(this.carritoDAO.actualizarCarrito(DTOMapeadores.toEntity(dto)));
+            Carrito entidad = DTOMapeadores.toCarritoEntity(dto);
+            Carrito actualizado = this.carritoDAO.actualizarCarrito(entidad);
+            return Mapeadores.toCarritoDTO(actualizado);
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al actualizar carrito: " + e.getMessage(), e);
         }
@@ -40,7 +43,7 @@ public class CarritoBO {
 
     public CarritoDTO buscarPorId(Long idCarrito) throws NegocioException {
         try {
-            return Mapeadores.toDTO(this.carritoDAO.buscarPorId(idCarrito));
+            return Mapeadores.toCarritoDTO(this.carritoDAO.buscarPorId(idCarrito));
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al buscar carrito por ID: " + e.getMessage(), e);
         }
@@ -51,15 +54,21 @@ public class CarritoBO {
             Cliente cliente = new Cliente();
             cliente.setIdUsuario(idCliente);
             Carrito carrito = this.carritoDAO.buscarPorCliente(cliente);
-            return carrito != null ? Mapeadores.toDTO(carrito) : null;
+            
+            return carrito != null ? Mapeadores.toCarritoDTO(carrito) : null;
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al buscar carrito por cliente: " + e.getMessage(), e);
         }
     }
 
-    public void agregarItem(CarritoDTO carritoDTO, ItemCarrito item) throws NegocioException {
+    public void agregarItem(Long idCarrito, ItemCarritoDTO itemDTO) throws NegocioException {
         try {
-            this.carritoDAO.agregarItem(Mapeadores.toEntity(carritoDTO), item);
+            ItemCarrito item = DTOMapeadores.toItemCarritoEntity(itemDTO);
+            
+            Carrito carrito = new Carrito();
+            carrito.setIdCarrito(idCarrito);
+            
+            this.carritoDAO.agregarItem(carrito, item);
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al agregar item al carrito: " + e.getMessage(), e);
         }
@@ -89,4 +98,3 @@ public class CarritoBO {
         }
     }
 }
-

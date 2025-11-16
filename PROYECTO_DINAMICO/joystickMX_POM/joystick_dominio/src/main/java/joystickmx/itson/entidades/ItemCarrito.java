@@ -69,13 +69,17 @@ public class ItemCarrito implements Serializable {
 
     public void setVideojuego(Videojuego videojuego) {this.videojuego = videojuego;}
     
-    @Transient
-    public Float getSubtotal() {
-        if (videojuego != null && cantidad != null) {
-            return videojuego.getPrecio() * cantidad;
-        }
-        return 0.0f;
-    }
+//    @Transient
+//    public Float getSubtotal() {
+//        if (videojuego != null && cantidad != null) {
+//            return videojuego.getPrecio() * cantidad;         //DEBERIA ESTAR EN NEGOCIO
+//        }
+//        return 0.0f;
+//    }
+    
+    
+    
+    
     
     @Override
     public String toString() {

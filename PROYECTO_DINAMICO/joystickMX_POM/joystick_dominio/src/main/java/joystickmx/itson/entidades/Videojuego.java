@@ -17,6 +17,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -74,16 +75,16 @@ public class Videojuego implements Serializable {
             joinColumns = @JoinColumn(name = "id_videojuego"),
             inverseJoinColumns = @JoinColumn(name = "id_categoria")
     )
-    private List<Categoria> categorias;
+    private List<Categoria> categorias = new ArrayList<>();;
 
     @OneToMany(mappedBy = "videojuego", fetch = FetchType.LAZY)
-    private List<DetallePedido> detallesPedidos;
+    private List<DetallePedido> detallesPedidos = new ArrayList<>();;
 
     @OneToMany(mappedBy = "videojuego", fetch = FetchType.LAZY)
-    private List<ItemCarrito> itemsCarrito;
+    private List<ItemCarrito> itemsCarrito = new ArrayList<>();;
 
     @OneToMany(mappedBy = "videojuego", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<Resena> resenas;
+    private List<Resena> resenas = new ArrayList<>();;
 
     public Videojuego() {}
 

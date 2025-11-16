@@ -14,6 +14,13 @@
             <artifactId>joystick_persistencia</artifactId>
             <version>${project.version}</version>
         </dependency>
+        
+        <dependency>
+    <groupId>javax.xml.bind</groupId>
+    <artifactId>jaxb-api</artifactId>
+    <version>2.3.1</version>
+</dependency>
+
     </dependencies>
     <properties>
         <maven.compiler.source>21</maven.compiler.source>

@@ -6,7 +6,7 @@ package joystickmx.itson.DTO;
  */
 public class DireccionDTO {
     // Agregué el ID porque es una tabla en la bd también
-    private String idDireccion;
+    private Long idDireccion;
     private String calle;
     private String numero;
     private String colonia;
@@ -14,7 +14,7 @@ public class DireccionDTO {
     public DireccionDTO() {}
 
     public DireccionDTO(
-            String idDireccion, 
+            Long idDireccion, 
             String calle, 
             String numero, 
             String colonia
@@ -31,9 +31,9 @@ public class DireccionDTO {
         this.colonia = colonia;
     }
 
-    public String getIdDireccion() {return idDireccion;}
+    public Long getIdDireccion() {return idDireccion;}
 
-    public void setIdDireccion(String idDireccion) {this.idDireccion = idDireccion;}
+    public void setIdDireccion(Long idDireccion) {this.idDireccion = idDireccion;}
     
     public String getCalle() {return calle;}
 

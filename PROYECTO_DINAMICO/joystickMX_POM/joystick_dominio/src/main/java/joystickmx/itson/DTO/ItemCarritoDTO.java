@@ -11,59 +11,60 @@ package joystickmx.itson.DTO;
  */
 public class ItemCarritoDTO {
 
-    private String idItemCarrito;
+    private Long idItemCarrito;
     private Integer cantidad;
-    private Float subtotal; 
-    private String idVideojuego;
-    private String nombreVideojuego;
-    private Float precioUnitario;
-    private String idCarrito;
+    private Long idVideojuego;
+    private Long idCarrito;
 
     public ItemCarritoDTO() {}
 
     public ItemCarritoDTO(
-            String idItemCarrito, 
+            Long idItemCarrito, 
             Integer cantidad, 
-            Float subtotal, 
-            String idVideojuego, 
-            String nombreVideojuego, 
-            Float precioUnitario,
-            String idCarrito
+            Long idVideojuego, 
+            Long idCarrito
     ) {
         this.idItemCarrito = idItemCarrito;
         this.cantidad = cantidad;
-        this.subtotal = subtotal;
         this.idVideojuego = idVideojuego;
-        this.nombreVideojuego = nombreVideojuego;
-        this.precioUnitario = precioUnitario;
         this.idCarrito = idCarrito;
     }
 
-    public String getIdItemCarrito() {return idItemCarrito;}
+    public Long getIdItemCarrito() {
+        return idItemCarrito;
+    }
 
-    public void setIdItemCarrito(String idItemCarrito) {this.idItemCarrito = idItemCarrito;}
+    public void setIdItemCarrito(Long idItemCarrito) {
+        this.idItemCarrito = idItemCarrito;
+    }
+
+    public Long getIdVideojuego() {
+        return idVideojuego;
+    }
+
+    public void setIdVideojuego(Long idVideojuego) {
+        this.idVideojuego = idVideojuego;
+    }
+
+    public Long getIdCarrito() {
+        return idCarrito;
+    }
+
+    public void setIdCarrito(Long idCarrito) {
+        this.idCarrito = idCarrito;
+    }
+
+
+
 
     public Integer getCantidad() {return cantidad;}
 
     public void setCantidad(Integer cantidad) {this.cantidad = cantidad;}
 
-    public Float getSubtotal() {return subtotal;}
 
-    public void setSubtotal(Float subtotal) {this.subtotal = subtotal;}
 
-    public String getIdVideojuego() {return idVideojuego;}
 
-    public void setIdVideojuego(String idVideojuego) {this.idVideojuego = idVideojuego;}
 
-    public String getNombreVideojuego() {return nombreVideojuego;}
 
-    public void setNombreVideojuego(String nombreVideojuego) {this.nombreVideojuego = nombreVideojuego;}
 
-    public Float getPrecioUnitario() {return precioUnitario;}
-
-    public void setPrecioUnitario(Float precioUnitario) {this.precioUnitario = precioUnitario;}
-
-    public String getIdCarrito() {return idCarrito;}
-
-    public void setIdCarrito(String idCarrito) {this.idCarrito = idCarrito;}
 }

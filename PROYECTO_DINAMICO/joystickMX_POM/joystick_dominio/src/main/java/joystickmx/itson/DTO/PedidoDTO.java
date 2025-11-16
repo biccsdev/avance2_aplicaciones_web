@@ -14,26 +14,26 @@ import java.util.List;
  */
 public class PedidoDTO {
     
-    private String idPedido;
+    private Long idPedido;
     private String estadoPedido; // String del Enum
     private Float totalPagado;
     private LocalDateTime fechaPedido;
     private DireccionDTO direccionEnvio;
     private List<DetallePedidoDTO> detalles;
     private PagoDTO pago;
-    private String idCliente;
+    private Long idCliente;
 
     public PedidoDTO() {}
 
     public PedidoDTO(
-            String idPedido, 
+            Long idPedido, 
             String estadoPedido, 
             Float totalPagado, 
             LocalDateTime fechaPedido, 
             DireccionDTO direccionEnvio, 
             List<DetallePedidoDTO> detalles, 
             PagoDTO pago,
-            String idCliente
+            Long idCliente
     ) {
         this.idPedido = idPedido;
         this.estadoPedido = estadoPedido;
@@ -52,7 +52,7 @@ public class PedidoDTO {
             DireccionDTO direccionEnvio, 
             List<DetallePedidoDTO> detalles, 
             PagoDTO pago,
-            String idCliente
+            Long idCliente
     ) {
         this.estadoPedido = estadoPedido;
         this.totalPagado = totalPagado;
@@ -63,9 +63,9 @@ public class PedidoDTO {
         this.idCliente = idCliente;
     }
     
-    public String getIdPedido() {return idPedido;}
+    public Long getIdPedido() {return idPedido;}
 
-    public void setIdPedido(String idPedido) {this.idPedido = idPedido;}
+    public void setIdPedido(Long idPedido) {this.idPedido = idPedido;}
 
     public String getEstadoPedido() {return estadoPedido;}
 
@@ -91,7 +91,7 @@ public class PedidoDTO {
 
     public void setPago(PagoDTO pago) {this.pago = pago;}
 
-    public String getIdCliente() {return idCliente;}
+    public Long getIdCliente() {return idCliente;}
 
-    public void setIdCliente(String idCliente) {this.idCliente = idCliente;}
+    public void setIdCliente(Long idCliente) {this.idCliente = idCliente;}
 }

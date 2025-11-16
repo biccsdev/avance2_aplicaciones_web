@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.FutureOrPresent;
+import java.util.ArrayList;
 
 /**
  *
@@ -34,7 +35,7 @@ public class Carrito implements Serializable {
     private LocalDate fechaCreacion;
 
     @OneToMany(mappedBy = "carrito", cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, orphanRemoval = true)
-    private List<ItemCarrito> items;
+    private List<ItemCarrito> items = new ArrayList<>();    ;
 
     public Carrito() {this.fechaCreacion = LocalDate.now();}
 
