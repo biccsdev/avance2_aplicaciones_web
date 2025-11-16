@@ -1,0 +1,263 @@
+@import url("../Header/header.css");
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    padding: 40px 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.resumen-carrito {
+    flex-shrink: 0;
+}
+
+.detalles {
+    background: #D1A7FF;
+    width: 370px;
+    min-height: 700px;
+    padding: 22px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-radius: 8px;
+    max-height: 700px;
+    overflow-y: auto;
+}
+
+.panel-metodo-pago {
+    flex-shrink: 0;
+}
+
+.opciones-pago {
+    background: #D1A7FF;
+    width: 550px;
+    min-height: 700px;
+    padding: 22px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-radius: 8px;
+}
+
+.panel-resumen-total {
+    background-color: #D1A7FF;
+    padding: 24px;
+    width: 340px;
+    height: auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+
+}
+
+
+.detalles-item-carrito {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 0;
+}
+
+.detalles-item-carrito>span:first-child {
+    flex: 0 0 auto;
+}
+
+.detalles-item-carrito>span:last-child {
+    flex: 0 0 auto;
+    margin-left: 16px;
+    text-align: right;
+    min-width: 70px;
+    font-weight: 600;
+}
+
+.opciones-pago .panel-titulo {
+    color: #000;
+    font-size: 24px;
+    font-weight: 500;
+    margin: 0 0 10px 0;
+}
+
+.opciones-pago .radio-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.opciones-pago .radio-row span {
+    color: #CDFFF1;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.opciones-pago .icono-paypal {
+    width: 200px;
+    height: 60px;
+}
+
+.opciones-pago .radio-row input[type="radio"] {
+    width: 20px;
+    height: 20px;
+    accent-color: #333;
+}
+
+.opciones-pago .tarjeta-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.opciones-pago .tarjeta-form .label-small {
+    color: #000;
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+}
+
+.opciones-pago .tarjeta-form input {
+    background-color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 10px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.tarjeta-form {
+    width: 80%;
+}
+
+.panel-resumen-total .panel-titulo {
+    font-size: 2rem;
+    margin: 0 0 16px 0;
+    color: #000;
+    font-weight: 500;
+}
+
+.panel-resumen-total .resumen-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    margin-bottom: 12px;
+    width: 100%;
+    color: #000;
+}
+
+.panel-resumen-total .resumen-row.total {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 8px;
+}
+
+.panel-resumen-total .resumen-row span:first-child {
+    text-align: left;
+    flex: 1;
+}
+
+.panel-resumen-total .resumen-row span:last-child {
+    text-align: right;
+    flex: 1;
+}
+
+.panel-resumen-total .btn-confirmar {
+    background-color: #7E48C5;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.panel-resumen-total .btn-confirmar:hover {
+    background-color: #6A3EAE;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ---------Responsive----------- */
+
+@media (max-width: 1200px) {
+
+    .main {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .resumen-carrito,
+    .panel-metodo-pago {
+        padding: 0;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .detalles,
+    .opciones-pago,
+    .panel-resumen-total {
+        width: 100%;
+        max-width: 700px;
+        min-height: auto;
+        height: auto;
+    }
+}
+
+@media (max-width: 900px) {
+    .main {
+        flex-direction: column-reverse;
+    }
+
+}
+
+@media (max-width: 520px) {
+    .main {
+        padding: 20px 12px;
+    }
+
+    .opciones-pago .panel-titulo {
+        font-size: 20px;
+    }
+
+    .opciones-pago .radio-row {
+        gap: 12px;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+
+    .opciones-pago .icono-paypal {
+        width: 160px;
+        height: 48px;
+    }
+
+    .opciones-pago .radio-row input[type="radio"] {
+        width: 18px;
+        height: 18px;
+    }
+
+    .panel-resumen-total .panel-titulo {
+        font-size: 1.5rem;
+    }
+
+    .panel-resumen-total {
+        padding: 16px;
+    }
+
+    .panel-resumen-total .btn-confirmar {
+        padding: 12px;
+    }
+}

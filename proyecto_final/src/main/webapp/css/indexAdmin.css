@@ -1,0 +1,292 @@
+@import url("../../../global.css");
+@import url("../../../Header/header.css");
+
+body{
+    height: 100vh;
+}
+
+header{
+    height: 20%
+}
+
+.grid-container{
+    width: 100%;
+    height: 80%;
+    overflow: hidden;
+}
+
+.videojuego-container{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 25% 75%;
+    grid-template-rows: 100%;
+}
+
+.seccion-productos{
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.filtro-busqueda{
+    width: 80%;
+    background-color: var(--gray-100);
+    align-self: start;
+    justify-self: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 25%;
+    padding: 10%;
+    border-radius: 0.8em;
+}
+
+.filtro-seccion-rango{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.filtro-titulo, .filtro-cantidad{
+    color: var(--text-primary);
+    font-size: 0.8em;
+    font-weight: 500;
+}
+
+.filtro-rango{
+    width: 100%;
+}
+
+.filtro-select{
+    width: 60%;
+    background: var(--surface);
+    color: var(--text-primary);
+    border: 0.1em solid var(--border-color);
+    border-radius: 0.5em;
+    font-size: 0.7em;
+    font-weight: 500;
+    margin-top: 0.7em;
+}
+
+.videojuego-lista{
+    width: 100%;
+    height: 100%;
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: repeat(5, 17.6%);
+    grid-auto-rows: 23.68vw;
+    justify-content: space-evenly;
+    align-content: space-evenly;
+    row-gap: 2vw;
+    margin: 0%;
+    padding: 2vw 0%;
+    overflow: auto;
+}
+
+.videojuego-item{
+    background-color: var(--gray-100);
+    border-radius: 3%;
+}
+
+.videojuego-item:hover{
+    cursor: pointer;
+    
+}
+
+.videojuego{
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: 100%;
+    grid-template-rows: 75% 25%;
+    padding: 2%;
+}
+
+.videojuego-info{
+    max-width: 100%;
+    max-height: 100%;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 4%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.videojuego-info > .videojuego-nombre{
+    max-width: 100%;
+    font-size: 0.72em;
+    font-weight: 400;
+    margin: 0px;
+}
+
+.videojuego-info > .videojuego-precio{
+    max-width: 100%;
+    font-size: 90%;
+    margin: 0px;
+    font-weight: 700;
+}
+
+.btn-carrito{
+    display: none;
+}
+
+.videojuego-imagen{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    padding: 3% 3% 0% 3%;
+}
+
+.videojuego-imagen > img{
+    max-width: 100%;
+    max-height: 100%;
+    padding: 0%;
+    margin: 0%;
+    border-radius: 3%;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+@media (min-width: 576px) and (max-width: 1024px){
+    header{
+        height: 25%;
+    }
+    .grid-container{
+        height: 75%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 992px){
+    .videojuego-lista{
+        display: grid;
+        grid-template-columns: repeat(4, 22%);
+        grid-auto-rows: 30.288vw;
+        row-gap: 1.92vw;
+        padding: 1.92vw 0%;
+    }
+
+    .videojuego-info > .videojuego-nombre{
+        font-size: 0.66em;
+    }
+
+    .videojuego-info > .videojuego-precio{
+        font-size: 80%;
+    }
+
+}
+
+@media (min-width: 576px) and (max-width: 768px){
+    
+    .videojuego-lista{
+        display: grid;
+        grid-template-columns: repeat(3, 30%);
+        grid-auto-rows: 40.3636vw;
+        row-gap: 2vw;
+    }
+
+    .videojuego-info > .videojuego-nombre{
+        font-size: 0.6em;
+    }
+
+    .videojuego-info > .videojuego-precio{
+        font-size: 70%;
+    }
+
+}
+
+@media (max-width: 576px){
+    header{
+        height: 30%;
+    }
+    .grid-container{
+        height: 70%;
+    }
+
+    .videojuego-container{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .filtro-busqueda{
+        width: 80%;
+        padding: 2.5%;
+        margin: 2.5% 0%;
+        align-self: center;
+    }
+
+    .filtro-titulo, .filtro-cantidad{
+        font-size: 0.6em;
+    }
+
+    .filtro-select{
+        border: 0.1em solid var(--border-color);
+        border-radius: 0.5em;
+        font-size: 0.5em;
+    }
+
+    .videojuego-lista{
+        display: grid;
+        grid-template-columns: 80%;
+        grid-auto-rows: 30vw;
+        row-gap: 5vw;
+    }
+
+    .videojuego-item{
+        border-radius: 0.5em;
+    }
+
+    .videojuego{
+        grid-template-columns: 30% 70%;
+        grid-template-rows: 100%;
+    }
+
+    .videojuego-imagen{
+        grid-column-start: 1;
+        grid-column-end: 2;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        padding: 3%;
+    }
+
+    .videojuego-imagen > img{
+        border-radius: 0.5em;
+    }
+
+    .videojuego-info{
+        grid-column-start: 2;
+        grid-column-end: 3;
+        grid-row-start: 1;
+        grid-row-end: 2;
+        justify-content: space-evenly;
+    }
+
+    .videojuego-info > .videojuego-nombre{
+        font-size: 2.8vw;
+    }
+
+    .videojuego-info > .videojuego-precio{
+        font-size: 3vw;
+    }
+
+    .btn-carrito{
+        display: block;
+        width: fit-content;
+        padding: 5%;
+        font-weight: bold;
+        font-size: 3vw;
+        border: 0;
+        border-radius: 0.7em;
+        cursor: pointer;
+        transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+    }
+
+}
