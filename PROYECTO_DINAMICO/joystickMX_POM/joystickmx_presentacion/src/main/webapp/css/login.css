@@ -1,0 +1,51 @@
+
+
+
+@media (min-width: 420px) {
+  .brand-title { font-size: 1.5rem; }
+}
+
+.auth-card {
+  border-top-left-radius: 28px;
+  border-top-right-radius: 28px;
+}
+
+.badge-logo { font-size: 28px; }
+
+@media (max-width: 380px) {
+  .auth-title { font-size: 1rem; }
+  .container-center { max-width: 100%; }
+}
+
+.login-card { padding-bottom: max(var(--space-6), var(--safe-bottom)); }
+
+.welcome-text {
+    display: none;
+}
+.header-brand {
+    font-size: var(--font-size-large) !important;
+    display:flex !important;
+    align-items: center !important;
+    padding-left: 12px !important;
+    justify-content: center !important;
+}
+
+.brand-title {
+    color: var(--color-white);
+}
+
+@media (min-width: 800px) {
+    main {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .welcome-text {
+        display: flex;
+        flex-direction: column;
+    }
+    .brand-title {
+        font-size: var(--font-size-xlarge);
+    }
+}

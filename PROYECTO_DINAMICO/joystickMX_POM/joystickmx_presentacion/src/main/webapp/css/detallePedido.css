@@ -1,0 +1,149 @@
+@import url("../global.css");
+
+.order-page {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-5) var(--space-10);
+}
+
+.order-panel {
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-5);
+}
+
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-4);
+  color: var(--color-white);
+}
+
+.panel-title {
+  margin: 0;
+  color: var(--gray-800);
+}
+
+.panel-price-label {
+  font-weight: 700;
+}
+
+.order-items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.order-item {
+  position: relative;
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border: 1px solid var(--border-color);
+}
+
+.order-item + .order-item {
+  border-top: none;
+}
+
+.oi-price {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  font-weight: 700;
+  color: var(--gray-800);
+}
+
+.oi-cover {
+  width: 86px;
+  height: 110px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  flex: 0 0 auto;
+}
+
+.oi-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  flex: 1;
+}
+
+.oi-title {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.3;
+}
+
+.oi-qty {
+  font-weight: 600;
+}
+
+.btn-rate {
+  width: 140px;
+  height: 36px;
+  border-radius: 10px;
+}
+
+.order-summary {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 2px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--gray-800);
+}
+
+.summary-total {
+  margin-top: var(--space-2);
+  font-weight: 800;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Desktop */
+@media (min-width: 768px) {
+  .order-page {
+    max-width: 960px;
+  }
+
+  .order-panel {
+    padding: var(--space-6);
+  }
+
+  .order-items {
+    gap: var(--space-5);
+  }
+
+  .order-item {
+    padding: var(--space-5);
+  }
+
+  .oi-cover {
+    width: 112px;
+    height: 140px;
+  }
+
+  .oi-title {
+    font-size: 14px;
+  }
+}

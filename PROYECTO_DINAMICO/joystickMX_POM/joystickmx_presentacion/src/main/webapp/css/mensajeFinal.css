@@ -1,0 +1,46 @@
+@import url("../Header/header.css");
+
+body {
+    color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+}
+
+
+.main-mensaje {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    min-height: 750px;
+    width: 100%;
+
+    padding: 20px;
+    box-sizing: border-box;
+    gap: 24px;
+}
+
+.icono-carrito {
+    margin-bottom: 16px;
+}
+
+.confirmacion {
+    font-size: 56px;
+    font-weight: bold;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.subtexto {
+    font-size: 20px;
+    color: var(--color-white);
+    line-height: 1.6;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
