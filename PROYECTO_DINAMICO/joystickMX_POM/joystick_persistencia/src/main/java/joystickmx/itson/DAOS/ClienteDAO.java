@@ -1,22 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package joystickmx.itson.DAOS;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.conexion.Conexion;
-import joystickmx.itson.entidades.Administrador;
 import joystickmx.itson.entidades.Cliente;
-import joystickmx.itson.entidades.Usuario;
 import joystickmx.itson.enums.EstadoUsuario;
 
 /**
  *
  * @author sonic
+ * @author biccs
  */
 public class ClienteDAO {
     
@@ -41,27 +37,19 @@ public class ClienteDAO {
             }
         }
     }
-    
-    
-    /**
-     * Método privado genérico para buscar usuarios según su estado.
-     *
-     * @param estado El EstadoUsuario (ACTIVO, INACTIVO, ELIMINADO) a buscar.
-     * @return Una lista de usuarios que coinciden con ese estado.
-     * @throws PersistenciaException Si ocurre un error en la consulta.
-     */
-    private List<Cliente> buscarPorEstado(EstadoUsuario estado) throws PersistenciaException {
+
+    public Cliente actualizarCliente(Cliente cliente) throws PersistenciaException {
         EntityManager em = getEntityManager();
         try {
-            TypedQuery<Cliente> query = em.createQuery(
-                    "SELECT u FROM clientes u WHERE u.estadoUsuario = :estadoUsuario",
-                    Cliente.class
-            );
-            query.setParameter("estadoUsuario", estado);
-            return query.getResultList();
-
+            em.getTransaction().begin();
+            Cliente managedCliente = em.merge(cliente);
+            em.getTransaction().commit();
+            return managedCliente;
         } catch (Exception e) {
-            throw new PersistenciaException("Error al buscar usuarios por estado: " + e.getMessage());
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw new PersistenciaException("Error al actualizar el cliente: " + e.getMessage());
         } finally {
             if (em.isOpen()) {
                 em.close();
@@ -69,24 +57,97 @@ public class ClienteDAO {
         }
     }
 
-    /**
-     * Busca y retorna todos los usuarios cuyo estado es HABILITADO.
-     *
-     * @return Lista de usuarios activos.
-     * @throws PersistenciaException Si ocurre un error.
-     */
-    public List<Cliente> buscarUsuariosActivos() throws PersistenciaException {
+    public Cliente buscarPorId(Long idCliente) throws PersistenciaException {
+        EntityManager em = getEntityManager();
+        try {
+            return em.find(Cliente.class, idCliente);
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al buscar cliente por ID: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+
+    public Cliente buscarPorEmail(String email) throws PersistenciaException {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Cliente> query = em.createQuery(
+                    "SELECT c FROM Cliente c WHERE c.email = :email",
+                    Cliente.class
+            );
+            query.setParameter("email", email);
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al buscar cliente por email: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+
+    public List<Cliente> buscarTodos() throws PersistenciaException {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Cliente> query = em.createQuery(
+                    "SELECT c FROM Cliente c",
+                    Cliente.class
+            );
+            return query.getResultList();
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al buscar todos los clientes: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+
+    private List<Cliente> buscarPorEstado(EstadoUsuario estado) throws PersistenciaException {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Cliente> query = em.createQuery(
+                    "SELECT c FROM Cliente c WHERE c.estadoUsuario = :estadoUsuario",
+                    Cliente.class
+            );
+            query.setParameter("estadoUsuario", estado);
+            return query.getResultList();
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al buscar clientes por estado: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+
+    public List<Cliente> buscarClientesActivos() throws PersistenciaException {
         return buscarPorEstado(EstadoUsuario.ACTIVO);
     }
 
-    /**
-     * Busca y retorna todos los usuarios cuyo estado es INHABILITADO.
-     *
-     * @return Lista de usuarios inactivos.
-     * @throws PersistenciaException Si ocurre un error.
-     */
-    public List<Cliente> buscarUsuariosInactivos() throws PersistenciaException {
+    public List<Cliente> buscarClientesInactivos() throws PersistenciaException {
         return buscarPorEstado(EstadoUsuario.INACTIVO);
     }
-    
+
+    public List<Cliente> buscarPorNombre(String nombre) throws PersistenciaException {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Cliente> query = em.createQuery(
+                    "SELECT c FROM Cliente c WHERE c.nombres LIKE :nombre OR c.apellidoPaterno LIKE :nombre OR c.apellidoMaterno LIKE :nombre",
+                    Cliente.class
+            );
+            query.setParameter("nombre", "%" + nombre + "%");
+            return query.getResultList();
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al buscar clientes por nombre: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) {
+                em.close();
+            }
+        }
+    }
 }

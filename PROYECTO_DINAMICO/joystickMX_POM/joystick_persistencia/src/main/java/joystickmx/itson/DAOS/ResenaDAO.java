@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package joystickmx.itson.DAOS;
 
 import jakarta.persistence.EntityManager;
@@ -14,22 +10,14 @@ import joystickmx.itson.entidades.Resena;
 /**
  *
  * @author sonic
+ * @author biccs
  */
 public class ResenaDAO {
 
-    /**
-     * Obtiene un EntityManager de la clase de conexión.
-     */
     protected EntityManager getEntityManager() {
-        return Conexion.crearConexion(); //
+        return Conexion.crearConexion();
     }
 
-    /**
-     * Guarda una nueva Reseña en la base de datos.
-     * 
-     * @param resena La reseña a persistir.
-     * @throws PersistenciaException Si ocurre un error de JPA.
-     */
     public void crearResena(Resena resena) throws PersistenciaException {
         EntityManager em = getEntityManager();
         try {
@@ -40,7 +28,7 @@ public class ResenaDAO {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            throw new PersistenciaException("Error al persistir la reseña: " + e.getMessage());
+            throw new PersistenciaException("Error al crear la reseña: " + e.getMessage());
         } finally {
             if (em.isOpen()) {
                 em.close();
@@ -48,31 +36,42 @@ public class ResenaDAO {
         }
     }
 
-    /**
-     * Elimina físicamente una reseña de la base de datos.
-     * 
-     * @param idResena El ID de la reseña a eliminar.
-     * @throws PersistenciaException Si la reseña no se encuentra o hay un error.
-     */
+    public Resena actualizarResena(Resena resena) throws PersistenciaException {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Resena managedResena = em.merge(resena);
+            em.getTransaction().commit();
+            return managedResena;
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw new PersistenciaException("Error al actualizar la reseña: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+
     public void eliminarResena(Long idResena) throws PersistenciaException {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
-            
-            Resena resena = em.find(Resena.class, idResena); //
-            
+            Resena resena = em.find(Resena.class, idResena);
             if (resena == null) {
                 throw new PersistenciaException("No se encontró la reseña con ID: " + idResena);
             }
-
             em.remove(resena);
-            
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
-            if (e instanceof PersistenciaException) throw (PersistenciaException) e;
+            if (e instanceof PersistenciaException) {
+                throw (PersistenciaException) e;
+            }
             throw new PersistenciaException("Error al eliminar la reseña: " + e.getMessage());
         } finally {
             if (em.isOpen()) {
@@ -81,26 +80,83 @@ public class ResenaDAO {
         }
     }
 
-    /**
-     * Busca todas las reseñas asociadas a un videojuego por su nombre.
-     * @param nombreVideojuego El nombre del videojuego.
-     * @return Una lista de reseñas, o una lista vacía si no hay.
-     * @throws PersistenciaException Si ocurre un error de consulta.
-     */
-    public List<Resena> buscarPorVideojuego(String nombreVideojuego) throws PersistenciaException {
+    public Resena buscarPorId(Long idResena) throws PersistenciaException {
+        EntityManager em = getEntityManager();
+        try {
+            return em.find(Resena.class, idResena);
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al buscar reseña por ID: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+
+    public List<Resena> buscarPorVideojuego(Long idVideojuego) throws PersistenciaException {
         EntityManager em = getEntityManager();
         try {
             TypedQuery<Resena> query = em.createQuery(
-                "SELECT r FROM Resena r WHERE r.videojuego.nombre = :nombreVideojuego", 
-                Resena.class
+                    "SELECT r FROM Resena r WHERE r.videojuego.idVideojuego = :idVideojuego ORDER BY r.fecha DESC",
+                    Resena.class
             );
-            
-            query.setParameter("nombreVideojuego", nombreVideojuego);
-            
+            query.setParameter("idVideojuego", idVideojuego);
             return query.getResultList();
-            
         } catch (Exception e) {
-            throw new PersistenciaException("Error al buscar reseñas por nombre de videojuego: " + e.getMessage());
+            throw new PersistenciaException("Error al buscar reseñas por videojuego: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+
+    public List<Resena> buscarPorCliente(Long idCliente) throws PersistenciaException {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Resena> query = em.createQuery(
+                    "SELECT r FROM Resena r WHERE r.cliente.idUsuario = :idCliente ORDER BY r.fecha DESC",
+                    Resena.class
+            );
+            query.setParameter("idCliente", idCliente);
+            return query.getResultList();
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al buscar reseñas por cliente: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+
+    public List<Resena> buscarPorCalificacion(Integer calificacion) throws PersistenciaException {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Resena> query = em.createQuery(
+                    "SELECT r FROM Resena r WHERE r.calificacion = :calificacion ORDER BY r.fecha DESC",
+                    Resena.class
+            );
+            query.setParameter("calificacion", calificacion);
+            return query.getResultList();
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al buscar reseñas por calificación: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+
+    public List<Resena> buscarTodas() throws PersistenciaException {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<Resena> query = em.createQuery(
+                    "SELECT r FROM Resena r ORDER BY r.fecha DESC",
+                    Resena.class
+            );
+            return query.getResultList();
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al buscar todas las reseñas: " + e.getMessage());
         } finally {
             if (em.isOpen()) {
                 em.close();

@@ -19,11 +19,30 @@ import joystickmx.itson.enums.EstadoUsuario;
 /**
  *
  * @author sonic
+ * @author biccs
  */
 public class UsuarioDAO {
 
     protected EntityManager getEntityManager() {
         return Conexion.crearConexion();
+    }
+
+    public void crearUsuario(Usuario usuario) throws PersistenciaException {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(usuario);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            throw new PersistenciaException("Error al crear el usuario: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) {
+                em.close();
+            }
+        }
     }
 
     public Usuario actualizar(Usuario usuario) throws PersistenciaException {
