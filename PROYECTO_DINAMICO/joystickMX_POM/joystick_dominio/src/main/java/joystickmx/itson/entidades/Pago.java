@@ -49,8 +49,8 @@ public class Pago implements Serializable {
     @FutureOrPresent(message = "La fecha del pago no puede ser menor que la actual.")
     private LocalDateTime fechaPago;
 
-    @OneToOne
-    @JoinColumn(name = "id_pedido")
+//    @OneToOne
+//    @JoinColumn(name = "id_pedido")
     private Pedido pedido;
 
     public Pago() {
