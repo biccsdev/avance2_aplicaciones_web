@@ -3,6 +3,7 @@ package joystickmx.itson.BO;
 import joystickmx.itson.DAOS.CarritoDAO;
 import joystickmx.itson.DTO.CarritoDTO;
 import joystickmx.itson.Excepciones.PersistenciaException;
+import joystickmx.itson.Mappers.DTOMapeadores;
 import joystickmx.itson.Mappers.Mapeadores;
 import joystickmx.itson.entidades.Carrito;
 import joystickmx.itson.entidades.Cliente;
@@ -23,7 +24,7 @@ public class CarritoBO {
 
     public void crearCarrito(CarritoDTO dto) throws NegocioException {
         try {
-            this.carritoDAO.crearCarrito(Mapeadores.toEntity(dto));
+            this.carritoDAO.crearCarrito(DTOMapeadores.toCarritoEntity(dto));
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al crear carrito: " + e.getMessage(), e);
         }
@@ -31,7 +32,7 @@ public class CarritoBO {
 
     public CarritoDTO actualizarCarrito(CarritoDTO dto) throws NegocioException {
         try {
-            return Mapeadores.toDTO(this.carritoDAO.actualizarCarrito(Mapeadores.toEntity(dto)));
+            return Mapeadores.toDTO(this.carritoDAO.actualizarCarrito(DTOMapeadores.toEntity(dto)));
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al actualizar carrito: " + e.getMessage(), e);
         }

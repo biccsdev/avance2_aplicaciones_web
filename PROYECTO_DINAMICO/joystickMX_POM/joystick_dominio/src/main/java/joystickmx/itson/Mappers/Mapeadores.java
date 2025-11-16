@@ -33,7 +33,7 @@ import joystickmx.itson.entidades.Videojuego;
 public class Mapeadores {
 
 
-    public static DireccionDTO toDTO(Direccion entity) {
+    public static DireccionDTO toDireccionDTO(Direccion entity) {
         if (entity == null) return null;
         return new DireccionDTO(
                 entity.getCalle(),
@@ -42,7 +42,7 @@ public class Mapeadores {
         );
     }
     
-    public static DireccionDTO toDTO(DireccionEnvio entity) {
+    public static DireccionDTO toDireccionEnvioDTO(DireccionEnvio entity) {
         if (entity == null) return null;
         return new DireccionDTO(
                 entity.getCalle(),
@@ -51,7 +51,7 @@ public class Mapeadores {
         );
     }
     
-    public static CategoriaDTO toDTO(Categoria entity) {
+    public static CategoriaDTO toCategoriaDTO(Categoria entity) {
         if (entity == null) return null;
         return new CategoriaDTO(
                 String.valueOf(entity.getIdCategoria()),
@@ -64,11 +64,11 @@ public class Mapeadores {
     public static List<CategoriaDTO> toCategoriaDTOList(List<Categoria> entities) {
         if (entities == null) return new ArrayList<>();
         return entities.stream()
-                .map(Mapeadores::toDTO)
+                .map(Mapeadores::toCategoriaDTO)
                 .collect(Collectors.toList());
     }
     
-    public static UsuarioDTO toDTO(Usuario entity) {
+    public static UsuarioDTO toUsuarioDTO(Usuario entity) {
         if (entity == null) return null;
 
         String rol = "cliente"; 
@@ -83,13 +83,12 @@ public class Mapeadores {
                 entity.getApellidoMaterno(),
                 entity.getEmail(),
                 entity.getTelefono(),
-                entity.getEstadoUsuario(),
-                rol,
-                toDTO(entity.getDireccion()) 
+                entity.getEstadoUsuario().toString(),
+                toDireccionDTO(entity.getDireccion()) 
         );
     }
     
-    public static VideojuegoDTO toDTO(Videojuego entity) {
+    public static VideojuegoDTO toVideojuegoDTO(Videojuego entity) {
         if (entity == null) return null;
         return new VideojuegoDTO(
                 String.valueOf(entity.getIdVideojuego()),
@@ -102,11 +101,12 @@ public class Mapeadores {
                 entity.getFechaLanzamiento(),
                 entity.getPlataforma(),
                 entity.getUrlImagen(),
-                toCategoriaDTOList(entity.getCategorias())
+                toCategoriaDTOList(entity.getCategorias()),
+                toResenasDTOList(entity.getResenas())
         );
     }
     
-    public static ItemCarritoDTO toDTO(ItemCarrito entity) {
+    public static ItemCarritoDTO toItemCarritoDTO(ItemCarrito entity) {
         if (entity == null) return null;
 
         String vjId = null;
@@ -118,25 +118,30 @@ public class Mapeadores {
             vjNombre = entity.getVideojuego().getNombre();
             vjPrecio = entity.getVideojuego().getPrecio();
         }
-
+        
+        String idCarrito = null;
+        if(entity.getCarrito() != null)
+            idCarrito = entity.getCarrito().getIdCarrito().toString();
+        
         return new ItemCarritoDTO(
                 String.valueOf(entity.getIdItemCarrito()),
                 entity.getCantidad(),
                 entity.getSubtotal(), 
                 vjId,
                 vjNombre,
-                vjPrecio
+                vjPrecio,
+                idCarrito
         );
     }
     
     public static List<ItemCarritoDTO> toItemCarritoDTOList(List<ItemCarrito> entities) {
         if (entities == null) return new ArrayList<>();
         return entities.stream()
-                .map(Mapeadores::toDTO)
+                .map(Mapeadores::toItemCarritoDTO)
                 .collect(Collectors.toList());
     }
     
-    public static CarritoDTO toDTO(Carrito entity) {
+    public static CarritoDTO toCarritoDTO(Carrito entity) {
         if (entity == null) return null;
 
         List<ItemCarritoDTO> items = toItemCarritoDTOList(entity.getItems());
@@ -164,7 +169,7 @@ public class Mapeadores {
         );
     }
     
-    public static DetallePedidoDTO toDTO(DetallePedido entity) {
+    public static DetallePedidoDTO toDetallePedidoDTO(DetallePedido entity) {
         if (entity == null) return null;
         
         String vjId = null;
@@ -174,37 +179,48 @@ public class Mapeadores {
             vjId = String.valueOf(entity.getVideojuego().getIdVideojuego());
             vjNombre = entity.getVideojuego().getNombre();
         }
+        
+        String idPedido = null;
+        if(entity.getPedido() != null)
+            idPedido = entity.getPedido().getIdPedido().toString();
 
         return new DetallePedidoDTO(
-                vjId,
-                vjNombre,
                 entity.getCantidad(),
                 entity.getPrecioUnitario(), 
-                entity.getImporte()       
+                entity.getImporte(),
+                vjId,
+                vjNombre,
+                idPedido
         );
     }
     
     public static List<DetallePedidoDTO> toDetallePedidoDTOList(List<DetallePedido> entities) {
         if (entities == null) return new ArrayList<>();
         return entities.stream()
-                .map(Mapeadores::toDTO)
+                .map(Mapeadores::toDetallePedidoDTO)
                 .collect(Collectors.toList());
     }
     
-    public static PedidoDTO toDTO(Pedido entity) {
+    public static PedidoDTO toPedidoDTO(Pedido entity) {
         if (entity == null) return null;
+        
+        String idCliente = null;
+        if(entity.getCliente() != null)
+            idCliente = entity.getCliente().getIdUsuario().toString();
+        
         return new PedidoDTO(
                 String.valueOf(entity.getIdPedido()),
                 entity.getEstadoPedido().name(),
                 entity.getTotalPagado(),
                 entity.getFechaPedido(),
-                toDTO(entity.getDireccionEnvio()), 
+                toDireccionEnvioDTO(entity.getDireccionEnvio()), 
                 toDetallePedidoDTOList(entity.getDetalles()), 
-                toDTO(entity.getPago())
+                toDTO(entity.getPago()),
+                idCliente
         );
     }
     
-    public static ResenaDTO toDTO(Resena entity) {
+    public static ResenaDTO toResenaDTO(Resena entity) {
         if (entity == null) return null;
 
         String clienteId = null;
@@ -214,6 +230,9 @@ public class Mapeadores {
             clienteId = String.valueOf(entity.getCliente().getIdUsuario());
             clienteNombre = entity.getCliente().getNombres();
         }
+        String idVideojuego = null;
+        if(entity.getVideojuego() != null) 
+            idVideojuego = entity.getVideojuego().getIdVideojuego().toString();
 
         return new ResenaDTO(
                 String.valueOf(entity.getIdResena()),
@@ -221,8 +240,14 @@ public class Mapeadores {
                 entity.getComentario(),
                 entity.getFechaResena(),
                 clienteId,
-                clienteNombre
+                clienteNombre,
+                idVideojuego
         );
+    }
+    
+    public static List<ResenaDTO> toResenasDTOList(List<Resena> entities){
+        if(entities == null) return new ArrayList<>();
+        return entities.stream().map(Mapeadores::toResenaDTO).collect(Collectors.toList());
     }
     
 }

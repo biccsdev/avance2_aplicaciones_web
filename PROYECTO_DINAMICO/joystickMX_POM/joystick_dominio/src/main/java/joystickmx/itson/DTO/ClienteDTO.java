@@ -17,12 +17,11 @@ public class ClienteDTO extends UsuarioDTO {
             String email, 
             String telefono,
             String estadoUsuario,
-            String rol,
             String contrasenia, 
             DireccionDTO direccion,
             CarritoDTO carrito
     ) {
-        super(nombres, apellidoPaterno, apellidoMaterno, email, telefono, estadoUsuario, rol, direccion);
+        super(nombres, apellidoPaterno, apellidoMaterno, email, telefono, estadoUsuario, direccion);
         this.carrito = carrito;
     }
 

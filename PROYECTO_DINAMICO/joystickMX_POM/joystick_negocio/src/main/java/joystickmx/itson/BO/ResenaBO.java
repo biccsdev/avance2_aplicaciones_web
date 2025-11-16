@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import joystickmx.itson.DAOS.ResenaDAO;
 import joystickmx.itson.DTO.ResenaDTO;
 import joystickmx.itson.Excepciones.PersistenciaException;
+import joystickmx.itson.Mappers.DTOMapeadores;
 import joystickmx.itson.Mappers.Mapeadores;
 import joystickmx.negocio.exception.NegocioException;
 
@@ -27,7 +28,7 @@ public class ResenaBO {
 
     public void crearResena(ResenaDTO dto) throws NegocioException {
         try {
-            this.resenaDAO.crearResena(Mapeadores.toEntity(dto));
+            this.resenaDAO.crearResena(DTOMapeadores.toResenaEntity(dto));
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al crear reseña: " + e.getMessage(), e);
         }
@@ -35,7 +36,7 @@ public class ResenaBO {
 
     public ResenaDTO actualizarResena(ResenaDTO dto) throws NegocioException {
         try {
-            return Mapeadores.toDTO(this.resenaDAO.actualizarResena(Mapeadores.toEntity(dto)));
+            return Mapeadores.toResenaDTO(this.resenaDAO.actualizarResena(DTOMapeadores.toResenaEntity(dto)));
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al actualizar reseña: " + e.getMessage(), e);
         }
@@ -52,7 +53,7 @@ public class ResenaBO {
     public List<ResenaDTO> buscarPorVideojuego(Long idVideojuego) throws NegocioException {
         try {
             return this.resenaDAO.buscarPorVideojuego(idVideojuego).stream()
-                    .map(Mapeadores::toDTO)
+                    .map(Mapeadores::toResenaDTO)
                     .collect(Collectors.toList());
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al buscar reseñas por videojuego: " + e.getMessage(), e);
@@ -62,7 +63,7 @@ public class ResenaBO {
     public List<ResenaDTO> buscarPorCliente(Long idCliente) throws NegocioException {
         try {
             return this.resenaDAO.buscarPorCliente(idCliente).stream()
-                    .map(Mapeadores::toDTO)
+                    .map(Mapeadores::toResenaDTO)
                     .collect(Collectors.toList());
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al buscar reseñas por cliente: " + e.getMessage(), e);
@@ -72,7 +73,7 @@ public class ResenaBO {
     public List<ResenaDTO> buscarTodas() throws NegocioException {
         try {
             return this.resenaDAO.buscarTodas().stream()
-                    .map(Mapeadores::toDTO)
+                    .map(Mapeadores::toResenaDTO)
                     .collect(Collectors.toList());
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al buscar todas las reseñas: " + e.getMessage(), e);

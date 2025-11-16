@@ -21,7 +21,6 @@ public class UsuarioDTO {
     private String email;
     private String telefono;
     private String estadoUsuario;
-    private String rol;
     private DireccionDTO direccion;
 
     public UsuarioDTO() {}
@@ -33,8 +32,7 @@ public class UsuarioDTO {
             String apellidoMaterno, 
             String email, 
             String telefono, 
-            String estadoUsuario, 
-            String rol, // Rol??
+            String estadoUsuario,
             DireccionDTO direccion
     ) {
         this.idUsuario = idUsuario;
@@ -44,7 +42,6 @@ public class UsuarioDTO {
         this.email = email;
         this.telefono = telefono;
         this.estadoUsuario = estadoUsuario;
-        this.rol = rol;
         this.direccion = direccion;
     }
     
@@ -54,8 +51,7 @@ public class UsuarioDTO {
             String apellidoMaterno, 
             String email, 
             String telefono, 
-            String estadoUsuario, 
-            String rol, 
+            String estadoUsuario,
             DireccionDTO direccion
     ) {
         this.nombres = nombres;
@@ -64,7 +60,6 @@ public class UsuarioDTO {
         this.email = email;
         this.telefono = telefono;
         this.estadoUsuario = estadoUsuario;
-        this.rol = rol;
         this.direccion = direccion;
     }
 
@@ -99,10 +94,6 @@ public class UsuarioDTO {
     public String getEstadoUsuario() {return estadoUsuario;}
 
     public void setEstadoUsuario(String estadoUsuario) {this.estadoUsuario = estadoUsuario;}
-    
-    public String getRol() {return rol;}
-
-    public void setRol(String rol) {this.rol = rol;}
 
     public DireccionDTO getDireccion() {return direccion;}
 

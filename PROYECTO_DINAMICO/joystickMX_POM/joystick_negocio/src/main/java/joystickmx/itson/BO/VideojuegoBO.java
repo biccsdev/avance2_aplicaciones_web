@@ -24,7 +24,7 @@ public class VideojuegoBO {
 
     public void crearVideojuego(VideojuegoDTO dto) throws NegocioException {
         try {
-            this.videojuegoDAO.persistir(DTOMapeadores.toEntityVideojuego(dto));
+            this.videojuegoDAO.persistir(DTOMapeadores.toVideojuegoEntity(dto));
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al crear videojuego: " + e.getMessage(), e);
         }
@@ -32,7 +32,7 @@ public class VideojuegoBO {
 
     public VideojuegoDTO actualizarVideojuego(VideojuegoDTO dto) throws NegocioException {
         try {
-            return Mapeadores.toDTO(this.videojuegoDAO.actualizar(DTOMapeadores.toEntityVideojuego(dto)));
+            return Mapeadores.toVideojuegoDTO(this.videojuegoDAO.actualizar(DTOMapeadores.toVideojuegoEntity(dto)));
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al actualizar videojuego: " + e.getMessage(), e);
         }
@@ -57,7 +57,7 @@ public class VideojuegoBO {
     public List<VideojuegoDTO> buscarTodosLosVideojuegos() throws NegocioException {
         try {
             return this.videojuegoDAO.buscarTodosLosVideojuegos().stream()
-                    .map(Mapeadores::toDTO)
+                    .map(Mapeadores::toVideojuegoDTO)
                     .collect(Collectors.toList());
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al buscar todos los videojuegos: " + e.getMessage(), e);
@@ -67,7 +67,7 @@ public class VideojuegoBO {
     public List<VideojuegoDTO> buscarVideojuegosActivos() throws NegocioException {
         try {
             return this.videojuegoDAO.buscarVideojuegosActivos().stream()
-                    .map(Mapeadores::toDTO)
+                    .map(Mapeadores::toVideojuegoDTO)
                     .collect(Collectors.toList());
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al buscar videojuegos activos: " + e.getMessage(), e);
@@ -77,7 +77,7 @@ public class VideojuegoBO {
     public List<VideojuegoDTO> buscarPorRangoDePrecio(Float min, Float max) throws NegocioException {
         try {
             return this.videojuegoDAO.buscarPorRangoDePrecio(min, max).stream()
-                    .map(Mapeadores::toDTO)
+                    .map(Mapeadores::toVideojuegoDTO)
                     .collect(Collectors.toList());
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al buscar por rango de precio: " + e.getMessage(), e);
@@ -87,7 +87,7 @@ public class VideojuegoBO {
     public List<VideojuegoDTO> buscarPorCategoria(Long idCategoria) throws NegocioException {
         try {
             return this.videojuegoDAO.buscarPorCategoria(idCategoria).stream()
-                    .map(Mapeadores::toDTO)
+                    .map(Mapeadores::toVideojuegoDTO)
                     .collect(Collectors.toList());
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al buscar por categoría: " + e.getMessage(), e);
@@ -97,7 +97,7 @@ public class VideojuegoBO {
     public List<VideojuegoDTO> buscarPorNombre(String nombre) throws NegocioException {
         try {
             return this.videojuegoDAO.buscarPorNombre(nombre).stream()
-                    .map(Mapeadores::toDTO)
+                    .map(Mapeadores::toVideojuegoDTO)
                     .collect(Collectors.toList());
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al buscar por nombre: " + e.getMessage(), e);
@@ -106,7 +106,7 @@ public class VideojuegoBO {
 
     public VideojuegoDTO buscarPorId(Long idVideojuego) throws NegocioException {
         try {
-            return Mapeadores.toDTO(this.videojuegoDAO.buscarPorId(idVideojuego));
+            return Mapeadores.toVideojuegoDTO(this.videojuegoDAO.buscarPorId(idVideojuego));
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al buscar videojuego por ID: " + e.getMessage(), e);
         }

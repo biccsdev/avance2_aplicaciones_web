@@ -1,11 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package joystickmx.itson.BO;
 
 import joystickmx.itson.DAOS.DireccionDAO;
 import joystickmx.itson.DTO.DireccionDTO;
+import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.Mappers.DTOMapeadores;
 import joystickmx.itson.entidades.Direccion;
 import joystickmx.negocio.exception.NegocioException;
@@ -24,9 +21,9 @@ public class DireccionBO {
 
     public boolean modificarDireccion(String email, DireccionDTO dto) throws NegocioException {
         try {
-            Direccion datosNuevos = DTOMapeadores.toEntity(dto);
-            return this.direccionDAO.modificarDireccion(email, datosNuevos);
-        } catch (Exception e) {
+            Direccion datosNuevos = DTOMapeadores.toDireccionEntity(dto);
+            return this.direccionDAO.actualizarDireccion(datosNuevos) != null;
+        } catch (PersistenciaException e) {
             throw new NegocioException("Error al modificar la dirección: " + e.getMessage(), e);
         }
     }

@@ -1,12 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package joystickmx.itson.BO;
 
 import java.util.List;
 import java.util.stream.Collectors;
 import joystickmx.itson.DAOS.ClienteDAO;
+import joystickmx.itson.DTO.ClienteDTO;
 import joystickmx.itson.DTO.UsuarioDTO;
 import joystickmx.itson.DTO.UsuarioRegistroDTO;
 import joystickmx.itson.Excepciones.PersistenciaException;
@@ -30,7 +27,7 @@ public class ClienteBO {
 
     public void crearCliente(UsuarioRegistroDTO dto) throws NegocioException {
         try {
-            Cliente nuevoCliente = DTOMapeadores.toEntity(dto);
+            Cliente nuevoCliente = DTOMapeadores.toClienteEntity(dto);
             this.clienteDAO.crearCliente(nuevoCliente);
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al registrar cliente: " + e.getMessage(), e);
@@ -40,7 +37,7 @@ public class ClienteBO {
     public List<UsuarioDTO> buscarUsuariosActivos() throws NegocioException {
         try {
             return this.clienteDAO.buscarClientesActivos().stream()
-                    .map(Mapeadores::toDTO)
+                    .map(Mapeadores::toUsuarioDTO)
                     .collect(Collectors.toList());
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al buscar clientes activos: " + e.getMessage(), e);
@@ -50,16 +47,16 @@ public class ClienteBO {
     public List<UsuarioDTO> buscarUsuariosInactivos() throws NegocioException {
         try {
             return this.clienteDAO.buscarClientesInactivos().stream()
-                    .map(Mapeadores::toDTO)
+                    .map(Mapeadores::toUsuarioDTO)
                     .collect(Collectors.toList());
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al buscar clientes inactivos: " + e.getMessage(), e);
         }
     }
 
-    public UsuarioDTO actualizarCliente(UsuarioDTO dto) throws NegocioException {
+    public UsuarioDTO actualizarCliente(ClienteDTO dto) throws NegocioException {
         try {
-            Cliente cliente = Mapeadores.toEntity(dto);
+            Cliente cliente = DTOMapeadores.toClienteEntity(dto);
             return Mapeadores.toDTO(this.clienteDAO.actualizarCliente(cliente));
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al actualizar cliente: " + e.getMessage(), e);
