@@ -1,4 +1,3 @@
-
 package joystickmx.itson.Mappers;
 
 import java.util.ArrayList;
@@ -42,8 +41,7 @@ public class Mapeadores {
                 entity.getColonia()
         );
     }
-
-
+    
     public static DireccionDTO toDTO(DireccionEnvio entity) {
         if (entity == null) return null;
         return new DireccionDTO(
@@ -52,12 +50,6 @@ public class Mapeadores {
                 entity.getColonia()
         );
     }
-
-
-    
-    
-    
-    
     
     public static CategoriaDTO toDTO(Categoria entity) {
         if (entity == null) return null;
@@ -75,14 +67,6 @@ public class Mapeadores {
                 .map(Mapeadores::toDTO)
                 .collect(Collectors.toList());
     }
-
-
-    
-    
-    
-    
-    
-    
     
     public static UsuarioDTO toDTO(Usuario entity) {
         if (entity == null) return null;
@@ -104,15 +88,6 @@ public class Mapeadores {
                 toDTO(entity.getDireccion()) 
         );
     }
-
-
-    
-    
-    
-    
-    
-    
-    
     
     public static VideojuegoDTO toDTO(Videojuego entity) {
         if (entity == null) return null;
@@ -126,18 +101,10 @@ public class Mapeadores {
                 entity.getDesarrollador(),
                 entity.getFechaLanzamiento(),
                 entity.getPlataforma(),
-                entity.getImagen(),
+                entity.getUrlImagen(),
                 toCategoriaDTOList(entity.getCategorias())
         );
     }
-
-
-    
-    
-    
-    
-    
-    
     
     public static ItemCarritoDTO toDTO(ItemCarrito entity) {
         if (entity == null) return null;
@@ -161,14 +128,6 @@ public class Mapeadores {
                 vjPrecio
         );
     }
-
-
-    
-    
-    
-    
-    
-    
     
     public static List<ItemCarritoDTO> toItemCarritoDTOList(List<ItemCarrito> entities) {
         if (entities == null) return new ArrayList<>();
@@ -176,14 +135,6 @@ public class Mapeadores {
                 .map(Mapeadores::toDTO)
                 .collect(Collectors.toList());
     }
-
-
-    
-    
-    
-    
-    
-    
     
     public static CarritoDTO toDTO(Carrito entity) {
         if (entity == null) return null;
@@ -201,13 +152,6 @@ public class Mapeadores {
                 total
         );
     }
-
-
-    
-
-    
-    
-    
     
     public static PagoDTO toDTO(Pago entity) {
         if (entity == null) return null;
@@ -219,14 +163,6 @@ public class Mapeadores {
                 entity.getFechaPago()
         );
     }
-
-
-    
-    
-    
-    
-    
-    
     
     public static DetallePedidoDTO toDTO(DetallePedido entity) {
         if (entity == null) return null;
@@ -247,17 +183,6 @@ public class Mapeadores {
                 entity.getImporte()       
         );
     }
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     public static List<DetallePedidoDTO> toDetallePedidoDTOList(List<DetallePedido> entities) {
         if (entities == null) return new ArrayList<>();
@@ -265,8 +190,7 @@ public class Mapeadores {
                 .map(Mapeadores::toDTO)
                 .collect(Collectors.toList());
     }
-
-
+    
     public static PedidoDTO toDTO(Pedido entity) {
         if (entity == null) return null;
         return new PedidoDTO(
@@ -279,18 +203,6 @@ public class Mapeadores {
                 toDTO(entity.getPago())
         );
     }
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     public static ResenaDTO toDTO(Resena entity) {
         if (entity == null) return null;
@@ -312,8 +224,5 @@ public class Mapeadores {
                 clienteNombre
         );
     }
-    
-    
-    
     
 }

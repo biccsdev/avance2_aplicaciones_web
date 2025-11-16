@@ -16,73 +16,70 @@ public class ResenaDTO {
     private float calificacion;
     private String comentario;
     private LocalDate fechaResena;
-    
+    // Pienso que a lo mejor se debería referenciar a las clases tal cual, pero no sé...
     private String idCliente;
     private String nombreCliente;
+    private String idVideojuego; // Pienso que la reseña también debería referenciar al videojuego
 
-    public ResenaDTO() {
-    }
+    public ResenaDTO() {}
 
-    public ResenaDTO(String idResena, float calificacion, String comentario, LocalDate fechaResena, String idCliente, String nombreCliente) {
+    public ResenaDTO(
+            String idResena, 
+            float calificacion, 
+            String comentario, 
+            LocalDate fechaResena, 
+            String idCliente, 
+            String nombreCliente,
+            String idVideojuego
+    ) {
         this.idResena = idResena;
         this.calificacion = calificacion;
         this.comentario = comentario;
         this.fechaResena = fechaResena;
         this.idCliente = idCliente;
         this.nombreCliente = nombreCliente;
+        this.idVideojuego = idVideojuego;
     }
 
-    public String getIdResena() {
-        return idResena;
-    }
-
-    public void setIdResena(String idResena) {
-        this.idResena = idResena;
-    }
-
-    public float getCalificacion() {
-        return calificacion;
-    }
-
-    public void setCalificacion(float calificacion) {
+    public ResenaDTO(
+            float calificacion, 
+            String comentario, 
+            LocalDate fechaResena, 
+            String idCliente, 
+            String nombreCliente
+    ) {
         this.calificacion = calificacion;
-    }
-
-    public String getComentario() {
-        return comentario;
-    }
-
-    public void setComentario(String comentario) {
         this.comentario = comentario;
-    }
-
-    public LocalDate getFechaResena() {
-        return fechaResena;
-    }
-
-    public void setFechaResena(LocalDate fechaResena) {
         this.fechaResena = fechaResena;
-    }
-
-    public String getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(String idCliente) {
         this.idCliente = idCliente;
-    }
-
-    public String getNombreCliente() {
-        return nombreCliente;
-    }
-
-    public void setNombreCliente(String nombreCliente) {
         this.nombreCliente = nombreCliente;
     }
+    
+    public String getIdResena() {return idResena;}
 
-    
-    
-    
-    
-    
+    public void setIdResena(String idResena) {this.idResena = idResena;}
+
+    public float getCalificacion() {return calificacion;}
+
+    public void setCalificacion(float calificacion) {this.calificacion = calificacion;}
+
+    public String getComentario() {return comentario;}
+
+    public void setComentario(String comentario) {this.comentario = comentario;}
+
+    public LocalDate getFechaResena() {return fechaResena;}
+
+    public void setFechaResena(LocalDate fechaResena) {this.fechaResena = fechaResena;}
+
+    public String getIdCliente() {return idCliente;}
+
+    public void setIdCliente(String idCliente) {this.idCliente = idCliente;}
+
+    public String getNombreCliente() {return nombreCliente;}
+
+    public void setNombreCliente(String nombreCliente) {this.nombreCliente = nombreCliente;}
+
+    public String getIdVideojuego() {return idVideojuego;}
+
+    public void setIdVideojuego(String idVideojuego) {this.idVideojuego = idVideojuego;}
 }

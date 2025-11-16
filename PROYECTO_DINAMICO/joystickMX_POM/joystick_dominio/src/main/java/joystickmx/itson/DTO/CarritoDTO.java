@@ -18,8 +18,7 @@ public class CarritoDTO {
     private List<ItemCarritoDTO> items;
     private Float total; 
 
-    public CarritoDTO() {
-    }
+    public CarritoDTO() {}
 
     public CarritoDTO(String idCarrito, LocalDate fechaCreacion, List<ItemCarritoDTO> items, Float total) {
         this.idCarrito = idCarrito;
@@ -28,46 +27,44 @@ public class CarritoDTO {
         this.total = total;
     }
 
-    
-    
-    
-    
-    public String getIdCarrito() {
-        return idCarrito;
-    }
-
-    public void setIdCarrito(String idCarrito) {
-        this.idCarrito = idCarrito;
-    }
-
-    public LocalDate getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public void setFechaCreacion(LocalDate fechaCreacion) {
+    public CarritoDTO(LocalDate fechaCreacion, List<ItemCarritoDTO> items, Float total) {
         this.fechaCreacion = fechaCreacion;
-    }
-
-    public List<ItemCarritoDTO> getItems() {
-        return items;
-    }
-
-    public void setItems(List<ItemCarritoDTO> items) {
         this.items = items;
-    }
-
-    public Float getTotal() {
-        return total;
-    }
-
-    public void setTotal(Float total) {
         this.total = total;
     }
+    
+    public String getIdCarrito() {return idCarrito;}
 
+    public void setIdCarrito(String idCarrito) {this.idCarrito = idCarrito;}
 
-  
+    public LocalDate getFechaCreacion() {return fechaCreacion;}
+
+    public void setFechaCreacion(LocalDate fechaCreacion) {this.fechaCreacion = fechaCreacion;}
+
+    public List<ItemCarritoDTO> getItems() {return items;}
     
+    public void setItems(List<ItemCarritoDTO> items) {
+        this.items = items;
+        items.stream().forEach(i -> {
+            total += i.getSubtotal();
+        });
+    }
     
+    public void agregarItem(ItemCarritoDTO item){
+        if(!items.contains(item)){
+            items.add(item);
+            total += item.getSubtotal();
+        }
+    }
     
+    public void eliminarItem(ItemCarritoDTO item){
+        if(items.contains(item)){
+            items.remove(item);
+            total -= item.getCantidad();
+        }
+    }
     
+    public Float getTotal() {return total;}
+
+    public void setTotal(Float total) {this.total = total;}    
 }

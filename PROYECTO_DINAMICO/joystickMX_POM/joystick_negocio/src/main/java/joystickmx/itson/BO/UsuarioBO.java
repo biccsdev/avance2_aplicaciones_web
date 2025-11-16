@@ -1,12 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package joystickmx.itson.BO;
 
 import joystickmx.itson.DAOS.UsuarioDAO;
 import joystickmx.itson.DTO.UsuarioDTO;
+import joystickmx.itson.DTO.UsuarioRegistroDTO;
 import joystickmx.itson.Excepciones.PersistenciaException;
+import joystickmx.itson.Mappers.DTOMapeadores;
 import joystickmx.itson.Mappers.Mapeadores;
 import joystickmx.negocio.exception.NegocioException;
 
@@ -22,18 +20,18 @@ public class UsuarioBO {
     public UsuarioBO(UsuarioDAO usuarioDAO) {
         this.usuarioDAO = usuarioDAO;
     }
-
-    public void crearUsuario(UsuarioDTO dto) throws NegocioException {
+    // Puse un UsuarioRegistroDTO por mientras, ya que pienso que esta clase ni siquiera debería existir jaja
+    public void crearUsuario(UsuarioRegistroDTO dto) throws NegocioException {
         try {
-            this.usuarioDAO.crearUsuario(Mapeadores.toEntity(dto));
+            this.usuarioDAO.crearUsuario(DTOMapeadores.toEntity(dto));
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al crear usuario: " + e.getMessage(), e);
         }
     }
-
-    public UsuarioDTO actualizarUsuario(UsuarioDTO dto) throws NegocioException {
+    // Puse un UsuarioRegistroDTO por mientras, ya que pienso que esta clase ni siquiera debería existir jaja
+    public UsuarioDTO actualizarUsuario(UsuarioRegistroDTO dto) throws NegocioException {
         try {
-            return Mapeadores.toDTO(this.usuarioDAO.actualizar(Mapeadores.toEntity(dto)));
+            return Mapeadores.toDTO(this.usuarioDAO.actualizar(DTOMapeadores.toEntity(dto)));
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al actualizar usuario: " + e.getMessage(), e);
         }

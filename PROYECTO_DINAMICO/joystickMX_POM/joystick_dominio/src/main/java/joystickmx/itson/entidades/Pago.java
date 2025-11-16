@@ -7,8 +7,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -49,10 +47,6 @@ public class Pago implements Serializable{
     @FutureOrPresent(message = "La fecha del pago no puede ser menor que la actual.")
     private LocalDateTime fechaPago;
 
-    @OneToOne
-    @JoinColumn(name = "id_pedido", nullable = false, unique = true)
-    private Pedido pedido;
-
     public Pago() {}
 
     public Pago(
@@ -60,15 +54,13 @@ public class Pago implements Serializable{
             Float monto, 
             MetodoPago metodoPago, 
             EstadoPago estadoPago, 
-            LocalDateTime fechaPago, 
-            Pedido pedido
+            LocalDateTime fechaPago
     ) {
         this.idPago = idPago;
         this.monto = monto;
         this.metodoPago = metodoPago;
         this.estadoPago = estadoPago;
         this.fechaPago = fechaPago;
-        this.pedido = pedido;
     }
     
     public Long getIdPago() {return idPago;}
@@ -90,8 +82,4 @@ public class Pago implements Serializable{
     public LocalDateTime getFechaPago() {return fechaPago;}
 
     public void setFechaPago(LocalDateTime fechaPago) {this.fechaPago = fechaPago;}
-
-    public Pedido getPedido() {return pedido;}
-
-    public void setPedido(Pedido pedido) {this.pedido = pedido;}
 }

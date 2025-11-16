@@ -1,5 +1,4 @@
 package joystickmx.itson.DTO;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,11 +21,20 @@ public class PedidoDTO {
     private DireccionDTO direccionEnvio;
     private List<DetallePedidoDTO> detalles;
     private PagoDTO pago;
+    private String idCliente;
 
-    public PedidoDTO() {
-    }
+    public PedidoDTO() {}
 
-    public PedidoDTO(String idPedido, String estadoPedido, Float totalPagado, LocalDateTime fechaPedido, DireccionDTO direccionEnvio, List<DetallePedidoDTO> detalles, PagoDTO pago) {
+    public PedidoDTO(
+            String idPedido, 
+            String estadoPedido, 
+            Float totalPagado, 
+            LocalDateTime fechaPedido, 
+            DireccionDTO direccionEnvio, 
+            List<DetallePedidoDTO> detalles, 
+            PagoDTO pago,
+            String idCliente
+    ) {
         this.idPedido = idPedido;
         this.estadoPedido = estadoPedido;
         this.totalPagado = totalPagado;
@@ -34,64 +42,56 @@ public class PedidoDTO {
         this.direccionEnvio = direccionEnvio;
         this.detalles = detalles;
         this.pago = pago;
+        this.idCliente = idCliente;
     }
 
-    public String getIdPedido() {
-        return idPedido;
-    }
-
-    public void setIdPedido(String idPedido) {
-        this.idPedido = idPedido;
-    }
-
-    public String getEstadoPedido() {
-        return estadoPedido;
-    }
-
-    public void setEstadoPedido(String estadoPedido) {
+    public PedidoDTO(
+            String estadoPedido, 
+            Float totalPagado, 
+            LocalDateTime fechaPedido, 
+            DireccionDTO direccionEnvio, 
+            List<DetallePedidoDTO> detalles, 
+            PagoDTO pago,
+            String idCliente
+    ) {
         this.estadoPedido = estadoPedido;
-    }
-
-    public Float getTotalPagado() {
-        return totalPagado;
-    }
-
-    public void setTotalPagado(Float totalPagado) {
         this.totalPagado = totalPagado;
-    }
-
-    public LocalDateTime getFechaPedido() {
-        return fechaPedido;
-    }
-
-    public void setFechaPedido(LocalDateTime fechaPedido) {
         this.fechaPedido = fechaPedido;
-    }
-
-    public DireccionDTO getDireccionEnvio() {
-        return direccionEnvio;
-    }
-
-    public void setDireccionEnvio(DireccionDTO direccionEnvio) {
         this.direccionEnvio = direccionEnvio;
-    }
-
-    public List<DetallePedidoDTO> getDetalles() {
-        return detalles;
-    }
-
-    public void setDetalles(List<DetallePedidoDTO> detalles) {
         this.detalles = detalles;
-    }
-
-    public PagoDTO getPago() {
-        return pago;
-    }
-
-    public void setPago(PagoDTO pago) {
         this.pago = pago;
+        this.idCliente = idCliente;
     }
     
-    
-    
+    public String getIdPedido() {return idPedido;}
+
+    public void setIdPedido(String idPedido) {this.idPedido = idPedido;}
+
+    public String getEstadoPedido() {return estadoPedido;}
+
+    public void setEstadoPedido(String estadoPedido) {this.estadoPedido = estadoPedido;}
+
+    public Float getTotalPagado() {return totalPagado;}
+
+    public void setTotalPagado(Float totalPagado) {this.totalPagado = totalPagado;}
+
+    public LocalDateTime getFechaPedido() {return fechaPedido;}
+
+    public void setFechaPedido(LocalDateTime fechaPedido) {this.fechaPedido = fechaPedido;}
+
+    public DireccionDTO getDireccionEnvio() {return direccionEnvio;}
+
+    public void setDireccionEnvio(DireccionDTO direccionEnvio) {this.direccionEnvio = direccionEnvio;}
+
+    public List<DetallePedidoDTO> getDetalles() {return detalles;}
+
+    public void setDetalles(List<DetallePedidoDTO> detalles) {this.detalles = detalles;}
+
+    public PagoDTO getPago() {return pago;}
+
+    public void setPago(PagoDTO pago) {this.pago = pago;}
+
+    public String getIdCliente() {return idCliente;}
+
+    public void setIdCliente(String idCliente) {this.idCliente = idCliente;}
 }

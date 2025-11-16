@@ -18,12 +18,8 @@ public class CategoriaDTO {
     private String nombre;
     private String descripcion;
 
-    public CategoriaDTO() {
-    }
+    public CategoriaDTO() {}
 
-    
-    
-    
     /**
      * Método constructor para instanciar la clase CategoríaDTO
      * @param idCategoria Representa el identificador de la categoría
@@ -36,19 +32,14 @@ public class CategoriaDTO {
         this.descripcion = descripcion;
     }
     
-    /**
+    /*
      * Getters para cada atributo de la clase 
      */
-    public String getIdCategoria() {
-        return idCategoria;
-    }
+    
+    public String getIdCategoria() {return idCategoria;}
 
-    public String getNombre() {
-        return nombre;
-    }
+    public String getNombre() {return nombre;}
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+    public String getDescripcion() {return descripcion;}
     
 }

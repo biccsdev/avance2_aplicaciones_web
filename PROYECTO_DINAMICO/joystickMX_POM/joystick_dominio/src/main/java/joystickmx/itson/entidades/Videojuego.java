@@ -9,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -39,9 +38,6 @@ public class Videojuego implements Serializable {
     @Column(nullable = false, length = 100)
     @NotBlank(message = "El nombre no puede estar vacío.")
     private String nombre;
-    
-    @Column(name = "habilitado", nullable = false)
-    private boolean habilitado = true; 
 
     @Column(length = 300)
     private String descripcion;
@@ -55,9 +51,9 @@ public class Videojuego implements Serializable {
     @Max(value = Integer.MAX_VALUE, message = "Límite de existencias superado.")
     private Integer existencias;
     
-    @Lob
-    @Column(columnDefinition = "MEDIUMBLOB", name = "imagen", nullable = false)
-    private byte[] imagen;
+    @Column(nullable = false, length = 200)
+    @NotBlank(message = "La url de la imagen no puede estar vacía.")
+    private String urlImagen;
 
     @Column(nullable = false, length = 100)
     @NotBlank(message = "El desarrollador no puede estar vacío.")
@@ -68,7 +64,10 @@ public class Videojuego implements Serializable {
 
     @Column(nullable = false, length = 50)
     private String plataforma;
-
+    
+    @Column(nullable = false)
+    private boolean habilitado = true; 
+    
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "videojuego_categoria",
@@ -88,14 +87,14 @@ public class Videojuego implements Serializable {
 
     public Videojuego() {}
 
-    public Videojuego(Long idVideojuego, String nombre, boolean habilitado, String descripcion, Float precio, Integer existencias, byte[] imagen, String desarrollador, LocalDate fechaLanzamiento, String plataforma, List<Categoria> categorias, List<DetallePedido> detallesPedidos, List<ItemCarrito> itemsCarrito, List<Resena> resenas) {
+    public Videojuego(Long idVideojuego, String nombre, boolean habilitado, String descripcion, Float precio, Integer existencias, String urlImagen, String desarrollador, LocalDate fechaLanzamiento, String plataforma, List<Categoria> categorias, List<DetallePedido> detallesPedidos, List<ItemCarrito> itemsCarrito, List<Resena> resenas) {
         this.idVideojuego = idVideojuego;
         this.nombre = nombre;
         this.habilitado = habilitado;
         this.descripcion = descripcion;
         this.precio = precio;
         this.existencias = existencias;
-        this.imagen = imagen;
+        this.urlImagen = urlImagen;
         this.desarrollador = desarrollador;
         this.fechaLanzamiento = fechaLanzamiento;
         this.plataforma = plataforma;
@@ -105,31 +104,20 @@ public class Videojuego implements Serializable {
         this.resenas = resenas;
     }
 
-    public Videojuego(Long idVideojuego, String nombre, boolean habilitado, String descripcion, Float precio, Integer existencias, byte[] imagen, String desarrollador, LocalDate fechaLanzamiento, String plataforma, List<DetallePedido> detallesPedidos) {
+    public Videojuego(Long idVideojuego, String nombre, boolean habilitado, String descripcion, Float precio, Integer existencias, String urlImagen, String desarrollador, LocalDate fechaLanzamiento, String plataforma, List<DetallePedido> detallesPedidos) {
         this.idVideojuego = idVideojuego;
         this.nombre = nombre;
         this.habilitado = habilitado;
         this.descripcion = descripcion;
         this.precio = precio;
         this.existencias = existencias;
-        this.imagen = imagen;
+        this.urlImagen = urlImagen;
         this.desarrollador = desarrollador;
         this.fechaLanzamiento = fechaLanzamiento;
         this.plataforma = plataforma;
         this.detallesPedidos = detallesPedidos;
     }
-
-    public boolean isHabilitado() {
-        return habilitado;
-    }
-
-    public void setHabilitado(boolean habilitado) {
-        this.habilitado = habilitado;
-    }
     
-
-    
-
     public Long getIdVideojuego() {return idVideojuego;}
 
     public void setIdVideojuego(Long idVideojuego) {this.idVideojuego = idVideojuego;}
@@ -150,10 +138,6 @@ public class Videojuego implements Serializable {
 
     public void setExistencias(Integer existencias) {this.existencias = existencias;}
 
-    public byte[] getUrlImagen() {return imagen;}
-
-    public void setUrlImagen(byte[] imagen) {this.imagen = imagen;}
-
     public String getDesarrollador() {return desarrollador;}
 
     public void setDesarrollador(String desarrollador) {this.desarrollador = desarrollador;}
@@ -165,7 +149,11 @@ public class Videojuego implements Serializable {
     public String getPlataforma() {return plataforma;}
 
     public void setPlataforma(String plataforma) {this.plataforma = plataforma;}
+    
+    public boolean isHabilitado() {return habilitado;}
 
+    public void setHabilitado(boolean habilitado) {this.habilitado = habilitado;}
+    
     public List<Categoria> getCategorias() {return categorias;}
 
     public void setCategorias(List<Categoria> categorias) {this.categorias = categorias;}
@@ -174,9 +162,9 @@ public class Videojuego implements Serializable {
 
     public void setDetallesPedidos(List<DetallePedido> detallesPedidos) {this.detallesPedidos = detallesPedidos;}
 
-    public byte[] getImagen() {return imagen;}
+    public String getUrlImagen() {return urlImagen;}
 
-    public void setImagen(byte[] imagen) {this.imagen = imagen;}
+    public void setUrlImagen(String urlImagen) {this.urlImagen = urlImagen;}
 
     public List<ItemCarrito> getItemsCarrito() {return itemsCarrito;}
 

@@ -1,5 +1,4 @@
 package joystickmx.itson.DTO;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 /**
  * PagoDTO - Data Transfer Object para Pago
@@ -19,10 +18,15 @@ public class PagoDTO {
     private String estadoPago; 
     private LocalDateTime fechaPago;
 
-    public PagoDTO() {
-    }
+    public PagoDTO() {}
 
-    public PagoDTO(String idPago, Float monto, String metodoPago, String estadoPago, LocalDateTime fechaPago) {
+    public PagoDTO(
+            String idPago, 
+            Float monto, 
+            String metodoPago, 
+            String estadoPago, 
+            LocalDateTime fechaPago
+    ) {
         this.idPago = idPago;
         this.monto = monto;
         this.metodoPago = metodoPago;
@@ -30,51 +34,35 @@ public class PagoDTO {
         this.fechaPago = fechaPago;
     }
 
-    public String getIdPago() {
-        return idPago;
-    }
-
-    public void setIdPago(String idPago) {
-        this.idPago = idPago;
-    }
-
-    public Float getMonto() {
-        return monto;
-    }
-
-    public void setMonto(Float monto) {
+    public PagoDTO(
+            Float monto, 
+            String metodoPago, 
+            String estadoPago, 
+            LocalDateTime fechaPago
+    ) {
         this.monto = monto;
-    }
-
-    public String getMetodoPago() {
-        return metodoPago;
-    }
-
-    public void setMetodoPago(String metodoPago) {
         this.metodoPago = metodoPago;
-    }
-
-    public String getEstadoPago() {
-        return estadoPago;
-    }
-
-    public void setEstadoPago(String estadoPago) {
         this.estadoPago = estadoPago;
-    }
-
-    public LocalDateTime getFechaPago() {
-        return fechaPago;
-    }
-
-    public void setFechaPago(LocalDateTime fechaPago) {
         this.fechaPago = fechaPago;
     }
+    
+    public String getIdPago() {return idPago;}
 
+    public void setIdPago(String idPago) {this.idPago = idPago;}
 
-    
-    
-    
-    
-    
-    
+    public Float getMonto() {return monto;}
+
+    public void setMonto(Float monto) {this.monto = monto;}
+
+    public String getMetodoPago() {return metodoPago;}
+
+    public void setMetodoPago(String metodoPago) {this.metodoPago = metodoPago;}
+
+    public String getEstadoPago() {return estadoPago;}
+
+    public void setEstadoPago(String estadoPago) {this.estadoPago = estadoPago;}
+
+    public LocalDateTime getFechaPago() {return fechaPago;}
+
+    public void setFechaPago(LocalDateTime fechaPago) {this.fechaPago = fechaPago;}
 }

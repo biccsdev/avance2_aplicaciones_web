@@ -22,13 +22,26 @@ public class VideojuegoDTO {
     private String desarrollador;
     private LocalDate fechaLanzamiento;
     private String plataforma;
-    private byte[] imagen; 
-    private List<CategoriaDTO> categorias; 
+    private String urlImagen; 
+    private List<CategoriaDTO> categorias;
+    private List<ResenaDTO> resenas;
 
-    public VideojuegoDTO() {
-    }
+    public VideojuegoDTO() {}
 
-    public VideojuegoDTO(String idVideojuego, String nombre, String descripcion, Float precio, Integer existencias, boolean habilitado, String desarrollador, LocalDate fechaLanzamiento, String plataforma, byte[] imagen, List<CategoriaDTO> categorias) {
+    public VideojuegoDTO(
+            String idVideojuego, 
+            String nombre, 
+            String descripcion, 
+            Float precio, 
+            Integer existencias, 
+            boolean habilitado, 
+            String desarrollador, 
+            LocalDate fechaLanzamiento, 
+            String plataforma, 
+            String urlImagen, 
+            List<CategoriaDTO> categorias,
+            List<ResenaDTO> resenas
+    ) {
         this.idVideojuego = idVideojuego;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -38,12 +51,24 @@ public class VideojuegoDTO {
         this.desarrollador = desarrollador;
         this.fechaLanzamiento = fechaLanzamiento;
         this.plataforma = plataforma;
-        this.imagen = imagen;
+        this.urlImagen = urlImagen;
         this.categorias = categorias;
+        this.resenas = resenas;
     }
 
-    public VideojuegoDTO(String idVideojuego, String nombre, String descripcion, Float precio, Integer existencias, boolean habilitado, String desarrollador, LocalDate fechaLanzamiento, String plataforma) {
-        this.idVideojuego = idVideojuego;
+    public VideojuegoDTO(
+            String nombre, 
+            String descripcion, 
+            Float precio, 
+            Integer existencias, 
+            boolean habilitado, 
+            String desarrollador, 
+            LocalDate fechaLanzamiento, 
+            String plataforma, 
+            String urlImagen, 
+            List<CategoriaDTO> categorias,
+            List<ResenaDTO> resenas
+    ) {
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
@@ -52,100 +77,54 @@ public class VideojuegoDTO {
         this.desarrollador = desarrollador;
         this.fechaLanzamiento = fechaLanzamiento;
         this.plataforma = plataforma;
+        this.urlImagen = urlImagen;
+        this.categorias = categorias;
+        this.resenas = resenas;
     }
-
     
-    
-    
-    
-    
-
-    
-    
-    
-
-
     /**
      * Getters para cada atributo de la clase
      * @return 
      */
-    public String getIdVideojuego() {
-        return idVideojuego;
-    }
+    public String getIdVideojuego() {return idVideojuego;}
 
-    public String getPlataforma() {
-        return plataforma;
-    }
+    public String getPlataforma() {return plataforma;}
 
-    public LocalDate getFechaLanzamiento() {
-        return fechaLanzamiento;
-    }
+    public LocalDate getFechaLanzamiento() {return fechaLanzamiento;}
     
-    public String getNombre() {
-        return nombre;
-    }
+    public String getNombre() {return nombre;}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    public void setNombre(String nombre) {this.nombre = nombre;}
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+    public String getDescripcion() {return descripcion;}
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+    public void setDescripcion(String descripcion) {this.descripcion = descripcion;}
 
-    public Float getPrecio() {
-        return precio;
-    }
+    public Float getPrecio() {return precio;}
 
-    public void setPrecio(Float precio) {
-        this.precio = precio;
-    }
+    public void setPrecio(Float precio) {this.precio = precio;}
 
-    public Integer getExistencias() {
-        return existencias;
-    }
+    public Integer getExistencias() {return existencias;}
 
-    public void setExistencias(Integer existencias) {
-        this.existencias = existencias;
-    }
+    public void setExistencias(Integer existencias) {this.existencias = existencias;}
 
-    public boolean isHabilitado() {
-        return habilitado;
-    }
+    public boolean isHabilitado() {return habilitado;}
 
-    public void setHabilitado(boolean habilitado) {
-        this.habilitado = habilitado;
-    }
+    public void setHabilitado(boolean habilitado) {this.habilitado = habilitado;}
 
-    public String getDesarrollador() {
-        return desarrollador;
-    }
+    public String getDesarrollador() {return desarrollador;}
 
-    public void setDesarrollador(String desarrollador) {
-        this.desarrollador = desarrollador;
-    }
+    public void setDesarrollador(String desarrollador) {this.desarrollador = desarrollador;}
 
-    public byte[] getImagen() {
-        return imagen;
-    }
+    public String getUrlImagen() {return urlImagen;}
 
-    public void setImagen(byte[] imagen) {
-        this.imagen = imagen;
-    }
+    public void setUrlImagen(String urlImagen) {this.urlImagen = urlImagen;}
 
-    public List<CategoriaDTO> getCategorias() {
-        return categorias;
-    }
+    public List<CategoriaDTO> getCategorias() {return categorias;}
 
-    public void setCategorias(List<CategoriaDTO> categorias) {
-        this.categorias = categorias;
-    }
+    public void setCategorias(List<CategoriaDTO> categorias) {this.categorias = categorias;}
 
-    
-    
-    
+    public List<ResenaDTO> getResenas() {return resenas;}
+
+    public void setResenas(List<ResenaDTO> resenas) {this.resenas = resenas;}
 }

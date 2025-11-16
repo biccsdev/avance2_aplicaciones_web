@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package joystickmx.itson.BO;
 
 import java.util.List;
@@ -9,6 +5,7 @@ import java.util.stream.Collectors;
 import joystickmx.itson.DAOS.VideojuegoDAO;
 import joystickmx.itson.DTO.VideojuegoDTO;
 import joystickmx.itson.Excepciones.PersistenciaException;
+import joystickmx.itson.Mappers.DTOMapeadores;
 import joystickmx.itson.Mappers.Mapeadores;
 import joystickmx.negocio.exception.NegocioException;
 
@@ -27,7 +24,7 @@ public class VideojuegoBO {
 
     public void crearVideojuego(VideojuegoDTO dto) throws NegocioException {
         try {
-            this.videojuegoDAO.persistir(Mapeadores.toEntity(dto));
+            this.videojuegoDAO.persistir(DTOMapeadores.toEntityVideojuego(dto));
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al crear videojuego: " + e.getMessage(), e);
         }
@@ -35,7 +32,7 @@ public class VideojuegoBO {
 
     public VideojuegoDTO actualizarVideojuego(VideojuegoDTO dto) throws NegocioException {
         try {
-            return Mapeadores.toDTO(this.videojuegoDAO.actualizar(Mapeadores.toEntity(dto)));
+            return Mapeadores.toDTO(this.videojuegoDAO.actualizar(DTOMapeadores.toEntityVideojuego(dto)));
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al actualizar videojuego: " + e.getMessage(), e);
         }
@@ -113,11 +110,5 @@ public class VideojuegoBO {
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al buscar videojuego por ID: " + e.getMessage(), e);
         }
-    }
-    
-    
-    
-    
-    
-    
+    }    
 }

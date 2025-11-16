@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package joystickmx.itson.DTO;
 
 /**
@@ -11,23 +7,24 @@ package joystickmx.itson.DTO;
 public class UsuarioRegistroDTO {
 
     private String nombres;
-
-    private String apellidoPaterno;
-    
+    private String apellidoPaterno;   
     private String apellidoMaterno;
-
     private String email;
-
     private String telefono;
-
     private String contrasenia;
-
     private DireccionDTO direccion;
 
-    public UsuarioRegistroDTO() {
-    }
+    public UsuarioRegistroDTO() {}
 
-    public UsuarioRegistroDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String email, String telefono, String contrasenia, DireccionDTO direccion) {
+    public UsuarioRegistroDTO(
+            String nombres, 
+            String apellidoPaterno, 
+            String apellidoMaterno, 
+            String email, 
+            String telefono, 
+            String contrasenia, 
+            DireccionDTO direccion
+    ) {
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -36,72 +33,32 @@ public class UsuarioRegistroDTO {
         this.contrasenia = contrasenia;
         this.direccion = direccion;
     }
-
-
     
-    
-    
+    public String getNombres() {return nombres;}
 
-    public String getNombres() {
-        return nombres;
-    }
+    public void setNombres(String nombres) {this.nombres = nombres;}
 
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
-    }
+    public String getApellidoPaterno() {return apellidoPaterno;}
 
-    public String getApellidoPaterno() {
-        return apellidoPaterno;
-    }
+    public void setApellidoPaterno(String apellidoPaterno) {this.apellidoPaterno = apellidoPaterno;}
 
-    public void setApellidoPaterno(String apellidoPaterno) {
-        this.apellidoPaterno = apellidoPaterno;
-    }
+    public String getApellidoMaterno() {return apellidoMaterno;}
 
-    public String getApellidoMaterno() {
-        return apellidoMaterno;
-    }
+    public void setApellidoMaterno(String apellidoMaterno) {this.apellidoMaterno = apellidoMaterno;}
 
-    public void setApellidoMaterno(String apellidoMaterno) {
-        this.apellidoMaterno = apellidoMaterno;
-    }
+    public String getEmail() {return email;}
 
-    public String getEmail() {
-        return email;
-    }
+    public void setEmail(String email) {this.email = email;}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public String getTelefono() {return telefono;}
 
-    public String getTelefono() {
-        return telefono;
-    }
+    public void setTelefono(String telefono) {this.telefono = telefono;}
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
+    public String getContrasenia() {return contrasenia;}
 
-    public String getContrasenia() {
-        return contrasenia;
-    }
+    public void setContrasenia(String contrasenia) {this.contrasenia = contrasenia;}
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
-    }
+    public DireccionDTO getDireccion() {return direccion;}
 
-    public DireccionDTO getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(DireccionDTO direccion) {
-        this.direccion = direccion;
-    }
-    
-
-    
-    
-    
-    
-    
+    public void setDireccion(DireccionDTO direccion) {this.direccion = direccion;}
 }

@@ -20,30 +20,23 @@ public class UsuarioDTO {
     private String apellidoMaterno;
     private String email;
     private String telefono;
-    private EstadoUsuario estadoUsuario;
+    private String estadoUsuario;
     private String rol;
     private DireccionDTO direccion;
 
+    public UsuarioDTO() {}
     
-    
-    
-        /**
-     * Método constructor para instanciar la clase UsuarioDTO
-     * @param idUsuario Representa el identificador del usuario
-     * @param nombres
-     * @param apellidoPaterno Representa el apellido paterno del usuario
-     * @param apellidoMaterno Representa el apellido materno del usuario
-     * @param email Representa el email del usuario
-     * @param telefono Representa el telédono del usuario
-     * @param estadoUsuario Representa el estado del usuario
-     * @param rol
-     * @param direccion Representa la dirección del usuario
-     */
-
-
-    
-    
-    public UsuarioDTO(String idUsuario, String nombres, String apellidoPaterno, String apellidoMaterno, String email, String telefono, EstadoUsuario estadoUsuario, String rol, DireccionDTO direccion) {
+    public UsuarioDTO(
+            String idUsuario, 
+            String nombres, 
+            String apellidoPaterno, 
+            String apellidoMaterno, 
+            String email, 
+            String telefono, 
+            String estadoUsuario, 
+            String rol, // Rol??
+            DireccionDTO direccion
+    ) {
         this.idUsuario = idUsuario;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -54,9 +47,17 @@ public class UsuarioDTO {
         this.rol = rol;
         this.direccion = direccion;
     }
-
-    public UsuarioDTO(String idUsuario, String nombres, String apellidoPaterno, String apellidoMaterno, String email, String telefono, EstadoUsuario estadoUsuario, String rol) {
-        this.idUsuario = idUsuario;
+    
+    public UsuarioDTO(
+            String nombres, 
+            String apellidoPaterno, 
+            String apellidoMaterno, 
+            String email, 
+            String telefono, 
+            String estadoUsuario, 
+            String rol, 
+            DireccionDTO direccion
+    ) {
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -64,92 +65,46 @@ public class UsuarioDTO {
         this.telefono = telefono;
         this.estadoUsuario = estadoUsuario;
         this.rol = rol;
+        this.direccion = direccion;
     }
-    
-        /**
+
+    /**
      * Getters para cada atributo de la clase
-     * @return 
+     * @return
      */
+    public String getIdUsuario() {return idUsuario;}
+
+    public void setIdUsuario(String idUsuario) {this.idUsuario = idUsuario;}
+
+    public String getNombres() {return nombres;}
+
+    public void setNombres(String nombres) {this.nombres = nombres;}
+
+    public String getApellidoPaterno() {return apellidoPaterno;}
+
+    public void setApellidoPaterno(String apellidoPaterno) {this.apellidoPaterno = apellidoPaterno;}
+
+    public String getApellidoMaterno() {return apellidoMaterno;}
+
+    public void setApellidoMaterno(String apellidoMaterno) {this.apellidoMaterno = apellidoMaterno;}
+
+    public String getEmail() {return email;}
+
+    public void setEmail(String email) {this.email = email;}
+
+    public String getTelefono() {return telefono;}
+
+    public void setTelefono(String telefono) {this.telefono = telefono;}
+
+    public String getEstadoUsuario() {return estadoUsuario;}
+
+    public void setEstadoUsuario(String estadoUsuario) {this.estadoUsuario = estadoUsuario;}
     
+    public String getRol() {return rol;}
 
-    
+    public void setRol(String rol) {this.rol = rol;}
 
-    public String getIdUsuario() {
-        return idUsuario;
-    }
+    public DireccionDTO getDireccion() {return direccion;}
 
-    public void setIdUsuario(String idUsuario) {
-        this.idUsuario = idUsuario;
-    }
-
-    public String getNombres() {
-        return nombres;
-    }
-
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
-    }
-
-    public String getApellidoPaterno() {
-        return apellidoPaterno;
-    }
-
-    public void setApellidoPaterno(String apellidoPaterno) {
-        this.apellidoPaterno = apellidoPaterno;
-    }
-
-    public String getApellidoMaterno() {
-        return apellidoMaterno;
-    }
-
-    public void setApellidoMaterno(String apellidoMaterno) {
-        this.apellidoMaterno = apellidoMaterno;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public EstadoUsuario getEstadoUsuario() {
-        return estadoUsuario;
-    }
-
-    public void setEstadoUsuario(EstadoUsuario estadoUsuario) {
-        this.estadoUsuario = estadoUsuario;
-    }
-    
-    
-
-
-    public String getRol() {
-        return rol;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
-
-    public DireccionDTO getDireccion() {
-        return direccion;
-    }
-
-    public void setDireccion(DireccionDTO direccion) {
-        this.direccion = direccion;
-    }
-
-
-    
-
+    public void setDireccion(DireccionDTO direccion) {this.direccion = direccion;}
 }
