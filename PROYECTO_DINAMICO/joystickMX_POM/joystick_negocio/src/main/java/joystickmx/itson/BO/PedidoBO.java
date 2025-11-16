@@ -17,6 +17,7 @@ import joystickmx.negocio.exception.NegocioException;
 /**
  *
  * @author PC Gamer
+ * @author biccs
  */
 public class PedidoBO {
     
@@ -38,15 +39,35 @@ public class PedidoBO {
 
     public List<DetallePedidoDTO> obtenerDetallesPedido(Long idPedido) throws NegocioException {
         try {
-            
-            Pedido pedidoTemporal = new Pedido(); //   "una entidad de mentis para que acceda al dao como entidad"
-            pedidoTemporal.setIdPedido(idPedido);
-            
-            return this.pedidoDAO.obtenerDetallesPedido(pedidoTemporal).stream()
+            return this.pedidoDAO.obtenerDetallesPedido(idPedido).stream()
                     .map(Mapeadores::toDTO)
                     .collect(Collectors.toList());
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al obtener detalles del pedido: " + e.getMessage(), e);
+        }
+    }
+
+    public void crearPedido(PedidoDTO dto) throws NegocioException {
+        try {
+            this.pedidoDAO.crearPedido(Mapeadores.toEntity(dto));
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al crear pedido: " + e.getMessage(), e);
+        }
+    }
+
+    public PedidoDTO actualizarPedido(PedidoDTO dto) throws NegocioException {
+        try {
+            return Mapeadores.toDTO(this.pedidoDAO.actualizarPedido(Mapeadores.toEntity(dto)));
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al actualizar pedido: " + e.getMessage(), e);
+        }
+    }
+
+    public PedidoDTO buscarPorId(Long idPedido) throws NegocioException {
+        try {
+            return Mapeadores.toDTO(this.pedidoDAO.buscarPorId(idPedido));
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al buscar pedido por ID: " + e.getMessage(), e);
         }
     }
 }

@@ -13,6 +13,7 @@ import joystickmx.negocio.exception.NegocioException;
 /**
  *
  * @author PC Gamer
+ * @author biccs
  */
 public class UsuarioBO {
     
@@ -22,9 +23,22 @@ public class UsuarioBO {
         this.usuarioDAO = usuarioDAO;
     }
 
-    //pendiente actualizar y Actualizar Estado Usuario
-    
-    
+    public void crearUsuario(UsuarioDTO dto) throws NegocioException {
+        try {
+            this.usuarioDAO.crearUsuario(Mapeadores.toEntity(dto));
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al crear usuario: " + e.getMessage(), e);
+        }
+    }
+
+    public UsuarioDTO actualizarUsuario(UsuarioDTO dto) throws NegocioException {
+        try {
+            return Mapeadores.toDTO(this.usuarioDAO.actualizar(Mapeadores.toEntity(dto)));
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al actualizar usuario: " + e.getMessage(), e);
+        }
+    }
+
     public UsuarioDTO buscarPorId(Long idUsuario) throws NegocioException {
         try {
             return Mapeadores.toDTO(this.usuarioDAO.buscarPorId(idUsuario));

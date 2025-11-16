@@ -5,9 +5,11 @@
 package joystickmx.itson.BO;
 
 import joystickmx.itson.DAOS.AdministradorDAO;
+import joystickmx.itson.DTO.UsuarioDTO;
 import joystickmx.itson.DTO.UsuarioRegistroDTO;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.Mappers.DTOMapeadores;
+import joystickmx.itson.Mappers.Mapeadores;
 import joystickmx.itson.entidades.Administrador;
 import joystickmx.itson.entidades.Direccion;
 import joystickmx.itson.enums.EstadoUsuario;
@@ -16,6 +18,7 @@ import joystickmx.negocio.exception.NegocioException;
 /**
  *
  * @author PC Gamer
+ * @author biccs
  */
 public class AdministradorBO {
     
@@ -41,10 +44,41 @@ public class AdministradorBO {
                 admin.setDireccion(dir);
             }
             
-            this.adminDAO.crearAdmin(admin);
-            
+            this.adminDAO.crearAdministrador(admin);
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al registrar administrador: " + e.getMessage(), e);
+        }
+    }
+
+    public UsuarioDTO actualizarAdministrador(UsuarioDTO dto) throws NegocioException {
+        try {
+            Administrador admin = new Administrador();
+            admin.setIdUsuario(Long.parseLong(dto.getIdUsuario()));
+            admin.setNombres(dto.getNombres());
+            admin.setApellidoPaterno(dto.getApellidoPaterno());
+            admin.setApellidoMaterno(dto.getApellidoMaterno());
+            admin.setEmail(dto.getEmail());
+            admin.setTelefono(dto.getTelefono());
+            
+            return Mapeadores.toDTO(this.adminDAO.actualizarAdministrador(admin));
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al actualizar administrador: " + e.getMessage(), e);
+        }
+    }
+
+    public UsuarioDTO buscarPorId(Long idAdmin) throws NegocioException {
+        try {
+            return Mapeadores.toDTO(this.adminDAO.buscarPorId(idAdmin));
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al buscar administrador por ID: " + e.getMessage(), e);
+        }
+    }
+
+    public UsuarioDTO buscarPorEmail(String email) throws NegocioException {
+        try {
+            return Mapeadores.toDTO(this.adminDAO.buscarPorEmail(email));
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al buscar administrador por email: " + e.getMessage(), e);
         }
     }
 }

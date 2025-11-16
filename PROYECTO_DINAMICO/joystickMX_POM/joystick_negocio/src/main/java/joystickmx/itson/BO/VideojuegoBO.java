@@ -15,6 +15,7 @@ import joystickmx.negocio.exception.NegocioException;
 /**
  *
  * @author PC Gamer
+ * @author biccs
  */
 public class VideojuegoBO {
     
@@ -24,14 +25,22 @@ public class VideojuegoBO {
         this.videojuegoDAO = videojuegoDAO;
     }
 
-    
-    //pendientes persistir y actualizar
+    public void crearVideojuego(VideojuegoDTO dto) throws NegocioException {
+        try {
+            this.videojuegoDAO.persistir(Mapeadores.toEntity(dto));
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al crear videojuego: " + e.getMessage(), e);
+        }
+    }
 
-    
-    
-    
-    
-    
+    public VideojuegoDTO actualizarVideojuego(VideojuegoDTO dto) throws NegocioException {
+        try {
+            return Mapeadores.toDTO(this.videojuegoDAO.actualizar(Mapeadores.toEntity(dto)));
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al actualizar videojuego: " + e.getMessage(), e);
+        }
+    }
+
     public void habilitarVideojuego(Long idVideojuego) throws NegocioException {
         try {
             this.videojuegoDAO.habilitarVideojuego(idVideojuego);
