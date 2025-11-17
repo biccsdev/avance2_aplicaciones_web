@@ -31,15 +31,15 @@ public class PruebasNegocioVideojuegos {
             CategoriaDTO categoriaAccionAventuras = new CategoriaDTO();
             categoriaAccionAventuras.setNombre("Acción y Aventuras");
             categoriaAccionAventuras.setDescripcion(
-                    "Un juego de Acción y Aventuras es aquel donde exploras escenarios, "
-                    + "enfrentas enemigos, avanzas en una historia y resuelves desafíos, "
-                    + "mezclando ritmo dinámico con elementos narrativos y de descubrimiento."
+                    "Es aquel donde exploras escenarios, enfrentas enemigos, avanzas en "
+                            + "una historia y resuelves desafíos, mezclando ritmo dinámico "
+                            + "con elementos narrativos y de descubrimiento."
             );
             
             CategoriaDTO categoriaMundoAbierto = new CategoriaDTO();
             categoriaMundoAbierto.setNombre("Mundo Abierto");
             categoriaMundoAbierto.setDescripcion(
-                    "Un videojuego de Mundo Abierto es aquel que ofrece un escenario amplio y "
+                    "Es aquel que ofrece un escenario amplio y "
                             + "libremente explorable, donde el jugador puede decidir a dónde ir, "
                             + "qué hacer y en qué orden hacerlo."
             );
@@ -47,14 +47,14 @@ public class PruebasNegocioVideojuegos {
             CategoriaDTO categoriaCarreras = new CategoriaDTO();
             categoriaCarreras.setNombre("Carreras");
             categoriaCarreras.setDescripcion(
-                    "Un juego de Carreras consiste en conducir y competir a gran velocidad, "
+                    "Consiste en conducir y competir a gran velocidad, "
                             + "buscando superar a otros o mejorar tus propios tiempos"
             );
             
             CategoriaDTO categoriaSurvivalHorror = new CategoriaDTO();
             categoriaSurvivalHorror.setNombre("Survival Horror");
             categoriaSurvivalHorror.setDescripcion(
-                    "Un videojuego de Survival Horror está diseñado para generar tensión, miedo "
+                    "Está diseñado para generar tensión, miedo "
                             + "y una constante sensación de vulnerabilidad, combinando elementos "
                             + "de supervivencia con terror"
             );
@@ -62,7 +62,7 @@ public class PruebasNegocioVideojuegos {
             CategoriaDTO categoriaFPS = new CategoriaDTO();
             categoriaFPS.setNombre("Juego de Disparos en Primera Persona");
             categoriaFPS.setDescripcion(
-                    "Un FPS es un juego donde luchas directamente desde la vista "
+                    "Es un juego donde luchas directamente desde la vista "
                             + "del protagonista, usando armas para enfrentarte a enemigos en "
                             + "entornos dinámicos y llenos de acción."
             );
@@ -70,7 +70,7 @@ public class PruebasNegocioVideojuegos {
             CategoriaDTO categoriaRPG = new CategoriaDTO();
             categoriaRPG.setNombre("Juego de Rol por Turnos (RPG)");
             categoriaRPG.setDescripcion(
-                    "un RPG es un juego donde evolucionas a tu personaje, tomas decisiones y "
+                    "Es un juego donde evolucionas a tu personaje, tomas decisiones y "
                             + "vives una historia, combinando combate, exploración y "
                             + "desarrollo profundo"
             );
