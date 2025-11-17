@@ -71,7 +71,14 @@ public class FactoryBO {
     }
     
     //  pendientes metodos de buscar clientes activos inactivos por nombre etc
-
+    
+    public static List<UsuarioDTO> buscarClientesExistentes() throws NegocioException{
+        try {
+            return new ClienteBO(FactoryDAO.crearClienteDAO(), null).buscarClientesExistentes();
+        } catch (NegocioException e) {
+            throw new NegocioException(e.getMessage(), e);
+        }
+    }
 
     public static void registrarCliente(UsuarioRegistroDTO dto) throws NegocioException {
         try {            
@@ -80,7 +87,15 @@ public class FactoryBO {
             throw new NegocioException("Error al registrar cliente: " + e.getMessage(), e);
         }
     }
-
+    
+    public static void eliminarUsuario(String email ) throws NegocioException{
+        try {            
+            new UsuarioBO(FactoryDAO.crearUsuarioDAO()).eliminarUsuario(email);
+        } catch (NegocioException e) {
+            throw new NegocioException("Error al registrar cliente: " + e.getMessage(), e);
+        }
+    }
+    
     public static void registrarAdministrador(UsuarioRegistroDTO dto) throws NegocioException {
         try {            
             new AdministradorBO(FactoryDAO.crearAdministradorDAO()).crearAdmin(dto);

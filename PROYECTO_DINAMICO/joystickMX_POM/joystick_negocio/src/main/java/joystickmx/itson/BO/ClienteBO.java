@@ -73,7 +73,17 @@ public class ClienteBO {
             throw new NegocioException("Error al buscar clientes inactivos: " + e.getMessage(), e);
         }
     }
-
+    
+    public List<UsuarioDTO> buscarClientesExistentes() throws NegocioException{
+        try {
+            return this.clienteDAO.buscarClientesExistentes().stream()
+                    .map(Mapeadores::toUsuarioDTO)
+                    .collect(Collectors.toList());
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al buscar clientes inactivos: " + e.getMessage(), e);
+        }
+    }
+    
     public UsuarioDTO actualizarCliente(ClienteDTO dto) throws NegocioException {
         try {
             Cliente cliente = this.clienteDAO.buscarPorId(dto.getIdUsuario());

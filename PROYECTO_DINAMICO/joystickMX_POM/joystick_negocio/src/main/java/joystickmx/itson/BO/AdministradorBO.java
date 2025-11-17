@@ -27,26 +27,16 @@ public class AdministradorBO {
 
     public void crearAdmin(UsuarioRegistroDTO dto) throws NegocioException {
         try {
-            if (this.adminDAO.buscarPorEmail(dto.getEmail()) != null) {
+            
+            if (this.adminDAO.buscarPorEmail(dto.getEmail()) != null) 
                 throw new NegocioException("El correo ya se encuentra registrado.");
-            }
             
-            Administrador admin = new Administrador();
             
-            admin.setNombres(dto.getNombres());
-            admin.setApellidoPaterno(dto.getApellidoPaterno());
-            admin.setApellidoMaterno(dto.getApellidoMaterno());
-            admin.setEmail(dto.getEmail());
-            admin.setTelefono(dto.getTelefono());
+            Administrador admin = DTOMapeadores.toAdministradorEntity(dto);
             
             admin.setContrasenia(PasswordUtil.hashPassword(dto.getContrasenia()));
             
             admin.setEstadoUsuario(EstadoUsuario.ACTIVO);
-
-            if (dto.getDireccion() != null) {
-                Direccion dir = DTOMapeadores.toDireccionEntity(dto.getDireccion());
-                admin.setDireccion(dir);
-            }
             
             this.adminDAO.crearAdministrador(admin);
             

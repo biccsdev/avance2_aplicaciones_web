@@ -13,6 +13,7 @@ import joystickmx.itson.DTO.PedidoDTO;
 import joystickmx.itson.DTO.ResenaDTO;
 import joystickmx.itson.DTO.UsuarioRegistroDTO;
 import joystickmx.itson.DTO.VideojuegoDTO;
+import joystickmx.itson.entidades.Administrador;
 import joystickmx.itson.entidades.Carrito;
 import joystickmx.itson.entidades.Categoria;
 import joystickmx.itson.entidades.Cliente;
@@ -63,7 +64,28 @@ public class DTOMapeadores {
         
         return entity;
     }
-
+    
+    public static Administrador toAdministradorEntity(UsuarioRegistroDTO dto){
+        if (dto == null) return null;
+        
+        Administrador admin = new Administrador();
+        
+        admin.setNombres(dto.getNombres());
+        admin.setApellidoPaterno(dto.getApellidoPaterno());
+        admin.setApellidoMaterno(dto.getApellidoMaterno());
+        admin.setEmail(dto.getEmail());
+        admin.setTelefono(dto.getTelefono());
+        admin.setContrasenia(dto.getContrasenia());
+        
+        if(dto.getEstadoUsuario() != null)
+            admin.setEstadoUsuario(EstadoUsuario.valueOf(dto.getEstadoUsuario().toUpperCase()));
+        
+        if (dto.getDireccion() != null) 
+            admin.setDireccion(toDireccionEntity(dto.getDireccion()));
+        
+        return admin;
+    }
+    
     public static Cliente toClienteEntity(UsuarioRegistroDTO dto) {
         if (dto == null) return null;
 
@@ -75,8 +97,9 @@ public class DTOMapeadores {
         cliente.setEmail(dto.getEmail());
         cliente.setTelefono(dto.getTelefono());
         cliente.setContrasenia(dto.getContrasenia());
-        cliente.setEstadoUsuario(EstadoUsuario.ACTIVO);
         
+        if(dto.getEstadoUsuario() != null)
+            cliente.setEstadoUsuario(EstadoUsuario.valueOf(dto.getEstadoUsuario().toUpperCase()));
         
         if (dto.getDireccion() != null) 
             cliente.setDireccion(toDireccionEntity(dto.getDireccion()));

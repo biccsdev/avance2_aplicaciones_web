@@ -21,6 +21,8 @@ public interface IClienteDAO {
 
     List<Cliente> buscarTodos() throws PersistenciaException;
 
+    List<Cliente> buscarClientesExistentes() throws PersistenciaException;
+    
     List<Cliente> buscarClientesActivos() throws PersistenciaException;
 
     List<Cliente> buscarClientesInactivos() throws PersistenciaException;

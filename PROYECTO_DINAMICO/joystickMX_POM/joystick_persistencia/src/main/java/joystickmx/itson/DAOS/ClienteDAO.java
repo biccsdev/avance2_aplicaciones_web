@@ -100,7 +100,24 @@ public class ClienteDAO extends BaseDAO implements IClienteDAO {
                 em.close();
         }
     }
-
+    
+    @Override
+    public List<Cliente> buscarClientesExistentes() throws PersistenciaException {
+        iniciarConexion();
+        try {
+            TypedQuery<Cliente> query = em.createQuery(
+                    "SELECT c FROM Cliente c WHERE c.estadoUsuario != 'ELIMINADO'",
+                    Cliente.class
+            );
+            return query.getResultList();
+        } catch (PersistenceException e) {
+            throw new PersistenciaException("Error al buscar todos los clientes: " + e.getMessage());
+        } finally{
+            if (em.isOpen()) 
+                em.close();
+        }
+    }
+    
     private List<Cliente> buscarPorEstado(EstadoUsuario estado) throws PersistenciaException {
         iniciarConexion();
         try {
