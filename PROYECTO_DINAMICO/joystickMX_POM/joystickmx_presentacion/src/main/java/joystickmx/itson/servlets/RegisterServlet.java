@@ -8,8 +8,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import joystickmx.itson.BO.Utils.PasswordUtil;
 import joystickmx.itson.DTO.AdministradorDTO;
 import joystickmx.itson.DTO.ClienteDTO;
+import joystickmx.itson.DTO.DireccionDTO;
+import joystickmx.itson.DTO.UsuarioRegistroDTO;
+import joystickmx.itson.Factory.FactoryBO;
 
 /**
  *
@@ -17,32 +21,6 @@ import joystickmx.itson.DTO.ClienteDTO;
  */
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/register"})
 public class RegisterServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet RegisterServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet RegisterServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -76,7 +54,35 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/register.jsp").forward(request, response);
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String apellidoMaterno = request.getParameter("apellidoPaterno");
+        String apellidoPaterno = request.getParameter("apellidoMaterno");
+        String colonia = request.getParameter("colonia");
+        String calle = request.getParameter("calle");
+        String numero = request.getParameter("numero");
+        String telefono = request.getParameter("telefono");
+        try {
+            FactoryBO.registrarCliente(new UsuarioRegistroDTO(
+                    numero, 
+                    apellidoPaterno, 
+                    apellidoMaterno, 
+                    email, 
+                    telefono, 
+                    PasswordUtil.hashPassword(password), 
+                    new DireccionDTO(calle, numero, colonia))
+            );
+            /*
+                A partir de aquí se supone que se debería redirigir a la pestaña del catálogo, pero
+                debido a que este avance se enfoca en la sección del administrador, se redirige a la
+                pestaña de inicio de sesión.
+            */
+            System.out.println("Usuario registrado exitosamente.");
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+        } catch (Exception e) {
+            request.setAttribute("error", e.getMessage());
+            request.getRequestDispatcher("/register.jsp").forward(request, response);
+        }
     }
 
     /**

@@ -28,8 +28,7 @@ public class LogFilter implements Filter {
     // configured.
     private FilterConfig filterConfig = null;
     
-    public LogFilter() {
-    }
+    public LogFilter() {}
     
     private void doBeforeProcessing(ServletRequest request, ServletResponse response)
             throws IOException, ServletException {

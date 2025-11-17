@@ -29,7 +29,7 @@
           <div class="divider" aria-hidden="true"></div>
           <h2 class="auth-title">Inicia Sesión</h2>
 
-          <form class="form" action="${pageContext.request.contextPath}/login" method="post" novalidate>
+          <form class="form" action="${pageContext.request.contextPath}/login" method="post">
             <div>
               <label class="form-label" for="email">Correo electrónico</label>
               <input class="input" id="email" name="email" type="email" autocomplete="email"

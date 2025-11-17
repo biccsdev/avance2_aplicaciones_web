@@ -26,64 +26,67 @@
           <div class="divider" aria-hidden="true"></div>
           <h2 class="auth-title">Crea tu cuenta</h2>
 
-          <form class="form" action="/register" method="post" novalidate>
+          <form id="registro" class="form" action="${pageContext.request.contextPath}/register" method="post">
             <div>
-              <label class="form-label" for="email">Correo electrónico<span aria-hidden="true">*</span></label>
+              <label class="form-label" for="registro">Correo electrónico<span aria-hidden="true">*</span></label>
               <input class="input" id="email" name="email" type="email" autocomplete="email"
                 placeholder="Ingresa tu correo electrónico" required>
             </div>
 
             <div>
-              <label class="form-label" for="password">Contraseña<span aria-hidden="true">*</span></label>
+              <label class="form-label" for="registro">Contraseña<span aria-hidden="true">*</span></label>
               <input class="input" id="password" name="password" type="password" autocomplete="new-password"
                 placeholder="••••••••" required>
             </div>
 
-            <div class="field-row">
-              <div class="field">
-                <label class="form-label" for="firstName">Nombre<span aria-hidden="true">*</span></label>
-                <input class="input" id="firstName" name="firstName" type="text" autocomplete="given-name"
-                  placeholder="Ingresa tus nombre(s)" required>
-              </div>
-              <div class="field">
-                <label class="form-label" for="lastName">Apellidos<span aria-hidden="true">*</span></label>
-                <input class="input" id="lastName" name="lastName" type="text" autocomplete="family-name"
-                  placeholder="Ingresa tus apellidos" required>
-              </div>
+            <div class="form-label">
+              <label class="form-label" for="registro">Nombre<span aria-hidden="true">*</span></label>
+              <input class="input" id="nombre" name="nombre" type="text" autocomplete="given-name"
+                placeholder="Ingresa tus nombre(s)" required>
+            </div>
+
+            <div class="form-label">
+              <label class="form-label" for="registro">Apellido Paterno<span aria-hidden="true">*</span></label>
+              <input class="input" id="apellidoPaterno" name="apellidoPaterno" type="text" autocomplete="family-name"
+                placeholder="Ingresa tu apeliido paterno" required>
+            </div>
+
+            <div class="form-label">
+              <label class="form-label" for="registro">Apellido Materno<span aria-hidden="true">*</span></label>
+              <input class="input" id="apellidoMaterno" name="apellidoMaterno" type="text" autocomplete="family-name"
+                placeholder="Ingresa tu apellido materno" required>
             </div>
 
             <div class="field-row">
               <div class="field">
-                <label class="form-label" for="colonia">Colonia<span aria-hidden="true">*</span></label>
+                <label class="form-label" for="registro">Colonia<span aria-hidden="true">*</span></label>
                 <input class="input" id="colonia" name="colonia" type="text" placeholder="Colonia" required>
               </div>
               <div class="field">
-                <label class="form-label" for="calle">Calle<span aria-hidden="true">*</span></label>
+                <label class="form-label" for="registro">Calle<span aria-hidden="true">*</span></label>
                 <input class="input" id="calle" name="calle" type="text" placeholder="Calle" required>
               </div>
             </div>
 
             <div>
-              <label class="form-label" for="numeroExt">Número exterior<span aria-hidden="true">*</span></label>
-              <input class="input" id="numeroExt" name="numeroExt" type="text" inputmode="numeric"
+              <label class="form-label" for="registro">Número exterior<span aria-hidden="true">*</span></label>
+              <input class="input" id="numero" name="numero" type="text" inputmode="numeric"
                 placeholder="Número exterior" required>
             </div>
 
             <div>
-              <label class="form-label" for="telefono">Teléfono (Opcional)</label>
+              <label class="form-label" for="registro">Teléfono (Opcional)</label>
               <input class="input" id="telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel"
                 placeholder="+52">
             </div>
 
             <div class="terms">
               <input id="terms" name="terms" type="checkbox" required>
-              <label for="terms">Acepto los términos y condiciones de servicio de JoystickMX</label>
+              <label for="registro">Acepto los términos y condiciones de servicio de JoystickMX</label>
             </div>
-
-            <a href="../videojuegos/index.html">
+              
             <button class="btn btn-primary mt-4" type="submit">Registrarse</button>
-            </a>
-
+            
             <p class="text-center text-muted mt-4">
               Ya tienes una cuenta?
               <a class="link" href="${pageContext.request.contextPath}/login">Inicia sesión</a>
