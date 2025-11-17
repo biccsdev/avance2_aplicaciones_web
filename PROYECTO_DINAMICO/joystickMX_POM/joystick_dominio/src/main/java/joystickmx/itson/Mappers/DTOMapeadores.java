@@ -114,7 +114,12 @@ public class DTOMapeadores {
         }
         
         if(dto.getResenas() != null)
-            entity.setResenas(dto.getResenas().stream().map(DTOMapeadores::toResenaEntity).collect(Collectors.toList()));
+            entity.setResenas(dto.
+                    getResenas().
+                    stream().
+                    map(DTOMapeadores::toResenaEntity).
+                    collect(Collectors.toList())
+            );
         
         return entity;
     }

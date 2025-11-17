@@ -17,7 +17,16 @@ public class UsuarioRegistroDTO {
 
     public UsuarioRegistroDTO() {}
 
-    public UsuarioRegistroDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String email, String telefono, String contrasenia, String EstadoUsuario, DireccionDTO direccion) {
+    public UsuarioRegistroDTO(
+            String nombres, 
+            String apellidoPaterno, 
+            String apellidoMaterno, 
+            String email, 
+            String telefono, 
+            String contrasenia, 
+            String EstadoUsuario, 
+            DireccionDTO direccion
+    ) {
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -28,7 +37,15 @@ public class UsuarioRegistroDTO {
         this.direccion = direccion;
     }
 
-    public UsuarioRegistroDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String email, String telefono, String contrasenia, DireccionDTO direccion) {
+    public UsuarioRegistroDTO(
+            String nombres, 
+            String apellidoPaterno, 
+            String apellidoMaterno, 
+            String email, 
+            String telefono, 
+            String contrasenia, 
+            DireccionDTO direccion
+    ) {
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -38,12 +55,6 @@ public class UsuarioRegistroDTO {
         this.direccion = direccion;
     }
 
-    
-    
-    
-    
-    
-    
     public String getNombres() {return nombres;}
 
     public void setNombres(String nombres) {this.nombres = nombres;}
@@ -70,13 +81,9 @@ public class UsuarioRegistroDTO {
 
     public DireccionDTO getDireccion() {return direccion;}
 
-    public String getEstadoUsuario() {
-        return EstadoUsuario;
-    }
+    public String getEstadoUsuario() {return EstadoUsuario;}
 
-    public void setEstadoUsuario(String EstadoUsuario) {
-        this.EstadoUsuario = EstadoUsuario;
-    }
+    public void setEstadoUsuario(String EstadoUsuario) {this.EstadoUsuario = EstadoUsuario;}
 
     public void setDireccion(DireccionDTO direccion) {this.direccion = direccion;}
 }

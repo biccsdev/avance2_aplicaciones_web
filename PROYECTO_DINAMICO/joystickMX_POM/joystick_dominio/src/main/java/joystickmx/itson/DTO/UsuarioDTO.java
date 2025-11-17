@@ -1,7 +1,5 @@
 package joystickmx.itson.DTO;
 
-import joystickmx.itson.enums.EstadoUsuario;
-
 /**
  * UsuarioDTO - Data Transfer Object para Usuario
  *
@@ -106,14 +104,7 @@ public class UsuarioDTO {
 
     public void setDireccion(DireccionDTO direccion) {this.direccion = direccion;}
     
-    public String getRol() { 
-        return rol;
-    }
+    public String getRol() {return rol;}
 
-    public void setRol(String rol) { 
-        this.rol = rol;
-    }
-    
-    
-    
+    public void setRol(String rol) {this.rol = rol;}
 }

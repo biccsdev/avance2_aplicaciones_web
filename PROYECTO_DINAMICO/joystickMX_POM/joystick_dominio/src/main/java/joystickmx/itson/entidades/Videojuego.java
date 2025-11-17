@@ -14,6 +14,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -61,9 +62,11 @@ public class Videojuego implements Serializable {
     private String desarrollador;
 
     @Column(nullable = false)
+    @PastOrPresent(message="La fecha de lanzamiento no puede estar ubicada en el futuro")
     private LocalDate fechaLanzamiento;
 
     @Column(nullable = false, length = 50)
+    @NotBlank(message = "La plataforma no puede estar vacía.")
     private String plataforma;
     
     @Column(nullable = false)
@@ -75,20 +78,35 @@ public class Videojuego implements Serializable {
             joinColumns = @JoinColumn(name = "id_videojuego"),
             inverseJoinColumns = @JoinColumn(name = "id_categoria")
     )
-    private List<Categoria> categorias = new ArrayList<>();;
+    private List<Categoria> categorias = new ArrayList<>();
 
     @OneToMany(mappedBy = "videojuego", fetch = FetchType.LAZY)
-    private List<DetallePedido> detallesPedidos = new ArrayList<>();;
+    private List<DetallePedido> detallesPedidos = new ArrayList<>();
 
     @OneToMany(mappedBy = "videojuego", fetch = FetchType.LAZY)
-    private List<ItemCarrito> itemsCarrito = new ArrayList<>();;
+    private List<ItemCarrito> itemsCarrito = new ArrayList<>();
 
     @OneToMany(mappedBy = "videojuego", cascade = CascadeType.REMOVE, orphanRemoval = true)
-    private List<Resena> resenas = new ArrayList<>();;
+    private List<Resena> resenas = new ArrayList<>();
 
     public Videojuego() {}
 
-    public Videojuego(Long idVideojuego, String nombre, boolean habilitado, String descripcion, Float precio, Integer existencias, String urlImagen, String desarrollador, LocalDate fechaLanzamiento, String plataforma, List<Categoria> categorias, List<DetallePedido> detallesPedidos, List<ItemCarrito> itemsCarrito, List<Resena> resenas) {
+    public Videojuego(
+            Long idVideojuego, 
+            String nombre, 
+            boolean habilitado, 
+            String descripcion, 
+            Float precio, 
+            Integer existencias, 
+            String urlImagen, 
+            String desarrollador, 
+            LocalDate fechaLanzamiento, 
+            String plataforma, 
+            List<Categoria> categorias, 
+            List<DetallePedido> detallesPedidos, 
+            List<ItemCarrito> itemsCarrito, 
+            List<Resena> resenas
+    ) {
         this.idVideojuego = idVideojuego;
         this.nombre = nombre;
         this.habilitado = habilitado;
@@ -105,7 +123,19 @@ public class Videojuego implements Serializable {
         this.resenas = resenas;
     }
 
-    public Videojuego(Long idVideojuego, String nombre, boolean habilitado, String descripcion, Float precio, Integer existencias, String urlImagen, String desarrollador, LocalDate fechaLanzamiento, String plataforma, List<DetallePedido> detallesPedidos) {
+    public Videojuego(
+            Long idVideojuego, 
+            String nombre, 
+            boolean habilitado, 
+            String descripcion, 
+            Float precio, 
+            Integer existencias, 
+            String urlImagen, 
+            String desarrollador, 
+            LocalDate fechaLanzamiento, 
+            String plataforma, 
+            List<DetallePedido> detallesPedidos
+    ) {
         this.idVideojuego = idVideojuego;
         this.nombre = nombre;
         this.habilitado = habilitado;
