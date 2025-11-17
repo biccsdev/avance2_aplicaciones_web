@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page import="java.util.List"%>
+<%@page import="joystickmx.itson.DTO.VideojuegoDTO"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %> 
 <!DOCTYPE html>
 <html lang="es">
@@ -45,6 +47,31 @@
 
                     <%-- Caso Principal: Mostrar productos --%>
                     <c:otherwise>
+                        <div class="filtro-busqueda">
+                            <div class="filtro-seccion-rango">
+                                <span class="filtro-titulo">Precio</span>
+                                <span class="filtro-cantidad">$0-3000</span>
+                            </div>
+
+                            <input class="filtro-rango" type="range" min="0" max="3000" value="3000" aria-label="Rango de precio">
+
+                            <select class="filtro-select" aria-label="Plataforma">
+                                <option selected>Plataforma</option>
+                                <option>Xbox</option>
+                                <option>PlayStation</option>
+                                <option>Nintendo</option>
+                            </select>
+
+
+                            <select class="filtro-select" aria-label="Plataforma">
+                                <option selected>Género</option>
+                                <option>Accion y aventuras</option>
+                                <option>Terror</option>
+                                <option>Mundo abierto</option>
+                                <option>Carreras</option>
+                            </select>
+
+                        </div>
                         <%-- 
                           1. Agregamos el UL que faltaba, 
                           para que coincida con index.html
@@ -82,5 +109,5 @@
 
         <jsp:include page="/WEB-INF/includes/footer.jsp" />
 
-    </body>
+    </body>
 </html>

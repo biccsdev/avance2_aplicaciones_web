@@ -26,44 +26,7 @@ public class PruebasNegocio {
         EntityManager em = Conexion.crearConexion();
         try {
             em.getTransaction().begin();
-
-            // ============================
-            //   CREAR UNA CATEGORÍA
-            // ============================
-            CategoriaDTO categoriaAccion = new CategoriaDTO();
-            categoriaAccion.setNombre("Acción");
-            categoriaAccion.setDescripcion("Juegos de ritmo rápido y combate.");
             
-            new CategoriaBO(new CategoriaDAO()).crearCategoria(categoriaAccion);
-            System.out.println("Categoría persistida: " + categoriaAccion.getNombre());
-            
-            em.getTransaction().commit();
-            
-            em.getTransaction().begin();
-            categoriaAccion = new CategoriaBO(new CategoriaDAO()).buscarPorNombre(categoriaAccion.getNombre());
-            em.getTransaction().commit();
-            
-            // ============================
-            //   CREAR UN VIDEOJUEGO
-            // ============================
-            VideojuegoDTO juego = new VideojuegoDTO();
-            juego.setNombre("God of War Ragnarok");
-            juego.setDescripcion("La épica saga nórdica de Kratos y Atreus.");
-            juego.setPrecio(1299.50f);
-            juego.setExistencias(100);
-            juego.setDesarrollador("Santa Monica Studio");
-            juego.setFechaLanzamiento(LocalDate.of(2022, 11, 9));
-            juego.setPlataforma("PlayStation 5");
-            juego.setHabilitado(true);
-            juego.setUrlImagen("imgs/gow-ps5.jpeg");
-
-            List<CategoriaDTO> categoriasParaJuego = new ArrayList<>();
-            categoriasParaJuego.add(categoriaAccion);
-            juego.setCategorias(categoriasParaJuego);
-
-            FactoryBO.crearVideojuego(juego);
-            System.out.println("Videojuego persistido: " + juego.getNombre());
-
             // ============================
             //   CREAR DIRECCIONES
             // ============================
