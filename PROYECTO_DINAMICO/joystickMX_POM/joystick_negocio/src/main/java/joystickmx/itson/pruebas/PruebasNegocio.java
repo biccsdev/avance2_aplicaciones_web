@@ -59,7 +59,7 @@ public class PruebasNegocio {
             juego.setFechaLanzamiento(LocalDate.of(2022, 11, 9));
             juego.setPlataforma("PlayStation 5");
             juego.setHabilitado(true);
-            juego.setUrlImagen("wasawasa");
+            juego.setUrlImagen("imgs/gow-ps5.jpeg");
 
             List<CategoriaDTO> categoriasParaJuego = new ArrayList<>();
             categoriasParaJuego.add(categoriaAccion);

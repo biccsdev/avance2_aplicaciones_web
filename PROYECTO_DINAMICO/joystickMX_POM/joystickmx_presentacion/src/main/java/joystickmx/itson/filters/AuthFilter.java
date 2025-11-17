@@ -42,6 +42,7 @@ public class AuthFilter implements Filter {
     private static final List<String> ADMIN_PATHS = Arrays.asList(
             "/admin/"
     );
+
     private static final List<String> CLIENT_PATHS = Arrays.asList(
             "/user/",
             "/carrito",
@@ -53,55 +54,51 @@ public class AuthFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
 
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
-        HttpServletResponse httpResponse = (HttpServletResponse) response;
-        String requestURI = httpRequest.getRequestURI();
-        String contextPath = httpRequest.getContextPath();
-        String path = requestURI.substring(contextPath.length());
+        HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
+        HttpSession session = req.getSession(false);
+        String contextPath = req.getContextPath();
+        String path = req.getRequestURI().substring(contextPath.length());
 
-//        if (path.endsWith(".css") || path.endsWith(".js") || path.endsWith(".png")
-//                || path.endsWith(".jpg") || path.endsWith(".jpeg") || path.endsWith(".svg")) {
-//            chain.doFilter(request, response);
-//            return;
-//        }
+        // 1. Revisamos si es un recurso estático (usando la lista)
+        boolean isStaticResource = PUBLIC_RESOURCES.stream().anyMatch(path::startsWith);
 
-        HttpSession session = httpRequest.getSession(false);
+        // 2. Revisamos si es una página pública (usando la lista)
+        // ¡AÑADÍ /home A TU LISTA!
+        boolean isPublicPage = PUBLIC_PATHS.contains(path) || path.equals("/home");
 
-        boolean isPublicResource = PUBLIC_RESOURCES.stream().anyMatch(prefix -> path.startsWith(prefix));
-        if (isPublicResource) {
+        if (isStaticResource || isPublicPage) {
+            // Es público o es CSS/IMG, déjalo pasar
             chain.doFilter(request, response);
-            return;
+            return; // Salimos del filtro
         }
 
-        boolean isPublicPath = PUBLIC_PATHS.contains(path);
-        if (isPublicPath) {
-            chain.doFilter(request, response);
-            return;
-        }
-
-        if (path.equals("/") || path.equals("/index.jsp")) {
-            chain.doFilter(request, response);
-            return;
-        }
-
+        // --- Si llegamos aquí, es una página protegida ---
+        // 3. Revisar si el usuario está logueado
         if (session == null || session.getAttribute("usuario") == null) {
-            httpResponse.sendRedirect(contextPath + "/login");
+            // No está logueado, redirigir a login
+            res.sendRedirect(contextPath + "/login");
             return;
         }
 
-        String userRole = (String) session.getAttribute("rol");
+        // --- Si llegamos aquí, el usuario SÍ está logueado ---
+        // 4. (Opcional pero recomendado) Revisar roles
+        String rol = (String) session.getAttribute("rol");
 
-        if ("admin".equals(userRole)) {
+        // Si es admin, puede ver todo
+        if (rol.equals("ADMIN")) {
             chain.doFilter(request, response);
             return;
         }
 
-        boolean isAdminPath = ADMIN_PATHS.stream().anyMatch(prefix -> path.startsWith(prefix));
-        if ("cliente".equals(userRole) && isAdminPath) {
-            httpResponse.sendRedirect(contextPath + "/");
+        // Si es cliente, revisamos si intenta entrar a /admin/
+        if (rol.equals("CLIENTE") && ADMIN_PATHS.stream().anyMatch(path::startsWith)) {
+            // Es un cliente intentando entrar al panel de admin
+            res.sendRedirect(contextPath + "/home"); // Lo mandamos al home
             return;
         }
 
+        // Es un cliente accediendo a una página de cliente (ej /carrito)
         chain.doFilter(request, response);
     }
 
