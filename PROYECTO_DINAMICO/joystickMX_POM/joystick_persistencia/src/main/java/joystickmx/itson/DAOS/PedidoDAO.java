@@ -8,7 +8,9 @@ import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.entidades.Cliente;
 import joystickmx.itson.entidades.DetallePedido;
 import joystickmx.itson.entidades.Pedido;
+import joystickmx.itson.entidades.Usuario;
 import joystickmx.itson.enums.EstadoPedido;
+import joystickmx.itson.enums.EstadoUsuario;
 import joystickmx.itson.interfaces.IPedidoDAO;
 
 /**
@@ -53,7 +55,7 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
         }
     }
 
-    @Override
+    
     public void actualizarEstadoPedido(Long idPedido, EstadoPedido nuevoEstado) throws PersistenciaException {
         iniciarConexion();
         try {
@@ -174,5 +176,26 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
             if (em.isOpen()) 
                 em.close();
         }
+    }
+    
+
+    @Override
+    public void pedidoEntregado(Long idPedido) throws PersistenciaException {
+        actualizarEstadoPedido(idPedido, EstadoPedido.ENTREGADO);
+    }
+
+    @Override
+    public void pedidoPendiente(Long idPedido) throws PersistenciaException {
+        actualizarEstadoPedido(idPedido, EstadoPedido.PENDIENTE);
+    }
+    
+    @Override
+    public void pedidoEnviado(Long idPedido) throws PersistenciaException {
+        actualizarEstadoPedido(idPedido, EstadoPedido.ENVIADO);
+    }
+    
+    @Override
+    public void pedidoCancelado(Long idPedido) throws PersistenciaException {
+        actualizarEstadoPedido(idPedido, EstadoPedido.CANCELADO);
     }
 }

@@ -151,12 +151,35 @@ public class PedidoBO {
         }
     }
     
-    public PedidoDTO actualizarEstadoPedido(Long idPedido, EstadoPedido estado) throws NegocioException {
-         try {
-            this.pedidoDAO.actualizarEstadoPedido(idPedido, estado);
-            return this.buscarPorId(idPedido);
-         } catch (PersistenciaException e) {
-             throw new NegocioException("Error al actualizar estado: " + e.getMessage(), e);
-         }
+    public void pedidoEntregado(Long idpedido) throws NegocioException {
+        try {
+            this.pedidoDAO.pedidoEntregado(idpedido);
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al activar usuario: " + e.getMessage(), e);
+        }
+    }
+
+    public void pedidoPendiente(Long idpedido) throws NegocioException {
+        try {
+            this.pedidoDAO.pedidoPendiente(idpedido);
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al desactivar usuario: " + e.getMessage(), e);
+        }
+    }
+
+    public void pedidoEnviado(Long idpedido) throws NegocioException {
+        try {
+            this.pedidoDAO.pedidoEnviado(idpedido);
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al eliminar (soft delete) usuario: " + e.getMessage(), e);
+        }
+    }
+    
+    public void pedidoCancelado(Long idpedido) throws NegocioException {
+        try {
+            this.pedidoDAO.pedidoCancelado(idpedido);
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al eliminar (soft delete) usuario: " + e.getMessage(), e);
+        }
     }
 }

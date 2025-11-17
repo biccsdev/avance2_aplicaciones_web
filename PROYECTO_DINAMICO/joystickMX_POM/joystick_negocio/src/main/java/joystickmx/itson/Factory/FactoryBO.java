@@ -28,10 +28,11 @@ import joystickmx.negocio.exception.NegocioException;
  * @author biccs
  */
 public class FactoryBO {
-    
+
     /**
-     * Valida las credenciales de un usuario.
-     * Es un método de LECTURA, por lo que no necesita transacción (begin/commit).
+     * Valida las credenciales de un usuario. Es un método de LECTURA, por lo
+     * que no necesita transacción (begin/commit).
+     *
      * @param email El email del usuario.
      * @param password La contraseña en texto plano.
      * @return El UsuarioDTO con los datos de sesión.
@@ -40,12 +41,12 @@ public class FactoryBO {
     public static UsuarioDTO login(String email, String password) throws NegocioException {
         try {
             return new UsuarioBO(FactoryDAO.crearUsuarioDAO()).validarCredenciales(email, password);
-            
+
         } catch (NegocioException e) {
             throw new NegocioException("Error de persistencia en login: " + e.getMessage(), e);
         }
     }
-    
+
     public static UsuarioDTO buscarUsuarioPorEmail(String email) throws NegocioException {
         try {
             return new UsuarioBO(FactoryDAO.crearUsuarioDAO()).buscarPorEmail(email);
@@ -69,10 +70,9 @@ public class FactoryBO {
             throw new NegocioException(e.getMessage(), e);
         }
     }
-    
+
     //  pendientes metodos de buscar clientes activos inactivos por nombre etc
-    
-    public static List<UsuarioDTO> buscarClientesExistentes() throws NegocioException{
+    public static List<UsuarioDTO> buscarClientesExistentes() throws NegocioException {
         try {
             return new ClienteBO(FactoryDAO.crearClienteDAO(), null).buscarClientesExistentes();
         } catch (NegocioException e) {
@@ -81,15 +81,15 @@ public class FactoryBO {
     }
 
     public static void registrarCliente(UsuarioRegistroDTO dto) throws NegocioException {
-        try {            
+        try {
             new ClienteBO(FactoryDAO.crearClienteDAO(), FactoryDAO.crearCarritoDAO()).crearCliente(dto);
         } catch (NegocioException e) {
             throw new NegocioException("Error al registrar cliente: " + e.getMessage(), e);
         }
     }
-    
+
     public static void registrarAdministrador(UsuarioRegistroDTO dto) throws NegocioException {
-        try {            
+        try {
             new AdministradorBO(FactoryDAO.crearAdministradorDAO()).crearAdmin(dto);
         } catch (NegocioException e) {
             throw new NegocioException("Error al registrar administrador: " + e.getMessage(), e);
@@ -97,17 +97,25 @@ public class FactoryBO {
     }
 
     public static UsuarioDTO modificarDireccionUsuario(String email, DireccionDTO dto) throws NegocioException {
-        try {            
+        try {
             UsuarioDTO usuarioActualizado = new UsuarioBO(FactoryDAO.crearUsuarioDAO()).modificarDireccion(email, dto);
             return usuarioActualizado;
         } catch (NegocioException e) {
             throw new NegocioException("Error al modificar dirección: " + e.getMessage(), e);
         }
     }
-    
+
     public static VideojuegoDTO buscarVideojuegoPorId(Long idVideojuego) throws NegocioException {
         try {
             return new VideojuegoBO(FactoryDAO.crearVideojuegoDAO()).buscarPorId(idVideojuego);
+        } catch (NegocioException e) {
+            throw new NegocioException(e.getMessage(), e);
+        }
+    }
+    
+    public static VideojuegoDTO buscarVideojuegoPorNombeExacto(String nombre) throws NegocioException {
+        try {
+            return new VideojuegoBO(FactoryDAO.crearVideojuegoDAO()).buscarPorNombreExacto(nombre);
         } catch (NegocioException e) {
             throw new NegocioException(e.getMessage(), e);
         }
@@ -121,9 +129,8 @@ public class FactoryBO {
             throw new NegocioException(e.getMessage(), e);
         }
     }
-    
-    // pendiente bussquedas de juegos por nombre etc
 
+    // pendiente bussquedas de juegos por nombre etc
     public static void crearVideojuego(VideojuegoDTO dto) throws NegocioException {
         try {
             new VideojuegoBO(FactoryDAO.crearVideojuegoDAO()).crearVideojuego(dto);
@@ -140,7 +147,6 @@ public class FactoryBO {
         }
     }
 
-
     public static CarritoDTO buscarCarritoPorCliente(Long idCliente) throws NegocioException {
         try {
             return new CarritoBO(FactoryDAO.crearCarritoDAO()).buscarPorCliente(idCliente);
@@ -151,15 +157,19 @@ public class FactoryBO {
 
     public static void agregarItemACarrito(Long idCarrito, ItemCarritoDTO itemDTO) throws NegocioException {
         try {
-            
-            // PENDIENTE MAS LOGICA DE NEGOCIO
-            //CHECAR SI YA EXISTE O SI HAY STOCK
-            new CarritoBO(FactoryDAO.crearCarritoDAO()).agregarItem(idCarrito, itemDTO);
+            CarritoBO carritoBO = new CarritoBO(
+                    FactoryDAO.crearCarritoDAO()
+            );
+
+            carritoBO.agregarItem(idCarrito, itemDTO);
+
         } catch (NegocioException e) {
-            throw new NegocioException("Error al agregar item: " + e.getMessage(), e);
+            throw e;
+        } catch (Exception e) {
+            throw new NegocioException("Error en FactoryBO al agregar item: " + e.getMessage(), e);
         }
     }
-    
+
     // PENDIENTE ELIMINAR ITEM Y VACIAR CARRITO
     public static List<PedidoDTO> obtenerPedidos() throws NegocioException {
         try {
@@ -168,28 +178,67 @@ public class FactoryBO {
             throw new NegocioException(e.getMessage(), e);
         }
     }
-    
+
+    public static void crearCarrito(CarritoDTO carrito) throws NegocioException {
+        try {
+            new CarritoBO(FactoryDAO.crearCarritoDAO()).crearCarrito(carrito);
+        } catch (NegocioException e) {
+            throw new NegocioException(e.getMessage(), e);
+        }
+    }
+
+    public static void pedidoEntregado(Long idPedido) throws NegocioException {
+        try {
+            new PedidoBO(FactoryDAO.crearPedidoDAO(), null, null, null).pedidoEntregado(idPedido);
+        } catch (NegocioException e) {
+            throw new NegocioException(e.getMessage(), e);
+        }
+    }
+
+    public static void pedidoEnviado(Long idPedido) throws NegocioException {
+        try {
+            new PedidoBO(FactoryDAO.crearPedidoDAO(), null, null, null).pedidoEnviado(idPedido);
+        } catch (NegocioException e) {
+            throw new NegocioException(e.getMessage(), e);
+        }
+    }
+
+    public static void pedidoPendiente(Long idPedido) throws NegocioException {
+        try {
+            new PedidoBO(FactoryDAO.crearPedidoDAO(), null, null, null).pedidoPendiente(idPedido);
+        } catch (NegocioException e) {
+            throw new NegocioException(e.getMessage(), e);
+        }
+    }
+
+    public static void pedidoCancelado(Long idPedido) throws NegocioException {
+        try {
+            new PedidoBO(FactoryDAO.crearPedidoDAO(), null, null, null).pedidoCancelado(idPedido);
+        } catch (NegocioException e) {
+            throw new NegocioException(e.getMessage(), e);
+        }
+    }
+
     /**
-     * Esta es la operación de negocio más compleja.
-     * Requiere múltiples DAOs para validar stock, calcular total y limpiar el carrito.
+     * Esta es la operación de negocio más compleja. Requiere múltiples DAOs
+     * para validar stock, calcular total y limpiar el carrito.
      */
     public static PedidoDTO registrarPedido(Long idCliente, DireccionDTO direccionEnvioDTO, PagoDTO pagoDTO) throws NegocioException {
         try {
-            
+
             PedidoBO pedidoBO = new PedidoBO(
-                    FactoryDAO.crearPedidoDAO(), 
-                    FactoryDAO.crearClienteDAO(), 
-                    FactoryDAO.crearCarritoDAO(), 
+                    FactoryDAO.crearPedidoDAO(),
+                    FactoryDAO.crearClienteDAO(),
+                    FactoryDAO.crearCarritoDAO(),
                     FactoryDAO.crearVideojuegoDAO()
             );
             return pedidoBO.registrarPedido(idCliente, direccionEnvioDTO, pagoDTO);
-            
+
         } catch (NegocioException e) {
             throw new NegocioException("Error al registrar el pedido: " + e.getMessage(), e);
         }
     }
-    
-    
+
     public static List<CategoriaDTO> buscarTodasCategorias() throws NegocioException {
         try {
             return new CategoriaBO(FactoryDAO.crearCategoriaDAO()).buscarTodas();
@@ -197,7 +246,7 @@ public class FactoryBO {
             throw new NegocioException(e.getMessage(), e);
         }
     }
-    
+
     public static void crearResena(ResenaDTO dto) throws NegocioException {
         try {
             // VALIDACIONES NEGOCIO IF EL CLIENTE SI LO COMPRO ENTONCES PROCEDER
@@ -206,25 +255,25 @@ public class FactoryBO {
             throw new NegocioException("Error al crear reseña: " + e.getMessage(), e);
         }
     }
-    
+
     public static void activarUsuario(String email) throws NegocioException {
-       try {
+        try {
             new UsuarioBO(FactoryDAO.crearUsuarioDAO()).activarUsuario(email);
         } catch (NegocioException e) {
             throw new NegocioException(e.getMessage(), e);
         }
     }
-    
+
     public static void desactivarUsuario(String email) throws NegocioException {
-       try {
+        try {
             new UsuarioBO(FactoryDAO.crearUsuarioDAO()).desactivarUsuario(email);
         } catch (NegocioException e) {
             throw new NegocioException(e.getMessage(), e);
         }
     }
-    
+
     public static void eliminarUsuario(String email) throws NegocioException {
-       try {
+        try {
             new UsuarioBO(FactoryDAO.crearUsuarioDAO()).eliminarUsuario(email);
         } catch (NegocioException e) {
             throw new NegocioException(e.getMessage(), e);

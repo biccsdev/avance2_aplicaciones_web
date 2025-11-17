@@ -21,7 +21,7 @@
             <a href="${pageContext.request.contextPath}/admin/productos/gestionar">
                 <button class="panel-button">Editar Producto</button>
             </a>
-            <a href="${pageContext.request.contextPath}/admin/pedidos">
+            <a href="${pageContext.request.contextPath}/admin/pedidos/gestionar">
                 <button class="panel-button">Pedidos</button>
             </a>
             <a href="${pageContext.request.contextPath}/admin/productos/crear">
