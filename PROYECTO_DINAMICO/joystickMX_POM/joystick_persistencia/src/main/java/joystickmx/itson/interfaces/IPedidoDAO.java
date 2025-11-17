@@ -19,8 +19,6 @@ public interface IPedidoDAO {
 
     Pedido actualizarPedido(Pedido pedido) throws PersistenciaException;
 
-    void actualizarEstadoPedido(Long idPedido, EstadoPedido nuevoEstado) throws PersistenciaException;
-
     Pedido buscarPorId(Long idPedido) throws PersistenciaException;
 
     List<Pedido> obtenerPedidos() throws PersistenciaException;
@@ -32,4 +30,13 @@ public interface IPedidoDAO {
     List<Pedido> buscarPorRangoFecha(LocalDate fechaInicio, LocalDate fechaFin) throws PersistenciaException;
 
     List<DetallePedido> obtenerDetallesPedido(Long idPedido) throws PersistenciaException;
+    
+    void pedidoCancelado(Long idPedido) throws PersistenciaException;
+
+    void pedidoEntregado(Long idPedido) throws PersistenciaException;
+
+    void pedidoPendiente(Long idPedido) throws PersistenciaException;
+    
+    void pedidoEnviado(Long idPedido) throws PersistenciaException;
+
 }

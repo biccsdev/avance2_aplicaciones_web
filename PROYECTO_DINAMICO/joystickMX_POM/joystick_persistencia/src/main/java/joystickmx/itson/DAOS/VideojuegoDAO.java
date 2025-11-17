@@ -166,6 +166,24 @@ public class VideojuegoDAO extends BaseDAO implements IVideojuegoDAO {
                 em.close();
         }
     }
+    
+    @Override
+    public Videojuego buscarPorNombreExacto(String nombre) throws PersistenciaException {
+        iniciarConexion();
+        try {
+            TypedQuery<Videojuego> query = em.createQuery(
+                    "SELECT v FROM Videojuego v WHERE v.habilitado = true AND v.nombre = :nombre",
+                    Videojuego.class
+            );
+            query.setParameter("nombre",nombre);
+            return query.getSingleResult();
+        } catch (PersistenceException e) {
+            throw new PersistenciaException("Error al buscar por nombre: " + e.getMessage());
+        } finally{
+            if (em.isOpen()) 
+                em.close();
+        }
+    }
 
     @Override
     public Videojuego buscarPorId(Long idVideojuego) throws PersistenciaException {

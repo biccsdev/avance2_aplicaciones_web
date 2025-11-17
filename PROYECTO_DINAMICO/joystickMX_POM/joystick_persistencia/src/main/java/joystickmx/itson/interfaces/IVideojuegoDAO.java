@@ -29,4 +29,6 @@ public interface IVideojuegoDAO {
     List<Videojuego> buscarPorNombre(String nombre) throws PersistenciaException;
 
     Videojuego buscarPorId(Long idVideojuego) throws PersistenciaException;
+    
+    Videojuego buscarPorNombreExacto(String nombre) throws PersistenciaException;
 }

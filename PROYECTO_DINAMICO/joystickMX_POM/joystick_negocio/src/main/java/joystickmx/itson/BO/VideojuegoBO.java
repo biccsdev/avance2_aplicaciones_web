@@ -103,6 +103,14 @@ public class VideojuegoBO {
             throw new NegocioException("Error al buscar por nombre: " + e.getMessage(), e);
         }
     }
+    
+    public VideojuegoDTO buscarPorNombreExacto(String nombre) throws NegocioException {
+        try {
+            return Mapeadores.toVideojuegoDTO(this.videojuegoDAO.buscarPorNombreExacto(nombre));
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al buscar por nombre: " + e.getMessage(), e);
+        }
+    }
 
     public VideojuegoDTO buscarPorId(Long idVideojuego) throws NegocioException {
         try {
