@@ -5,6 +5,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -62,6 +64,7 @@ public class Usuario implements Serializable {
     @NotBlank(message = "El telefono no puede estar vacío.")
     private String telefono;
     
+    @Enumerated(EnumType.STRING)
     @Column(name = "estadoUsuario", nullable = false)
     private EstadoUsuario estadoUsuario;
 

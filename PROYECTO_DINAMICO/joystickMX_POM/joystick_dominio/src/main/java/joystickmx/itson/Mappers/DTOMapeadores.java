@@ -27,6 +27,7 @@ import joystickmx.itson.entidades.Resena;
 import joystickmx.itson.entidades.Videojuego;
 import joystickmx.itson.enums.EstadoPago;
 import joystickmx.itson.enums.EstadoPedido;
+import joystickmx.itson.enums.EstadoUsuario;
 import joystickmx.itson.enums.MetodoPago;
 
 /**
@@ -76,6 +77,7 @@ public class DTOMapeadores {
         cliente.setEmail(dto.getEmail());
         cliente.setTelefono(dto.getTelefono());
         cliente.setContrasenia(dto.getContrasenia());
+        cliente.setEstadoUsuario(EstadoUsuario.ACTIVO);
         
         
         if (dto.getDireccion() != null) 

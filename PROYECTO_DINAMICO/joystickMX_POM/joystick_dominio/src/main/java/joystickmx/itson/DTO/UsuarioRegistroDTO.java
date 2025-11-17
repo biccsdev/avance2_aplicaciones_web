@@ -12,19 +12,23 @@ public class UsuarioRegistroDTO {
     private String email;
     private String telefono;
     private String contrasenia;
+    private String EstadoUsuario;
     private DireccionDTO direccion;
 
     public UsuarioRegistroDTO() {}
 
-    public UsuarioRegistroDTO(
-            String nombres, 
-            String apellidoPaterno, 
-            String apellidoMaterno, 
-            String email, 
-            String telefono, 
-            String contrasenia, 
-            DireccionDTO direccion
-    ) {
+    public UsuarioRegistroDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String email, String telefono, String contrasenia, String EstadoUsuario, DireccionDTO direccion) {
+        this.nombres = nombres;
+        this.apellidoPaterno = apellidoPaterno;
+        this.apellidoMaterno = apellidoMaterno;
+        this.email = email;
+        this.telefono = telefono;
+        this.contrasenia = contrasenia;
+        this.EstadoUsuario = EstadoUsuario;
+        this.direccion = direccion;
+    }
+
+    public UsuarioRegistroDTO(String nombres, String apellidoPaterno, String apellidoMaterno, String email, String telefono, String contrasenia, DireccionDTO direccion) {
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
         this.apellidoMaterno = apellidoMaterno;
@@ -33,6 +37,12 @@ public class UsuarioRegistroDTO {
         this.contrasenia = contrasenia;
         this.direccion = direccion;
     }
+
+    
+    
+    
+    
+    
     
     public String getNombres() {return nombres;}
 
@@ -59,6 +69,14 @@ public class UsuarioRegistroDTO {
     public void setContrasenia(String contrasenia) {this.contrasenia = contrasenia;}
 
     public DireccionDTO getDireccion() {return direccion;}
+
+    public String getEstadoUsuario() {
+        return EstadoUsuario;
+    }
+
+    public void setEstadoUsuario(String EstadoUsuario) {
+        this.EstadoUsuario = EstadoUsuario;
+    }
 
     public void setDireccion(DireccionDTO direccion) {this.direccion = direccion;}
 }
