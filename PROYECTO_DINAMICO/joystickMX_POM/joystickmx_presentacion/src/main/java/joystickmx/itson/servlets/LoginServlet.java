@@ -22,8 +22,9 @@ import joystickmx.negocio.exception.NegocioException;
 public class LoginServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-/**
+    /**
      * Muestra la página de login.
+     *
      * @param request
      * @param response
      * @throws jakarta.servlet.ServletException
@@ -32,11 +33,12 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/login.jsp").forward(request, response);
+        request.getRequestDispatcher("/login.jsp").forward(request, response); //
     }
 
-/**
+    /**
      * Procesa el intento de login.
+     *
      * @param request
      * @param response
      * @throws jakarta.servlet.ServletException
@@ -45,24 +47,26 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
         try {
-            UsuarioDTO usuario = FactoryBO.login(email, password);
+            UsuarioDTO usuario = FactoryBO.login(email, password); //
 
             HttpSession session = request.getSession(true);
             session.setAttribute("usuario", usuario);
-//            session.set
-            //session.setAttribute("rol", usuario.getRol());
-            //session.setAttribute("idUsuario", usuario.getIdUsuario());
 
-            if (usuario instanceof AdministradorDTO) { //
-                response.sendRedirect(request.getContextPath() + "/home");
-            } else if (usuario instanceof ClienteDTO) { //
-                response.sendRedirect(request.getContextPath() + "/home");
+            if (usuario.getRol().equals("admin")) {
+                session.setAttribute("rol", "admin");
+            } else if (usuario.getRol().equals("cliente")) {
+                session.setAttribute("rol", "cliente");
+            } else {
+                session.setAttribute("rol", "DESCONOCIDO");
             }
+            
+            // 4. REDIRIGIR SIEMPRE (¡CORREGIDO!)
+            response.sendRedirect(request.getContextPath() + "/home");
 
         } catch (NegocioException e) {
             request.setAttribute("error", e.getMessage());

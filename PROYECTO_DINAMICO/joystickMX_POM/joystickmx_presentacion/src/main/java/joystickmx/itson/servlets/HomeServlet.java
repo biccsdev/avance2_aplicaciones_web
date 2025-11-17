@@ -1,4 +1,3 @@
-
 package joystickmx.itson.servlets;
 
 import jakarta.servlet.ServletException;
@@ -60,7 +59,7 @@ public class HomeServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            List<VideojuegoDTO> videojuegos = FactoryBO.buscarVideojuegosActivos();
+            List<VideojuegoDTO> videojuegos = FactoryBO.buscarVideojuegosActivos(); //
 
             request.setAttribute("videojuegos", videojuegos);
 
@@ -68,7 +67,8 @@ public class HomeServlet extends HttpServlet {
             request.setAttribute("error", "No se pudieron cargar los videojuegos: " + e.getMessage());
         }
 
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        // 4. Enviamos el request (con los datos o el error) al index.jsp para que lo muestre
+        request.getRequestDispatcher("/index.jsp").forward(request, response); //
     }
 
     /**
@@ -82,7 +82,8 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        // 5. ¡No llames a processRequest! Llama a doGet.
+        doGet(request, response);
     }
 
     /**
@@ -92,7 +93,7 @@ public class HomeServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+        return "Servlet que maneja la carga de la página principal y el catálogo de videojuegos.";
+    }
 
 }
