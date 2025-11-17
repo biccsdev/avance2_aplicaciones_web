@@ -1,0 +1,98 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Crear cuenta · JoystickMX</title>
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+  <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/imgs/icono_app.png">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/css/register.css">
+</head>
+
+<body class="app-bg">
+  <div class="login-page">
+    <header class="brand-header center">
+      <div class="header-left">
+        <img class="logo" src="${pageContext.request.contextPath}/imgs/logo.png" alt="Logo de JoystickMX">
+      </div>
+    </header>
+
+    <main>
+      <section class="container-center login-card">
+        <div class="auth-card">
+          <div class="divider" aria-hidden="true"></div>
+          <h2 class="auth-title">Crea tu cuenta</h2>
+
+          <form class="form" action="/register" method="post" novalidate>
+            <div>
+              <label class="form-label" for="email">Correo electrónico<span aria-hidden="true">*</span></label>
+              <input class="input" id="email" name="email" type="email" autocomplete="email"
+                placeholder="Ingresa tu correo electrónico" required>
+            </div>
+
+            <div>
+              <label class="form-label" for="password">Contraseña<span aria-hidden="true">*</span></label>
+              <input class="input" id="password" name="password" type="password" autocomplete="new-password"
+                placeholder="••••••••" required>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label class="form-label" for="firstName">Nombre<span aria-hidden="true">*</span></label>
+                <input class="input" id="firstName" name="firstName" type="text" autocomplete="given-name"
+                  placeholder="Ingresa tus nombre(s)" required>
+              </div>
+              <div class="field">
+                <label class="form-label" for="lastName">Apellidos<span aria-hidden="true">*</span></label>
+                <input class="input" id="lastName" name="lastName" type="text" autocomplete="family-name"
+                  placeholder="Ingresa tus apellidos" required>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label class="form-label" for="colonia">Colonia<span aria-hidden="true">*</span></label>
+                <input class="input" id="colonia" name="colonia" type="text" placeholder="Colonia" required>
+              </div>
+              <div class="field">
+                <label class="form-label" for="calle">Calle<span aria-hidden="true">*</span></label>
+                <input class="input" id="calle" name="calle" type="text" placeholder="Calle" required>
+              </div>
+            </div>
+
+            <div>
+              <label class="form-label" for="numeroExt">Número exterior<span aria-hidden="true">*</span></label>
+              <input class="input" id="numeroExt" name="numeroExt" type="text" inputmode="numeric"
+                placeholder="Número exterior" required>
+            </div>
+
+            <div>
+              <label class="form-label" for="telefono">Teléfono (Opcional)</label>
+              <input class="input" id="telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel"
+                placeholder="+52">
+            </div>
+
+            <div class="terms">
+              <input id="terms" name="terms" type="checkbox" required>
+              <label for="terms">Acepto los términos y condiciones de servicio de JoystickMX</label>
+            </div>
+
+            <a href="../videojuegos/index.html">
+            <button class="btn btn-primary mt-4" type="submit">Registrarse</button>
+            </a>
+
+            <p class="text-center text-muted mt-4">
+              Ya tienes una cuenta?
+              <a class="link" href="${pageContext.request.contextPath}/login">Inicia sesión</a>
+            </p>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+
+</html>

@@ -1,51 +1,59 @@
-
-<%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %> 
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Iniciar Sesión - JoystickMX</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
-    <link rel="shortcut icon" href="${pageContext.request.contextPath}/imgs/icono_app.png" type="image/x-icon">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+    <link rel="icon" href="${pageContext.request.contextPath}/imgs/icono_app.png" type="image/png">
 </head>
-<body>
+<body class="app-bg">
+  <div class="login-page">
+    <header class="brand-header center">
+      <div class="header-left">
+        <img class="logo" src="${pageContext.request.contextPath}/imgs/logo.png" alt="Logo de JoystickMX">
+      </div>
+    </header>
 
-    <%-- <jsp:include page="/WEB-INF/includes/header.jsp" /> --%>
+    <main>
+      <div class="container-center welcome-text">
+        <h1 class="brand-title" aria-label="JoystickMX">Bienvenido Gamer!</h1>
+      </div>
+      <section class="container-center login-card">
+        <div class="auth-card">
+          <div class="divider" aria-hidden="true"></div>
+          <h2 class="auth-title">Inicia Sesión</h2>
 
-    <main class="login-container">
-        
-        <div class="login-logo">
-            <img src="${pageContext.request.contextPath}/imgs/logo.png" alt="Logo JoystickMX">
+          <form class="form" action="${pageContext.request.contextPath}/login" method="post" novalidate>
+            <div>
+              <label class="form-label" for="email">Correo electrónico</label>
+              <input class="input" id="email" name="email" type="email" autocomplete="email"
+                placeholder="Ingresa tu correo electrónico" required>
+            </div>
+
+            <div>
+              <label class="form-label" for="password">Contraseña</label>
+              <input class="input" id="password" name="password" type="password" autocomplete="current-password"
+                placeholder="••••••••" required>
+            </div>
+
+            <a href="../videojuegos/index.html">
+            <button class="btn btn-primary mt-4" type="submit">Ingresar</button>
+            </a>
+
+            <p class="text-center text-muted mt-4">
+              ¿No tienes cuenta?
+              <a class="link" href="${pageContext.request.contextPath}/register">Registrarse</a>
+            </p>
+          </form>
         </div>
-
-        <form class="login-form" action="${pageContext.request.contextPath}/login" method="POST">
-            <h2>Iniciar Sesión</h2>
-            
-            <c:if test="${not empty error}">
-                <div class="error-message">
-                    <p>${error}</p>
-                </div>
-            </c:if>
-
-            <div class="form-group">
-                <label for="email">Correo Electrónico:</label>
-                <input type="email" id="email" name="email" required autocomplete="email">
-            </div>
-
-            <div class="form-group">
-                <label for="password">Contraseña:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-
-            <button type="submit" class="login-button">Iniciar sesion</button>
-            
-            <p>¿No tienes una cuenta? <a href="register.jsp">Regístrate aquí</a></p>
-        </form>
+      </section>
     </main>
-
+  </div>
 </body>
 </html>
-
