@@ -38,13 +38,13 @@ public class PruebasNegocio {
             categoriaAccion.setNombre("Acción");
             categoriaAccion.setDescripcion("Juegos de ritmo rápido y combate.");
             
-            new CategoriaBO(new CategoriaDAO(em)).crearCategoria(categoriaAccion);
+            new CategoriaBO(new CategoriaDAO()).crearCategoria(categoriaAccion);
             System.out.println("Categoría persistida: " + categoriaAccion.getNombre());
             
             em.getTransaction().commit();
             
             em.getTransaction().begin();
-            categoriaAccion = new CategoriaBO(new CategoriaDAO(em)).buscarPorNombre(categoriaAccion.getNombre());
+            categoriaAccion = new CategoriaBO(new CategoriaDAO()).buscarPorNombre(categoriaAccion.getNombre());
             em.getTransaction().commit();
             
             // ============================

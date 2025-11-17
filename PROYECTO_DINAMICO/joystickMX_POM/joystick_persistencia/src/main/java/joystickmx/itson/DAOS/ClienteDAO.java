@@ -1,6 +1,5 @@
 package joystickmx.itson.DAOS;
 
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceException;
 import jakarta.persistence.TypedQuery;
@@ -17,39 +16,57 @@ import joystickmx.itson.interfaces.IClienteDAO;
  */
 public class ClienteDAO extends BaseDAO implements IClienteDAO {
     
-    public ClienteDAO(EntityManager em) {
-        super(em);
-    }
-    
     @Override
     public void crearCliente(Cliente cliente) throws PersistenciaException {
+        iniciarConexion();
         try {
+            em.getTransaction().begin();
             em.persist(cliente);
+            em.getTransaction().commit();
         } catch (PersistenceException e) {
+            if (em.getTransaction().isActive()) 
+                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al persistir el cliente: " + e.getMessage());
+        } finally{
+            if (em.isOpen()) 
+                em.close();
         }
     }
 
     @Override
     public Cliente actualizarCliente(Cliente cliente) throws PersistenciaException {
+        iniciarConexion();
         try {
-            return em.merge(cliente);
+            em.getTransaction().begin();
+            Cliente clienteActualizado = em.merge(cliente);
+            em.getTransaction().commit();
+            return clienteActualizado;
         } catch (PersistenceException e) {
+            if (em.getTransaction().isActive()) 
+                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al actualizar el cliente: " + e.getMessage());
+        } finally{
+            if (em.isOpen()) 
+                em.close();
         }
     }
 
     @Override
     public Cliente buscarPorId(Long idCliente) throws PersistenciaException {
+        iniciarConexion();
         try {
             return em.find(Cliente.class, idCliente);
         } catch (IllegalArgumentException e) {
             throw new PersistenciaException("Error al buscar cliente por ID: " + e.getMessage());
+        } finally{
+            if (em.isOpen()) 
+                em.close();
         }
     }
 
     @Override
     public Cliente buscarPorEmail(String email) throws PersistenciaException {
+        iniciarConexion();
         try {
             TypedQuery<Cliente> query = em.createQuery(
                     "SELECT c FROM Cliente c WHERE c.email = :email",
@@ -61,11 +78,15 @@ public class ClienteDAO extends BaseDAO implements IClienteDAO {
             return null;
         } catch (PersistenceException e) {
             throw new PersistenciaException("Error al buscar cliente por email: " + e.getMessage());
+        } finally{
+            if (em.isOpen()) 
+                em.close();
         }
     }
 
     @Override
     public List<Cliente> buscarTodos() throws PersistenciaException {
+        iniciarConexion();
         try {
             TypedQuery<Cliente> query = em.createQuery(
                     "SELECT c FROM Cliente c",
@@ -74,10 +95,14 @@ public class ClienteDAO extends BaseDAO implements IClienteDAO {
             return query.getResultList();
         } catch (PersistenceException e) {
             throw new PersistenciaException("Error al buscar todos los clientes: " + e.getMessage());
+        } finally{
+            if (em.isOpen()) 
+                em.close();
         }
     }
 
     private List<Cliente> buscarPorEstado(EstadoUsuario estado) throws PersistenciaException {
+        iniciarConexion();
         try {
             TypedQuery<Cliente> query = em.createQuery(
                     "SELECT c FROM Cliente c WHERE c.estadoUsuario = :estadoUsuario",
@@ -87,6 +112,9 @@ public class ClienteDAO extends BaseDAO implements IClienteDAO {
             return query.getResultList();
         } catch (PersistenceException e) {
             throw new PersistenciaException("Error al buscar clientes por estado: " + e.getMessage());
+        } finally{
+            if (em.isOpen()) 
+                em.close();
         }
     }
 
@@ -102,6 +130,7 @@ public class ClienteDAO extends BaseDAO implements IClienteDAO {
 
     @Override
     public List<Cliente> buscarPorNombre(String nombre) throws PersistenciaException {
+        iniciarConexion();
         try {
             TypedQuery<Cliente> query = em.createQuery(
                     "SELECT c FROM Cliente c WHERE c.nombres LIKE :nombre OR c.apellidoPaterno LIKE :nombre OR c.apellidoMaterno LIKE :nombre",
@@ -111,6 +140,9 @@ public class ClienteDAO extends BaseDAO implements IClienteDAO {
             return query.getResultList();
         } catch (PersistenceException e) {
             throw new PersistenciaException("Error al buscar clientes por nombre: " + e.getMessage());
+        } finally{
+            if (em.isOpen()) 
+                em.close();
         }
     }
 }

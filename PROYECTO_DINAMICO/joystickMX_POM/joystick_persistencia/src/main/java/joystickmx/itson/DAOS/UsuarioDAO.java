@@ -1,7 +1,6 @@
 
 package joystickmx.itson.DAOS;
 
-import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceException;
 import jakarta.persistence.TypedQuery;
@@ -18,39 +17,57 @@ import joystickmx.itson.interfaces.IUsuarioDAO;
  */
 public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
 
-    public UsuarioDAO(EntityManager em) {
-        super(em);
-    }
-
     @Override
     public void crearUsuario(Usuario usuario) throws PersistenciaException {
+        iniciarConexion();
         try {
+            em.getTransaction().begin();
             em.persist(usuario);
+            em.getTransaction().commit();
         } catch (PersistenceException e) {
+            if (em.getTransaction().isActive()) 
+                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al crear el usuario: " + e.getMessage());
+        } finally{
+            if (em.isOpen()) 
+                em.close();
         }
     }
 
     @Override
     public Usuario actualizar(Usuario usuario) throws PersistenciaException {
+        iniciarConexion();
         try {
-            return em.merge(usuario);
+            em.getTransaction().begin();
+            Usuario usuarioActualizado = em.merge(usuario);
+            em.getTransaction().commit();
+            return usuarioActualizado;
         } catch (PersistenceException e) {
+            if (em.getTransaction().isActive()) 
+                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al actualizar el usuario: " + e.getMessage());
+        } finally{
+            if (em.isOpen()) 
+                em.close();
         }
     }
 
     @Override
     public Usuario buscarPorId(Long idUsuario) throws PersistenciaException {
+        iniciarConexion();
         try {
             return em.find(Usuario.class, idUsuario);
         } catch (IllegalArgumentException e) {
             throw new PersistenciaException("Error al buscar usuario por ID: " + e.getMessage());
+        } finally{
+            if (em.isOpen()) 
+                em.close();
         }
     }
 
     @Override
     public Usuario buscarPorEmail(String email) throws PersistenciaException {
+        iniciarConexion();
         try {
             TypedQuery<Usuario> query = em.createQuery(
                     "SELECT u FROM Usuario u WHERE u.email = :email",
@@ -62,18 +79,29 @@ public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
             return null;
         } catch (PersistenceException e) {
             throw new PersistenciaException("Error al buscar usuario por email: " + e.getMessage());
+        } finally{
+            if (em.isOpen()) 
+                em.close();
         }
     }
 
     private void actualizarEstadoUsuario(String email, EstadoUsuario nuevoEstado) throws PersistenciaException {
+        iniciarConexion();
         try {
+            em.getTransaction().begin();
             Usuario usuario = this.buscarPorEmail(email);
-            if (usuario == null) {
+            if (usuario == null) 
                  throw new PersistenciaException("No se encontró el usuario con email: " + email);
-            }
             usuario.setEstadoUsuario(nuevoEstado);
+            em.merge(usuario);
+            em.getTransaction().commit();
         } catch (PersistenceException e) {
+            if (em.getTransaction().isActive()) 
+                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al actualizar estado del usuario: " + e.getMessage());
+        } finally{
+            if (em.isOpen()) 
+                em.close();
         }
     }
 
@@ -94,12 +122,12 @@ public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
 
     @Override
     public Usuario modificarDireccion(String email, Direccion datosNuevos) throws PersistenciaException {
+        iniciarConexion();
         try {
+            em.getTransaction().begin();
             Usuario usuario = this.buscarPorEmail(email);
-            if (usuario == null) {
+            if (usuario == null) 
                 throw new PersistenciaException("Error: No se encontró usuario con el email: " + email);
-            }
-
             Direccion direccionExistente = usuario.getDireccion();
             if (direccionExistente == null) {
                 direccionExistente = new Direccion();
@@ -110,10 +138,17 @@ public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
             direccionExistente.setNumero(datosNuevos.getNumero());
             direccionExistente.setColonia(datosNuevos.getColonia());
             
+            em.merge(usuario);
+            em.getTransaction().commit();
             return usuario; 
             
         } catch (PersistenceException e) {
+            if (em.getTransaction().isActive()) 
+                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al modificar la dirección: " + e.getMessage());
+        } finally{
+            if (em.isOpen()) 
+                em.close();
         }
     }
 }

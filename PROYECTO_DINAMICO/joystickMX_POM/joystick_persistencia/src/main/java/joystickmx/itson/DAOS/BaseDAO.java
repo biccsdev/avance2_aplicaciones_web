@@ -2,6 +2,7 @@
 package joystickmx.itson.DAOS;
 
 import jakarta.persistence.EntityManager;
+import joystickmx.itson.conexion.Conexion;
 
 /**
  *
@@ -12,13 +13,12 @@ public class BaseDAO {
     /**
      * El EntityManager es final y protegido, proporcionado por la capa de negocio.
      */
-    protected final EntityManager em;
+    protected EntityManager em;
 
     /**
      * Constructor que recibe el EntityManager.
-     * @param em El EntityManager activo para esta transacción.
      */
-    public BaseDAO(EntityManager em) {
-        this.em = em;
-    }
+    public BaseDAO() {}
+    
+    protected void iniciarConexion(){em = Conexion.crearConexion();}
 }
