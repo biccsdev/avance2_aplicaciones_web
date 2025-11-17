@@ -17,20 +17,27 @@
     <main>
         <div class="form-main">
             <div class="sidebar-image">
+                
+            <c:if test="${not empty error}">
+                <h4 style="color: red; text-align: center; background-color: white; padding: 10px; border-radius: 8px;">
+                    ${error}
+                </h4>
+            </c:if> 
+                
+                
+                
                 <h1>Crear Producto</h1>
                 <div class="img-producto">
                     <img src="${pageContext.request.contextPath}/imgs/iconoImagen.png" alt="Icono de imagen de producto" class="img-producto">
                 </div>
 
-                <div class="upload-div">
-                    <button type="button" class="upload-button">
-                        <img src="${pageContext.request.contextPath}/imgs/uploadIcon.png" alt="Icono de subir imagen" class="upload-icon">
-                        <span class="upload-label">Subir Imagen</span>
-                    </button>
-                </div>
+
             </div>
 
-            <form class="form-producto" action="${pageContext.request.contextPath}/admin/productos/crear" method="post" enctype="multipart/form-data">
+            <form class="form-container" 
+                  method="POST" 
+                  action="${pageContext.request.contextPath}/admin/productos/crear" 
+                  >
                 <div class="form-div">
                     <label for="nombre">Nombre</label>
                     <input type="text" id="nombre" name="nombre" placeholder="Nombre del videojuego" required>
@@ -84,10 +91,13 @@
                         <option value="mundo-abierto">Mundo Abierto</option>
                     </select>
                 </div>
+                
+                <div class="form-div">
+                    <label for="imagenUrl">URL de la Imagen:</label>
+                    <input type="url" id="imagenUrl" name="imagenUrl" placeholder="https://ejemplo.com/imagen.png" required>
+                </div>
 
-                <c:if test="${not empty error}">
-                    <div class="error-text">${error}</div>
-                </c:if>
+
 
                 <c:if test="${not empty success}">
                     <div class="success-text">${success}</div>
@@ -95,9 +105,6 @@
 
                 <div class="button-div">
                     <button type="submit" class="btn-crear">Crear Producto</button>
-                    <a href="${pageContext.request.contextPath}/admin/productos/gestionar">
-                        <button type="button" class="cancelar-button">Cancelar</button>
-                    </a>
                 </div>
             </form>
         </div>

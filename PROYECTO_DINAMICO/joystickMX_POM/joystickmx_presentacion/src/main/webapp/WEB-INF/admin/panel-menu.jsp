@@ -12,7 +12,6 @@
     <title>Panel de Control</title>
 </head>
 <body class="app-bg">
-    <%-- Header unificado que detecta automáticamente que es admin --%>
     <jsp:include page="/WEB-INF/includes/header.jsp"/>
 
     <main>
@@ -31,9 +30,7 @@
             <a href="${pageContext.request.contextPath}/admin/usuarios/gestionar">
                 <button class="panel-button">Gestionar Usuarios</button>
             </a>
-            <a href="${pageContext.request.contextPath}/admin/resenas/moderar">
-                <button class="panel-button">Moderar Reseñas</button>
-            </a>
+                
         </div>
     </main>
 </body>

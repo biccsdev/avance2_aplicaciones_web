@@ -11,13 +11,23 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import joystickmx.itson.DTO.CategoriaDTO;
+import joystickmx.itson.DTO.VideojuegoDTO;
+import joystickmx.itson.Factory.FactoryBO;
 
 /**
  *
- * @author Usuario
+ * @author hola
  */
-@WebServlet(name = "CrearProductoServlet", urlPatterns = {"/CrearProductoServlet"})
+@WebServlet(name = "CrearProductoServlet", urlPatterns = {"/admin/productos/crear"})
 public class CrearProductoServlet extends HttpServlet {
+
+    private static final Logger LOG = Logger.getLogger(CrearProductoServlet.class.getName());
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -57,7 +67,7 @@ public class CrearProductoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("/WEB-INF/admin/productos/crear.jsp").forward(request, response);
     }
 
     /**
@@ -71,7 +81,65 @@ public class CrearProductoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        request.setCharacterEncoding("UTF-8");
+        String contextPath = request.getContextPath();
+
+        try {
+            String nombre = request.getParameter("nombre");
+            String descripcion = request.getParameter("descripcion");
+            String plataforma = request.getParameter("plataforma");
+            String desarrollador = request.getParameter("desarrollador");
+            String genero = request.getParameter("genero");
+            LocalDate fechaLanzamiento = LocalDate.parse(request.getParameter("fechaLanzamiento"));
+            String imagenUrl = request.getParameter("imagenUrl");
+
+            String precioStr = request.getParameter("precio");
+            String stockStr = request.getParameter("stock");
+
+            if (precioStr != null) {
+                precioStr = precioStr.replace(",", ".");
+            }
+
+            if (stockStr != null) {
+                stockStr = stockStr.replace(",", "").replace(".", "");
+            }
+
+            Float precio = Float.parseFloat(precioStr);
+            Integer stock = Integer.parseInt(stockStr);
+
+            VideojuegoDTO nuevoVideojuego = new VideojuegoDTO();
+            nuevoVideojuego.setNombre(nombre);
+            nuevoVideojuego.setDescripcion(descripcion);
+            nuevoVideojuego.setPlataforma(plataforma);
+            nuevoVideojuego.setDesarrollador(desarrollador);
+            List<CategoriaDTO> categorias = new ArrayList<>();
+
+            CategoriaDTO categoria1 = new CategoriaDTO();
+            categoria1.setNombre(genero);
+
+            categorias.add(categoria1);
+            nuevoVideojuego.setCategorias(categorias);
+            nuevoVideojuego.setFechaLanzamiento(fechaLanzamiento);
+            nuevoVideojuego.setUrlImagen(imagenUrl);
+
+            nuevoVideojuego.setPrecio(precio);
+            nuevoVideojuego.setExistencias(stock);
+
+            FactoryBO.crearVideojuego(nuevoVideojuego);
+
+            response.sendRedirect(contextPath + "/admin/productos/gestionar?exito=true");
+
+        } catch (NumberFormatException e) {
+            LOG.log(Level.WARNING, "Error de formato en número (precio o stock)", e);
+            request.setAttribute("error", "Error: El precio y el stock deben ser números válidos.");
+            doGet(request, response); 
+
+        } catch (Exception e) {
+            LOG.log(Level.SEVERE, "Error al crear el producto", e);
+            request.setAttribute("error", "Error al crear el producto: " + e.getMessage());
+            doGet(request, response);
+        }
     }
 
     /**
