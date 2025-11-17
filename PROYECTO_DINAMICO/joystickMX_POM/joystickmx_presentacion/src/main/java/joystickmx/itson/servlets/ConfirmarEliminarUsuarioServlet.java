@@ -21,7 +21,7 @@ import joystickmx.itson.Factory.FactoryBO;
  * @author PC Gamer
  */
 @WebServlet(name = "ConfirmarEliminarUsuarioServlet", urlPatterns = {"/admin/usuarios/confirmar-eliminar"})
-public class ConfirmarEliminarUsuarioServlet extends HttpServlet {  
+public class ConfirmarEliminarUsuarioServlet extends HttpServlet {
 
     private static final Logger LOG = Logger.getLogger(ConfirmarEliminarUsuarioServlet.class.getName());
 
@@ -42,7 +42,7 @@ public class ConfirmarEliminarUsuarioServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ConfirmarEliminarUsuarioServlet</title>");            
+            out.println("<title>Servlet ConfirmarEliminarUsuarioServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ConfirmarEliminarUsuarioServlet at " + request.getContextPath() + "</h1>");
@@ -60,30 +60,30 @@ public class ConfirmarEliminarUsuarioServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-@Override
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String idUsuarioStr = request.getParameter("id");
+
+        String email = request.getParameter("email");
         String contextPath = request.getContextPath();
 
-        if (idUsuarioStr == null || idUsuarioStr.isEmpty()) {
+        if (email == null || email.isEmpty()) {
             response.sendRedirect(contextPath + "/admin/usuarios/gestionar");
             return;
         }
 
         try {
-            Long idUsuario = Long.valueOf(idUsuarioStr);
-            UsuarioDTO usuario = FactoryBO.buscarClientePorId(idUsuario);
-            
+            UsuarioDTO usuario = FactoryBO.buscarUsuarioPorEmail(email);
+
             if (usuario == null) {
                 response.sendRedirect(contextPath + "/admin/usuarios/gestionar?error=no_encontrado");
                 return;
             }
-            
+
             request.setAttribute("usuario", usuario);
+
             request.getRequestDispatcher("/WEB-INF/admin/usuarios/confirmarEliminarUsuario.jsp")
-                   .forward(request, response);
+                    .forward(request, response);
 
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "Error al buscar usuario para confirmar eliminación", e);

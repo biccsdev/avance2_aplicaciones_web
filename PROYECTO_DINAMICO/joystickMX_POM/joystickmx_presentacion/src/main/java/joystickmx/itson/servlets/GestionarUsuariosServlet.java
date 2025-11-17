@@ -15,12 +15,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import joystickmx.itson.DTO.UsuarioDTO;
 import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.negocio.exception.NegocioException;
 
 /**
  *
  * @author PC Gamer
  */
-@WebServlet(name = "GestionarUsuariosServlet", urlPatterns = {"/admin/usuarios/gestionar"})
+@WebServlet(name = "GestionarUsuariosServlet", urlPatterns = {"/gestionar"})
 public class GestionarUsuariosServlet extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(GestionarUsuariosServlet.class.getName());
@@ -39,7 +40,7 @@ public class GestionarUsuariosServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-           
+
             List<UsuarioDTO> listaUsuarios = FactoryBO.buscarClientesExistentes();      //esto cuando el metodo estaba roto si funcionaba, pero ahora que ya essta bien no funciona y no abre la pagina
 
             request.setAttribute("listaUsuarios", listaUsuarios);
@@ -64,7 +65,44 @@ public class GestionarUsuariosServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+
+        String action = request.getParameter("action");
+        String correoUsuario = request.getParameter("correo");
+
+        String error = null;
+
+        try {
+            if (action == null || correoUsuario == null) {
+                throw new NegocioException("Accion o Correo de usuario no especificado.");
+            }
+
+            switch (action) {
+                case "activar":
+                    FactoryBO.activarUsuario(correoUsuario);
+                    break;
+
+                case "desactivar":
+                    FactoryBO.desactivarUsuario(correoUsuario);
+                    break;
+
+                case "eliminar":
+                    response.sendRedirect(
+                            request.getContextPath() + "/admin/usuarios/confirmar-eliminar?email=" + correoUsuario
+                    );
+                    return;
+
+            }
+
+        } catch (NegocioException e) {
+            error = e.getMessage();
+        }
+
+        if (error == null) {
+            response.sendRedirect(request.getContextPath() + "/gestionar");
+        } else {
+            request.setAttribute("error", error);
+            doGet(request, response);
+        }
     }
 
     /**

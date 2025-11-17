@@ -27,7 +27,7 @@
             <a href="${pageContext.request.contextPath}/admin/productos/crear">
                 <button class="panel-button">Crear Producto</button>
             </a>
-            <a href="${pageContext.request.contextPath}/admin/usuarios/gestionar">
+            <a href="${pageContext.request.contextPath}/gestionar">
                 <button class="panel-button">Gestionar Usuarios</button>
             </a>
                 

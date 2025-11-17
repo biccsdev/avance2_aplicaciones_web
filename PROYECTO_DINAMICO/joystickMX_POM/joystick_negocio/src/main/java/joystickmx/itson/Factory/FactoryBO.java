@@ -88,14 +88,6 @@ public class FactoryBO {
         }
     }
     
-    public static void eliminarUsuario(String email ) throws NegocioException{
-        try {            
-            new UsuarioBO(FactoryDAO.crearUsuarioDAO()).eliminarUsuario(email);
-        } catch (NegocioException e) {
-            throw new NegocioException("Error al registrar cliente: " + e.getMessage(), e);
-        }
-    }
-    
     public static void registrarAdministrador(UsuarioRegistroDTO dto) throws NegocioException {
         try {            
             new AdministradorBO(FactoryDAO.crearAdministradorDAO()).crearAdmin(dto);
@@ -212,6 +204,30 @@ public class FactoryBO {
             new ResenaBO(FactoryDAO.crearResenaDAO()).crearResena(dto);
         } catch (NegocioException e) {
             throw new NegocioException("Error al crear reseña: " + e.getMessage(), e);
+        }
+    }
+    
+    public static void activarUsuario(String email) throws NegocioException {
+       try {
+            new UsuarioBO(FactoryDAO.crearUsuarioDAO()).activarUsuario(email);
+        } catch (NegocioException e) {
+            throw new NegocioException(e.getMessage(), e);
+        }
+    }
+    
+    public static void desactivarUsuario(String email) throws NegocioException {
+       try {
+            new UsuarioBO(FactoryDAO.crearUsuarioDAO()).desactivarUsuario(email);
+        } catch (NegocioException e) {
+            throw new NegocioException(e.getMessage(), e);
+        }
+    }
+    
+    public static void eliminarUsuario(String email) throws NegocioException {
+       try {
+            new UsuarioBO(FactoryDAO.crearUsuarioDAO()).eliminarUsuario(email);
+        } catch (NegocioException e) {
+            throw new NegocioException(e.getMessage(), e);
         }
     }
 }

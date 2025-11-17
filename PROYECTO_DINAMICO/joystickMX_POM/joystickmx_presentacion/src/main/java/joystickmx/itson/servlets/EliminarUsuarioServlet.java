@@ -20,7 +20,7 @@ import joystickmx.itson.Factory.FactoryBO;
  *
  * @author PC Gamer
  */
-@WebServlet(name = "EliminarUsuarioServlet", urlPatterns = {"/admin/usuarios/eliminar"})
+@WebServlet(name = "EliminarUsuarioServlet", urlPatterns = {"/eliminarUsuarioConfirmar"})
 public class EliminarUsuarioServlet extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(EliminarUsuarioServlet.class.getName());
@@ -64,26 +64,27 @@ public class EliminarUsuarioServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String idUsuarioStr = request.getParameter("id");
-        String contextPath = request.getContextPath();
+        String email = request.getParameter("email");
 
-        if (idUsuarioStr == null || idUsuarioStr.isEmpty()) {
-            response.sendRedirect(contextPath + "/admin/usuarios/gestionar");
+        if (email == null || email.isEmpty()) {
+            response.sendRedirect(request.getContextPath() + "/admin/usuarios/gestionar");
             return;
         }
 
         try {
-            Long idUsuario = Long.valueOf(idUsuarioStr);
+            UsuarioDTO usuario = FactoryBO.buscarUsuarioPorEmail(email);
 
-            
-            UsuarioDTO usuarioAEliminar = FactoryBO.buscarClientePorId(idUsuario);
-            FactoryBO.eliminarUsuario(usuarioAEliminar.getEmail());                                 
+            if (usuario == null) {
+                throw new RuntimeException("Usuario no encontrado");
+            }
 
-            response.sendRedirect(contextPath + "/admin/usuarios/usuario-eliminado?id=" + idUsuario);
+            request.setAttribute("usuario", usuario);
+
+            request.getRequestDispatcher("/WEB-INF/admin/usuarios/confirmar-eliminar.jsp")
+                    .forward(request, response);
 
         } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Error al eliminar usuario", e);
-            response.sendRedirect(contextPath + "/admin/usuarios/gestionar?error=true");
+            response.sendRedirect(request.getContextPath() + "/admin/usuarios/gestionar?error=true");
         }
     }
 
@@ -98,7 +99,24 @@ public class EliminarUsuarioServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        String email = request.getParameter("email");
+        String contextPath = request.getContextPath();
+
+        if (email == null || email.isEmpty()) {
+            response.sendRedirect(contextPath + "/admin/usuarios/gestionar?error=falta_email");
+            return;
+        }
+
+        try {
+            FactoryBO.eliminarUsuario(email);
+
+            response.sendRedirect(contextPath + "/admin/usuarios/usuario-eliminado?email=" + email);
+
+        } catch (Exception e) {
+            LOGGER.log(Level.SEVERE, "Error al eliminar usuario", e);
+            response.sendRedirect(contextPath + "/admin/usuarios/gestionar?error=true");
+        }
     }
 
     /**
