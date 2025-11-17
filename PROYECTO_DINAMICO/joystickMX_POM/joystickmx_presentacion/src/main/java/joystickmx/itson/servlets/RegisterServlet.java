@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import joystickmx.itson.BO.Utils.PasswordUtil;
 import joystickmx.itson.DTO.AdministradorDTO;
 import joystickmx.itson.DTO.ClienteDTO;
 import joystickmx.itson.DTO.DireccionDTO;
@@ -56,6 +55,7 @@ public class RegisterServlet extends HttpServlet {
             throws ServletException, IOException {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String nombre = request.getParameter("nombre");
         String apellidoMaterno = request.getParameter("apellidoPaterno");
         String apellidoPaterno = request.getParameter("apellidoMaterno");
         String colonia = request.getParameter("colonia");
@@ -64,12 +64,12 @@ public class RegisterServlet extends HttpServlet {
         String telefono = request.getParameter("telefono");
         try {
             FactoryBO.registrarCliente(new UsuarioRegistroDTO(
-                    numero, 
+                    nombre, 
                     apellidoPaterno, 
                     apellidoMaterno, 
                     email, 
                     telefono, 
-                    PasswordUtil.hashPassword(password), 
+                    password, 
                     new DireccionDTO(calle, numero, colonia))
             );
             /*
