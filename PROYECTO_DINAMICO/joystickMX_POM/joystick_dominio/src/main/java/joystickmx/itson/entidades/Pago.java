@@ -49,29 +49,19 @@ public class Pago implements Serializable {
     @FutureOrPresent(message = "La fecha del pago no puede ser menor que la actual.")
     private LocalDateTime fechaPago;
 
-//    @OneToOne
-//    @JoinColumn(name = "id_pedido")
-    private Pedido pedido;
 
     public Pago() {
     }
 
-    public Pago(Long idPago, Float monto, MetodoPago metodoPago, EstadoPago estadoPago, LocalDateTime fechaPago, Pedido pedido) {
+    public Pago(Long idPago, Float monto, MetodoPago metodoPago, EstadoPago estadoPago, LocalDateTime fechaPago) {
         this.idPago = idPago;
         this.monto = monto;
         this.metodoPago = metodoPago;
         this.estadoPago = estadoPago;
         this.fechaPago = fechaPago;
-        this.pedido = pedido;
     }
 
-    public Pedido getPedido() {
-        return pedido;
-    }
 
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
-    }
 
     
 

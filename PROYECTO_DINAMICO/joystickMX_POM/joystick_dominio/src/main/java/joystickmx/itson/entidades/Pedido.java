@@ -37,15 +37,15 @@ public class Pedido implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pedido")
     private Long idPedido;
-    
+
     @Column(name = "fecha_pedido", nullable = false)
     @FutureOrPresent(message = "La fecha del pedido no puede ser menor que la actual.")
     private LocalDateTime fechaPedido;
-    
+
     @Enumerated(value = EnumType.STRING)
     @Column(name = "estado_pedido", nullable = false)
     private EstadoPedido estadoPedido;
-    
+
     @Column(name = "total_pagado", nullable = false)
     @PositiveOrZero(message = "No se aceptan valores negativos.")
     private Float totalPagado;
@@ -53,26 +53,29 @@ public class Pedido implements Serializable {
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "direccion_envio", nullable = false)
     private DireccionEnvio direccionEnvio;
-        
+
     @OneToMany(mappedBy = "pedido", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
-    private List<DetallePedido> detalles = new ArrayList<>();;
+    private List<DetallePedido> detalles = new ArrayList<>();
+    ;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
-    @OneToOne(mappedBy = "pedido", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinColumn(name = "id_pago")
     private Pago pago;
 
-    public Pedido() {}
+    public Pedido() {
+    }
 
     public Pedido(
-            Long idPedido, 
-            LocalDateTime fechaPedido, 
-            EstadoPedido estadoPedido, 
-            Float totalPagado, 
-            DireccionEnvio direccionEnvio, 
-            Cliente cliente, 
+            Long idPedido,
+            LocalDateTime fechaPedido,
+            EstadoPedido estadoPedido,
+            Float totalPagado,
+            DireccionEnvio direccionEnvio,
+            Cliente cliente,
             Pago pago
     ) {
         this.idPedido = idPedido;
@@ -85,13 +88,13 @@ public class Pedido implements Serializable {
     }
 
     public Pedido(
-            Long idPedido, 
-            LocalDateTime fechaPedido, 
-            EstadoPedido estadoPedido, 
-            Float totalPagado, 
-            DireccionEnvio direccionEnvio, 
-            List<DetallePedido> detalles, 
-            Cliente cliente, 
+            Long idPedido,
+            LocalDateTime fechaPedido,
+            EstadoPedido estadoPedido,
+            Float totalPagado,
+            DireccionEnvio direccionEnvio,
+            List<DetallePedido> detalles,
+            Cliente cliente,
             Pago pago
     ) {
         this.idPedido = idPedido;
@@ -104,36 +107,68 @@ public class Pedido implements Serializable {
         this.pago = pago;
     }
 
-    public List<DetallePedido> getDetalles() {return detalles;}
+    public List<DetallePedido> getDetalles() {
+        return detalles;
+    }
 
-    public void setDetalles(List<DetallePedido> detalles) {this.detalles = detalles;}
-    
-    public Pago getPago() {return pago;}
+    public void setDetalles(List<DetallePedido> detalles) {
+        this.detalles = detalles;
+    }
 
-    public void setPago(Pago pago) {this.pago = pago;}
+    public Pago getPago() {
+        return pago;
+    }
 
-    public Long getIdPedido() {return idPedido;}
+    public void setPago(Pago pago) {
+        this.pago = pago;
+    }
 
-    public void setIdPedido(Long idPedido) {this.idPedido = idPedido;}
+    public Long getIdPedido() {
+        return idPedido;
+    }
 
-    public LocalDateTime getFechaPedido() {return fechaPedido;}
+    public void setIdPedido(Long idPedido) {
+        this.idPedido = idPedido;
+    }
 
-    public void setFechaPedido(LocalDateTime fechaPedido) {this.fechaPedido = fechaPedido;}
+    public LocalDateTime getFechaPedido() {
+        return fechaPedido;
+    }
 
-    public EstadoPedido getEstadoPedido() {return estadoPedido;}
+    public void setFechaPedido(LocalDateTime fechaPedido) {
+        this.fechaPedido = fechaPedido;
+    }
 
-    public void setEstadoPedido(EstadoPedido estadoPedido) {this.estadoPedido = estadoPedido;}
+    public EstadoPedido getEstadoPedido() {
+        return estadoPedido;
+    }
 
-    public Float getTotalPagado() {return totalPagado;}
+    public void setEstadoPedido(EstadoPedido estadoPedido) {
+        this.estadoPedido = estadoPedido;
+    }
 
-    public void setTotalPagado(Float totalPagado) {this.totalPagado = totalPagado;}
+    public Float getTotalPagado() {
+        return totalPagado;
+    }
 
-    public DireccionEnvio getDireccionEnvio() {return direccionEnvio;}
+    public void setTotalPagado(Float totalPagado) {
+        this.totalPagado = totalPagado;
+    }
 
-    public void setDireccionEnvio(DireccionEnvio direccionEnvio) {this.direccionEnvio = direccionEnvio;}
+    public DireccionEnvio getDireccionEnvio() {
+        return direccionEnvio;
+    }
 
-    public Cliente getCliente() {return cliente;}
+    public void setDireccionEnvio(DireccionEnvio direccionEnvio) {
+        this.direccionEnvio = direccionEnvio;
+    }
 
-    public void setCliente(Cliente cliente) {this.cliente = cliente;}
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
 }

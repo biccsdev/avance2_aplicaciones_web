@@ -1,4 +1,5 @@
 package joystickmx.itson.filters;
+
 import java.io.IOException;
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.Arrays;
 import java.util.List;
+
 /**
  * AuthFilter - Filtro de autenticación
  *
@@ -24,21 +26,21 @@ import java.util.List;
 public class AuthFilter implements Filter {
 
     private static final List<String> PUBLIC_PATHS = Arrays.asList(
-            "/login",       
-            "/login.jsp",  
-            "/register",   
-            "/register.jsp", 
-            "/logout"    
+            "/login",
+            "/login.jsp",
+            "/register",
+            "/register.jsp",
+            "/logout"
     );
 
     private static final List<String> PUBLIC_RESOURCES = Arrays.asList(
-            "/css/", 
+            "/css/",
             "/imgs/",
             "/js/"
     );
 
     private static final List<String> ADMIN_PATHS = Arrays.asList(
-            "/admin/" 
+            "/admin/"
     );
     private static final List<String> CLIENT_PATHS = Arrays.asList(
             "/user/",
@@ -57,8 +59,13 @@ public class AuthFilter implements Filter {
         String contextPath = httpRequest.getContextPath();
         String path = requestURI.substring(contextPath.length());
 
-        HttpSession session = httpRequest.getSession(false);
+//        if (path.endsWith(".css") || path.endsWith(".js") || path.endsWith(".png")
+//                || path.endsWith(".jpg") || path.endsWith(".jpeg") || path.endsWith(".svg")) {
+//            chain.doFilter(request, response);
+//            return;
+//        }
 
+        HttpSession session = httpRequest.getSession(false);
 
         boolean isPublicResource = PUBLIC_RESOURCES.stream().anyMatch(prefix -> path.startsWith(prefix));
         if (isPublicResource) {
@@ -99,8 +106,10 @@ public class AuthFilter implements Filter {
     }
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {}
+    public void init(FilterConfig filterConfig) throws ServletException {
+    }
 
     @Override
-    public void destroy() {}
+    public void destroy() {
+    }
 }

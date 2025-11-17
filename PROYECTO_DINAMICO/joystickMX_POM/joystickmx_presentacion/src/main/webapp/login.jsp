@@ -8,7 +8,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión - JoystickMX</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css">
     <link rel="shortcut icon" href="${pageContext.request.contextPath}/imgs/icono_app.png" type="image/x-icon">
 </head>

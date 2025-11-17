@@ -88,7 +88,7 @@ public class LoginServlet extends HttpServlet {
             //session.setAttribute("idUsuario", usuario.getIdUsuario());
 
             if (usuario instanceof AdministradorDTO) { //
-                response.sendRedirect(request.getContextPath() + "/admin/panel"); // A futuro
+                response.sendRedirect(request.getContextPath() + "/home");
             } else if (usuario instanceof ClienteDTO) { //
                 response.sendRedirect(request.getContextPath() + "/home");
             }
