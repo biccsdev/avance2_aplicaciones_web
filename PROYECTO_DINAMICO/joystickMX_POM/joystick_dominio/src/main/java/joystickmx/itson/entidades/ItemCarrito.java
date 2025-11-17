@@ -9,7 +9,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
@@ -52,7 +51,6 @@ public class ItemCarrito implements Serializable {
         this.cantidad = cantidad;
     }
 
-
     public Long getIdItemCarrito() {return idItemCarrito;}
 
     public void setIdItemCarrito(Long idItemCarrito) {this.idItemCarrito = idItemCarrito;}
@@ -68,18 +66,6 @@ public class ItemCarrito implements Serializable {
     public Videojuego getVideojuego() {return videojuego;}
 
     public void setVideojuego(Videojuego videojuego) {this.videojuego = videojuego;}
-    
-//    @Transient
-//    public Float getSubtotal() {
-//        if (videojuego != null && cantidad != null) {
-//            return videojuego.getPrecio() * cantidad;         //DEBERIA ESTAR EN NEGOCIO
-//        }
-//        return 0.0f;
-//    }
-    
-    
-    
-    
     
     @Override
     public String toString() {

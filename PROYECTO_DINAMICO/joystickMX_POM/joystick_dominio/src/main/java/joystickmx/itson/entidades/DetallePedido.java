@@ -38,8 +38,6 @@ public class DetallePedido implements Serializable {
     @PositiveOrZero(message = "No se permiten precios negativos.")
     private Float precioUnitario;
 
-
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_pedido", nullable = false)
     private Pedido pedido;
@@ -73,19 +71,7 @@ public class DetallePedido implements Serializable {
     public Float getPrecioUnitario() {return precioUnitario;}
 
     public void setPrecioUnitario(Float precioUnitario) {this.precioUnitario = precioUnitario;}
-
-//    public Float getImporte() {
-//        if (importe == null && cantidad != null && precioUnitario != null) {
-//            return precioUnitario * cantidad;
-//        }
-//        return importe;
-//    }
-
-
     
-    
-    
-
     public Pedido getPedido() {return pedido;}
 
     public void setPedido(Pedido pedido) {this.pedido = pedido;}

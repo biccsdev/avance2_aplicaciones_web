@@ -45,8 +45,6 @@ public class DetallePedidoDTO {
         this.idPedido = idPedido;
     }
 
-
-
     public Integer getCantidad() {return cantidad;}
 
     public void setCantidad(Integer cantidad) {this.cantidad = cantidad;}
@@ -55,36 +53,15 @@ public class DetallePedidoDTO {
 
     public void setPrecioUnitario(Float precioUnitario) {this.precioUnitario = precioUnitario;}
 
+    public Long getIdDetallePedido() {return idDetallePedido;}
 
+    public void setIdDetallePedido(Long idDetallePedido) {this.idDetallePedido = idDetallePedido;}
 
-    public Long getIdDetallePedido() {
-        return idDetallePedido;
-    }
+    public Long getIdVideojuego() {return idVideojuego;}
 
-    public void setIdDetallePedido(Long idDetallePedido) {
-        this.idDetallePedido = idDetallePedido;
-    }
+    public void setIdVideojuego(Long idVideojuego) {this.idVideojuego = idVideojuego;}
 
-    public Long getIdVideojuego() {
-        return idVideojuego;
-    }
+    public Long getIdPedido() {return idPedido;}
 
-    public void setIdVideojuego(Long idVideojuego) {
-        this.idVideojuego = idVideojuego;
-    }
-
-    public Long getIdPedido() {
-        return idPedido;
-    }
-
-    public void setIdPedido(Long idPedido) {
-        this.idPedido = idPedido;
-    }
-
-
-    
-
-
-
-
+    public void setIdPedido(Long idPedido) {this.idPedido = idPedido;}
 }

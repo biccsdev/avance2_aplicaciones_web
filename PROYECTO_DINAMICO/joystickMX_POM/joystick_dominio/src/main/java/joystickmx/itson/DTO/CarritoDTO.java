@@ -40,13 +40,5 @@ public class CarritoDTO {
 
     public List<ItemCarritoDTO> getItems() {return items;}
 
-    public void setItems(List<ItemCarritoDTO> items) {
-        this.items = items;
-    }
-    
-
-    
-
-    
-
+    public void setItems(List<ItemCarritoDTO> items) {this.items = items;}
 }

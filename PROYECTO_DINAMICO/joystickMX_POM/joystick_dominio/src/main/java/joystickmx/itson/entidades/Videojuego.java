@@ -41,7 +41,7 @@ public class Videojuego implements Serializable {
     @NotBlank(message = "El nombre no puede estar vacío.")
     private String nombre;
 
-    @Column(length = 300)
+    @Column(length = 500)
     private String descripcion;
 
     @Column(nullable = false)

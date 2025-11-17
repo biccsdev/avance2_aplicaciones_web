@@ -56,7 +56,6 @@ public class Pedido implements Serializable {
 
     @OneToMany(mappedBy = "pedido", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
     private List<DetallePedido> detalles = new ArrayList<>();
-    ;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_cliente")
@@ -66,8 +65,7 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "id_pago")
     private Pago pago;
 
-    public Pedido() {
-    }
+    public Pedido() {}
 
     public Pedido(
             Long idPedido,
@@ -103,72 +101,38 @@ public class Pedido implements Serializable {
         this.totalPagado = totalPagado;
         this.direccionEnvio = direccionEnvio;
         this.detalles = detalles;
-        this.cliente = cliente;
-        this.pago = pago;
+        this.cliente = cliente;this.pago = pago;
     }
 
-    public List<DetallePedido> getDetalles() {
-        return detalles;
-    }
+    public List<DetallePedido> getDetalles() {return detalles;}
 
-    public void setDetalles(List<DetallePedido> detalles) {
-        this.detalles = detalles;
-    }
+    public void setDetalles(List<DetallePedido> detalles) {this.detalles = detalles;}
 
-    public Pago getPago() {
-        return pago;
-    }
+    public Pago getPago() {return pago;}
 
-    public void setPago(Pago pago) {
-        this.pago = pago;
-    }
+    public void setPago(Pago pago) {this.pago = pago;}
 
-    public Long getIdPedido() {
-        return idPedido;
-    }
+    public Long getIdPedido() {return idPedido;}
 
-    public void setIdPedido(Long idPedido) {
-        this.idPedido = idPedido;
-    }
+    public void setIdPedido(Long idPedido) {this.idPedido = idPedido;}
 
-    public LocalDateTime getFechaPedido() {
-        return fechaPedido;
-    }
+    public LocalDateTime getFechaPedido() {return fechaPedido;}
 
-    public void setFechaPedido(LocalDateTime fechaPedido) {
-        this.fechaPedido = fechaPedido;
-    }
+    public void setFechaPedido(LocalDateTime fechaPedido) {this.fechaPedido = fechaPedido;}
 
-    public EstadoPedido getEstadoPedido() {
-        return estadoPedido;
-    }
+    public EstadoPedido getEstadoPedido() {return estadoPedido;}
 
-    public void setEstadoPedido(EstadoPedido estadoPedido) {
-        this.estadoPedido = estadoPedido;
-    }
+    public void setEstadoPedido(EstadoPedido estadoPedido) {this.estadoPedido = estadoPedido;}
 
-    public Float getTotalPagado() {
-        return totalPagado;
-    }
+    public Float getTotalPagado() {return totalPagado;}
 
-    public void setTotalPagado(Float totalPagado) {
-        this.totalPagado = totalPagado;
-    }
+    public void setTotalPagado(Float totalPagado) {this.totalPagado = totalPagado;}
 
-    public DireccionEnvio getDireccionEnvio() {
-        return direccionEnvio;
-    }
+    public DireccionEnvio getDireccionEnvio() {return direccionEnvio;}
 
-    public void setDireccionEnvio(DireccionEnvio direccionEnvio) {
-        this.direccionEnvio = direccionEnvio;
-    }
+    public void setDireccionEnvio(DireccionEnvio direccionEnvio) {this.direccionEnvio = direccionEnvio;}
 
-    public Cliente getCliente() {
-        return cliente;
-    }
+    public Cliente getCliente() {return cliente;}
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
+    public void setCliente(Cliente cliente) {this.cliente = cliente;}
 }

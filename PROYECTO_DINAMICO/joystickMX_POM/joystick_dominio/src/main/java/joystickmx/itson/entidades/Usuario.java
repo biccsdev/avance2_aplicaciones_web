@@ -21,7 +21,6 @@ import jakarta.validation.constraints.NotBlank;
 import java.io.Serializable;
 import joystickmx.itson.enums.EstadoUsuario;
 
-
 /**
  *
  * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
@@ -97,7 +96,16 @@ public class Usuario implements Serializable {
         this.direccion = direccion;
     }
 
-    public Usuario(Long idUsuario, String nombres, String apellidoPaterno, String apellidoMaterno, String email, String contrasenia, String telefono, Direccion direccion) {
+    public Usuario(
+            Long idUsuario, 
+            String nombres, 
+            String apellidoPaterno, 
+            String apellidoMaterno, 
+            String email, 
+            String contrasenia, 
+            String telefono, 
+            Direccion direccion
+    ) {
         this.idUsuario = idUsuario;
         this.nombres = nombres;
         this.apellidoPaterno = apellidoPaterno;
@@ -107,12 +115,6 @@ public class Usuario implements Serializable {
         this.telefono = telefono;
         this.direccion = direccion;
     }
-    
-    
-    
-    
-    
-    
     
     public Long getIdUsuario() {return idUsuario;}
 
@@ -142,16 +144,10 @@ public class Usuario implements Serializable {
 
     public void setTelefono(String telefono) {this.telefono = telefono;}
 
-    public EstadoUsuario getEstadoUsuario() {
-        return estadoUsuario;
-    }
+    public EstadoUsuario getEstadoUsuario() {return estadoUsuario;}
 
-    public void setEstadoUsuario(EstadoUsuario estadoUsuario) {
-        this.estadoUsuario = estadoUsuario;
-    }
+    public void setEstadoUsuario(EstadoUsuario estadoUsuario) {this.estadoUsuario = estadoUsuario;}
     
-    
-
     public Direccion getDireccion() {return direccion;}
 
     public void setDireccion(Direccion direccion) {this.direccion = direccion;}

@@ -64,10 +64,6 @@ public class UsuarioDTO {
         this.direccion = direccion;
     }
     
-    
-    
-    
-
     /**
      * Getters para cada atributo de la clase
      * @return

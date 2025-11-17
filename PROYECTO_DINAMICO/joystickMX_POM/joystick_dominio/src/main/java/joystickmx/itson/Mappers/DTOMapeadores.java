@@ -1,4 +1,3 @@
-
 package joystickmx.itson.Mappers;
 
 import java.util.ArrayList;
@@ -32,7 +31,10 @@ import joystickmx.itson.enums.MetodoPago;
 
 /**
  *
- * @author PC Gamer
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
 public class DTOMapeadores {
     
@@ -50,11 +52,7 @@ public class DTOMapeadores {
         
         return entity;
     }
-
-    /**
-     * Convierte un DireccionDTO en una *nueva* entidad DireccionEnvio.
-     * Respeta la regla de negocio de que DireccionEnvio es una tabla separada.
-     */
+    
     public static DireccionEnvio toDireccionEnvioEntity(DireccionDTO dto) {
         if (dto == null) return null;
         
@@ -275,10 +273,4 @@ public class DTOMapeadores {
         }
         return entity;
     }
-    
-    
-    
-    
-    
-    
 }

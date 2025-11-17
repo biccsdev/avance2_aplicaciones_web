@@ -25,11 +25,6 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "idUsuario")
 public class Cliente extends Usuario implements Serializable{
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id_cliente")
-//    private Long idCliente;
-
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
     private List<Pedido> pedidos = new ArrayList<>();;
 
@@ -39,10 +34,8 @@ public class Cliente extends Usuario implements Serializable{
     @OneToMany(mappedBy = "cliente", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Resena> resenas = new ArrayList<>();;
 
-//    public Long getIdCliente() {return idCliente;}
-//
-//    public void setIdCliente(Long idCliente) {this.idCliente = idCliente;}
-
+    public Cliente() {}
+    
     public List<Pedido> getPedidos() {return pedidos;}
 
     public void setPedidos(List<Pedido> pedidos) {this.pedidos = pedidos;}

@@ -51,8 +51,6 @@ public class ResenaDTO {
         this.idCliente = idCliente;
     }
     
-
-
     public float getCalificacion() {return calificacion;}
 
     public void setCalificacion(float calificacion) {this.calificacion = calificacion;}
@@ -64,38 +62,16 @@ public class ResenaDTO {
     public LocalDate getFechaResena() {return fechaResena;}
 
     public void setFechaResena(LocalDate fechaResena) {this.fechaResena = fechaResena;}
-
-
-
-
-
-    public Long getIdResena() {
-        return idResena;
-    }
-
-    public void setIdResena(Long idResena) {
-        this.idResena = idResena;
-    }
-
-    public Long getIdCliente() {
-        return idCliente;
-    }
-
-    public void setIdCliente(Long idCliente) {
-        this.idCliente = idCliente;
-    }
-
-    public Long getIdVideojuego() {
-        return idVideojuego;
-    }
-
-    public void setIdVideojuego(Long idVideojuego) {
-        this.idVideojuego = idVideojuego;
-    }
-
-
-
-
     
-    
+    public Long getIdResena() {return idResena;}
+
+    public void setIdResena(Long idResena) {this.idResena = idResena;}
+
+    public Long getIdCliente() {return idCliente;}
+
+    public void setIdCliente(Long idCliente) {this.idCliente = idCliente;}
+
+    public Long getIdVideojuego() {return idVideojuego;}
+
+    public void setIdVideojuego(Long idVideojuego) {this.idVideojuego = idVideojuego;}
 }

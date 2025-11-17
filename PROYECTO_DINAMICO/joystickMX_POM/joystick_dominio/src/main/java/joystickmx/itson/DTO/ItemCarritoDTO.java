@@ -30,41 +30,19 @@ public class ItemCarritoDTO {
         this.idCarrito = idCarrito;
     }
 
-    public Long getIdItemCarrito() {
-        return idItemCarrito;
-    }
+    public Long getIdItemCarrito() {return idItemCarrito;}
 
-    public void setIdItemCarrito(Long idItemCarrito) {
-        this.idItemCarrito = idItemCarrito;
-    }
+    public void setIdItemCarrito(Long idItemCarrito) {this.idItemCarrito = idItemCarrito;}
 
-    public Long getIdVideojuego() {
-        return idVideojuego;
-    }
+    public Long getIdVideojuego() {return idVideojuego;}
 
-    public void setIdVideojuego(Long idVideojuego) {
-        this.idVideojuego = idVideojuego;
-    }
+    public void setIdVideojuego(Long idVideojuego) {this.idVideojuego = idVideojuego;}
 
-    public Long getIdCarrito() {
-        return idCarrito;
-    }
+    public Long getIdCarrito() {return idCarrito;}
 
-    public void setIdCarrito(Long idCarrito) {
-        this.idCarrito = idCarrito;
-    }
-
-
-
-
+    public void setIdCarrito(Long idCarrito) {this.idCarrito = idCarrito;}
+    
     public Integer getCantidad() {return cantidad;}
 
     public void setCantidad(Integer cantidad) {this.cantidad = cantidad;}
-
-
-
-
-
-
-
 }

@@ -42,19 +42,9 @@ public class CategoriaDTO {
 
     public String getDescripcion() {return descripcion;}
 
-    public void setIdCategoria(Long idCategoria) {
-        this.idCategoria = idCategoria;
-    }
+    public void setIdCategoria(Long idCategoria) {this.idCategoria = idCategoria;}
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+    public void setNombre(String nombre) {this.nombre = nombre;}
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-    
-    
-    
-    
+    public void setDescripcion(String descripcion) {this.descripcion = descripcion;} 
 }
