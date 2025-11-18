@@ -37,8 +37,10 @@ public class RegisterServlet extends HttpServlet {
         // Obtiene la sesión de la petición
         HttpSession session = request.getSession(true);
         // Verifica que no haya una sesión iniciada.
-        if(session.getAttribute("usuario") instanceof ClienteDTO || session.getAttribute("usuario") instanceof AdministradorDTO)
-            request.getRequestDispatcher("/index.jsp").forward(request, response);
+        if(session.getAttribute("usuario") != null){
+            response.sendRedirect(request.getContextPath() + "/home");
+            return;
+        }
         // Si no hay una sesión asociada a la petición, se manda a la página del registro.
         request.getRequestDispatcher("/register.jsp").forward(request, response);
     }
