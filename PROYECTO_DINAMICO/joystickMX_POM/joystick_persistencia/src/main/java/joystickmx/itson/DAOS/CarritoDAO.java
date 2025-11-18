@@ -1,12 +1,12 @@
 package joystickmx.itson.DAOS;
 
-import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceException;
 import jakarta.persistence.TypedQuery;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.entidades.Carrito;
 import joystickmx.itson.entidades.Cliente;
 import joystickmx.itson.entidades.ItemCarrito;
+import joystickmx.itson.entidades.Videojuego;
 import joystickmx.itson.interfaces.ICarritoDAO;
 
 /**
@@ -93,15 +93,26 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
     }
 
     @Override
-    public void agregarItem(Carrito carrito, ItemCarrito item) throws PersistenciaException {
+    public void agregarItem(Carrito carritoProxy, ItemCarrito item) throws PersistenciaException {
         iniciarConexion();
         try {
             em.getTransaction().begin();
 
-            carrito.getItems().add(item);
-            item.setCarrito(carrito);
+            Carrito carritoManaged = em.find(Carrito.class, carritoProxy.getIdCarrito());
+            if (carritoManaged == null) {
+                throw new PersistenciaException("No se encontró el carrito con ID: " + carritoProxy.getIdCarrito());
+            }
 
-            em.persist(item);
+            Videojuego videojuegoManaged = em.find(Videojuego.class, item.getVideojuego().getIdVideojuego());
+            if (videojuegoManaged == null) {
+                throw new PersistenciaException("No se encontró el videojuego con ID: " + item.getVideojuego().getIdVideojuego());
+            }
+
+            item.setVideojuego(videojuegoManaged);
+            item.setCarrito(carritoManaged);        
+            carritoManaged.getItems().add(item);        
+
+            em.merge(carritoManaged);
 
             em.getTransaction().commit();
         } catch (PersistenceException e) {
