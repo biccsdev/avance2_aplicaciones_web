@@ -72,19 +72,8 @@ public class ModerarServlet extends HttpServlet {
                 // Busca las resenas del videojuego
                 List<ResenaDTO> resenas = FactoryBO.buscarResenasPorVideojuego(idVideojuegoLong);
                 // Lista con los detalles de la reseña
-                List<VideojuegoResenaDTO> resenasVideojuegos = new ArrayList<>();
+                List<VideojuegoResenaDTO> resenasVideojuegos = obtenerResenas(resenas);
                 
-                for(ResenaDTO resena: resenas){
-                    VideojuegoResenaDTO resenaVideojuego = new VideojuegoResenaDTO();
-                    UsuarioDTO cliente = FactoryBO.buscarClientePorId(resena.getIdCliente());
-                    
-                    resenaVideojuego.setResena(resena);
-                    resenaVideojuego.setNombreJugador(cliente.getNombres());
-                    resenaVideojuego.setNombreVideojuego(String.format("%s (%s)", videojuego.getNombre(), videojuego.getPlataforma()));
-                    resenaVideojuego.setUrlImagen(videojuego.getUrlImagen());
-                    
-                    resenasVideojuegos.add(resenaVideojuego);
-                }
                 // Agrega ambos valores a la petición
                 request.setAttribute("videojuego", videojuego);
                 request.setAttribute("resenas", resenasVideojuegos);
@@ -95,22 +84,8 @@ public class ModerarServlet extends HttpServlet {
                 String nombreVideojuego = request.getParameter("nombreVideojuego");
                 List<ResenaDTO> resenas = FactoryBO.buscarResenasPorNombreVideojuego(nombreVideojuego);
                 // Lista con los detalles de la reseña
-                List<VideojuegoResenaDTO> resenasVideojuegos = new ArrayList<>();
-                for(ResenaDTO resena: resenas){
-                    
-                    VideojuegoResenaDTO resenaVideojuego = new VideojuegoResenaDTO();
-                    
-                    UsuarioDTO cliente = FactoryBO.buscarClientePorId(resena.getIdCliente());
-                    
-                    VideojuegoDTO videojuego = FactoryBO.buscarVideojuegoPorId(resena.getIdVideojuego());
-                    
-                    resenaVideojuego.setResena(resena);
-                    resenaVideojuego.setNombreJugador(cliente.getNombres());
-                    resenaVideojuego.setNombreVideojuego(String.format("%s (%s)", videojuego.getNombre(), videojuego.getPlataforma()));
-                    resenaVideojuego.setUrlImagen(videojuego.getUrlImagen());
-                    
-                    resenasVideojuegos.add(resenaVideojuego);
-                }
+                List<VideojuegoResenaDTO> resenasVideojuegos = obtenerResenas(resenas);
+                
                 request.setAttribute("resenas", resenasVideojuegos);
                 request.getRequestDispatcher("/WEB-INF/admin/resenas/moderar.jsp").forward(request, response);
                 
@@ -119,47 +94,20 @@ public class ModerarServlet extends HttpServlet {
                 Float calificacionLong = Float.valueOf(calificacion);
                 List<ResenaDTO> resenas = FactoryBO.buscarResenasPorCalificacion(calificacionLong);
                 // Lista con los detalles de la reseña
-                List<VideojuegoResenaDTO> resenasVideojuegos = new ArrayList<>();
-                for(ResenaDTO resena: resenas){
-                    
-                    VideojuegoResenaDTO resenaVideojuego = new VideojuegoResenaDTO();
-                    
-                    UsuarioDTO cliente = FactoryBO.buscarClientePorId(resena.getIdCliente());
-                    
-                    VideojuegoDTO videojuego = FactoryBO.buscarVideojuegoPorId(resena.getIdVideojuego());
-                    
-                    resenaVideojuego.setResena(resena);
-                    resenaVideojuego.setNombreJugador(cliente.getNombres());
-                    resenaVideojuego.setNombreVideojuego(String.format("%s (%s)", videojuego.getNombre(), videojuego.getPlataforma()));
-                    resenaVideojuego.setUrlImagen(videojuego.getUrlImagen());
-                    
-                    resenasVideojuegos.add(resenaVideojuego);
-                }
+                List<VideojuegoResenaDTO> resenasVideojuegos = obtenerResenas(resenas);
+                
                 request.setAttribute("resenas", resenasVideojuegos);
                 request.getRequestDispatcher("/WEB-INF/admin/resenas/moderar.jsp").forward(request, response);
             } else{
                 List<ResenaDTO> resenas = FactoryBO.buscarTodasLasResenas();
                 // Lista con los detalles de la reseña
-                List<VideojuegoResenaDTO> resenasVideojuegos = new ArrayList<>();
-                for(ResenaDTO resena: resenas){
-                    
-                    VideojuegoResenaDTO resenaVideojuego = new VideojuegoResenaDTO();
-                    
-                    UsuarioDTO cliente = FactoryBO.buscarClientePorId(resena.getIdCliente());
-                    
-                    VideojuegoDTO videojuego = FactoryBO.buscarVideojuegoPorId(resena.getIdVideojuego());
-                    
-                    resenaVideojuego.setNombreJugador(cliente.getNombres());
-                    resenaVideojuego.setNombreVideojuego(videojuego.getNombre());
-                    resenaVideojuego.setUrlImagen(videojuego.getUrlImagen());
-                    
-                    resenasVideojuegos.add(resenaVideojuego);
-                }
+                List<VideojuegoResenaDTO> resenasVideojuegos = obtenerResenas(resenas);
+                
                 request.setAttribute("resenas", resenasVideojuegos);
                 request.getRequestDispatcher("/WEB-INF/admin/resenas/moderar.jsp").forward(request, response);
             }
         } catch (ServletException | IOException | NumberFormatException | NegocioException e) {
-            request.setAttribute("mensaje", "Error durante la consulta del videojuego.");
+            request.setAttribute("mensaje", "Error durante la consulta de las reseñas.");
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         }
     }
@@ -177,9 +125,37 @@ public class ModerarServlet extends HttpServlet {
             throws ServletException, IOException {
         if(request.getParameter("idResena") != null){
             Long idResena = Long.valueOf(request.getParameter("idResena"));
+            try {
+                FactoryBO.eliminarResenaPorId(idResena);
+                request.setAttribute("mensaje", "Reseña eliminada con éxito.");
+                doGet(request, response);
+            } catch (NegocioException ex) {
+                request.setAttribute("mensaje", "Error durante la eliminación de la reseña.");
+                request.getRequestDispatcher("/index.jsp").forward(request, response);
+            }
         }
     }
+    
+    private List<VideojuegoResenaDTO> obtenerResenas(List<ResenaDTO> resenas) throws NegocioException{
+        List<VideojuegoResenaDTO> resenasVideojuegos = new ArrayList<>();
+        for(ResenaDTO resena: resenas){
 
+            VideojuegoResenaDTO resenaVideojuego = new VideojuegoResenaDTO();
+
+            UsuarioDTO cliente = FactoryBO.buscarClientePorId(resena.getIdCliente());
+
+            VideojuegoDTO videojuego = FactoryBO.buscarVideojuegoPorId(resena.getIdVideojuego());
+
+            resenaVideojuego.setResena(resena);
+            resenaVideojuego.setNombreJugador(cliente.getNombres());
+            resenaVideojuego.setNombreVideojuego(videojuego.getNombre());
+            resenaVideojuego.setUrlImagen(videojuego.getUrlImagen());
+
+            resenasVideojuegos.add(resenaVideojuego);
+        }
+        return resenasVideojuegos;
+    }
+    
     /**
      * Returns a short description of the servlet.
      *
