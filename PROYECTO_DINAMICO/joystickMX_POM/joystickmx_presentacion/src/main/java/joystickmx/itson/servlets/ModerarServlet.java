@@ -77,7 +77,12 @@ public class ModerarServlet extends HttpServlet {
                 for(ResenaDTO resena: resenas){
                     VideojuegoResenaDTO resenaVideojuego = new VideojuegoResenaDTO();
                     UsuarioDTO cliente = FactoryBO.buscarClientePorId(resena.getIdCliente());
+                    
+                    resenaVideojuego.setResena(resena);
                     resenaVideojuego.setNombreJugador(cliente.getNombres());
+                    resenaVideojuego.setNombreVideojuego(String.format("%s (%s)", videojuego.getNombre(), videojuego.getPlataforma()));
+                    resenaVideojuego.setUrlImagen(videojuego.getUrlImagen());
+                    
                     resenasVideojuegos.add(resenaVideojuego);
                 }
                 // Agrega ambos valores a la petición
@@ -99,8 +104,9 @@ public class ModerarServlet extends HttpServlet {
                     
                     VideojuegoDTO videojuego = FactoryBO.buscarVideojuegoPorId(resena.getIdVideojuego());
                     
+                    resenaVideojuego.setResena(resena);
                     resenaVideojuego.setNombreJugador(cliente.getNombres());
-                    resenaVideojuego.setNombreVideojuego(videojuego.getNombre());
+                    resenaVideojuego.setNombreVideojuego(String.format("%s (%s)", videojuego.getNombre(), videojuego.getPlataforma()));
                     resenaVideojuego.setUrlImagen(videojuego.getUrlImagen());
                     
                     resenasVideojuegos.add(resenaVideojuego);
@@ -110,14 +116,50 @@ public class ModerarServlet extends HttpServlet {
                 
             } else if(request.getParameter("calificacion") != null){
                 String calificacion = request.getParameter("calificacion");
-                Long calificacionLong = Long.valueOf(calificacion);
-                
-                
+                Float calificacionLong = Float.valueOf(calificacion);
+                List<ResenaDTO> resenas = FactoryBO.buscarResenasPorCalificacion(calificacionLong);
+                // Lista con los detalles de la reseña
+                List<VideojuegoResenaDTO> resenasVideojuegos = new ArrayList<>();
+                for(ResenaDTO resena: resenas){
+                    
+                    VideojuegoResenaDTO resenaVideojuego = new VideojuegoResenaDTO();
+                    
+                    UsuarioDTO cliente = FactoryBO.buscarClientePorId(resena.getIdCliente());
+                    
+                    VideojuegoDTO videojuego = FactoryBO.buscarVideojuegoPorId(resena.getIdVideojuego());
+                    
+                    resenaVideojuego.setResena(resena);
+                    resenaVideojuego.setNombreJugador(cliente.getNombres());
+                    resenaVideojuego.setNombreVideojuego(String.format("%s (%s)", videojuego.getNombre(), videojuego.getPlataforma()));
+                    resenaVideojuego.setUrlImagen(videojuego.getUrlImagen());
+                    
+                    resenasVideojuegos.add(resenaVideojuego);
+                }
+                request.setAttribute("resenas", resenasVideojuegos);
+                request.getRequestDispatcher("/WEB-INF/admin/resenas/moderar.jsp").forward(request, response);
             } else{
-                
+                List<ResenaDTO> resenas = FactoryBO.buscarTodasLasResenas();
+                // Lista con los detalles de la reseña
+                List<VideojuegoResenaDTO> resenasVideojuegos = new ArrayList<>();
+                for(ResenaDTO resena: resenas){
+                    
+                    VideojuegoResenaDTO resenaVideojuego = new VideojuegoResenaDTO();
+                    
+                    UsuarioDTO cliente = FactoryBO.buscarClientePorId(resena.getIdCliente());
+                    
+                    VideojuegoDTO videojuego = FactoryBO.buscarVideojuegoPorId(resena.getIdVideojuego());
+                    
+                    resenaVideojuego.setNombreJugador(cliente.getNombres());
+                    resenaVideojuego.setNombreVideojuego(videojuego.getNombre());
+                    resenaVideojuego.setUrlImagen(videojuego.getUrlImagen());
+                    
+                    resenasVideojuegos.add(resenaVideojuego);
+                }
+                request.setAttribute("resenas", resenasVideojuegos);
+                request.getRequestDispatcher("/WEB-INF/admin/resenas/moderar.jsp").forward(request, response);
             }
         } catch (ServletException | IOException | NumberFormatException | NegocioException e) {
-            request.setAttribute("error", "Error durante la consulta del videojuego.");
+            request.setAttribute("mensaje", "Error durante la consulta del videojuego.");
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         }
     }

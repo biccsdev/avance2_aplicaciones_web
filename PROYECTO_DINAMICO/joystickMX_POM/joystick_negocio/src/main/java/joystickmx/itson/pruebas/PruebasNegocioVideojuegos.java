@@ -7,6 +7,10 @@ import java.util.List;
 import joystickmx.itson.BO.CategoriaBO;
 import joystickmx.itson.DAOS.CategoriaDAO;
 import joystickmx.itson.DTO.CategoriaDTO;
+import joystickmx.itson.DTO.DireccionDTO;
+import joystickmx.itson.DTO.ResenaDTO;
+import joystickmx.itson.DTO.UsuarioDTO;
+import joystickmx.itson.DTO.UsuarioRegistroDTO;
 import joystickmx.itson.DTO.VideojuegoDTO;
 import joystickmx.itson.Factory.FactoryBO;
 import joystickmx.itson.conexion.Conexion;
@@ -412,7 +416,140 @@ public class PruebasNegocioVideojuegos {
             System.out.println("Videojuego persistido: " + juegoMKW.getNombre());
             
             System.out.println("\n¡ÉXITO! ¡¡¡Se insertaron todos los videojuegos!!!!.");
+            
+            DireccionDTO dir1 = new DireccionDTO("Av. Miguel Aleman", "69", "Obregon");
+            DireccionDTO dir2 = new DireccionDTO("Calle José José", "89", "Nogales");
+            DireccionDTO dir3 = new DireccionDTO("Av. Nuevo León", "876", "Jecopaco");
+            DireccionDTO dir4 = new DireccionDTO("Av. ITSON", "54", "Obregon");
+            DireccionDTO dirAdmin = new DireccionDTO("Av. Monte Real", "666", "Chiapas");
+            
+            UsuarioRegistroDTO admin = new UsuarioRegistroDTO();
+            admin.setNombres("Nathan");
+            admin.setApellidoPaterno("Drake");
+            admin.setApellidoMaterno("Flores");
+            admin.setEmail("admin2@example.com");
+            admin.setContrasenia("adminpass");
+            admin.setTelefono("354627484");
+            admin.setDireccion(dirAdmin);
 
+            FactoryBO.registrarAdministrador(admin);
+            
+            UsuarioRegistroDTO cliente1 = new UsuarioRegistroDTO();
+            cliente1.setNombres("Leonard");
+            cliente1.setApellidoPaterno("Tequida");
+            cliente1.setApellidoMaterno("Pérez");
+            cliente1.setEmail("leonardo@example.com");
+            cliente1.setContrasenia("itson");
+            cliente1.setTelefono("585665675657");
+            cliente1.setDireccion(dir1);
+
+            FactoryBO.registrarCliente(cliente1);
+            
+            UsuarioRegistroDTO cliente2 = new UsuarioRegistroDTO();
+            cliente2.setNombres("Alonso");
+            cliente2.setApellidoPaterno("Leyva");
+            cliente2.setApellidoMaterno("Martínez");
+            cliente2.setEmail("alonso@example.com");
+            cliente2.setContrasenia("jeco18");
+            cliente2.setTelefono("75362398290");
+            cliente2.setDireccion(dir2);
+
+            FactoryBO.registrarCliente(cliente2);
+            
+            UsuarioRegistroDTO cliente3 = new UsuarioRegistroDTO();
+            cliente3.setNombres("Joel");
+            cliente3.setApellidoPaterno("Morgan");
+            cliente3.setApellidoMaterno("Cázarez");
+            cliente3.setEmail("joel@example.com");
+            cliente3.setContrasenia("ellie");
+            cliente3.setTelefono("213718237");
+            cliente3.setDireccion(dir3);
+
+            FactoryBO.registrarCliente(cliente3);
+            
+            UsuarioRegistroDTO cliente4 = new UsuarioRegistroDTO();
+            cliente4.setNombres("Christian Gibran");
+            cliente4.setApellidoPaterno("Duran");
+            cliente4.setApellidoMaterno("Solano");
+            cliente4.setEmail("gibran@example.com");
+            cliente4.setContrasenia("jsp");
+            cliente4.setTelefono("64382094383");
+            cliente4.setDireccion(dir4);
+
+            FactoryBO.registrarCliente(cliente4);
+            
+            UsuarioDTO cliente1Registrado = FactoryBO.buscarUsuarioPorEmail(cliente1.getEmail());
+            UsuarioDTO cliente1Registrado2 = FactoryBO.buscarUsuarioPorEmail(cliente2.getEmail());
+            UsuarioDTO cliente1Registrado3 = FactoryBO.buscarUsuarioPorEmail(cliente3.getEmail());
+            UsuarioDTO cliente1Registrado4 = FactoryBO.buscarUsuarioPorEmail(cliente4.getEmail());
+            
+            List<VideojuegoDTO> videojuegosEncontrados = FactoryBO.buscarVideojuegosActivos();
+            
+            VideojuegoDTO v1 = videojuegosEncontrados.getFirst();
+            VideojuegoDTO v2 = videojuegosEncontrados.get(2);
+            VideojuegoDTO v3 = videojuegosEncontrados.get(14);
+            
+            ResenaDTO r1 = new ResenaDTO();
+            r1.setCalificacion(5.0f);
+            r1.setComentario("Me encantó");
+            r1.setFechaResena(LocalDate.now());
+            r1.setIdCliente(cliente1Registrado.getIdUsuario());
+            r1.setIdVideojuego(v1.getIdVideojuego());
+            
+            ResenaDTO r2 = new ResenaDTO();
+            r2.setCalificacion(4.5f);
+            r2.setComentario("Un poco sobrevalorado.");
+            r2.setFechaResena(LocalDate.now());
+            r2.setIdCliente(cliente1Registrado2.getIdUsuario());
+            r2.setIdVideojuego(v1.getIdVideojuego());
+            
+            ResenaDTO r7 = new ResenaDTO();
+            r7.setCalificacion(4.0f);
+            r7.setComentario("Me gustó un poco más el primero.");
+            r7.setFechaResena(LocalDate.now());
+            r7.setIdCliente(cliente1Registrado4.getIdUsuario());
+            r7.setIdVideojuego(v1.getIdVideojuego());
+            
+            ResenaDTO r3 = new ResenaDTO();
+            r3.setCalificacion(5.0f);
+            r3.setComentario("Me encantó");
+            r3.setFechaResena(LocalDate.now());
+            r3.setIdCliente(cliente1Registrado3.getIdUsuario());
+            r3.setIdVideojuego(v1.getIdVideojuego());
+            
+            ResenaDTO r4 = new ResenaDTO();
+            r4.setCalificacion(3.5f);
+            r4.setComentario("Me gustó más el 4");
+            r4.setFechaResena(LocalDate.now());
+            r4.setIdCliente(cliente1Registrado.getIdUsuario());
+            r4.setIdVideojuego(v2.getIdVideojuego());
+            
+            ResenaDTO r5 = new ResenaDTO();
+            r5.setCalificacion(5.0f);
+            r5.setComentario("El mejor GTA de todos");
+            r5.setFechaResena(LocalDate.now());
+            r5.setIdCliente(cliente1Registrado3.getIdUsuario());
+            r5.setIdVideojuego(v2.getIdVideojuego());
+            
+            ResenaDTO r6 = new ResenaDTO();
+            r6.setCalificacion(5.0f);
+            r6.setComentario("Como fan de Donkey Kong desde que tengo memoria, creí que ya había visto todo: "
+                    + "desde las plataformas vertiginosas del clásico arcade hasta las maravillas tropicales "
+                    + "de Donkey Kong Country. Pero Donkey Kong Bananza no solo me sorprendió… me dejó "
+                    + "absolutamente maravillado.");
+            r6.setFechaResena(LocalDate.now());
+            r6.setIdCliente(cliente1Registrado2.getIdUsuario());
+            r6.setIdVideojuego(v3.getIdVideojuego());
+            
+            FactoryBO.crearResena(r1);
+            FactoryBO.crearResena(r2);
+            FactoryBO.crearResena(r3);
+            FactoryBO.crearResena(r4);
+            FactoryBO.crearResena(r5);
+            FactoryBO.crearResena(r6);
+            FactoryBO.crearResena(r7);
+            
+            
         } catch (Exception e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();

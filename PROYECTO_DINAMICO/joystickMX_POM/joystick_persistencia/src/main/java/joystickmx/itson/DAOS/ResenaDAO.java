@@ -114,7 +114,7 @@ public class ResenaDAO extends BaseDAO implements IResenaDAO {
                     "SELECT r FROM Resena r WHERE r.videojuego.nombre = :nombreVideojuego ORDER BY r.fechaResena DESC",
                     Resena.class
             );
-            query.setParameter("idVideojuego", nombreVideojuego);
+            query.setParameter("nombreVideojuego", nombreVideojuego);
             List<Resena> resenas = query.getResultList();
             resenas.forEach(r -> {
                 r.getCliente(); // Obtiene el cliente de cada reseña

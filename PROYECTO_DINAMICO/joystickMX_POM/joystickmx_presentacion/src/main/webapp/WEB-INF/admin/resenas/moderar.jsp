@@ -18,108 +18,82 @@
         <h1 class="reviews-title brand-title">Moderar Reseñas</h1>
 
         <div class="reviews-filters">
-            <form action="${pageContext.request.contextPath}/admin/resenas/moderar" method="get" class="filter-form">
+            <form action="${pageContext.request.contextPath}/moderar" method="get" class="filter-form">
                 <div class="filter-group">
-                    <label for="producto">Filtrar por producto:</label>
-                    <input type="text" id="producto" name="producto" class="input" placeholder="Nombre del producto...">
+                    <label for="producto">Filtrar por videojuego</label>
+                    <input type="text" id="producto" name="nombreVideojuego" class="input" placeholder="Nombre del videojuego...">
                 </div>
+                <button type="submit" class="btn btn-primary">Filtrar por nombre</button>
+                
+            </form>
+            <form action="${pageContext.request.contextPath}/moderar" method="get" class="filter-form">
                 <div class="filter-group">
+                    <label></label>
                     <label for="calificacion">Calificación:</label>
                     <select id="calificacion" name="calificacion" class="input">
                         <option value="">Todas</option>
                         <option value="5">5 estrellas</option>
+                        <option value="4.5">4.5 estrellas</option>
                         <option value="4">4 estrellas</option>
+                        <option value="3.5">3.5 estrellas</option>
                         <option value="3">3 estrellas</option>
+                        <option value="2.5">2.5 estrellas</option>
                         <option value="2">2 estrellas</option>
+                        <option value="1.5">1.5 estrellas</option>
                         <option value="1">1 estrella</option>
+                        <option value="0.5">0.5 estrella</option>
+                        <option value="0">0 estrella</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary">Filtrar</button>
+                <button type="submit" class="btn btn-primary">Filtrar por calificación</button>
             </form>
         </div>
-
-        <div class="reviews-list">
-            <%-- Datos dummy de reseñas --%>
-            <div class="review-card">
-                <div class="review-header">
-                    <div class="review-product-info">
-                        <img src="${pageContext.request.contextPath}/imgs/ghosts.png" alt="Producto" class="review-product-img">
-                        <div>
-                            <h3 class="review-product-name">Call of Duty: Ghosts - PlayStation 4</h3>
-                            <div class="review-rating">
-                                <span class="stars">★★★★★</span>
-                                <span class="rating-number">5/5</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review-date">
-                        <span class="text-muted">15/11/2025</span>
-                    </div>
-                </div>
-                <div class="review-body">
-                    <div class="review-author">
-                        <img src="${pageContext.request.contextPath}/imgs/icono_user_super_prime.png" alt="Usuario" class="author-avatar">
-                        <span class="author-name">Sebastian Borquez</span>
-                    </div>
-                    <p class="review-text">
-                        Excelente juego, la historia es muy buena y los gráficos son impresionantes. 
-                        Totalmente recomendado para los fans de la saga. La modalidad multijugador es muy divertida.
-                    </p>
-                </div>
-                <div class="review-actions">
-                    <form action="${pageContext.request.contextPath}/admin/resenas/aprobar" method="post" style="display: inline;">
-                        <input type="hidden" name="id" value="1">
-                        <button type="submit" class="btn btn-success">Aprobar</button>
-                    </form>
-                    <form action="${pageContext.request.contextPath}/admin/resenas/eliminar" method="post" style="display: inline;">
-                        <input type="hidden" name="id" value="1">
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                    </form>
-                </div>
-            </div>
-
-            <div class="review-card">
-                <div class="review-header">
-                    <div class="review-product-info">
-                        <img src="${pageContext.request.contextPath}/imgs/elden-ring-ps5.jpg" alt="Producto" class="review-product-img">
-                        <div>
-                            <h3 class="review-product-name">Elden Ring - PlayStation 5</h3>
-                            <div class="review-rating">
-                                <span class="stars">★★★★☆</span>
-                                <span class="rating-number">4/5</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review-date">
-                        <span class="text-muted">20/11/2025</span>
-                    </div>
-                </div>
-                <div class="review-body">
-                    <div class="review-author">
-                        <img src="${pageContext.request.contextPath}/imgs/icono_user_super_prime.png" alt="Usuario" class="author-avatar">
-                        <span class="author-name">Ariel Rodriguez</span>
-                    </div>
-                    <p class="review-text">
-                        Gran juego pero muy difícil. La exploración del mundo abierto es increíble y hay mucho contenido. 
-                        Solo le bajo una estrella por la dificultad extrema en algunos jefes.
-                    </p>
-                </div>
-                <div class="review-actions">
-                    <form action="${pageContext.request.contextPath}/admin/resenas/aprobar" method="post" style="display: inline;">
-                        <input type="hidden" name="id" value="2">
-                        <button type="submit" class="btn btn-success">Aprobar</button>
-                    </form>
-                    <form action="${pageContext.request.contextPath}/admin/resenas/eliminar" method="post" style="display: inline;">
-                        <input type="hidden" name="id" value="2">
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-
         <c:if test="${not empty mensaje}">
             <div class="success-message">${mensaje}</div>
         </c:if>
+        <div class="reviews-list">
+            <%-- Datos dummy de reseñas --%>
+            <c:forEach var="resena" items="${resenas}">
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="review-product-info">
+                            <img src="${pageContext.request.contextPath}${resena.getUrlImagen()}" alt="Producto" class="review-product-img">
+                            <div>
+                                <h3 class="review-product-name">${resena.getNombreVideojuego()}</h3>
+                                <div class="review-rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-number">${resena.getResena().getCalificacion()}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="review-date">
+                            <span class="text-muted">${
+                                String.format("%d/%d/%d", 
+                                  resena.getResena().getFechaResena().getDayOfMonth(), 
+                                  resena.getResena().getFechaResena().getMonthValue(), 
+                                  resena.getResena().getFechaResena().getYear())
+                                }
+                            </span>
+                        </div>
+                    </div>
+                    <div class="review-body">
+                        <div class="review-author">
+                            <img src="${pageContext.request.contextPath}/imgs/icono_user_super_prime.png" alt="Usuario" class="author-avatar">
+                            <span class="author-name">${resena.getNombreJugador()}</span>
+                        </div>
+                        <p class="review-text">
+                            ${resena.getResena().getComentario()}
+                        </p>
+                    </div>
+                    <div class="review-actions">
+                        <form action="${pageContext.request.contextPath}/admin/resenas/eliminar" method="post" style="display: inline;">
+                            <input type="hidden" name="id" value="1">
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
     </main>
 </body>
 </html>
