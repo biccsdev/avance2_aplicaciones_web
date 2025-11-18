@@ -101,84 +101,84 @@ public class CrearProductoServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
         String contextPath = request.getContextPath();
+        String error = null;
 
         try {
             String nombre = request.getParameter("nombre");
             //La descripción no aparece en el formulario
-            String descripcion = "Descripción pendiente..."; 
+            String descripcion = "Descripción pendiente...";
             String plataforma = request.getParameter("plataforma");
             String desarrollador = request.getParameter("desarrollador");
-            String categoria = request.getParameter("categoria");
+            String categoriaNombre = request.getParameter("categoria"); 
             LocalDate fechaLanzamiento = LocalDate.parse(request.getParameter("lanzamiento"));
+            String precioStr = request.getParameter("precio").replace(",", ".");
+            
+            Float precio = Float.valueOf(precioStr);
+            Integer stock = Integer.valueOf(request.getParameter("existencias"));
 
-            String precioStr = request.getParameter("precio");
-            String stockStr = request.getParameter("existencias");
-
-            if (precioStr != null) {
-                precioStr = precioStr.replace(",", ".");
-            }
-
-            //Lógica para guardar la imagen
+            //Manejar toda la lógica para guardar la imagen
             String imagenUrlDB = "imgs/iconoImagen.png";
             Part filePart = request.getPart("imagenFile");
             
             if (filePart != null && filePart.getSize() > 0) {
-                //Obtener el nombre del archivo
                 String fileName = filePart.getSubmittedFileName();
-                //Obtener ruta de la carpeta de las imágenes "imgs" en el servidor
-                String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIR;
-                //Si no existe el directorio entonces se crea
+                String uploadPath = getServletContext().getRealPath(UPLOAD_DIR);
                 File uploadDir = new File(uploadPath);
                 if (!uploadDir.exists()) {
                     uploadDir.mkdirs();
                 }
-                //Guardar el archivo
+                
                 String finalName = fileName;
                 filePart.write(uploadPath + File.separator + finalName);
-                //Le damos el formato necesario a la url "/imgs/nombreImagen.jps"
-                imagenUrlDB = UPLOAD_DIR + "/" + finalName;
+                
+                //Asignar el formato específico de la url para guardarlo en la base de datos
+                imagenUrlDB = UPLOAD_DIR + "/" + finalName; 
             }
 
-            Float precio = Float.valueOf(precioStr);
-            Integer stock = Integer.valueOf(stockStr);
+            //Buscar y validar las categorías
+            List<CategoriaDTO> categorias = new ArrayList<>();
+            CategoriaDTO categoriaEncontrada = FactoryBO.buscarCategoriaPorNombre(categoriaNombre); 
+            
+            if (categoriaEncontrada == null) {
+                throw new NegocioException("La categoría seleccionada no es válida: " + categoriaNombre);
+            }
+            categorias.add(categoriaEncontrada);
 
+            //Construir y persistir el videojuego
             VideojuegoDTO nuevoVideojuego = new VideojuegoDTO();
             nuevoVideojuego.setNombre(nombre);
             nuevoVideojuego.setDescripcion(descripcion);
             nuevoVideojuego.setPlataforma(plataforma);
             nuevoVideojuego.setDesarrollador(desarrollador);
-
-            //Esto lo hice para que no se creara una categoría nueva cada vez que se registra un producto
-            //Porque en teoría ya deberían de estar registradas las categorías
-            List<CategoriaDTO> categorias = new ArrayList<>();
-            // Aquí NO se normaliza la cadena, se espera que el JSP envíe el nombre correcto.
-            CategoriaDTO categoriaEncontrada = FactoryBO.buscarCategoriaPorNombre(categoria); 
-
-            if (categoriaEncontrada == null) {
-                throw new NegocioException("La categoría seleccionada no es válida: " + categoria);
-            }
-            
-            categorias.add(categoriaEncontrada);
-
             nuevoVideojuego.setCategorias(categorias);
             nuevoVideojuego.setFechaLanzamiento(fechaLanzamiento);
-            nuevoVideojuego.setUrlImagen(imagenUrlDB); 
+            nuevoVideojuego.setUrlImagen(imagenUrlDB);
             nuevoVideojuego.setPrecio(precio);
             nuevoVideojuego.setExistencias(stock);
-
+            nuevoVideojuego.setHabilitado(true);
+            //Crear el videojuego
             FactoryBO.crearVideojuego(nuevoVideojuego);
-
-            response.sendRedirect(contextPath + "/admin/panel-menu");
+            //Redirigir al panel principal para administrador
+            response.sendRedirect(contextPath + "/admin/panel-menu?success=Producto+creado+exitosamente");
 
         } catch (NumberFormatException e) {
-            LOG.log(Level.WARNING, "Error de formato en número", e);
-            request.setAttribute("error", "Error: El precio y el stock deben ser números válidos.");
-            doGet(request, response); 
-
+            error = "Error: El precio y el stock deben ser números válidos.";
+            LOG.log(Level.WARNING, error, e);
+            
         } catch (Exception e) {
-            LOG.log(Level.SEVERE, "Error al crear el producto", e);
-            request.setAttribute("error", "Error al crear el producto: " + e.getMessage());
-            doGet(request, response);
+            error = "Error al crear el producto: " + e.getMessage();
+            LOG.log(Level.SEVERE, error, e);
+        }
+
+        //Si hay algún error se recarga la página con el mensaje
+        if (error != null) {
+            request.setAttribute("error", error);
+            try {
+                 request.setAttribute("categoriasDisponibles", FactoryBO.buscarTodasCategorias());
+            } catch(Exception ex) {
+                 LOG.log(Level.WARNING, "Fallo al recargar categorías tras error.");
+            }
+            request.getRequestDispatcher("/WEB-INF/admin/productos/crear.jsp").forward(request, response);
         }
     }
 
