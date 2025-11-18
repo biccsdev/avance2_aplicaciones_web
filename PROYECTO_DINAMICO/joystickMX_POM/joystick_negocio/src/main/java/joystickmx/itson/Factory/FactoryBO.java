@@ -250,10 +250,26 @@ public class FactoryBO {
             throw new NegocioException("Error al marcar pedido como cancelado: " + e.getMessage(), e);
         }
     }
+    
+    
+    
+    public static List<VideojuegoDTO> buscarVideojuegosPorNombreParcial(String nombre) throws NegocioException {
+        try {
+            VideojuegoBO videojuegoBO = new VideojuegoBO(FactoryDAO.crearVideojuegoDAO());
+            return videojuegoBO.buscarPorNombre(nombre);
+        } catch (NegocioException e) {
+            throw new NegocioException("Error al buscar videojuegos por nombre: " + e.getMessage(), e);
+        }
+    }
 
     /**
      * Esta es la operación de negocio más compleja. Requiere múltiples DAOs
      * para validar stock, calcular total y limpiar el carrito.
+     * @param idCliente
+     * @param direccionEnvioDTO
+     * @param pagoDTO
+     * @return 
+     * @throws joystickmx.negocio.exception.NegocioException
      */
     public static PedidoDTO registrarPedido(Long idCliente, DireccionDTO direccionEnvioDTO, PagoDTO pagoDTO) throws NegocioException {
         try {

@@ -614,4 +614,21 @@ video {
   .game-title {
     font-size: 14px;
   }
+  
+  .search-submit-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-submit-button:focus {
+    outline: none;
+}
+  
+  
+  
 }

@@ -21,10 +21,17 @@
 
     <div class="header-center">
         <span class="search-label">Busqueda de productos</span>
-        <div class="search-container">
-            <input class="search-input" type="text" placeholder="Search">
-            <img class="search-icon" src="${contextPath}/imgs/lupa.png" alt="Icono de búsqueda">
-        </div>
+
+        <form class="search-container" action="${contextPath}/home" method="GET">
+
+            <input class="search-input" type="text" name="busqueda" 
+                   placeholder="Buscar videojuego..." 
+                   value="<c:out value='${param.busqueda}'/>">
+
+            <button type="submit" class="search-submit-button">
+                <img class="search-icon" src="${contextPath}/imgs/lupa.png" alt="Icono de búsqueda">
+            </button>
+        </form>
     </div>
 
     <div class="header-right">

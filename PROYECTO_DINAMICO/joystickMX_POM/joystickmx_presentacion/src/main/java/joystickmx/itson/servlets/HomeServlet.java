@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import joystickmx.itson.DTO.VideojuegoDTO;
 import joystickmx.itson.Factory.FactoryBO;
@@ -58,17 +59,25 @@ public class HomeServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        String terminoBusqueda = request.getParameter("busqueda");
+
+        List<VideojuegoDTO> videojuegos;
+
         try {
-            List<VideojuegoDTO> videojuegos = FactoryBO.buscarVideojuegosActivos(); //
+            if (terminoBusqueda != null && !terminoBusqueda.trim().isEmpty()) {
+                videojuegos = FactoryBO.buscarVideojuegosPorNombreParcial(terminoBusqueda.trim());
+            } else {
+                videojuegos = FactoryBO.buscarVideojuegosActivos();
+            }
 
             request.setAttribute("videojuegos", videojuegos);
 
         } catch (NegocioException e) {
-            request.setAttribute("error", "No se pudieron cargar los videojuegos: " + e.getMessage());
+            request.setAttribute("error", "Error al cargar los videojuegos: " + e.getMessage());
+            request.setAttribute("videojuegos", new ArrayList<VideojuegoDTO>());
         }
 
-        // 4. Enviamos el request (con los datos o el error) al index.jsp para que lo muestre
-        request.getRequestDispatcher("/index.jsp").forward(request, response); //
+        request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
 
     /**

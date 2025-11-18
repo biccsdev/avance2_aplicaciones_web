@@ -32,10 +32,7 @@
                         </div>
                     </c:when>
 
-                    <%-- Caso de "No hay productos" --%>
-                    <c:when test="${empty videojuegos}">
-                        <p>No hay videojuegos disponibles en este momento.</p>
-                    </c:when>
+
 
                     <%-- Caso Principal: Mostrar productos --%>
                     <c:otherwise>
