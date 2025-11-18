@@ -336,6 +336,15 @@ public class FactoryBO {
         }
     }
 
+    public static void eliminarResenaPorId(Long idResena) throws NegocioException{
+        try {
+            // VALIDACIONES NEGOCIO IF EL CLIENTE SI LO COMPRO ENTONCES PROCEDER
+            new ResenaBO(FactoryDAO.crearResenaDAO()).eliminarResena(idResena);
+        } catch (NegocioException e) {
+            throw new NegocioException("Error al crear reseña: " + e.getMessage(), e);
+        }
+    }
+    
     public static void activarUsuario(String email) throws NegocioException {
         try {
             new UsuarioBO(FactoryDAO.crearUsuarioDAO()).activarUsuario(email);

@@ -61,7 +61,6 @@
                             <div>
                                 <h3 class="review-product-name">${resena.getNombreVideojuego()}</h3>
                                 <div class="review-rating">
-                                    <span class="stars">★★★★★</span>
                                     <span class="rating-number">${resena.getResena().getCalificacion()}</span>
                                 </div>
                             </div>
@@ -86,8 +85,8 @@
                         </p>
                     </div>
                     <div class="review-actions">
-                        <form action="${pageContext.request.contextPath}/admin/resenas/eliminar" method="post" style="display: inline;">
-                            <input type="hidden" name="id" value="1">
+                        <form action="${pageContext.request.contextPath}/moderar" method="post" style="display: inline;">
+                            <input type="hidden" name="idResena" value="${resena.getResena().getIdResena()}">
                             <button type="submit" class="btn btn-danger">Eliminar</button>
                         </form>
                     </div>
