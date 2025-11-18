@@ -52,7 +52,7 @@
                     <button type="submit" class="btn-eliminar btn-formateo">ELIMINAR</button>
                 </form>
 
-                <a href="${pageContext.request.contextPath}/gestionar">
+                <a href="${pageContext.request.contextPath}/admin/usuarios">
                     <button class="btn-cancelar btn-formateo">Cancelar</button>
                 </a>
             </div>

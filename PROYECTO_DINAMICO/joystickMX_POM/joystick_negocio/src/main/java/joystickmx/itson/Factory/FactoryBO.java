@@ -261,6 +261,16 @@ public class FactoryBO {
             throw new NegocioException("Error al buscar videojuegos por nombre: " + e.getMessage(), e);
         }
     }
+    
+    
+    
+    public static List<UsuarioDTO> buscarClientesPorNombre(String nombre) throws NegocioException {
+        try {
+            return new ClienteBO(FactoryDAO.crearClienteDAO(), null).buscarPorNombre(nombre);
+        } catch (NegocioException e) {
+            throw new NegocioException("Error al buscar clientes por nombre: " + e.getMessage(), e);
+        }
+    }
 
     /**
      * Esta es la operación de negocio más compleja. Requiere múltiples DAOs
