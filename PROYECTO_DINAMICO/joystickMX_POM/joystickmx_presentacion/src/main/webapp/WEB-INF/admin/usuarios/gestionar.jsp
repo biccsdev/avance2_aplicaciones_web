@@ -25,9 +25,9 @@
                 <label class="filter-label" for="nombre-filtro">Nombre:</label>
                 
                 <input id="nombre-filtro" class="input-filter" type="text" 
-                       name="busqueda" 
+                       name="busqueda_usuario" 
                        placeholder="Buscar usuario y presionar Enter..."
-                       value="<c:out value='${param.busqueda}'/>">
+                       value="<c:out value='${param.busqueda_usuario}'/>">
                 
             </form>
 

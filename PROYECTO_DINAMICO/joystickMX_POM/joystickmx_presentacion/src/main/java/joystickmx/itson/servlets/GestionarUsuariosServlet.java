@@ -51,7 +51,7 @@ public class GestionarUsuariosServlet extends HttpServlet {
             return;
         }
 
-        String busqueda = request.getParameter("busqueda");
+        String busqueda = request.getParameter("busqueda_usuario");
 
         List<UsuarioDTO> listaUsuarios;
 
