@@ -15,11 +15,21 @@
         <jsp:include page="/WEB-INF/includes/header.jsp"/>
 
         <main class="div-main">
-            <div class="sidebar-filter">
+
+
+            <form class="sidebar-filter" 
+                  action="${pageContext.request.contextPath}/admin/usuarios"
+                  method="GET">
+                
                 <h1 class="title">Gestionar Usuarios</h1>
                 <label class="filter-label" for="nombre-filtro">Nombre:</label>
-                <input id="nombre-filtro" class="input-filter" type="text" placeholder="Buscar usuario...">
-            </div>
+                
+                <input id="nombre-filtro" class="input-filter" type="text" 
+                       name="busqueda" 
+                       placeholder="Buscar usuario y presionar Enter..."
+                       value="<c:out value='${param.busqueda}'/>">
+                
+            </form>
 
             <div class="main-users">
 

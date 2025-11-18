@@ -45,7 +45,7 @@
                 <img class="basura-icon" src="${pageContext.request.contextPath}/imgs/basura.png" alt="Usuario Eliminado">
                 <h1 class="confirmacion">Usuario Eliminado</h1>
 
-                <a href="${pageContext.request.contextPath}/gestionar">
+                <a href="${pageContext.request.contextPath}/admin/usuarios">
                     <button class="btn-cancelar btn-formateo">Volver a la lista</button>
                 </a>
             </div>

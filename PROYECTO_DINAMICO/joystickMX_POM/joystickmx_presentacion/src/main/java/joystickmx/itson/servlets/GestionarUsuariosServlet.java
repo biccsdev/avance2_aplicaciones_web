@@ -9,9 +9,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import joystickmx.itson.DTO.UsuarioDTO;
 import joystickmx.itson.Factory.FactoryBO;
@@ -21,7 +22,7 @@ import joystickmx.negocio.exception.NegocioException;
  *
  * @author PC Gamer
  */
-@WebServlet(name = "GestionarUsuariosServlet", urlPatterns = {"/gestionar"})
+@WebServlet(name = "GestionarUsuariosServlet", urlPatterns = {"/admin/usuarios"})
 public class GestionarUsuariosServlet extends HttpServlet {
 
     private static final Logger LOGGER = Logger.getLogger(GestionarUsuariosServlet.class.getName());
@@ -39,19 +40,36 @@ public class GestionarUsuariosServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        try {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("usuario") == null) {
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            return;
+        }
+        UsuarioDTO user = (UsuarioDTO) session.getAttribute("usuario");
+        if (!"admin".equals(user.getRol())) {
+            response.sendRedirect(request.getContextPath() + "/home");
+            return;
+        }
 
-            List<UsuarioDTO> listaUsuarios = FactoryBO.buscarClientesExistentes();      //esto cuando el metodo estaba roto si funcionaba, pero ahora que ya essta bien no funciona y no abre la pagina
+        String busqueda = request.getParameter("busqueda");
+
+        List<UsuarioDTO> listaUsuarios;
+
+        try {
+            if (busqueda != null && !busqueda.trim().isEmpty()) {
+                listaUsuarios = FactoryBO.buscarClientesPorNombre(busqueda.trim());
+            } else {
+                listaUsuarios = FactoryBO.buscarClientesExistentes();
+            }
 
             request.setAttribute("listaUsuarios", listaUsuarios);
 
-        } catch (Exception e) {
-            LOGGER.log(Level.SEVERE, "Error al cargar la lista de usuarios", e);
-            request.setAttribute("error", "Error al cargar los datos: " + e.getMessage());
+        } catch (NegocioException e) {
+            request.setAttribute("error", "Error al cargar usuarios: " + e.getMessage());
+            request.setAttribute("listaUsuarios", new ArrayList<UsuarioDTO>()); // Usamos el nombre correcto
         }
 
-        request.getRequestDispatcher("/WEB-INF/admin/usuarios/gestionar.jsp")
-                .forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/admin/usuarios/gestionar.jsp").forward(request, response);
     }
 
     /**
@@ -98,7 +116,7 @@ public class GestionarUsuariosServlet extends HttpServlet {
         }
 
         if (error == null) {
-            response.sendRedirect(request.getContextPath() + "/gestionar");
+            response.sendRedirect(request.getContextPath() + "/admin/usuarios");
         } else {
             request.setAttribute("error", error);
             doGet(request, response);
