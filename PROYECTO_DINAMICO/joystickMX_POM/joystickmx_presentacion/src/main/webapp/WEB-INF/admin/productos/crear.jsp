@@ -76,17 +76,13 @@
                     </div>
 
                     <div class="form-div">
-                        <label for="genero">Género</label>
-                        <select id="genero" name="genero" required>
+                        <label for="categoria">Categoría</label>
+                        <select id="genero" name="categoria" required>
                             <option value="">Selecciona un género</option>
-                            <option value="shooter">Shooter</option>
-                            <option value="rpg">RPG</option>
-                            <option value="aventura">Aventura</option>
-                            <option value="estrategia">Estrategia</option>
-                            <option value="carreras">Carreras</option>
-                            <option value="deportes">Deportes</option>
-                            <option value="terror">Terror</option>
-                            <option value="Mundo Abierto">Mundo Abierto</option>
+                            <c:forEach var="categoria" items="${categoriasDisponibles}">
+                                <%-- El VALUE es el nombre exacto que el DAO de búsqueda necesita --%>
+                                <option value="${categoria.nombre}">${categoria.nombre}</option>
+                            </c:forEach>
                         </select>
                     </div>
 
