@@ -100,19 +100,16 @@ public class EditarPerfilServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
 
-        // Validación de sesión
         if (session == null || session.getAttribute("usuario") == null) {
             response.sendRedirect(request.getContextPath() + "/login");
             return;
         }
 
         try {
-            // Recuperar usuario de sesión (tipo UsuarioDTO siempre)
             UsuarioDTO usuarioSesion = (UsuarioDTO) session.getAttribute("usuario");
             String email = usuarioSesion.getEmail();
             String rol = usuarioSesion.getRol();
 
-            // Datos del formulario
             String nombres = request.getParameter("nombres");
             String apPaterno = request.getParameter("apellidoPaterno");
             String apMaterno = request.getParameter("apellidoMaterno");
@@ -120,13 +117,11 @@ public class EditarPerfilServlet extends HttpServlet {
             
             String contrasena = request.getParameter("contrasenia");
 
-            // Dirección
             DireccionDTO dirDTO = new DireccionDTO();
             dirDTO.setCalle(request.getParameter("calle"));
             dirDTO.setNumero(request.getParameter("numero"));
             dirDTO.setColonia(request.getParameter("colonia"));
 
-            // DTO para actualizar
             UsuarioRegistroDTO actualizacion = new UsuarioRegistroDTO();
             actualizacion.setEmail(email);
             actualizacion.setNombres(nombres);
@@ -136,21 +131,16 @@ public class EditarPerfilServlet extends HttpServlet {
             actualizacion.setDireccion(dirDTO);
             actualizacion.setEstadoUsuario(usuarioSesion.getEstadoUsuario());
 
-            // Solo actualizar contraseña si el usuario escribió algo
             if (contrasena != null && !contrasena.trim().isEmpty()) {
                 actualizacion.setContrasenia(contrasena);
             }
 
-            // Actualizar
             UsuarioDTO actualizado = FactoryBO.actualizarUsuario(actualizacion);
 
-            // Reemplazar en sesión
             session.setAttribute("usuario", actualizado);
 
-            // Mensaje de éxito
             session.setAttribute("successMessage", "¡Perfil actualizado con éxito!");
 
-            // Redirección por rol
             if ("admin".equals(rol)) {
                 response.sendRedirect(request.getContextPath() + "/admin/perfil");
             } else {

@@ -25,16 +25,16 @@
 
             <section class="profile-card-simple">
 
-                <form action="${pageContext.request.contextPath}/admin/perfil/actualizar" method="post" class="profile-form">
+                <form action="${pageContext.request.contextPath}/admin/perfil/editar" 
+                      method="post" 
+                      class="profile-form">
 
-                    <!-- NOMBRE -->
                     <div class="form-group">
                         <label class="form-label">Nombre</label>
                         <input type="text" name="nombres" class="input-large"
                                value="${sessionScope.usuario.nombres}" required>
                     </div>
 
-                    <!-- APELLIDOS -->
                     <div class="form-group">
                         <label class="form-label">Apellido paterno</label>
                         <input type="text" name="apellidoPaterno" class="input-large"
@@ -43,32 +43,28 @@
 
                     <div class="form-group">
                         <label class="form-label">Apellido materno</label>
-                        <input type="text" name="apellidoPaterno" class="input-large"
+                        <input type="text" name="apellidoMaterno" class="input-large"
                                value="${sessionScope.usuario.apellidoMaterno}" required>
                     </div>
 
-                    <!-- CONTRASEÑA -->
                     <div class="form-group">
                         <label class="form-label">Contraseña</label>
                         <input type="password" name="contrasenia" class="input-large"
                                placeholder="Nueva contraseña (opcional)">
                     </div>
 
-                    <!-- TELEFONO -->
                     <div class="form-group">
                         <label class="form-label">Teléfono</label>
                         <input type="tel" name="telefono" class="input-large"
                                value="${sessionScope.usuario.telefono}">
                     </div>
 
-                    <!-- CALLE -->
                     <div class="form-group">
                         <label class="form-label">Calle</label>
                         <input type="text" name="calle" class="input-large"
                                value="${sessionScope.usuario.direccion.calle}">
                     </div>
 
-                    <!-- NÚMERO + COLONIA -->
                     <div class="form-row-2">
                         <div class="form-group">
                             <label class="form-label">Número exterior*</label>
@@ -83,7 +79,6 @@
                         </div>
                     </div>
 
-                    <!-- MENSAJES -->
                     <c:if test="${not empty error}">
                         <div class="error-text">${error}</div>
                     </c:if>
@@ -92,7 +87,6 @@
                         <div class="success-text">${success}</div>
                     </c:if>
 
-                    <!-- BOTÓN -->
                     <div class="form-actions-center">
                         <button type="submit" class="btn-black-big">Guardar</button>
                     </div>

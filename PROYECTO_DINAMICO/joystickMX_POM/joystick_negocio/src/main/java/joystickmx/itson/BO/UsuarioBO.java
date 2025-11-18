@@ -40,7 +40,33 @@ public class UsuarioBO {
 
     public UsuarioDTO actualizarUsuario(UsuarioRegistroDTO dto) throws NegocioException {
         try {
-            return Mapeadores.toUsuarioDTO(this.usuarioDAO.actualizar(DTOMapeadores.toClienteEntity(dto)));
+            Usuario usuarioExistente = this.usuarioDAO.buscarPorEmail(dto.getEmail());
+
+            if (usuarioExistente == null) {
+                throw new NegocioException("El usuario a actualizar no existe.");
+            }
+
+            usuarioExistente.setNombres(dto.getNombres());
+            usuarioExistente.setApellidoPaterno(dto.getApellidoPaterno());
+            usuarioExistente.setApellidoMaterno(dto.getApellidoMaterno());
+            usuarioExistente.setTelefono(dto.getTelefono());
+
+            if (dto.getDireccion() != null) {
+                if (usuarioExistente.getDireccion() != null) {
+                    usuarioExistente.getDireccion().setCalle(dto.getDireccion().getCalle());
+                    usuarioExistente.getDireccion().setNumero(dto.getDireccion().getNumero());
+                    usuarioExistente.getDireccion().setColonia(dto.getDireccion().getColonia());
+                } else {
+                    usuarioExistente.setDireccion(DTOMapeadores.toDireccionEntity(dto.getDireccion()));
+                }
+            }
+
+            if (dto.getContrasenia() != null && !dto.getContrasenia().trim().isEmpty()) {
+                String hash = PasswordUtil.hashPassword(dto.getContrasenia());
+                usuarioExistente.setContrasenia(hash);
+            }
+            return Mapeadores.toUsuarioDTO(this.usuarioDAO.actualizar(usuarioExistente));
+
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al actualizar usuario: " + e.getMessage(), e);
         }
