@@ -262,4 +262,63 @@ public class ValidationUtil {
         if(descripcionCategoria.length() > DESCRIPCION_CATG_LENGTH)
             throw new NegocioException("La descripción de la categoría es demasiado larga.");
     }
+    
+    public static void validarActualizarNombreVideojuego(String nombreVideojuego) throws NegocioException{
+        if(nombreVideojuego == null || nombreVideojuego.isBlank())
+            throw new NegocioException("El nombre está vacío.");
+        
+        if(nombreVideojuego.length() > NOMBRE_VID_LENGTH)
+            throw new NegocioException("El nombre es demasiado largo.");
+    }
+    
+    public static void validarActualizarDescripcion(String descripcion) throws NegocioException{
+        if(descripcion == null || descripcion.isBlank())
+            throw new NegocioException("El comentario está vacío.");
+        
+        if(descripcion.length() > DESCRIPCION_LENGTH)
+            throw new NegocioException("El comentario es demasiado largo.");
+    }
+    
+    public static void validarActualizarUrlImagen(String urlImagen) throws NegocioException{
+        if(urlImagen == null || urlImagen.isBlank())
+            throw new NegocioException("La url de la iimagen está vacía.");
+        
+        if(urlImagen.length() > URL_IMG_LENGTH)
+            throw new NegocioException("La url de la imagen es demasiada larga.");
+        
+        if(!urlImagen.matches("(?i).*\\.(png|jpe?g|gif|bmp|webp|svg)$"))
+            throw new NegocioException("La url de la imagen no es válida.");
+    }
+    
+    public static void validarActualizarDesarrollador(String desarrollador) throws NegocioException{
+        if(desarrollador == null || desarrollador.isBlank())
+            throw new NegocioException("El desarrollador está vacío.");
+        
+        if(desarrollador.length() > DESARROLLADOR_LENGTH)
+            throw new NegocioException("El desarrollador es demasiado largo.");
+    }
+    
+    public static void validarActualizarPlataforma(String plataforma) throws NegocioException{
+        if(plataforma == null || plataforma.isBlank())
+            throw new NegocioException("La plataforma está vacía.");
+        
+        if(plataforma.length() > PLATAFORMA_LENGTH)
+            throw new NegocioException("La plataforma es demasiado larga.");
+    }
+    
+    public static void validarActualizarNombreCategoria(String nombreCategoria) throws NegocioException{
+        if(nombreCategoria == null || nombreCategoria.isBlank())
+            throw new NegocioException("El nombre de la categoría está vacío.");
+        
+        if(nombreCategoria.length() > NOMBRE_CATG_LENGTH)
+            throw new NegocioException("El nombre de la categoría es demasiado largo.");
+    }
+    
+    public static void validarActualizarDescripcionCategoria(String descripcionCategoria) throws NegocioException{
+        if(descripcionCategoria == null || descripcionCategoria.isBlank())
+            throw new NegocioException("La descripción de la categoría está vacía.");
+        
+        if(descripcionCategoria.length() > DESCRIPCION_CATG_LENGTH)
+            throw new NegocioException("La descripción de la categoría es demasiado larga.");
+    }
 }
