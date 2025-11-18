@@ -1,16 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package joystickmx.itson.servlets;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,15 +17,25 @@ import java.util.logging.Logger;
 import joystickmx.itson.DTO.CategoriaDTO;
 import joystickmx.itson.DTO.VideojuegoDTO;
 import joystickmx.itson.Factory.FactoryBO;
-
+import joystickmx.negocio.exception.NegocioException;
 /**
+ * CrearProductosServlet - Maneja la creación de productos (videojuegos) por parte del administrador
  *
- * @author hola
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
 @WebServlet(name = "CrearProductoServlet", urlPatterns = {"/admin/productos/crear"})
+@MultipartConfig(
+    fileSizeThreshold = 1024 * 1024 * 1, //Valor agregado para almacenar 1 MB
+    maxFileSize = 1024 * 1024 * 10,      //Valor agregado para almacenar  10 MB
+    maxRequestSize = 1024 * 1024 * 15    //Valor agregado para almacenar  15 MB
+)
 public class CrearProductoServlet extends HttpServlet {
 
     private static final Logger LOG = Logger.getLogger(CrearProductoServlet.class.getName());
+    private static final String UPLOAD_DIR = "/imgs";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -87,22 +95,39 @@ public class CrearProductoServlet extends HttpServlet {
 
         try {
             String nombre = request.getParameter("nombre");
-            String descripcion = request.getParameter("descripcion");
+            //La descripción no aparece en el formulario
+            String descripcion = "Descripción pendiente..."; 
             String plataforma = request.getParameter("plataforma");
             String desarrollador = request.getParameter("desarrollador");
             String genero = request.getParameter("genero");
-            LocalDate fechaLanzamiento = LocalDate.parse(request.getParameter("fechaLanzamiento"));
-            String imagenUrl = request.getParameter("imagenUrl");
+            LocalDate fechaLanzamiento = LocalDate.parse(request.getParameter("lanzamiento"));
 
             String precioStr = request.getParameter("precio");
-            String stockStr = request.getParameter("stock");
+            String stockStr = request.getParameter("existencias");
 
             if (precioStr != null) {
                 precioStr = precioStr.replace(",", ".");
             }
 
-            if (stockStr != null) {
-                stockStr = stockStr.replace(",", "").replace(".", "");
+            //Lógica para guardar la imagen
+            String imagenUrlDB = "imgs/iconoImagen.png";
+            Part filePart = request.getPart("imagenFile");
+            
+            if (filePart != null && filePart.getSize() > 0) {
+                //Obtener el nombre del archivo
+                String fileName = filePart.getSubmittedFileName();
+                //Obtener ruta de la carpeta de las imágenes "imgs" en el servidor
+                String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIR;
+                //Si no existe el directorio entonces se crea
+                File uploadDir = new File(uploadPath);
+                if (!uploadDir.exists()) {
+                    uploadDir.mkdirs();
+                }
+                //Guardar el archivo
+                String finalName = fileName;
+                filePart.write(uploadPath + File.separator + finalName);
+                //Le damos el formato necesario a la url "/imgs/nombreImagen.jps"
+                imagenUrlDB = UPLOAD_DIR + "/" + finalName;
             }
 
             Float precio = Float.parseFloat(precioStr);
@@ -113,25 +138,32 @@ public class CrearProductoServlet extends HttpServlet {
             nuevoVideojuego.setDescripcion(descripcion);
             nuevoVideojuego.setPlataforma(plataforma);
             nuevoVideojuego.setDesarrollador(desarrollador);
+            
+            //Esto lo hice para que no se creara una categoría nueva cada vez que se registra un producto
+            //Porque en teoría ya deberían de estar registradas las categorías
             List<CategoriaDTO> categorias = new ArrayList<>();
+            CategoriaDTO categoriaEncontrada = FactoryBO.buscarCategoriaPorNombre(genero); 
 
-            CategoriaDTO categoria1 = new CategoriaDTO();
-            categoria1.setNombre(genero);
+            //No se si debería quitar esta validación
+            if (categoriaEncontrada != null) {
+                categorias.add(categoriaEncontrada);
+            } else {
+                throw new NegocioException("La categoría seleccionada no es válida: " + genero);
+            }
 
-            categorias.add(categoria1);
             nuevoVideojuego.setCategorias(categorias);
             nuevoVideojuego.setFechaLanzamiento(fechaLanzamiento);
-            nuevoVideojuego.setUrlImagen(imagenUrl);
-
+            nuevoVideojuego.setUrlImagen(imagenUrlDB); 
             nuevoVideojuego.setPrecio(precio);
             nuevoVideojuego.setExistencias(stock);
+            nuevoVideojuego.setHabilitado(true); //En cuanto se crea el producto se habilita para que salga (eso no se si después lo podemos cambiar)
 
             FactoryBO.crearVideojuego(nuevoVideojuego);
 
-            response.sendRedirect(contextPath + "/admin/productos/gestionar?exito=true");
+            response.sendRedirect(contextPath + "/admin/panel-menu");
 
         } catch (NumberFormatException e) {
-            LOG.log(Level.WARNING, "Error de formato en número (precio o stock)", e);
+            LOG.log(Level.WARNING, "Error de formato en número", e);
             request.setAttribute("error", "Error: El precio y el stock deben ser números válidos.");
             doGet(request, response); 
 
@@ -149,7 +181,7 @@ public class CrearProductoServlet extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Servlet para crear productos";
     }// </editor-fold>
 
 }

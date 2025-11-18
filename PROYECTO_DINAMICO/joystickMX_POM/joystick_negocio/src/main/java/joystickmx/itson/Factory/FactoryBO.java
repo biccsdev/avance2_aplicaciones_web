@@ -120,6 +120,14 @@ public class FactoryBO {
             throw new NegocioException(e.getMessage(), e);
         }
     }
+    
+    public static CategoriaDTO buscarCategoriaPorNombre(String nombre) throws NegocioException {
+        try {
+            return new CategoriaBO(FactoryDAO.crearCategoriaDAO()).buscarPorNombre(nombre);
+        } catch (NegocioException e) {
+            throw new NegocioException(e.getMessage(), e);
+        }
+    }
 
     public static List<VideojuegoDTO> buscarVideojuegosActivos() throws NegocioException {
         try {
@@ -219,7 +227,10 @@ public class FactoryBO {
         }
     }
 
-    
+    /**
+     * Esta es la operación de negocio más compleja. Requiere múltiples DAOs
+     * para validar stock, calcular total y limpiar el carrito.
+     */
     public static PedidoDTO registrarPedido(Long idCliente, DireccionDTO direccionEnvioDTO, PagoDTO pagoDTO) throws NegocioException {
         try {
 
