@@ -18,9 +18,6 @@
         <h1 class="title">PANEL DE CONTROL</h1>
 
         <div class="buttons-div">
-            <a href="${pageContext.request.contextPath}/admin/productos/gestionar">
-                <button class="panel-button">Editar Producto</button>
-            </a>
             <a href="${pageContext.request.contextPath}/admin/pedidos/gestionar">
                 <button class="panel-button">Pedidos</button>
             </a>
