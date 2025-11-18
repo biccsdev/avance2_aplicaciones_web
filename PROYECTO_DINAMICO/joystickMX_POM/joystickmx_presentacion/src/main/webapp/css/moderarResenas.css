@@ -140,6 +140,7 @@
     height: 40px;
     border-radius: var(--radius-pill);
     object-fit: cover;
+    background-color: lightgray;
 }
 
 .author-name {

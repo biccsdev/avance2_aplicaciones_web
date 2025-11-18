@@ -154,7 +154,15 @@ public class FactoryBO {
             throw new NegocioException("Error al actualizar videojuego: " + e.getMessage(), e);
         }
     }
-
+    
+    public static List<ResenaDTO> buscarResenasPorNombreVideojuego(String nombreVideojuego) throws NegocioException{
+        try {
+            return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarPorNombreVideojuego(nombreVideojuego);
+        } catch (NegocioException e) {
+            throw new NegocioException("Error al consultar las resenas: " + e.getMessage(), e);
+        }
+    }
+    
     public static List<ResenaDTO> buscarResenasPorVideojuego(Long idVideojuego) throws NegocioException {
         try {
             return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarPorVideojuego(idVideojuego);

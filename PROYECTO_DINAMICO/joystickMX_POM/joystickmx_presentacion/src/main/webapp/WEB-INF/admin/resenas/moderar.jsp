@@ -115,44 +115,6 @@
                     </form>
                 </div>
             </div>
-
-            <div class="review-card review-flagged">
-                <div class="review-header">
-                    <div class="review-product-info">
-                        <img src="${pageContext.request.contextPath}/imgs/gtav-ps4.jpg" alt="Producto" class="review-product-img">
-                        <div>
-                            <h3 class="review-product-name">Grand Theft Auto V - PlayStation 4</h3>
-                            <div class="review-rating">
-                                <span class="stars">★☆☆☆☆</span>
-                                <span class="rating-number">1/5</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review-date">
-                        <span class="text-muted">22/11/2025</span>
-                        <span class="flag-badge">⚠️ Reportada</span>
-                    </div>
-                </div>
-                <div class="review-body">
-                    <div class="review-author">
-                        <img src="${pageContext.request.contextPath}/imgs/icono_user_super_prime.png" alt="Usuario" class="author-avatar">
-                        <span class="author-name">Usuario Anónimo</span>
-                    </div>
-                    <p class="review-text">
-                        [Contenido inapropiado - Esta reseña contiene lenguaje ofensivo y no relacionado con el producto]
-                    </p>
-                </div>
-                <div class="review-actions">
-                    <form action="${pageContext.request.contextPath}/admin/resenas/aprobar" method="post" style="display: inline;">
-                        <input type="hidden" name="id" value="3">
-                        <button type="submit" class="btn btn-success">Aprobar</button>
-                    </form>
-                    <form action="${pageContext.request.contextPath}/admin/resenas/eliminar" method="post" style="display: inline;">
-                        <input type="hidden" name="id" value="3">
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                    </form>
-                </div>
-            </div>
         </div>
 
         <c:if test="${not empty mensaje}">
@@ -161,4 +123,3 @@
     </main>
 </body>
 </html>
-

@@ -100,6 +100,24 @@ public class ResenaDAO extends BaseDAO implements IResenaDAO {
                 em.close();
         }
     }
+    
+    @Override
+    public List<Resena> buscarPorNombreVideojuego(String nombreVideojuego) throws PersistenciaException {
+        iniciarConexion();
+        try {
+            TypedQuery<Resena> query = em.createQuery(
+                    "SELECT r FROM Resena r WHERE r.videojuego.nombre = :nombreVideojuego ORDER BY r.fechaResena DESC",
+                    Resena.class
+            );
+            query.setParameter("idVideojuego", nombreVideojuego);
+            return query.getResultList();
+        } catch (PersistenceException e) {
+            throw new PersistenciaException("Error al buscar reseñas por videojuego: " + e.getMessage());
+        } finally{
+            if (em.isOpen()) 
+                em.close();
+        }
+    }
 
     @Override
     public List<Resena> buscarPorCliente(Long idCliente) throws PersistenciaException {
@@ -145,7 +163,12 @@ public class ResenaDAO extends BaseDAO implements IResenaDAO {
                     "SELECT r FROM Resena r ORDER BY r.fechaResena DESC",
                     Resena.class
             );
-            return query.getResultList();
+            List<Resena> resenas = query.getResultList();
+            resenas.forEach(r -> {
+                r.getCliente();
+                r.getVideojuego();
+            });
+            return resenas;
         } catch (PersistenceException e) {
             throw new PersistenciaException("Error al buscar todas las reseñas: " + e.getMessage());
         } finally{

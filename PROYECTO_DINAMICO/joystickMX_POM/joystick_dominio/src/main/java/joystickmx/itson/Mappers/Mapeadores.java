@@ -13,6 +13,7 @@ import joystickmx.itson.DTO.PedidoDTO;
 import joystickmx.itson.DTO.ResenaDTO;
 import joystickmx.itson.DTO.UsuarioDTO;
 import joystickmx.itson.DTO.VideojuegoDTO;
+import joystickmx.itson.DTO.VideojuegoResenaDTO;
 import joystickmx.itson.entidades.Administrador;
 import joystickmx.itson.entidades.Carrito;
 import joystickmx.itson.entidades.Categoria;
@@ -256,6 +257,24 @@ public class Mapeadores {
         );
     }
 
+    public static VideojuegoResenaDTO toVideojuegoResenaDTO(Resena entity){
+        if(entity == null)
+            return null;
+        VideojuegoResenaDTO dto = new VideojuegoResenaDTO();
+        dto.setResena(toResenaDTO(entity));
+        
+        if(entity.getCliente() == null)
+            return null;
+        dto.setNombreJugador(entity.getCliente().getNombres());
+        
+        if(entity.getVideojuego() == null)
+            return null;
+        dto.setNombreVideojuego(entity.getVideojuego().getNombre());
+        dto.setUrlImagen(entity.getVideojuego().getUrlImagen());
+        
+        return dto;
+    }
+    
     public static List<ResenaDTO> toResenasDTOList(List<Resena> entities) {
         if (entities == null) {
             return new ArrayList<>();

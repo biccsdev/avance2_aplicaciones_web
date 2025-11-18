@@ -11,6 +11,7 @@ import java.util.List;
 import joystickmx.itson.DTO.ResenaDTO;
 import joystickmx.itson.DTO.VideojuegoDTO;
 import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.negocio.exception.NegocioException;
 
 /**
  *
@@ -59,13 +60,19 @@ public class ModerarServlet extends HttpServlet {
             throws ServletException, IOException {
         String idVideojuego = request.getParameter("idVideojuego");
         try {
-            VideojuegoDTO videojuego = FactoryBO.buscarVideojuegoPorId(Long.valueOf(idVideojuego));
-            List<ResenaDTO> resenas = FactoryBO.buscarResenasPorVideojuego(Long.MIN_VALUE);
+            // Extrae el ID del videojuego
+            Long idVideojuegoLong = Long.valueOf(idVideojuego);
+            // Busca el videojuego
+            VideojuegoDTO videojuego = FactoryBO.buscarVideojuegoPorId(idVideojuegoLong);
+            // Busca las resenas del videojuego
+            List<ResenaDTO> resenas = FactoryBO.buscarResenasPorVideojuego(idVideojuegoLong);
+            // Agrega ambos valores a la petición
             request.setAttribute("videojuego", videojuego);
             request.setAttribute("resenas", resenas);
-            request.getRequestDispatcher("/moderar.jsp").forward(request, response);
-        } catch (Exception e) {
-            request.setAttribute("error", e.getMessage());
+            // Envía la petición al JSP
+            request.getRequestDispatcher("/WEB-INF/admin/resenas/moderar.jsp").forward(request, response);
+        } catch (ServletException | IOException | NumberFormatException | NegocioException e) {
+            request.setAttribute("error", "Error durante la consulta del videojuego.");
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         }
     }

@@ -56,6 +56,16 @@ public class ResenaBO {
             throw new NegocioException("Error al buscar reseñas por videojuego: " + e.getMessage(), e);
         }
     }
+    
+    public List<ResenaDTO> buscarPorNombreVideojuego(String nombreVideojuego) throws NegocioException {
+        try {
+            return this.resenaDAO.buscarPorNombreVideojuego(nombreVideojuego).stream()
+                    .map(Mapeadores::toResenaDTO)
+                    .collect(Collectors.toList());
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al buscar reseñas por videojuego: " + e.getMessage(), e);
+        }
+    }
 
     public List<ResenaDTO> buscarPorCliente(Long idCliente) throws NegocioException {
         try {

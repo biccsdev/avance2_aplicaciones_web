@@ -20,6 +20,8 @@ public interface IResenaDAO {
     Resena buscarPorId(Long idResena) throws PersistenciaException;
 
     List<Resena> buscarPorVideojuego(Long idVideojuego) throws PersistenciaException;
+    
+    List<Resena> buscarPorNombreVideojuego(String nombreVideojuego) throws PersistenciaException;
 
     List<Resena> buscarPorCliente(Long idCliente) throws PersistenciaException;
 
