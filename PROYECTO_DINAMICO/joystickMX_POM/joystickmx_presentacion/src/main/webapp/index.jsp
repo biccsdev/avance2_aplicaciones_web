@@ -64,30 +64,25 @@
                             </select>
 
                         </div>
-                        <%-- 
-                          1. Agregamos el UL que faltaba, 
-                          para que coincida con index.html
-                        --%>
                         <ul class="videojuego-lista">
-
                             <c:forEach var="juego" items="${videojuegos}">
-                                <%-- 
-                                  2. Todo el bloque dentro del forEach ahora es 
-                                  idéntico a un "li" de index.html 
-                                --%>
                                 <li class="videojuego-item">
                                     <div class="videojuego">
                                         <div class="videojuego-imagen">
                                             <img class="videojuego-imagen" src="${pageContext.request.contextPath}${juego.getUrlImagen()}" alt="Portada de ${juego.nombre}">
                                         </div>
                                         <div class="videojuego-info">
-                                            <h3 class="videojuego-nombre">${juego.getNombre()}</h3>
-
-                                            <%-- 3. Usamos H2 para el precio, como en index.html --%>
+                                            <h3 class="videojuego-nombre">${String.format("%s (%s)", juego.getNombre(), juego.getPlataforma())}</h3>
                                             <h2 class="videojuego-precio">$${String.format("%.2f", juego.getPrecio())}</h2>
-
-                                            <%-- 4. Agregamos el botón que faltaba en tu JSP --%>
-                                            <button class="btn-carrito btn-dark">Agregar al carrito</button>
+                                            <c:choose>
+                                                <c:when test="${sessionScope.rol == 'admin'}">
+                                                    <button class="btn-carrito btn-dark">Gestionar</button>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <button class="btn-carrito btn-dark">Agregar al carrito</button>
+                                                </c:otherwise>
+                                            </c:choose>
+                                            
                                         </div>
                                     </div>
                                 </li>

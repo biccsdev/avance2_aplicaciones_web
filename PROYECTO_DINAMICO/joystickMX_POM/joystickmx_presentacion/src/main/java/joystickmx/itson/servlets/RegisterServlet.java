@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import joystickmx.itson.DTO.AdministradorDTO;
 import joystickmx.itson.DTO.ClienteDTO;
 import joystickmx.itson.DTO.DireccionDTO;
+import joystickmx.itson.DTO.UsuarioDTO;
 import joystickmx.itson.DTO.UsuarioRegistroDTO;
 import joystickmx.itson.Factory.FactoryBO;
 
@@ -36,7 +37,7 @@ public class RegisterServlet extends HttpServlet {
         // Obtiene la sesión de la petición
         HttpSession session = request.getSession(true);
         // Verifica que no haya una sesión iniciada.
-        if(session.getAttribute("usuario") instanceof ClienteDTO || session.getAttribute("Usuario") instanceof AdministradorDTO)
+        if(session.getAttribute("usuario") instanceof ClienteDTO || session.getAttribute("usuario") instanceof AdministradorDTO)
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         // Si no hay una sesión asociada a la petición, se manda a la página del registro.
         request.getRequestDispatcher("/register.jsp").forward(request, response);
@@ -63,6 +64,7 @@ public class RegisterServlet extends HttpServlet {
         String numero = request.getParameter("numero");
         String telefono = request.getParameter("telefono");
         try {
+            // Se registra el cliente en la base de datos
             FactoryBO.registrarCliente(new UsuarioRegistroDTO(
                     nombre, 
                     apellidoPaterno, 
@@ -72,13 +74,15 @@ public class RegisterServlet extends HttpServlet {
                     password, 
                     new DireccionDTO(calle, numero, colonia))
             );
-            /*
-                A partir de aquí se supone que se debería redirigir a la pestaña del catálogo, pero
-                debido a que este avance se enfoca en la sección del administrador, se redirige a la
-                pestaña de inicio de sesión.
-            */
-            System.out.println("Usuario registrado exitosamente.");
-            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            // Si el registro es exitoso (no lanzó excepción), se obtiene el usuario registrado
+            UsuarioDTO usuario = FactoryBO.buscarUsuarioPorEmail(email);
+            
+            // Se agrega el rol del cliente y su información a la sesión.
+            HttpSession session = request.getSession(true);
+            session.setAttribute("usuario", usuario);
+            session.setAttribute("rol", "cliente");
+            // Se manda al catálogo de videojuegos.
+            response.sendRedirect(request.getContextPath() + "/home");
         } catch (Exception e) {
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("/register.jsp").forward(request, response);

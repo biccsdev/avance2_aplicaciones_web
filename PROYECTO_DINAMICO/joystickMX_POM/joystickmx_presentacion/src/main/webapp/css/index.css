@@ -1,5 +1,5 @@
-@import url("../global.css");
-@import url("../Header/header.css");
+@import url("./global.css");
+@import url("./header.css");
 
 body{
     height: 100vh;
@@ -98,7 +98,7 @@ header{
     width: 100%;
     height: 100%;
     grid-template-columns: 100%;
-    grid-template-rows: 75% 25%;
+    grid-template-rows: 60% 40%;
     padding: 2%;
 }
 
@@ -129,12 +129,12 @@ header{
     font-weight: 700;
 }
 
+
 .btn-carrito{
-    display: none;
-    width: fit-content;
+    width: 100%;
     padding: 5%;
     font-weight: bold;
-    font-size: 3vw;
+    font-size: 0.8vw;
     border: 0;
     border-radius: 0.7em;
     cursor: pointer;
@@ -179,6 +179,10 @@ a {
     .videojuego-info > .videojuego-precio{
         font-size: 80%;
     }
+    
+    .btn-carrito{
+        font-size: 1.2vw;
+    }
 
 }
 
@@ -197,6 +201,10 @@ a {
 
     .videojuego-info > .videojuego-precio{
         font-size: 70%;
+    }
+    
+    .btn-carrito{
+        font-size: 1.5vw;
     }
 
 }
@@ -270,7 +278,8 @@ a {
     }
 
     .btn-carrito{
-        display: block;
+        width: fit-content;
+        font-size: 3vw;
     }
 
 }
