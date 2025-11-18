@@ -223,7 +223,7 @@ public class FactoryBO {
         try {
             new PedidoBO(FactoryDAO.crearPedidoDAO(), null, null, null).pedidoEntregado(idPedido);
         } catch (NegocioException e) {
-            throw new NegocioException(e.getMessage(), e);
+            throw new NegocioException("Error al marcar pedido como entregado: " + e.getMessage(), e);
         }
     }
 
@@ -231,7 +231,7 @@ public class FactoryBO {
         try {
             new PedidoBO(FactoryDAO.crearPedidoDAO(), null, null, null).pedidoEnviado(idPedido);
         } catch (NegocioException e) {
-            throw new NegocioException(e.getMessage(), e);
+            throw new NegocioException("Error al marcar pedido como enviado: " + e.getMessage(), e);
         }
     }
 
@@ -239,7 +239,7 @@ public class FactoryBO {
         try {
             new PedidoBO(FactoryDAO.crearPedidoDAO(), null, null, null).pedidoPendiente(idPedido);
         } catch (NegocioException e) {
-            throw new NegocioException(e.getMessage(), e);
+            throw new NegocioException("Error al marcar pedido como pendiente: " + e.getMessage(), e);
         }
     }
 
@@ -247,7 +247,7 @@ public class FactoryBO {
         try {
             new PedidoBO(FactoryDAO.crearPedidoDAO(), null, null, null).pedidoCancelado(idPedido);
         } catch (NegocioException e) {
-            throw new NegocioException(e.getMessage(), e);
+            throw new NegocioException("Error al marcar pedido como cancelado: " + e.getMessage(), e);
         }
     }
 

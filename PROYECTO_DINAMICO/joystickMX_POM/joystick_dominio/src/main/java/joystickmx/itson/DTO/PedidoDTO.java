@@ -1,5 +1,6 @@
 package joystickmx.itson.DTO;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,6 +23,7 @@ public class PedidoDTO {
     private List<DetallePedidoDTO> detalles;
     private PagoDTO pago;
     private Long idCliente;
+    private UsuarioDTO cliente;
 
     public PedidoDTO() {}
 
@@ -45,6 +47,19 @@ public class PedidoDTO {
         this.idCliente = idCliente;
     }
 
+    public PedidoDTO(Long idPedido, String estadoPedido, Float totalPagado, LocalDateTime fechaPedido, DireccionDTO direccionEnvio, List<DetallePedidoDTO> detalles, PagoDTO pago, UsuarioDTO cliente) {
+        this.idPedido = idPedido;
+        this.estadoPedido = estadoPedido;
+        this.totalPagado = totalPagado;
+        this.fechaPedido = fechaPedido;
+        this.direccionEnvio = direccionEnvio;
+        this.detalles = detalles;
+        this.pago = pago;
+        this.cliente = cliente;
+    }
+    
+    
+
     public PedidoDTO(
             String estadoPedido, 
             Float totalPagado, 
@@ -62,6 +77,16 @@ public class PedidoDTO {
         this.pago = pago;
         this.idCliente = idCliente;
     }
+
+    public UsuarioDTO getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(UsuarioDTO cliente) {
+        this.cliente = cliente;
+    }
+    
+    
     
     public Long getIdPedido() {return idPedido;}
 
@@ -72,6 +97,13 @@ public class PedidoDTO {
     public void setEstadoPedido(String estadoPedido) {this.estadoPedido = estadoPedido;}
 
     public Float getTotalPagado() {return totalPagado;}
+    
+    public Date getFechaPedidoAsDate() {
+        if (this.fechaPedido == null) {
+            return null;
+        }
+        return java.sql.Timestamp.valueOf(this.fechaPedido);
+    }
 
     public void setTotalPagado(Float totalPagado) {this.totalPagado = totalPagado;}
 

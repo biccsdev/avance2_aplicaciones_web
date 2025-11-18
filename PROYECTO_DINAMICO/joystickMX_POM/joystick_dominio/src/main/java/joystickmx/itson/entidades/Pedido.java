@@ -15,6 +15,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -39,7 +40,7 @@ public class Pedido implements Serializable {
     private Long idPedido;
 
     @Column(name = "fecha_pedido", nullable = false)
-    @FutureOrPresent(message = "La fecha del pedido no puede ser menor que la actual.")
+    @PastOrPresent(message = "La fecha del pedido no puede ser posterior a la actual")
     private LocalDateTime fechaPedido;
 
     @Enumerated(value = EnumType.STRING)

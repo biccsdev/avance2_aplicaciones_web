@@ -14,9 +14,9 @@ import joystickmx.itson.enums.EstadoUsuario;
 import joystickmx.itson.interfaces.IPedidoDAO;
 
 /**
- * 
-* @author PC Gamer
-* @author biccs
+ *
+ * @author PC Gamer
+ * @author biccs
  */
 public class PedidoDAO extends BaseDAO implements IPedidoDAO {
 
@@ -29,11 +29,15 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
             em.getTransaction().commit();
         } catch (PersistenceException e) {
             if (em.getTransaction().isActive()) 
-                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
+                try {
+                em.getTransaction().rollback();
+            } catch (Exception ignored) {
+            }
             throw new PersistenciaException("Error al crear el pedido: " + e.getMessage());
-        } finally{
-            if (em.isOpen()) 
+        } finally {
+            if (em.isOpen()) {
                 em.close();
+            }
         }
     }
 
@@ -47,32 +51,40 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
             return pedidoActualizado;
         } catch (PersistenceException e) {
             if (em.getTransaction().isActive()) 
-                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
+                try {
+                em.getTransaction().rollback();
+            } catch (Exception ignored) {
+            }
             throw new PersistenciaException("Error al actualizar el pedido: " + e.getMessage());
-        } finally{
-            if (em.isOpen()) 
+        } finally {
+            if (em.isOpen()) {
                 em.close();
+            }
         }
     }
 
-    
     public void actualizarEstadoPedido(Long idPedido, EstadoPedido nuevoEstado) throws PersistenciaException {
         iniciarConexion();
         try {
             em.getTransaction().begin();
             Pedido pedido = em.find(Pedido.class, idPedido);
-            if (pedido == null) 
+            if (pedido == null) {
                 throw new PersistenciaException("No se encontró el pedido con ID: " + idPedido);
+            }
             pedido.setEstadoPedido(nuevoEstado);
             em.merge(pedido);
             em.getTransaction().commit();
         } catch (IllegalArgumentException | PersistenceException e) {
             if (em.getTransaction().isActive()) 
-                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
+                try {
+                em.getTransaction().rollback();
+            } catch (Exception ignored) {
+            }
             throw new PersistenciaException("Error al actualizar estado del pedido: " + e.getMessage());
-        } finally{
-            if (em.isOpen()) 
+        } finally {
+            if (em.isOpen()) {
                 em.close();
+            }
         }
     }
 
@@ -83,9 +95,10 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
             return em.find(Pedido.class, idPedido);
         } catch (IllegalArgumentException e) {
             throw new PersistenciaException("Error al buscar pedido por ID: " + e.getMessage());
-        } finally{
-            if (em.isOpen()) 
+        } finally {
+            if (em.isOpen()) {
                 em.close();
+            }
         }
     }
 
@@ -94,14 +107,15 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
         iniciarConexion();
         try {
             TypedQuery<Pedido> query = em.createQuery(
-                    "SELECT p FROM Pedido p ORDER BY p.fechaPedido DESC", Pedido.class
+                    "SELECT p FROM Pedido p LEFT JOIN FETCH p.cliente ORDER BY p.fechaPedido DESC", Pedido.class
             );
             return query.getResultList();
         } catch (PersistenceException e) {
             throw new PersistenciaException("Error al obtener la lista de pedidos: " + e.getMessage());
-        } finally{
-            if (em.isOpen()) 
+        } finally {
+            if (em.isOpen()) {
                 em.close();
+            }
         }
     }
 
@@ -117,9 +131,10 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
             return query.getResultList();
         } catch (PersistenceException e) {
             throw new PersistenciaException("Error al buscar pedidos por cliente: " + e.getMessage());
-        } finally{
-            if (em.isOpen()) 
+        } finally {
+            if (em.isOpen()) {
                 em.close();
+            }
         }
     }
 
@@ -135,9 +150,10 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
             return query.getResultList();
         } catch (PersistenceException e) {
             throw new PersistenciaException("Error al buscar pedidos por estado: " + e.getMessage());
-        } finally{
-            if (em.isOpen()) 
+        } finally {
+            if (em.isOpen()) {
                 em.close();
+            }
         }
     }
 
@@ -154,9 +170,10 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
             return query.getResultList();
         } catch (PersistenceException e) {
             throw new PersistenciaException("Error al buscar pedidos por rango de fecha: " + e.getMessage());
-        } finally{
-            if (em.isOpen()) 
+        } finally {
+            if (em.isOpen()) {
                 em.close();
+            }
         }
     }
 
@@ -172,12 +189,12 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
             return query.getResultList();
         } catch (PersistenceException e) {
             throw new PersistenciaException("Error al obtener los detalles del pedido: " + e.getMessage());
-        } finally{
-            if (em.isOpen()) 
+        } finally {
+            if (em.isOpen()) {
                 em.close();
+            }
         }
     }
-    
 
     @Override
     public void pedidoEntregado(Long idPedido) throws PersistenciaException {
@@ -188,12 +205,12 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
     public void pedidoPendiente(Long idPedido) throws PersistenciaException {
         actualizarEstadoPedido(idPedido, EstadoPedido.PENDIENTE);
     }
-    
+
     @Override
     public void pedidoEnviado(Long idPedido) throws PersistenciaException {
         actualizarEstadoPedido(idPedido, EstadoPedido.ENVIADO);
     }
-    
+
     @Override
     public void pedidoCancelado(Long idPedido) throws PersistenciaException {
         actualizarEstadoPedido(idPedido, EstadoPedido.CANCELADO);
