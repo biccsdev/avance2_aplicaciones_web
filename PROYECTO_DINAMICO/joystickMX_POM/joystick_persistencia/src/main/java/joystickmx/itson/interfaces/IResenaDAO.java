@@ -25,7 +25,7 @@ public interface IResenaDAO {
 
     List<Resena> buscarPorCliente(Long idCliente) throws PersistenciaException;
 
-    List<Resena> buscarPorCalificacion(Integer calificacion) throws PersistenciaException;
+    List<Resena> buscarPorCalificacion(Float calificacion) throws PersistenciaException;
 
     List<Resena> buscarTodas() throws PersistenciaException;
 }

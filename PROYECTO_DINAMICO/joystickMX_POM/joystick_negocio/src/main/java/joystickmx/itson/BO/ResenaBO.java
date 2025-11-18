@@ -76,6 +76,16 @@ public class ResenaBO {
             throw new NegocioException("Error al buscar reseñas por cliente: " + e.getMessage(), e);
         }
     }
+    
+    public List<ResenaDTO> buscarResenasPorCalificacion(Float calificacion) throws NegocioException{
+        try {
+            return this.resenaDAO.buscarPorCalificacion(calificacion).stream()
+                    .map(Mapeadores::toResenaDTO)
+                    .collect(Collectors.toList());
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al buscar reseñas por cliente: " + e.getMessage(), e);
+        }
+    }
 
     public List<ResenaDTO> buscarTodas() throws NegocioException {
         try {

@@ -92,7 +92,12 @@ public class ResenaDAO extends BaseDAO implements IResenaDAO {
                     Resena.class
             );
             query.setParameter("idVideojuego", idVideojuego);
-            return query.getResultList();
+            List<Resena> resenas = query.getResultList();
+            resenas.forEach(r -> {
+                r.getCliente(); // Obtiene el cliente de cada reseña
+                r.getVideojuego(); // Obtiene el videojuego de cada reseña
+            });
+            return resenas;
         } catch (PersistenceException e) {
             throw new PersistenciaException("Error al buscar reseñas por videojuego: " + e.getMessage());
         } finally{
@@ -110,7 +115,12 @@ public class ResenaDAO extends BaseDAO implements IResenaDAO {
                     Resena.class
             );
             query.setParameter("idVideojuego", nombreVideojuego);
-            return query.getResultList();
+            List<Resena> resenas = query.getResultList();
+            resenas.forEach(r -> {
+                r.getCliente(); // Obtiene el cliente de cada reseña
+                r.getVideojuego(); // Obtiene el videojuego de cada reseña
+            });
+            return resenas;
         } catch (PersistenceException e) {
             throw new PersistenciaException("Error al buscar reseñas por videojuego: " + e.getMessage());
         } finally{
@@ -128,7 +138,12 @@ public class ResenaDAO extends BaseDAO implements IResenaDAO {
                     Resena.class
             );
             query.setParameter("idCliente", idCliente);
-            return query.getResultList();
+            List<Resena> resenas = query.getResultList();
+            resenas.forEach(r -> {
+                r.getCliente(); // Obtiene el cliente de cada reseña
+                r.getVideojuego(); // Obtiene el videojuego de cada reseña
+            });
+            return resenas;
         } catch (PersistenceException e) {
             throw new PersistenciaException("Error al buscar reseñas por cliente: " + e.getMessage());
         } finally{
@@ -138,15 +153,21 @@ public class ResenaDAO extends BaseDAO implements IResenaDAO {
     }
 
     @Override
-    public List<Resena> buscarPorCalificacion(Integer calificacion) throws PersistenciaException {
+    public List<Resena> buscarPorCalificacion(Float calificacion) throws PersistenciaException {
         iniciarConexion();
         try {
             TypedQuery<Resena> query = em.createQuery(
                     "SELECT r FROM Resena r WHERE r.calificacion = :calificacion ORDER BY r.fechaResena DESC",
                     Resena.class
             );
-            query.setParameter("calificacion", calificacion.floatValue());
-            return query.getResultList();
+            query.setParameter("calificacion", calificacion);
+            
+            List<Resena> resenas = query.getResultList();
+            resenas.forEach(r -> {
+                r.getCliente(); // Obtiene el cliente de cada reseña
+                r.getVideojuego(); // Obtiene el videojuego de cada reseña
+            });
+            return resenas;
         } catch (PersistenceException e) {
             throw new PersistenciaException("Error al buscar reseñas por calificación: " + e.getMessage());
         } finally{
@@ -165,8 +186,8 @@ public class ResenaDAO extends BaseDAO implements IResenaDAO {
             );
             List<Resena> resenas = query.getResultList();
             resenas.forEach(r -> {
-                r.getCliente();
-                r.getVideojuego();
+                r.getCliente(); // Obtiene el cliente de cada reseña
+                r.getVideojuego(); // Obtiene el videojuego de cada reseña
             });
             return resenas;
         } catch (PersistenceException e) {

@@ -179,6 +179,14 @@ public class FactoryBO {
         }
     }
 
+    public static List<ResenaDTO> buscarResenasPorCalificacion(Float calificacion) throws NegocioException{
+        try {
+            return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarResenasPorCalificacion(calificacion);
+        } catch (NegocioException e) {
+            throw new NegocioException("Error al consultar las resenas: " + e.getMessage(), e);
+        }
+    }
+    
     public static List<ResenaDTO> buscarTodasLasResenas() throws NegocioException {
         try {
             return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarTodas();

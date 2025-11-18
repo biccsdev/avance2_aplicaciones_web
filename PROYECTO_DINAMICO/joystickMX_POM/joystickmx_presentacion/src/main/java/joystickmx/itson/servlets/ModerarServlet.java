@@ -7,9 +7,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 import joystickmx.itson.DTO.ResenaDTO;
+import joystickmx.itson.DTO.UsuarioDTO;
 import joystickmx.itson.DTO.VideojuegoDTO;
+import joystickmx.itson.DTO.VideojuegoResenaDTO;
 import joystickmx.itson.Factory.FactoryBO;
 import joystickmx.negocio.exception.NegocioException;
 
@@ -58,19 +61,61 @@ public class ModerarServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idVideojuego = request.getParameter("idVideojuego");
         try {
-            // Extrae el ID del videojuego
-            Long idVideojuegoLong = Long.valueOf(idVideojuego);
-            // Busca el videojuego
-            VideojuegoDTO videojuego = FactoryBO.buscarVideojuegoPorId(idVideojuegoLong);
-            // Busca las resenas del videojuego
-            List<ResenaDTO> resenas = FactoryBO.buscarResenasPorVideojuego(idVideojuegoLong);
-            // Agrega ambos valores a la petición
-            request.setAttribute("videojuego", videojuego);
-            request.setAttribute("resenas", resenas);
-            // Envía la petición al JSP
-            request.getRequestDispatcher("/WEB-INF/admin/resenas/moderar.jsp").forward(request, response);
+            // En caso de que seleccione un videojuego en el catálogo
+            if(request.getParameter("idVideojuego") != null){
+                String idVideojuego = request.getParameter("idVideojuego");
+                // Extrae el ID del videojuego
+                Long idVideojuegoLong = Long.valueOf(idVideojuego);
+                // Busca el videojuego
+                VideojuegoDTO videojuego = FactoryBO.buscarVideojuegoPorId(idVideojuegoLong);
+                // Busca las resenas del videojuego
+                List<ResenaDTO> resenas = FactoryBO.buscarResenasPorVideojuego(idVideojuegoLong);
+                // Lista con los detalles de la reseña
+                List<VideojuegoResenaDTO> resenasVideojuegos = new ArrayList<>();
+                
+                for(ResenaDTO resena: resenas){
+                    VideojuegoResenaDTO resenaVideojuego = new VideojuegoResenaDTO();
+                    UsuarioDTO cliente = FactoryBO.buscarClientePorId(resena.getIdCliente());
+                    resenaVideojuego.setNombreJugador(cliente.getNombres());
+                    resenasVideojuegos.add(resenaVideojuego);
+                }
+                // Agrega ambos valores a la petición
+                request.setAttribute("videojuego", videojuego);
+                request.setAttribute("resenas", resenasVideojuegos);
+                // Envía la petición al JSP
+                request.getRequestDispatcher("/WEB-INF/admin/resenas/moderar.jsp").forward(request, response);
+            } else if(request.getParameter("nombreVideojuego") != null){
+                
+                String nombreVideojuego = request.getParameter("nombreVideojuego");
+                List<ResenaDTO> resenas = FactoryBO.buscarResenasPorNombreVideojuego(nombreVideojuego);
+                // Lista con los detalles de la reseña
+                List<VideojuegoResenaDTO> resenasVideojuegos = new ArrayList<>();
+                for(ResenaDTO resena: resenas){
+                    
+                    VideojuegoResenaDTO resenaVideojuego = new VideojuegoResenaDTO();
+                    
+                    UsuarioDTO cliente = FactoryBO.buscarClientePorId(resena.getIdCliente());
+                    
+                    VideojuegoDTO videojuego = FactoryBO.buscarVideojuegoPorId(resena.getIdVideojuego());
+                    
+                    resenaVideojuego.setNombreJugador(cliente.getNombres());
+                    resenaVideojuego.setNombreVideojuego(videojuego.getNombre());
+                    resenaVideojuego.setUrlImagen(videojuego.getUrlImagen());
+                    
+                    resenasVideojuegos.add(resenaVideojuego);
+                }
+                request.setAttribute("resenas", resenasVideojuegos);
+                request.getRequestDispatcher("/WEB-INF/admin/resenas/moderar.jsp").forward(request, response);
+                
+            } else if(request.getParameter("calificacion") != null){
+                String calificacion = request.getParameter("calificacion");
+                Long calificacionLong = Long.valueOf(calificacion);
+                
+                
+            } else{
+                
+            }
         } catch (ServletException | IOException | NumberFormatException | NegocioException e) {
             request.setAttribute("error", "Error durante la consulta del videojuego.");
             request.getRequestDispatcher("/index.jsp").forward(request, response);
