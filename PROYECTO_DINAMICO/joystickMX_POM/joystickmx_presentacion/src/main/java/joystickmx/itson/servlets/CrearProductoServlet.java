@@ -75,6 +75,15 @@ public class CrearProductoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try {
+            //Obtener todas las categorías
+            List<CategoriaDTO> categoriasDisponibles = FactoryBO.buscarTodasCategorias();
+            request.setAttribute("categoriasDisponibles", categoriasDisponibles);
+            
+        } catch (NegocioException e) {
+            LOG.log(Level.WARNING, "Error al cargar las categorías para el formulario", e.getMessage());
+            request.setAttribute("error", "Error al cargar las vategorías" + e.getMessage());
+        }
         request.getRequestDispatcher("/WEB-INF/admin/productos/crear.jsp").forward(request, response);
     }
 
@@ -99,7 +108,7 @@ public class CrearProductoServlet extends HttpServlet {
             String descripcion = "Descripción pendiente..."; 
             String plataforma = request.getParameter("plataforma");
             String desarrollador = request.getParameter("desarrollador");
-            String genero = request.getParameter("genero");
+            String categoria = request.getParameter("categoria");
             LocalDate fechaLanzamiento = LocalDate.parse(request.getParameter("lanzamiento"));
 
             String precioStr = request.getParameter("precio");
@@ -130,33 +139,32 @@ public class CrearProductoServlet extends HttpServlet {
                 imagenUrlDB = UPLOAD_DIR + "/" + finalName;
             }
 
-            Float precio = Float.parseFloat(precioStr);
-            Integer stock = Integer.parseInt(stockStr);
+            Float precio = Float.valueOf(precioStr);
+            Integer stock = Integer.valueOf(stockStr);
 
             VideojuegoDTO nuevoVideojuego = new VideojuegoDTO();
             nuevoVideojuego.setNombre(nombre);
             nuevoVideojuego.setDescripcion(descripcion);
             nuevoVideojuego.setPlataforma(plataforma);
             nuevoVideojuego.setDesarrollador(desarrollador);
-            
+
             //Esto lo hice para que no se creara una categoría nueva cada vez que se registra un producto
             //Porque en teoría ya deberían de estar registradas las categorías
             List<CategoriaDTO> categorias = new ArrayList<>();
-            CategoriaDTO categoriaEncontrada = FactoryBO.buscarCategoriaPorNombre(genero); 
+            // Aquí NO se normaliza la cadena, se espera que el JSP envíe el nombre correcto.
+            CategoriaDTO categoriaEncontrada = FactoryBO.buscarCategoriaPorNombre(categoria); 
 
-            //No se si debería quitar esta validación
-            if (categoriaEncontrada != null) {
-                categorias.add(categoriaEncontrada);
-            } else {
-                throw new NegocioException("La categoría seleccionada no es válida: " + genero);
+            if (categoriaEncontrada == null) {
+                throw new NegocioException("La categoría seleccionada no es válida: " + categoria);
             }
+            
+            categorias.add(categoriaEncontrada);
 
             nuevoVideojuego.setCategorias(categorias);
             nuevoVideojuego.setFechaLanzamiento(fechaLanzamiento);
             nuevoVideojuego.setUrlImagen(imagenUrlDB); 
             nuevoVideojuego.setPrecio(precio);
             nuevoVideojuego.setExistencias(stock);
-            nuevoVideojuego.setHabilitado(true); //En cuanto se crea el producto se habilita para que salga (eso no se si después lo podemos cambiar)
 
             FactoryBO.crearVideojuego(nuevoVideojuego);
 
