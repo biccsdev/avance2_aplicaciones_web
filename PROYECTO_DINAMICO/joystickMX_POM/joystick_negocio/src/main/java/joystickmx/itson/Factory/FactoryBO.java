@@ -154,15 +154,15 @@ public class FactoryBO {
             throw new NegocioException("Error al actualizar videojuego: " + e.getMessage(), e);
         }
     }
-    
-    public static List<ResenaDTO> buscarResenasPorNombreVideojuego(String nombreVideojuego) throws NegocioException{
+
+    public static List<ResenaDTO> buscarResenasPorNombreVideojuego(String nombreVideojuego) throws NegocioException {
         try {
             return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarPorNombreVideojuego(nombreVideojuego);
         } catch (NegocioException e) {
             throw new NegocioException("Error al consultar las resenas: " + e.getMessage(), e);
         }
     }
-    
+
     public static List<ResenaDTO> buscarResenasPorVideojuego(Long idVideojuego) throws NegocioException {
         try {
             return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarPorVideojuego(idVideojuego);
@@ -179,14 +179,14 @@ public class FactoryBO {
         }
     }
 
-    public static List<ResenaDTO> buscarResenasPorCalificacion(Float calificacion) throws NegocioException{
+    public static List<ResenaDTO> buscarResenasPorCalificacion(Float calificacion) throws NegocioException {
         try {
             return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarResenasPorCalificacion(calificacion);
         } catch (NegocioException e) {
             throw new NegocioException("Error al consultar las resenas: " + e.getMessage(), e);
         }
     }
-    
+
     public static List<ResenaDTO> buscarTodasLasResenas() throws NegocioException {
         try {
             return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarTodas();
@@ -266,9 +266,7 @@ public class FactoryBO {
             throw new NegocioException("Error al marcar pedido como cancelado: " + e.getMessage(), e);
         }
     }
-    
-    
-    
+
     public static List<VideojuegoDTO> buscarVideojuegosPorNombreParcial(String nombre) throws NegocioException {
         try {
             VideojuegoBO videojuegoBO = new VideojuegoBO(FactoryDAO.crearVideojuegoDAO());
@@ -277,9 +275,7 @@ public class FactoryBO {
             throw new NegocioException("Error al buscar videojuegos por nombre: " + e.getMessage(), e);
         }
     }
-    
-    
-    
+
     public static List<UsuarioDTO> buscarClientesPorNombre(String nombre) throws NegocioException {
         try {
             return new ClienteBO(FactoryDAO.crearClienteDAO(), null).buscarPorNombre(nombre);
@@ -291,10 +287,11 @@ public class FactoryBO {
     /**
      * Esta es la operación de negocio más compleja. Requiere múltiples DAOs
      * para validar stock, calcular total y limpiar el carrito.
+     *
      * @param idCliente
      * @param direccionEnvioDTO
      * @param pagoDTO
-     * @return 
+     * @return
      * @throws joystickmx.negocio.exception.NegocioException
      */
     public static PedidoDTO registrarPedido(Long idCliente, DireccionDTO direccionEnvioDTO, PagoDTO pagoDTO) throws NegocioException {
@@ -362,4 +359,29 @@ public class FactoryBO {
             throw new NegocioException(e.getMessage(), e);
         }
     }
+
+    /**
+     * Busca pedidos que coincidan parcialmente con el nombre completo de un
+     * cliente.
+     *
+     * @param nombre El texto a buscar en los nombres y apellidos del cliente.
+     * @return Una lista de PedidoDTO que coinciden.
+     * @throws NegocioException Si ocurre un error durante la consulta.
+     */
+    public static List<PedidoDTO> buscarPedidosPorNombreClienteParcial(String nombre) throws NegocioException {
+        try {
+            PedidoBO pedidoBO = new PedidoBO(
+                    FactoryDAO.crearPedidoDAO(),
+                    null,
+                    null,
+                    null
+            );
+
+            return pedidoBO.buscarPorNombreClienteParcial(nombre);
+
+        } catch (NegocioException e) {
+            throw new NegocioException("Error al buscar pedidos por nombre de cliente: " + e.getMessage(), e);
+        }
+    }
+
 }

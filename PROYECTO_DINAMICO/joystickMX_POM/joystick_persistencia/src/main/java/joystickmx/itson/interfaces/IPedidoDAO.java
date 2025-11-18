@@ -38,5 +38,7 @@ public interface IPedidoDAO {
     void pedidoPendiente(Long idPedido) throws PersistenciaException;
     
     void pedidoEnviado(Long idPedido) throws PersistenciaException;
+    
+    List<Pedido> buscarPorNombreClienteParcial(String nombreParcial) throws PersistenciaException;
 
 }

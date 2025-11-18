@@ -1,4 +1,5 @@
 joystickmx\itson\DTO\PedidoDTO.class
+joystickmx\itson\DTO\VideojuegoResenaDTO.class
 joystickmx\itson\Mappers\DTOMapeadores.class
 joystickmx\itson\DTO\ClienteDTO.class
 joystickmx\itson\entidades\Cliente.class

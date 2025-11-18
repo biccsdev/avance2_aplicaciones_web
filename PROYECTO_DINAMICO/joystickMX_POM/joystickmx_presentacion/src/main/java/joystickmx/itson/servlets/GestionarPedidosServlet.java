@@ -66,39 +66,39 @@ public class GestionarPedidosServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // --- Lógica para mensajes (¡Importante!) ---
-        // Revisa si hay un mensaje de éxito viniendo de una redirección (POST)
         String successMessage = (String) request.getSession().getAttribute("successMessage");
         if (successMessage != null) {
-            // Lo quitamos de la sesión para que no se muestre de nuevo
             request.getSession().removeAttribute("successMessage");
-            // Lo ponemos en el request para que el JSP lo pueda leer esta vez
             request.setAttribute("successMessage", successMessage);
         }
-
-        // Obtenemos el mensaje de error (si un POST falló y nos reenvió aquí)
         String errorMessage = (String) request.getAttribute("errorMessage");
 
-        // --- Fin de Lógica para mensajes ---
+        String filtroNombre = request.getParameter("filtroNombrePedidos");
+
         List<PedidoDTO> listaPedidos = null;
         try {
-            // Asegúrate que tu método en FactoryBO se llame así
-            listaPedidos = FactoryBO.obtenerPedidos();
+
+            if (filtroNombre != null && !filtroNombre.trim().isEmpty()) {
+                listaPedidos = FactoryBO.buscarPedidosPorNombreClienteParcial(filtroNombre.trim());
+
+                request.setAttribute("filtroAplicado", filtroNombre);
+
+            } else {
+                listaPedidos = FactoryBO.obtenerPedidos();
+            }
 
         } catch (NegocioException e) {
             LOG.log(Level.SEVERE, "Error al obtener la lista de pedidos", e);
-            if (errorMessage == null) { // Solo si no hay ya un error de un POST
+            if (errorMessage == null) {
                 errorMessage = "Error al cargar la lista de pedidos: " + e.getMessage();
             }
         }
 
-        // Pasamos los datos (o el error) al JSP
         request.setAttribute("listaPedidos", listaPedidos);
         if (errorMessage != null) {
             request.setAttribute("errorMessage", errorMessage);
         }
 
-        // Redirigimos al JSP
         request.getRequestDispatcher("/WEB-INF/admin/pedidos/lista.jsp")
                 .forward(request, response);
     }

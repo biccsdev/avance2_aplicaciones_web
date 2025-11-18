@@ -105,7 +105,7 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
                     + "LEFT JOIN FETCH d.videojuego "
                     + "WHERE p.idPedido = :pid", Pedido.class);
             query.setParameter("pid", idPedido);
-            return query.getSingleResult(); 
+            return query.getSingleResult();
         } catch (jakarta.persistence.NoResultException e) {
             return null;
         } catch (IllegalArgumentException | PersistenceException e) {
@@ -229,6 +229,38 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
     @Override
     public void pedidoCancelado(Long idPedido) throws PersistenciaException {
         actualizarEstadoPedido(idPedido, EstadoPedido.CANCELADO);
+    }
+
+    /**
+     * Busca pedidos que coincidan parcialmente con el nombre completo de un
+     * cliente.
+     *
+     * @param nombreParcial El texto a buscar en los nombres y apellidos del
+     * cliente.
+     * @return Una lista de pedidos que coinciden.
+     * @throws PersistenciaException Si ocurre un error durante la consulta.
+     */
+    @Override
+    public List<Pedido> buscarPorNombreClienteParcial(String nombreParcial) throws PersistenciaException {
+        iniciarConexion();
+        try {
+            TypedQuery<Pedido> query = em.createQuery(
+                    "SELECT p FROM Pedido p "
+                    + "WHERE CONCAT(p.cliente.nombres, ' ', p.cliente.apellidoPaterno, ' ', p.cliente.apellidoMaterno) LIKE :nombreParcial "
+                    + "ORDER BY p.fechaPedido DESC",
+                    Pedido.class
+            );
+
+            query.setParameter("nombreParcial", "%" + nombreParcial + "%");
+
+            return query.getResultList();
+        } catch (PersistenceException e) {
+            throw new PersistenciaException("Error al buscar pedidos por nombre parcial de cliente: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) {
+                em.close();
+            }
+        }
     }
 
 }

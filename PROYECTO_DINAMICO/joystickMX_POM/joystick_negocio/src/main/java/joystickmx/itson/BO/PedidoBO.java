@@ -182,4 +182,28 @@ public class PedidoBO {
             throw new NegocioException("Error al eliminar (soft delete) usuario: " + e.getMessage(), e);
         }
     }
+    
+    /**
+     * Busca pedidos que coincidan parcialmente con el nombre completo de un cliente.
+     *
+     * @param nombreParcial El texto a buscar en los nombres y apellidos del cliente.
+     * @return Una lista de PedidoDTO que coinciden.
+     * @throws NegocioException Si ocurre un error durante la consulta.
+     */
+    public List<PedidoDTO> buscarPorNombreClienteParcial(String nombreParcial) throws NegocioException {
+        try {
+            List<Pedido> pedidosEncontrados = this.pedidoDAO.buscarPorNombreClienteParcial(nombreParcial);
+            
+            return pedidosEncontrados.stream()
+                    .map(Mapeadores::toPedidoDTO)
+                    .collect(Collectors.toList());
+                    
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al buscar pedidos por nombre parcial de cliente: " + e.getMessage(), e);
+        }
+    }
+    
+    
+    
+    
 }
