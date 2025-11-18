@@ -1,6 +1,6 @@
 .div-main {
     display: grid;
-    grid-template-columns: 300px 1fr; /* Columna lateral y contenido */
+    grid-template-columns: 300px 1fr;
     gap: 24px;
     max-width: 1400px;
     margin: 24px auto;
@@ -9,14 +9,41 @@
 
 
 .sidebar-filter {
-    padding-top: 90px;
+    padding-top: 60px;
 }
 
 .sidebar-filter .input-filter {
     width: 100%;
     padding: 12px 16px;
     font-size: 13px;
-    margin-bottom: 12px; /* Espacio antes del botón */
+    margin-bottom: 12px;
+}
+
+.form-message {
+    position: absolute;       
+    top: 20px;                
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;        
+    width: auto;
+    max-width: 600px;
+    padding: 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.form-message.success {
+    background-color: transparent;
+    border: none;               
+    color: #87FF70;           
+    font-weight: 600;
+}
+
+.form-message.error {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border: 1px solid #fca5a5;
 }
 
 .btn-filtro {
@@ -24,8 +51,8 @@
     padding: 12px;
     font-size: 1rem;
     font-weight: 600;
-    background-color: #9B5DE0; /* Color de botón solicitado */
-    color: #ffffff; /* Texto blanco para contraste */
+    background-color: #9B5DE0;
+    color: #ffffff;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -33,19 +60,19 @@
 }
 
 .btn-filtro:hover {
-    background-color: #8a4bc7; /* Un poco más oscuro al pasar el mouse */
+    background-color: #8a4bc7;
 }
 
-/* ------------------------------------
- * Contenido Principal (Lista de Pedidos)
- * ------------------------------------ */
+
 .main-content {
+    position: relative;
+    padding-top: 120px;
     display: grid;
     gap: 16px;
     align-content: start;
 }
 
-/* Título "Pedidos" añadido */
+
 .pedidos-title {
     font-size: 1.8rem;
     color: #fff;
@@ -55,47 +82,44 @@
     padding-right: 30px;
 }
 
-/* ------------------------------------
- * Tarjeta de Pedido (.pedido-item)
- * ------------------------------------ */
+
 .pedido-item {
     display: grid;
-    /* 2 columnas: Datos (flexible) y Acciones (fijo) */
     grid-template-columns: 1fr auto;
     gap: 20px;
     align-items: center;
     padding: 20px;
-    background: #ffffff; /* Fondo blanco */
+    background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     border: 1px solid #e0e0e0;
-    user-select: none; /* Evita seleccionar el texto del card */
+    user-select: none; 
 }
 
 /* Datos del Pedido */
 .pedido-data {
     display: grid;
     gap: 4px;
-    color: #000000; /* Texto negro por defecto */
+    color: #000000; 
 }
 
 .pedido-data h4 {
     font-size: 1.2rem;
     font-weight: 700;
     margin: 0;
-    color: #000000; /* "Pedido #1" en negro */
+    color: #000000;
 }
 
 .pedido-data h6 {
     font-size: 1rem;
     font-weight: 500;
     margin: 0;
-    color: #333333; /* Cliente en gris oscuro */
+    color: #333333;
 }
 
 .pedido-data span {
     font-size: 0.9rem;
-    color: #555555; /* Detalles en gris medio */
+    color: #555555;
 }
 
 /* Estado del Pedido */
@@ -107,7 +131,7 @@
 }
 
 .pedido-status span {
-    color: #000000; /* Texto del estado en negro */
+    color: #000000;
     font-weight: 600;
     font-size: 0.9rem;
 }
@@ -118,7 +142,6 @@
     border-radius: 50%;
 }
 
-/* Colores de estado (puedes ajustar estos colores) */
 .estado-pendiente {
     background-color: #f59e0b;
 } /* Amarillo/Naranja */
@@ -145,8 +168,8 @@
     display: block;
     text-align: center;
     padding: 12px 16px;
-    background: #9B5DE0; /* Color de botón solicitado */
-    color: #ffffff; /* Texto blanco */
+    background: #9B5DE0; 
+    color: #ffffff; 
     border-radius: 8px;
     font-weight: 600;
     font-size: 0.9rem;
@@ -166,9 +189,9 @@
 
 .pedido-action-form select {
     padding: 0 12px;
-    background-color: #f4f4f5; /* Fondo gris claro */
+    background-color: #f4f4f5;
     border: 1px solid #d4d4d8;
-    color: #000000; /* Texto negro */
+    color: #000000;
     border-radius: 8px;
     font-size: 0.9rem;
 }
@@ -177,8 +200,8 @@
     padding: 12px 16px;
     font-size: 0.9rem;
     font-weight: 600;
-    background-color: #9B5DE0; /* Color de botón solicitado */
-    color: #ffffff; /* Texto blanco */
+    background-color: #9B5DE0;
+    color: #ffffff;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -189,44 +212,26 @@
     background-color: #8a4bc7;
 }
 
-/* Mensajes de feedback */
-.form-message {
-    padding: 16px;
-    border-radius: 8px;
-    font-weight: 600;
-    text-align: center;
-    color: #000000; /* Texto negro */
-}
-.form-message.error {
-    background-color: #fee2e2; /* Fondo rojo claro */
-    color: #b91c1c; /* Texto rojo oscuro */
-    border: 1px solid #fca5a5; /* Borde rojo */
-}
-.form-message.success {
-    background-color: #dcfce7; /* Fondo verde claro */
-    color: #166534; /* Texto verde oscuro */
-    border: 1px solid #86efac; /* Borde verde */
-}
 
 /* ------------------------------------
  * Responsive
  * ------------------------------------ */
 @media (max-width: 900px) {
     .div-main {
-        grid-template-columns: 1fr; /* Apila las columnas */
+        grid-template-columns: 1fr;
     }
 
     .pedido-item {
-        grid-template-columns: 1fr; /* Apila las columnas del item */
+        grid-template-columns: 1fr;
         gap: 16px;
     }
 
     .pedido-data {
-        text-align: center; /* Centra el texto */
+        text-align: center;
     }
 
     .pedido-status {
-        justify-content: center; /* Centra el indicador de estado */
+        justify-content: center;
     }
 
     .pedido-actions {

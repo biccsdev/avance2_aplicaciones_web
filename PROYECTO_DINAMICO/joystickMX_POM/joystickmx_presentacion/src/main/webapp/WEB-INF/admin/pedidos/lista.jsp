@@ -20,6 +20,7 @@
     <main class="div-main">
         
         <div class="sidebar-filter">
+            <h1 class="pedidos-title">Pedidos</h1>
             <form action="${pageContext.request.contextPath}/admin/pedidos/gestionar" method="GET">
                 <input name="filtroId" id="pedido-filtro" class="input-filter" type="text" placeholder="Buscar por ID...">
                 <button type="submit" class="btn-filtro">Buscar</button>
@@ -27,11 +28,7 @@
         </div>
 
         <div class="main-content">
-            
-            <%-- Título "Pedidos" añadido --%>
-            <h1 class="pedidos-title">Pedidos</h1>
 
-            <%-- Mensajes de error o éxito --%>
             <c:if test="${not empty errorMessage}">
                 <h4 class="form-message error">${errorMessage}</h4>
             </c:if>
@@ -43,10 +40,8 @@
             <c:forEach var="pedido" items="${listaPedidos}">
                 <div class="pedido-item">
                     
-                    <%-- Icono Eliminado --%>
 
                     <div class="pedido-data">
-                        <%-- Formato de ID cambiado a "Pedido #" --%>
                         <h4>Pedido #${pedido.idPedido}</h4>
                         <h6>Cliente: ${pedido.cliente.nombres} ${pedido.cliente.apellidoPaterno} ${pedido.cliente.apellidoMaterno}</h6>
                         
