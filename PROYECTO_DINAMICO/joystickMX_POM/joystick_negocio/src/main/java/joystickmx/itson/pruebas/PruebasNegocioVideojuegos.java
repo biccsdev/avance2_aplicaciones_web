@@ -215,7 +215,7 @@ public class PruebasNegocioVideojuegos {
             juegoAW2.setFechaLanzamiento(LocalDate.of(2023, 10, 27));
             juegoAW2.setPlataforma("Xbox Series X/S");
             juegoAW2.setHabilitado(true);
-            juegoAW2.setUrlImagen("/imgs/aw2-xbox.series-xs.jpg");
+            juegoAW2.setUrlImagen("/imgs/aw2-xbox-series-xs.jpg");
 
             List<CategoriaDTO> categoriasAW2 = new ArrayList<>();
             categoriasAW2.add(categoriaSurvivalHorror);
@@ -245,7 +245,7 @@ public class PruebasNegocioVideojuegos {
             juegoU4.setFechaLanzamiento(LocalDate.of(2016, 5, 10));
             juegoU4.setPlataforma("Playstation 4");
             juegoU4.setHabilitado(true);
-            juegoU4.setUrlImagen("/imgs/uncharted4-ps4.jpg");
+            juegoU4.setUrlImagen("/imgs/ucharted4-ps4.jpg");
 
             List<CategoriaDTO> categoriasU4 = new ArrayList<>();
             categoriasU4.add(categoriaAccionAventuras);

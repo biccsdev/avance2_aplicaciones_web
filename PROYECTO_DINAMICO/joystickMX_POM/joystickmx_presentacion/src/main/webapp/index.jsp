@@ -13,25 +13,17 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
     </head>
-    <body>
+    <body class="app-bg-animated">
 
         <jsp:include page="/WEB-INF/includes/header.jsp" />
 
-        <main class="main-container">
-            <%-- Esta sección de "héroe" es un agregado, la dejamos --%>
-            <section class="hero-section">
-                <h1>Bienvenido a JoystickMX</h1>
-                <p>Tu próxima aventura comienza aquí. Encuentra los mejores títulos a precios increíbles.</p>
-            </section>
-
-            <h2>Catálogo de Productos</h2>
-
+        <main class="grid-container">
             <%-- 
               Aquí empieza la corrección. 
               Cambiamos "section class='product-grid'" por "div class='catalogo'" 
               para que coincida con index.html.
             --%>
-            <div class="catalogo">
+            <div class="videojuego-container">
                 <c:choose>
                     <%-- Caso de Error --%>
                     <c:when test="${not empty error}">
@@ -76,7 +68,7 @@
                           1. Agregamos el UL que faltaba, 
                           para que coincida con index.html
                         --%>
-                        <ul class="videojuegos-lista">
+                        <ul class="videojuego-lista">
 
                             <c:forEach var="juego" items="${videojuegos}">
                                 <%-- 
@@ -86,13 +78,13 @@
                                 <li class="videojuego-item">
                                     <div class="videojuego">
                                         <div class="videojuego-imagen">
-                                            <img class="videojuego-imagen" src="${pageContext.request.contextPath}${juego.urlImagen}" alt="Portada de ${juego.nombre}">
+                                            <img class="videojuego-imagen" src="${pageContext.request.contextPath}${juego.getUrlImagen()}" alt="Portada de ${juego.nombre}">
                                         </div>
                                         <div class="videojuego-info">
-                                            <h3 class="videojuego-nombre">${juego.nombre}</h3>
+                                            <h3 class="videojuego-nombre">${juego.getNombre()}</h3>
 
                                             <%-- 3. Usamos H2 para el precio, como en index.html --%>
-                                            <h2 class="videojuego-precio">$${String.format("%.2f", juego.precio)}</h2>
+                                            <h2 class="videojuego-precio">$${String.format("%.2f", juego.getPrecio())}</h2>
 
                                             <%-- 4. Agregamos el botón que faltaba en tu JSP --%>
                                             <button class="btn-carrito btn-dark">Agregar al carrito</button>
