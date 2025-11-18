@@ -1,0 +1,186 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
+package joystickmx.itson.servlets;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import joystickmx.itson.DTO.DireccionDTO;
+import joystickmx.itson.DTO.UsuarioDTO;
+import joystickmx.itson.DTO.UsuarioRegistroDTO;
+import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.negocio.exception.NegocioException;
+
+/**
+ *
+ * @author sonic
+ */
+@WebServlet(name = "EditarPerfilServlet", urlPatterns = {"/perfil/editar", "/admin/perfil/editar"})
+public class EditarPerfilServlet extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet EditarPerfilServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet EditarPerfilServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession(false);
+
+        // Validar sesión
+        if (session == null || session.getAttribute("usuario") == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        // Determinar qué JSP cargar según ruta
+        String path = request.getServletPath();
+
+        if (path.equals("/admin/perfil/editar")) {
+            request.getRequestDispatcher("/WEB-INF/admin/perfil/editar.jsp")
+                    .forward(request, response);
+        } else {
+            request.getRequestDispatcher("/WEB-INF/user/perfil/editar.jsp")
+                    .forward(request, response);
+        }
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        HttpSession session = request.getSession(false);
+
+        // Validación de sesión
+        if (session == null || session.getAttribute("usuario") == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        try {
+            // Recuperar usuario de sesión (tipo UsuarioDTO siempre)
+            UsuarioDTO usuarioSesion = (UsuarioDTO) session.getAttribute("usuario");
+            String email = usuarioSesion.getEmail();
+            String rol = usuarioSesion.getRol();
+
+            // Datos del formulario
+            String nombres = request.getParameter("nombres");
+            String apPaterno = request.getParameter("apellidoPaterno");
+            String apMaterno = request.getParameter("apellidoMaterno");
+            String telefono = request.getParameter("telefono");
+            
+            String contrasena = request.getParameter("contrasenia");
+
+            // Dirección
+            DireccionDTO dirDTO = new DireccionDTO();
+            dirDTO.setCalle(request.getParameter("calle"));
+            dirDTO.setNumero(request.getParameter("numero"));
+            dirDTO.setColonia(request.getParameter("colonia"));
+
+            // DTO para actualizar
+            UsuarioRegistroDTO actualizacion = new UsuarioRegistroDTO();
+            actualizacion.setEmail(email);
+            actualizacion.setNombres(nombres);
+            actualizacion.setApellidoPaterno(apPaterno);
+            actualizacion.setApellidoMaterno(apMaterno);
+            actualizacion.setTelefono(telefono);
+            actualizacion.setDireccion(dirDTO);
+            actualizacion.setEstadoUsuario(usuarioSesion.getEstadoUsuario());
+
+            // Solo actualizar contraseña si el usuario escribió algo
+            if (contrasena != null && !contrasena.trim().isEmpty()) {
+                actualizacion.setContrasenia(contrasena);
+            }
+
+            // Actualizar
+            UsuarioDTO actualizado = FactoryBO.actualizarUsuario(actualizacion);
+
+            // Reemplazar en sesión
+            session.setAttribute("usuario", actualizado);
+
+            // Mensaje de éxito
+            session.setAttribute("successMessage", "¡Perfil actualizado con éxito!");
+
+            // Redirección por rol
+            if ("admin".equals(rol)) {
+                response.sendRedirect(request.getContextPath() + "/admin/perfil");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/perfil");
+            }
+
+        } catch (NegocioException e) {
+
+            request.setAttribute("errorMessage", e.getMessage());
+
+            UsuarioDTO usuarioSesion = (UsuarioDTO) session.getAttribute("usuario");
+
+            if ("admin".equals(usuarioSesion.getRol())) {
+                request.getRequestDispatcher("/WEB-INF/admin/perfil/editar.jsp")
+                        .forward(request, response);
+            } else {
+                request.getRequestDispatcher("/WEB-INF/user/perfil/editar.jsp")
+                        .forward(request, response);
+            }
+        }
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}

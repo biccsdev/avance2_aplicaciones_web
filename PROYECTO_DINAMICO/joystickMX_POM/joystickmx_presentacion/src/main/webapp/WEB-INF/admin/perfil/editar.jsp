@@ -1,82 +1,105 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Perfil Admin</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/editProfileAdmin.css">
-    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/imgs/icono_app.png">
-</head>
-<body class="app-bg-animated">
-    <jsp:include page="/WEB-INF/includes/header.jsp"/>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mi información</title>
 
-    <main class="profile-container container-center">
-        <h1 class="brand-title profile-title">Editar Perfil</h1>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/editProfileAdmin.css">
+        <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/imgs/icono_app.png">
+    </head>
 
-        <section class="profile-card surface-glass shadow-lg rounded-lg">
-            <form action="${pageContext.request.contextPath}/admin/perfil/actualizar" method="post" class="edit-profile-form">
-                <div class="form-group">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" id="nombre" name="nombre" class="input" 
-                           value="${not empty sessionScope.adminUser ? sessionScope.adminUser.nombre : 'Sebastian'}" required>
-                </div>
+    <body class="app-bg-animated">
 
-                <div class="form-group">
-                    <label for="apellido" class="form-label">Apellido</label>
-                    <input type="text" id="apellido" name="apellido" class="input" 
-                           value="${not empty sessionScope.adminUser ? sessionScope.adminUser.apellido : 'Borquez'}" required>
-                </div>
+        <jsp:include page="/WEB-INF/includes/header.jsp"/>
 
-                <div class="form-group">
-                    <label for="email" class="form-label">Correo Electrónico</label>
-                    <input type="email" id="email" name="email" class="input" 
-                           value="${not empty sessionScope.adminUser ? sessionScope.adminUser.email : 'sebastian.borquez252115@potros.itson.edu.mx'}" required>
-                </div>
+        <main class="profile-wrapper">
 
-                <div class="form-group">
-                    <label for="telefono" class="form-label">Teléfono</label>
-                    <input type="tel" id="telefono" name="telefono" class="input" 
-                           value="${not empty sessionScope.adminUser ? sessionScope.adminUser.telefono : '+52 644 123 4567'}">
-                </div>
+            <!-- TÍTULO -->
+            <h1 class="profile-title-big">Mi informacion</h1>
 
-                <div class="form-section">
-                    <h3 class="section-title">Cambiar Contraseña (Opcional)</h3>
+            <section class="profile-card-simple">
+
+                <form action="${pageContext.request.contextPath}/admin/perfil/actualizar" method="post" class="profile-form">
+
+                    <!-- NOMBRE -->
                     <div class="form-group">
-                        <label for="passwordActual" class="form-label">Contraseña Actual</label>
-                        <input type="password" id="passwordActual" name="passwordActual" class="input" 
-                               placeholder="Dejar en blanco para no cambiar">
+                        <label class="form-label">Nombre</label>
+                        <input type="text" name="nombres" class="input-large"
+                               value="${sessionScope.usuario.nombres}" required>
+                    </div>
+
+                    <!-- APELLIDOS -->
+                    <div class="form-group">
+                        <label class="form-label">Apellido paterno</label>
+                        <input type="text" name="apellidoPaterno" class="input-large"
+                               value="${sessionScope.usuario.apellidoPaterno}" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="passwordNueva" class="form-label">Nueva Contraseña</label>
-                        <input type="password" id="passwordNueva" name="passwordNueva" class="input">
+                        <label class="form-label">Apellido materno</label>
+                        <input type="text" name="apellidoPaterno" class="input-large"
+                               value="${sessionScope.usuario.apellidoMaterno}" required>
                     </div>
 
+                    <!-- CONTRASEÑA -->
                     <div class="form-group">
-                        <label for="passwordConfirmar" class="form-label">Confirmar Nueva Contraseña</label>
-                        <input type="password" id="passwordConfirmar" name="passwordConfirmar" class="input">
+                        <label class="form-label">Contraseña</label>
+                        <input type="password" name="contrasenia" class="input-large"
+                               placeholder="Nueva contraseña (opcional)">
                     </div>
-                </div>
 
-                <c:if test="${not empty error}">
-                    <div class="error-text">${error}</div>
-                </c:if>
+                    <!-- TELEFONO -->
+                    <div class="form-group">
+                        <label class="form-label">Teléfono</label>
+                        <input type="tel" name="telefono" class="input-large"
+                               value="${sessionScope.usuario.telefono}">
+                    </div>
 
-                <c:if test="${not empty success}">
-                    <div class="success-text">${success}</div>
-                </c:if>
+                    <!-- CALLE -->
+                    <div class="form-group">
+                        <label class="form-label">Calle</label>
+                        <input type="text" name="calle" class="input-large"
+                               value="${sessionScope.usuario.direccion.calle}">
+                    </div>
 
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                    <a href="${pageContext.request.contextPath}/admin/perfil" class="btn btn-secondary">Cancelar</a>
-                </div>
-            </form>
-        </section>
-    </main>
-</body>
+                    <!-- NÚMERO + COLONIA -->
+                    <div class="form-row-2">
+                        <div class="form-group">
+                            <label class="form-label">Número exterior*</label>
+                            <input type="text" name="numero" class="input-large"
+                                   value="${sessionScope.usuario.direccion.numero}">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Colonia*</label>
+                            <input type="text" name="colonia" class="input-large"
+                                   value="${sessionScope.usuario.direccion.colonia}">
+                        </div>
+                    </div>
+
+                    <!-- MENSAJES -->
+                    <c:if test="${not empty error}">
+                        <div class="error-text">${error}</div>
+                    </c:if>
+
+                    <c:if test="${not empty success}">
+                        <div class="success-text">${success}</div>
+                    </c:if>
+
+                    <!-- BOTÓN -->
+                    <div class="form-actions-center">
+                        <button type="submit" class="btn-black-big">Guardar</button>
+                    </div>
+
+                </form>
+            </section>
+        </main>
+
+    </body>
 </html>
-

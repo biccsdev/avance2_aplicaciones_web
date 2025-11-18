@@ -154,6 +154,14 @@ public class FactoryBO {
             throw new NegocioException("Error al actualizar videojuego: " + e.getMessage(), e);
         }
     }
+    
+    public static UsuarioDTO actualizarUsuario(UsuarioRegistroDTO dto) throws NegocioException {
+        try {
+            return new UsuarioBO(FactoryDAO.crearUsuarioDAO()).actualizarUsuario(dto);
+        } catch (NegocioException e) {
+            throw new NegocioException("Error al actualizar videojuego: " + e.getMessage(), e);
+        }
+    }
 
     public static List<ResenaDTO> buscarResenasPorNombreVideojuego(String nombreVideojuego) throws NegocioException {
         try {
