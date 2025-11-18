@@ -28,9 +28,9 @@ import joystickmx.negocio.exception.NegocioException;
  */
 @WebServlet(name = "CrearProductoServlet", urlPatterns = {"/admin/productos/crear"})
 @MultipartConfig(
-    fileSizeThreshold = 1024 * 1024 * 1, //Valor agregado para almacenar 1 MB
-    maxFileSize = 1024 * 1024 * 10,      //Valor agregado para almacenar  10 MB
-    maxRequestSize = 1024 * 1024 * 15    //Valor agregado para almacenar  15 MB
+    fileSizeThreshold = 1024 * 1024 * 1, 
+    maxFileSize = 1024 * 1024 * 10,      
+    maxRequestSize = 1024 * 1024 * 15 
 )
 public class CrearProductoServlet extends HttpServlet {
 

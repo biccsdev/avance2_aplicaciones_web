@@ -18,7 +18,7 @@
         <jsp:include page="/WEB-INF/includes/header.jsp" />
 
         <main class="grid-container">
-            
+
             <div class="videojuego-container">
                 <c:choose>
                     <%-- Caso de Error --%>
@@ -31,7 +31,7 @@
                     <c:otherwise>
 
                         <form action="${pageContext.request.contextPath}/home" method="GET" class="filtro-busqueda">
-                            
+
 
                             <input type="hidden" name="busqueda" value="${param.busqueda}">
 
@@ -102,8 +102,8 @@
                                             <c:choose>
                                                 <c:when test="${sessionScope.rol == 'admin'}">
                                                     <div class="botones-admin">
-                                                        <form name="moderar" action="${pageContext.request.contextPath}/editar" method="get">
-                                                            <button class="btn-carrito btn-dark btn-admin" name="idVideojuego" value="${juego.getIdVideojuego().toString()}">Editar</button>
+                                                        <form action="${pageContext.request.contextPath}/admin/productos/editar" method="get">
+                                                            <button type="submit" class="btn-carrito btn-dark btn-admin" name="idVideojuego" value="${juego.getIdVideojuego()}"> Editar </button>
                                                         </form>
                                                         <form name="moderar" action="${pageContext.request.contextPath}/moderar" method="get">
                                                             <button class="btn-carrito btn-dark btn-admin" name="idVideojuego" value="${juego.getIdVideojuego().toString()}">Reseñas</button>
@@ -114,7 +114,7 @@
                                                     <button class="btn-carrito btn-dark">Agregar al carrito</button>
                                                 </c:otherwise>
                                             </c:choose>
-                                            
+
                                         </div>
                                     </div>
                                 </li>
