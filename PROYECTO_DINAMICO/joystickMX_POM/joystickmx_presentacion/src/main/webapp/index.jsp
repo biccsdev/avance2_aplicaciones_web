@@ -101,9 +101,14 @@
                                             <h2 class="videojuego-precio">$${String.format("%.2f", juego.getPrecio())}</h2>
                                             <c:choose>
                                                 <c:when test="${sessionScope.rol == 'admin'}">
-                                                    <form name="moderar" action="${pageContext.request.contextPath}/moderar" method="get">
-                                                        <button class="btn-carrito btn-dark" name="idVideojuego" value="${juego.getIdVideojuego().toString()}">Gestionar</button>
-                                                    </form>
+                                                    <div class="botones-admin">
+                                                        <form name="moderar" action="${pageContext.request.contextPath}/editar" method="get">
+                                                            <button class="btn-carrito btn-dark btn-admin" name="idVideojuego" value="${juego.getIdVideojuego().toString()}">Editar</button>
+                                                        </form>
+                                                        <form name="moderar" action="${pageContext.request.contextPath}/moderar" method="get">
+                                                            <button class="btn-carrito btn-dark btn-admin" name="idVideojuego" value="${juego.getIdVideojuego().toString()}">Reseñas</button>
+                                                        </form>
+                                                    </div>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <button class="btn-carrito btn-dark">Agregar al carrito</button>

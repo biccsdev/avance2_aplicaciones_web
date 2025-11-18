@@ -58,7 +58,7 @@ header{
 }
 
 .filtro-select{
-    width: 60%;
+    width: 100%;
     background: var(--surface);
     color: var(--text-primary);
     border: 0.1em solid var(--border-color);
@@ -129,6 +129,12 @@ header{
     font-weight: 700;
 }
 
+.botones-admin{
+    display:grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 47.5% 47.5%;
+    row-gap: 5%;
+}
 
 .btn-carrito{
     width: 100%;
@@ -163,6 +169,30 @@ a {
     color: inherit;
 }
 
+@media (min-width: 992px) and (max-width: 1280px){
+    
+    .videojuego-lista{
+        display: grid;
+        grid-template-columns: repeat(4, 22%);
+        grid-auto-rows: 30.288vw;
+        row-gap: 1.92vw;
+        padding: 1.92vw 0%;
+    }
+    
+    .videojuego-info > .videojuego-nombre{
+        font-size: 0.66em;
+    }
+
+    .videojuego-info > .videojuego-precio{
+        font-size: 80%;
+    }
+    
+    .btn-carrito{
+        font-size: 1vw;
+    }
+
+}
+
 @media (min-width: 768px) and (max-width: 992px){
     .videojuego-lista{
         display: grid;
@@ -173,15 +203,15 @@ a {
     }
 
     .videojuego-info > .videojuego-nombre{
-        font-size: 0.66em;
+        font-size: 0.55em;
     }
 
     .videojuego-info > .videojuego-precio{
-        font-size: 80%;
+        font-size: 0.66em;
     }
     
     .btn-carrito{
-        font-size: 1.2vw;
+        font-size: 1vw;
     }
 
 }
@@ -195,16 +225,16 @@ a {
         row-gap: 2vw;
     }
 
-    .videojuego-info > .videojuego-nombre{
+    .videojuego-info .videojuego-nombre{
         font-size: 0.6em;
     }
 
-    .videojuego-info > .videojuego-precio{
+    .videojuego-info .videojuego-precio{
         font-size: 70%;
     }
     
     .btn-carrito{
-        font-size: 1.5vw;
+        font-size: 1.4vw;
     }
 
 }
@@ -268,7 +298,14 @@ a {
         grid-row-end: 2;
         justify-content: space-evenly;
     }
-
+    
+    .botones-admin{
+        display:grid;
+        grid-template-columns: 47.5% 47.5%;
+        column-gap: 5%;
+        grid-auto-rows: 100%;
+    }
+    
     .videojuego-info > .videojuego-nombre{
         font-size: 2.8vw;
     }
@@ -276,10 +313,17 @@ a {
     .videojuego-info > .videojuego-precio{
         font-size: 3vw;
     }
-
+    
     .btn-carrito{
         width: fit-content;
+        height: fit-content;
         font-size: 3vw;
+    }
+    
+    .btn-admin{
+        width: 100%;
+        border-radius: 0.5em;
+        padding: 10%;
     }
 
 }
