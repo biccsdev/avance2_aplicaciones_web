@@ -219,10 +219,7 @@ public class FactoryBO {
         }
     }
 
-    /**
-     * Esta es la operación de negocio más compleja. Requiere múltiples DAOs
-     * para validar stock, calcular total y limpiar el carrito.
-     */
+    
     public static PedidoDTO registrarPedido(Long idCliente, DireccionDTO direccionEnvioDTO, PagoDTO pagoDTO) throws NegocioException {
         try {
 

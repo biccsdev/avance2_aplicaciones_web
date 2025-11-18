@@ -2,12 +2,18 @@ package joystickmx.itson.pruebas;
 
 import jakarta.persistence.EntityManager;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import joystickmx.itson.BO.CategoriaBO;
 import joystickmx.itson.DAOS.CategoriaDAO;
+import joystickmx.itson.DTO.CarritoDTO;
 import joystickmx.itson.DTO.CategoriaDTO;
+import joystickmx.itson.DTO.DetallePedidoDTO;
 import joystickmx.itson.DTO.DireccionDTO;
+import joystickmx.itson.DTO.ItemCarritoDTO;
+import joystickmx.itson.DTO.PagoDTO;
+import joystickmx.itson.DTO.PedidoDTO;
 import joystickmx.itson.DTO.UsuarioRegistroDTO;
 import joystickmx.itson.DTO.VideojuegoDTO;
 import joystickmx.itson.Factory.FactoryBO;
@@ -26,7 +32,44 @@ public class PruebasNegocio {
         EntityManager em = Conexion.crearConexion();
         try {
             em.getTransaction().begin();
+
+            // ============================
+            //   CREAR UNA CATEGORÍA
+            // ============================
+            CategoriaDTO categoriaAccion = new CategoriaDTO();
+            categoriaAccion.setNombre("Acción");
+            categoriaAccion.setDescripcion("Juegos de ritmo rápido y combate.");
             
+            new CategoriaBO(new CategoriaDAO()).crearCategoria(categoriaAccion);
+            System.out.println("Categoría persistida: " + categoriaAccion.getNombre());
+            
+            em.getTransaction().commit();
+            
+            em.getTransaction().begin();
+            categoriaAccion = new CategoriaBO(new CategoriaDAO()).buscarPorNombre(categoriaAccion.getNombre());
+            em.getTransaction().commit();
+            
+            // ============================
+            //   CREAR UN VIDEOJUEGO
+            // ============================
+            VideojuegoDTO juego = new VideojuegoDTO();
+            juego.setNombre("God of War Ragnarok");
+            juego.setDescripcion("La épica saga nórdica de Kratos y Atreus.");
+            juego.setPrecio(1299.50f);
+            juego.setExistencias(100);
+            juego.setDesarrollador("Santa Monica Studio");
+            juego.setFechaLanzamiento(LocalDate.of(2022, 11, 9));
+            juego.setPlataforma("PlayStation 5");
+            juego.setHabilitado(true);
+            juego.setUrlImagen("imgs/gow-ps5.jpeg");
+
+            List<CategoriaDTO> categoriasParaJuego = new ArrayList<>();
+            categoriasParaJuego.add(categoriaAccion);
+            juego.setCategorias(categoriasParaJuego);
+
+            FactoryBO.crearVideojuego(juego);
+            System.out.println("Videojuego persistido: " + juego.getNombre());
+
             // ============================
             //   CREAR DIRECCIONES
             // ============================
@@ -80,6 +123,51 @@ public class PruebasNegocio {
 
             FactoryBO.registrarAdministrador(admin);
             System.out.println("Administrador persistido: " + admin.getEmail());
+            
+            
+            ///////////////////////////////////////
+            ///////CREAR UN PEDIDO ////////////////
+            //////////////////////////////////////
+            
+            PagoDTO pago1 = new PagoDTO();
+            pago1.setEstadoPago("CONFIRMADO");
+            pago1.setFechaPago(LocalDateTime.MAX);
+            pago1.setMonto(76.4f);
+            pago1.setMetodoPago("TARJETA");
+            
+            DireccionDTO direccionEnvio = new DireccionDTO(); 
+            direccionEnvio.setCalle(cliente1.getDireccion().getCalle());
+            direccionEnvio.setColonia(cliente1.getDireccion().getColonia());
+            direccionEnvio.setNumero(cliente1.getDireccion().getNumero());
+            
+            ItemCarritoDTO item1 = new ItemCarritoDTO();
+            item1.setCantidad(2);
+            item1.setIdVideojuego(FactoryBO.buscarVideojuegoPorNombeExacto(juego.getNombre()).getIdVideojuego());
+            
+            CarritoDTO carroEncontrado = FactoryBO.buscarCarritoPorCliente(FactoryBO.buscarUsuarioPorEmail(cliente1.getEmail()).getIdUsuario());
+            
+            
+            FactoryBO.agregarItemACarrito(carroEncontrado.getIdCarrito(), item1);
+            
+            CarritoDTO carrito = FactoryBO.buscarCarritoPorCliente(FactoryBO.buscarUsuarioPorEmail(cliente1.getEmail()).getIdUsuario());
+            
+            System.out.println(carrito.getFechaCreacion());
+            System.out.println(carrito.getIdCarrito());
+            System.out.println(carrito.getItems());
+
+            
+            
+            PedidoDTO pedidoPersistido = FactoryBO.registrarPedido(FactoryBO.buscarUsuarioPorEmail(cliente1.getEmail()).getIdUsuario(), direccionEnvio, pago1);
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
 
             System.out.println("\n¡ÉXITO! Se insertaron categoría, videojuego, clientes y administrador.");
 

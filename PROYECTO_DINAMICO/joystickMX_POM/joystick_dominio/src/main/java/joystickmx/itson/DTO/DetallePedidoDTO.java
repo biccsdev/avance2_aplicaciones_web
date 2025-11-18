@@ -33,6 +33,14 @@ public class DetallePedidoDTO {
         this.idPedido = idPedido;
     }
 
+    public DetallePedidoDTO(Integer cantidad, Float precioUnitario, Long idVideojuego) {
+        this.cantidad = cantidad;
+        this.precioUnitario = precioUnitario;
+        this.idVideojuego = idVideojuego;
+    }
+    
+    
+
     public DetallePedidoDTO(
             Integer cantidad, 
             Float precioUnitario, 

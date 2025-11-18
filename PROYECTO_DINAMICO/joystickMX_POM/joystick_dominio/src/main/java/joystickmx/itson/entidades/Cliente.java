@@ -4,6 +4,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrimaryKeyJoinColumn;
@@ -23,28 +24,48 @@ import java.util.List;
 @Table(name = "Clientes")
 @DiscriminatorValue("cliente")
 @PrimaryKeyJoinColumn(name = "idUsuario")
-public class Cliente extends Usuario implements Serializable{
+public class Cliente extends Usuario implements Serializable {
 
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
-    private List<Pedido> pedidos = new ArrayList<>();;
+    private List<Pedido> pedidos = new ArrayList<>();
+    ;
 
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY)
+    @OneToOne(
+            cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn(name = "CARRITO_id_carrito", referencedColumnName = "id_carrito")
     private Carrito carrito;
 
     @OneToMany(mappedBy = "cliente", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<Resena> resenas = new ArrayList<>();;
+    private List<Resena> resenas = new ArrayList<>();
 
-    public Cliente() {}
-    
-    public List<Pedido> getPedidos() {return pedidos;}
+    ;
 
-    public void setPedidos(List<Pedido> pedidos) {this.pedidos = pedidos;}
+    public Cliente() {
+    }
 
-    public Carrito getCarrito() {return carrito;}
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
 
-    public void setCarrito(Carrito carrito) {this.carrito = carrito;}
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
 
-    public List<Resena> getResenas() {return resenas;}
+    public Carrito getCarrito() {
+        return carrito;
+    }
 
-    public void setResenas(List<Resena> resenas) {this.resenas = resenas;}
+    public void setCarrito(Carrito carrito) {
+        this.carrito = carrito;
+    }
+
+    public List<Resena> getResenas() {
+        return resenas;
+    }
+
+    public void setResenas(List<Resena> resenas) {
+        this.resenas = resenas;
+    }
 }
