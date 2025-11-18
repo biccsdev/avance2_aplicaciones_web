@@ -141,13 +141,13 @@ public class PedidoBO {
 
     public PedidoDTO buscarPorId(Long idPedido) throws NegocioException {
         try {
-            Pedido pedido = this.pedidoDAO.buscarPorId(idPedido);
+            Pedido pedido = pedidoDAO.buscarPorId(idPedido);
             if (pedido == null) {
-                throw new NegocioException("Pedido no encontrado.");
+                return null;
             }
             return Mapeadores.toPedidoDTO(pedido);
         } catch (PersistenciaException e) {
-            throw new NegocioException("Error al buscar pedido por ID: " + e.getMessage(), e);
+            throw new NegocioException("Error en BO al buscar pedido por ID: " + e.getMessage(), e);
         }
     }
     

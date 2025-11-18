@@ -112,7 +112,7 @@ public class FactoryBO {
             throw new NegocioException(e.getMessage(), e);
         }
     }
-    
+
     public static VideojuegoDTO buscarVideojuegoPorNombeExacto(String nombre) throws NegocioException {
         try {
             return new VideojuegoBO(FactoryDAO.crearVideojuegoDAO()).buscarPorNombreExacto(nombre);
@@ -120,7 +120,7 @@ public class FactoryBO {
             throw new NegocioException(e.getMessage(), e);
         }
     }
-    
+
     public static CategoriaDTO buscarCategoriaPorNombre(String nombre) throws NegocioException {
         try {
             return new CategoriaBO(FactoryDAO.crearCategoriaDAO()).buscarPorNombre(nombre);
@@ -154,31 +154,31 @@ public class FactoryBO {
             throw new NegocioException("Error al actualizar videojuego: " + e.getMessage(), e);
         }
     }
-    
-    public static List<ResenaDTO> buscarResenasPorVideojuego(Long idVideojuego) throws NegocioException{
+
+    public static List<ResenaDTO> buscarResenasPorVideojuego(Long idVideojuego) throws NegocioException {
         try {
             return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarPorVideojuego(idVideojuego);
         } catch (NegocioException e) {
             throw new NegocioException("Error al consultar las resenas: " + e.getMessage(), e);
         }
     }
-    
-    public static List<ResenaDTO> buscarResenasPorCliente(Long idCliente) throws NegocioException{
+
+    public static List<ResenaDTO> buscarResenasPorCliente(Long idCliente) throws NegocioException {
         try {
             return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarPorCliente(idCliente);
         } catch (NegocioException e) {
             throw new NegocioException("Error al consultar las resenas: " + e.getMessage(), e);
         }
     }
-    
-    public static List<ResenaDTO> buscarTodasLasResenas() throws NegocioException{
+
+    public static List<ResenaDTO> buscarTodasLasResenas() throws NegocioException {
         try {
             return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarTodas();
         } catch (NegocioException e) {
             throw new NegocioException("Error al consultar las resenas: " + e.getMessage(), e);
         }
     }
-    
+
     public static CarritoDTO buscarCarritoPorCliente(Long idCliente) throws NegocioException {
         try {
             return new CarritoBO(FactoryDAO.crearCarritoDAO()).buscarPorCliente(idCliente);
@@ -284,6 +284,15 @@ public class FactoryBO {
 
         } catch (NegocioException e) {
             throw new NegocioException("Error al registrar el pedido: " + e.getMessage(), e);
+        }
+    }
+
+    public static PedidoDTO buscarPedidoPorId(Long idPedido) throws NegocioException {
+        try {
+            PedidoBO pedidoBO = new PedidoBO(FactoryDAO.crearPedidoDAO(), null, null, null);
+            return pedidoBO.buscarPorId(idPedido);
+        } catch (NegocioException e) {
+            throw new NegocioException("Error al buscar pedido por ID: " + e.getMessage(), e);
         }
     }
 

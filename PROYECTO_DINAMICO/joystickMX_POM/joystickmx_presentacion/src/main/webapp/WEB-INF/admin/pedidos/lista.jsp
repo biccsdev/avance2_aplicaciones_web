@@ -59,7 +59,7 @@
                     </div>
 
                     <div class="pedido-actions">
-                        <a href="${pageContext.request.contextPath}/admin/pedidos/detalle?id=${pedido.idPedido}" class="btn-detalle">
+                        <a href="${pageContext.request.contextPath}/admin/pedidos/detalles?id=${pedido.idPedido}" class="btn-detalle">
                             Ver Detalles
                         </a>
 

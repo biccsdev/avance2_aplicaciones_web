@@ -1,10 +1,13 @@
 package joystickmx.itson.DAOS;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceException;
 import jakarta.persistence.TypedQuery;
 import java.time.LocalDate;
 import java.util.List;
 import joystickmx.itson.Excepciones.PersistenciaException;
+import static joystickmx.itson.conexion.Conexion.crearConexion;
 import joystickmx.itson.entidades.Cliente;
 import joystickmx.itson.entidades.DetallePedido;
 import joystickmx.itson.entidades.Pedido;
@@ -92,8 +95,20 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
     public Pedido buscarPorId(Long idPedido) throws PersistenciaException {
         iniciarConexion();
         try {
-            return em.find(Pedido.class, idPedido);
-        } catch (IllegalArgumentException e) {
+
+            TypedQuery<Pedido> query = em.createQuery(
+                    "SELECT p FROM Pedido p "
+                    + "LEFT JOIN FETCH p.cliente "
+                    + "LEFT JOIN FETCH p.direccionEnvio "
+                    + "LEFT JOIN FETCH p.pago "
+                    + "LEFT JOIN FETCH p.detalles d "
+                    + "LEFT JOIN FETCH d.videojuego "
+                    + "WHERE p.idPedido = :pid", Pedido.class);
+            query.setParameter("pid", idPedido);
+            return query.getSingleResult(); 
+        } catch (jakarta.persistence.NoResultException e) {
+            return null;
+        } catch (IllegalArgumentException | PersistenceException e) {
             throw new PersistenciaException("Error al buscar pedido por ID: " + e.getMessage());
         } finally {
             if (em.isOpen()) {
@@ -215,4 +230,5 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
     public void pedidoCancelado(Long idPedido) throws PersistenciaException {
         actualizarEstadoPedido(idPedido, EstadoPedido.CANCELADO);
     }
+
 }

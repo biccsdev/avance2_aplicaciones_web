@@ -16,6 +16,7 @@ public class DetallePedidoDTO {
     private Float precioUnitario;
     private Long idVideojuego;
     private Long idPedido;
+    private VideojuegoDTO videojuego;
 
     public DetallePedidoDTO() {}
 
@@ -38,6 +39,18 @@ public class DetallePedidoDTO {
         this.precioUnitario = precioUnitario;
         this.idVideojuego = idVideojuego;
     }
+
+    public DetallePedidoDTO(Long idDetallePedido, Integer cantidad, Float precioUnitario, Long idPedido, VideojuegoDTO videojuego) {
+        this.idDetallePedido = idDetallePedido;
+        this.cantidad = cantidad;
+        this.precioUnitario = precioUnitario;
+        this.idPedido = idPedido;
+        this.videojuego = videojuego;
+    }
+    
+    
+    
+    
     
     
 
@@ -52,6 +65,16 @@ public class DetallePedidoDTO {
         this.idVideojuego = idVideojuego;
         this.idPedido = idPedido;
     }
+
+    public VideojuegoDTO getVideojuego() {
+        return videojuego;
+    }
+
+    public void setVideojuego(VideojuegoDTO videojuego) {
+        this.videojuego = videojuego;
+    }
+    
+    
 
     public Integer getCantidad() {return cantidad;}
 

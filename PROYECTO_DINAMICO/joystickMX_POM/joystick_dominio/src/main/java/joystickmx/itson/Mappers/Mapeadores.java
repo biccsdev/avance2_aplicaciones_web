@@ -185,6 +185,8 @@ public class Mapeadores {
         if (entity == null) {
             return null;
         }
+        
+        VideojuegoDTO videojuegoDTO = toVideojuegoDTO(entity.getVideojuego());
 
         Long vjId = null;
         if (entity.getVideojuego() != null) {
@@ -200,8 +202,8 @@ public class Mapeadores {
                 entity.getIdDetallePedido(),
                 entity.getCantidad(),
                 entity.getPrecioUnitario(),
-                vjId,
-                idPedido
+                idPedido,
+                videojuegoDTO
         );
     }
 
