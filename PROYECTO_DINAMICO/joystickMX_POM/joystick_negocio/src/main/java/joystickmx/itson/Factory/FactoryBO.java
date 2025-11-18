@@ -336,7 +336,7 @@ public class FactoryBO {
         }
     }
 
-    public static void eliminarResenaPorId(Long idResena) throws NegocioException{
+    public static void eliminarResenaPorId(Long idResena) throws NegocioException {
         try {
             // VALIDACIONES NEGOCIO IF EL CLIENTE SI LO COMPRO ENTONCES PROCEDER
             new ResenaBO(FactoryDAO.crearResenaDAO()).eliminarResena(idResena);
@@ -344,7 +344,7 @@ public class FactoryBO {
             throw new NegocioException("Error al crear reseña: " + e.getMessage(), e);
         }
     }
-    
+
     public static void activarUsuario(String email) throws NegocioException {
         try {
             new UsuarioBO(FactoryDAO.crearUsuarioDAO()).activarUsuario(email);
@@ -393,7 +393,7 @@ public class FactoryBO {
         }
     }
 
-        /**
+    /**
      * Filtra videojuegos por múltiples criterios de forma dinámica. Los
      * parámetros nulos o vacíos serán ignorados en la búsqueda.
      *
@@ -416,7 +416,12 @@ public class FactoryBO {
         }
     }
 
-    
-    
-    
+    public static void deshabilitarVideojuego(Long idVideojuego) throws NegocioException {
+        try {
+            new VideojuegoBO(FactoryDAO.crearVideojuegoDAO()).deshabilitarVideojuego(idVideojuego);
+        } catch (NegocioException e) {
+            throw new NegocioException("Error al deshabilitar videojuego: " + e.getMessage(), e);
+        }
+    }
+
 }
