@@ -154,7 +154,31 @@ public class FactoryBO {
             throw new NegocioException("Error al actualizar videojuego: " + e.getMessage(), e);
         }
     }
-
+    
+    public static List<ResenaDTO> buscarResenasPorVideojuego(Long idVideojuego) throws NegocioException{
+        try {
+            return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarPorVideojuego(idVideojuego);
+        } catch (NegocioException e) {
+            throw new NegocioException("Error al consultar las resenas: " + e.getMessage(), e);
+        }
+    }
+    
+    public static List<ResenaDTO> buscarResenasPorCliente(Long idCliente) throws NegocioException{
+        try {
+            return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarPorCliente(idCliente);
+        } catch (NegocioException e) {
+            throw new NegocioException("Error al consultar las resenas: " + e.getMessage(), e);
+        }
+    }
+    
+    public static List<ResenaDTO> buscarTodasLasResenas() throws NegocioException{
+        try {
+            return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarTodas();
+        } catch (NegocioException e) {
+            throw new NegocioException("Error al consultar las resenas: " + e.getMessage(), e);
+        }
+    }
+    
     public static CarritoDTO buscarCarritoPorCliente(Long idCliente) throws NegocioException {
         try {
             return new CarritoBO(FactoryDAO.crearCarritoDAO()).buscarPorCliente(idCliente);

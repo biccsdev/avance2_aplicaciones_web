@@ -76,7 +76,9 @@
                                             <h2 class="videojuego-precio">$${String.format("%.2f", juego.getPrecio())}</h2>
                                             <c:choose>
                                                 <c:when test="${sessionScope.rol == 'admin'}">
-                                                    <button class="btn-carrito btn-dark">Gestionar</button>
+                                                    <form name="moderar" action="${pageContext.request.contextPath}/moderar" method="get">
+                                                        <button class="btn-carrito btn-dark" name="idVideojuego" value="${juego.getIdVideojuego().toString()}">Gestionar</button>
+                                                    </form>
                                                 </c:when>
                                                 <c:otherwise>
                                                     <button class="btn-carrito btn-dark">Agregar al carrito</button>
