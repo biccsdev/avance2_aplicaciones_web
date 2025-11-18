@@ -393,4 +393,30 @@ public class FactoryBO {
         }
     }
 
+        /**
+     * Filtra videojuegos por múltiples criterios de forma dinámica. Los
+     * parámetros nulos o vacíos serán ignorados en la búsqueda.
+     *
+     * * @param nombre Nombre parcial del juego.
+     * @param nombre
+     * @param precioMin Rango inferior de precio.
+     * @param precioMax Rango superior de precio.
+     * @param idCategoria ID de la categoría.
+     * @param plataforma Nombre de la plataforma.
+     * @return Lista de videojuegos filtrados.
+     * @throws NegocioException
+     */
+    public static List<VideojuegoDTO> filtrarVideojuegos(String nombre, Float precioMin, Float precioMax, Long idCategoria, String plataforma) throws NegocioException {
+        try {
+            VideojuegoBO videojuegoBO = new VideojuegoBO(FactoryDAO.crearVideojuegoDAO());
+
+            return videojuegoBO.buscarVideojuegosConFiltros(nombre, precioMin, precioMax, idCategoria, plataforma);
+        } catch (NegocioException e) {
+            throw new NegocioException(e.getMessage(), e);
+        }
+    }
+
+    
+    
+    
 }

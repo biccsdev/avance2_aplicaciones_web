@@ -31,4 +31,6 @@ public interface IVideojuegoDAO {
     Videojuego buscarPorId(Long idVideojuego) throws PersistenciaException;
     
     Videojuego buscarPorNombreExacto(String nombre) throws PersistenciaException;
+    
+    List<Videojuego> buscarConFiltros(String nombre, Float precioMin, Float precioMax, Long idCategoria, String plataforma) throws PersistenciaException;
 }

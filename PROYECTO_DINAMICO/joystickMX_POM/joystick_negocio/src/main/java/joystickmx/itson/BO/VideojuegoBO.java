@@ -6,6 +6,7 @@ import joystickmx.itson.DTO.VideojuegoDTO;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.Mappers.DTOMapeadores;
 import joystickmx.itson.Mappers.Mapeadores;
+import joystickmx.itson.entidades.Videojuego;
 import joystickmx.itson.interfaces.IVideojuegoDAO;
 import joystickmx.negocio.exception.NegocioException;
 
@@ -15,7 +16,7 @@ import joystickmx.negocio.exception.NegocioException;
  * @author biccs
  */
 public class VideojuegoBO {
-    
+
     private final IVideojuegoDAO videojuegoDAO;
 
     public VideojuegoBO(IVideojuegoDAO videojuegoDAO) {
@@ -103,7 +104,7 @@ public class VideojuegoBO {
             throw new NegocioException("Error al buscar por nombre: " + e.getMessage(), e);
         }
     }
-    
+
     public VideojuegoDTO buscarPorNombreExacto(String nombre) throws NegocioException {
         try {
             return Mapeadores.toVideojuegoDTO(this.videojuegoDAO.buscarPorNombreExacto(nombre));
@@ -118,5 +119,30 @@ public class VideojuegoBO {
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al buscar videojuego por ID: " + e.getMessage(), e);
         }
-    }    
+    }
+
+    /**
+     * Busca videojuegos aplicando filtros combinados.
+     *
+     * @param nombre Parte del nombre del videojuego (opcional).
+     * @param precioMin Precio mínimo (opcional).
+     * @param precioMax Precio máximo (opcional).
+     * @param idCategoria ID de la categoría (opcional).
+     * @param plataforma Nombre de la plataforma (opcional).
+     * @return Lista de VideojuegoDTO que cumplen con los criterios.
+     * @throws NegocioException Si ocurre un error en la persistencia.
+     */
+    
+    public List<VideojuegoDTO> buscarVideojuegosConFiltros(String nombre, Float precioMin, Float precioMax, Long idCategoria, String plataforma) throws NegocioException {
+        try {
+            List<Videojuego> videojuegos = this.videojuegoDAO.buscarConFiltros(nombre, precioMin, precioMax, idCategoria, plataforma);
+
+            return videojuegos.stream()
+                    .map(Mapeadores::toVideojuegoDTO)
+                    .collect(Collectors.toList());
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al filtrar videojuegos: " + e.getMessage(), e);
+        }
+    }
+
 }
