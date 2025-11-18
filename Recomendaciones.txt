@@ -1,0 +1,8 @@
+1.- Crear base de datos
+Primeramente se debe crear la base de datos, cuyo script se encuentra en este mismo directorio. La contraseña del perfil de mysql debe ser 'itson' y se espera que el usuario sea 'root'.
+
+2.- Datos mock
+Recomendamos ejecutar los códigos PruebasNegocio y PruebasNegocioVideojuegos, para tener datos de prueba (sobre todo para funciones que solo puede acceder el cliente).
+
+3.- Clean and build
+Una vez realizados los pasos anteriores, haga clean and build al proyecto joystickmx_POM, para asegurar su correcta ejecución y despliegue.
