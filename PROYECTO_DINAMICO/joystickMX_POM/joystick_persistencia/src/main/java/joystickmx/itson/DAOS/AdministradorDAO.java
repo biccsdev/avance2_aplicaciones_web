@@ -32,6 +32,7 @@ public class AdministradorDAO extends BaseDAO implements IAdministradorDAO {
                 em.close();
         }
     }
+    
 
     @Override
     public Administrador actualizarAdministrador(Administrador administrador) throws PersistenciaException {
