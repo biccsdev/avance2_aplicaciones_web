@@ -154,7 +154,7 @@ public class FactoryBO {
             throw new NegocioException("Error al actualizar videojuego: " + e.getMessage(), e);
         }
     }
-    
+
     public static UsuarioDTO actualizarUsuario(UsuarioRegistroDTO dto) throws NegocioException {
         try {
             return new UsuarioBO(FactoryDAO.crearUsuarioDAO()).actualizarUsuario(dto);
@@ -429,6 +429,19 @@ public class FactoryBO {
             new VideojuegoBO(FactoryDAO.crearVideojuegoDAO()).deshabilitarVideojuego(idVideojuego);
         } catch (NegocioException e) {
             throw new NegocioException("Error al deshabilitar videojuego: " + e.getMessage(), e);
+        }
+    }
+
+    public static List<ItemCarritoDTO> obtenerItemsCarrito(Long idCarrito) throws NegocioException {
+        try {
+            CarritoBO carritoBO = new CarritoBO(FactoryDAO.crearCarritoDAO());
+
+            return carritoBO.obtenerItemsCarrito(idCarrito);
+
+        } catch (NegocioException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new NegocioException("Error inesperado al obtener items del carrito: " + e.getMessage(), e);
         }
     }
 

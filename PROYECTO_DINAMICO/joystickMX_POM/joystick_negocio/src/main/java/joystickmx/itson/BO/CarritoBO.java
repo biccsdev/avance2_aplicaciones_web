@@ -1,5 +1,6 @@
 package joystickmx.itson.BO;
 
+import java.util.List;
 import joystickmx.itson.DTO.CarritoDTO;
 import joystickmx.itson.DTO.ItemCarritoDTO;
 import joystickmx.itson.Excepciones.PersistenciaException;
@@ -54,7 +55,7 @@ public class CarritoBO {
             Cliente cliente = new Cliente();
             cliente.setIdUsuario(idCliente);
             Carrito carrito = this.carritoDAO.buscarPorCliente(cliente);
-            
+
             return carrito != null ? Mapeadores.toCarritoDTO(carrito) : null;
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al buscar carrito por cliente: " + e.getMessage(), e);
@@ -64,10 +65,10 @@ public class CarritoBO {
     public void agregarItem(Long idCarrito, ItemCarritoDTO itemDTO) throws NegocioException {
         try {
             ItemCarrito item = DTOMapeadores.toItemCarritoEntity(itemDTO);
-            
+
             Carrito carrito = new Carrito();
             carrito.setIdCarrito(idCarrito);
-            
+
             this.carritoDAO.agregarItem(carrito, item);
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al agregar item al carrito: " + e.getMessage(), e);
@@ -97,4 +98,23 @@ public class CarritoBO {
             throw new NegocioException("Error al eliminar el carrito: " + e.getMessage(), e);
         }
     }
+
+    public List<ItemCarritoDTO> obtenerItemsCarrito(Long idCarrito) throws NegocioException {
+        try {
+            if (idCarrito == null) {
+                throw new NegocioException("El ID del carrito no puede ser nulo.");
+            }
+
+            Carrito carritoEntidad = new Carrito();
+            carritoEntidad.setIdCarrito(idCarrito);
+
+            List<ItemCarrito> itemsEntidad = this.carritoDAO.obtenerItemsCarrito(carritoEntidad);
+
+            return Mapeadores.toItemCarritoDTOList(itemsEntidad);
+
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al recuperar los items del carrito: " + e.getMessage(), e);
+        }
+    }
+
 }

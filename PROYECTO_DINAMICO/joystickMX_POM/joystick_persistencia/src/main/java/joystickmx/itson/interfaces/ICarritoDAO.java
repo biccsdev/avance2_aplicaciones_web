@@ -1,6 +1,7 @@
 
 package joystickmx.itson.interfaces;
 
+import java.util.List;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.entidades.Carrito;
 import joystickmx.itson.entidades.Cliente;
@@ -27,5 +28,7 @@ public interface ICarritoDAO {
     void vaciarCarrito(Long idCarrito) throws PersistenciaException;
 
     void eliminarCarrito(Long idCarrito) throws PersistenciaException;
+    
+    public List<ItemCarrito> obtenerItemsCarrito(Carrito carrito) throws PersistenciaException;
 }
 

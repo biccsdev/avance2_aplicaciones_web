@@ -133,17 +133,32 @@ public class Mapeadores {
             vjId = entity.getVideojuego().getIdVideojuego();
         }
 
+        // --- LÓGICA AGREGADA ---
+        VideojuegoDTO videojuegoCompleto = null;
+
+        if (entity.getVideojuego() != null) {
+            vjId = entity.getVideojuego().getIdVideojuego();
+            // Aquí reutilizamos el método toVideojuegoDTO que ya existe en esta clase
+            videojuegoCompleto = toVideojuegoDTO(entity.getVideojuego());
+        }
+
         Long idCarrito = null;
         if (entity.getCarrito() != null) {
             idCarrito = entity.getCarrito().getIdCarrito();
         }
 
-        return new ItemCarritoDTO(
+        ItemCarritoDTO dto = new ItemCarritoDTO(
                 entity.getIdItemCarrito(),
                 entity.getCantidad(),
                 vjId,
                 idCarrito
         );
+
+        // Asignamos el objeto completo
+        dto.setVideojuego(videojuegoCompleto);
+
+        return dto;
+
     }
 
     public static List<ItemCarritoDTO> toItemCarritoDTOList(List<ItemCarrito> entities) {
@@ -186,7 +201,7 @@ public class Mapeadores {
         if (entity == null) {
             return null;
         }
-        
+
         VideojuegoDTO videojuegoDTO = toVideojuegoDTO(entity.getVideojuego());
 
         Long vjId = null;
@@ -225,8 +240,8 @@ public class Mapeadores {
                 entity.getEstadoPedido().name(),
                 entity.getTotalPagado(),
                 entity.getFechaPedido(),
-                toDireccionEnvioDTO(entity.getDireccionEnvio()), 
-                toDetallePedidoDTOList(entity.getDetalles()), 
+                toDireccionEnvioDTO(entity.getDireccionEnvio()),
+                toDetallePedidoDTOList(entity.getDetalles()),
                 toDTO(entity.getPago()),
                 clienteDTO
         );
@@ -257,24 +272,27 @@ public class Mapeadores {
         );
     }
 
-    public static VideojuegoResenaDTO toVideojuegoResenaDTO(Resena entity){
-        if(entity == null)
+    public static VideojuegoResenaDTO toVideojuegoResenaDTO(Resena entity) {
+        if (entity == null) {
             return null;
+        }
         VideojuegoResenaDTO dto = new VideojuegoResenaDTO();
         dto.setResena(toResenaDTO(entity));
-        
-        if(entity.getCliente() == null)
+
+        if (entity.getCliente() == null) {
             return null;
+        }
         dto.setNombreJugador(entity.getCliente().getNombres());
-        
-        if(entity.getVideojuego() == null)
+
+        if (entity.getVideojuego() == null) {
             return null;
+        }
         dto.setNombreVideojuego(entity.getVideojuego().getNombre());
         dto.setUrlImagen(entity.getVideojuego().getUrlImagen());
-        
+
         return dto;
     }
-    
+
     public static List<ResenaDTO> toResenasDTOList(List<Resena> entities) {
         if (entities == null) {
             return new ArrayList<>();

@@ -2,6 +2,7 @@ package joystickmx.itson.DAOS;
 
 import jakarta.persistence.PersistenceException;
 import jakarta.persistence.TypedQuery;
+import java.util.List;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.entidades.Carrito;
 import joystickmx.itson.entidades.Cliente;
@@ -109,8 +110,8 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
             }
 
             item.setVideojuego(videojuegoManaged);
-            item.setCarrito(carritoManaged);        
-            carritoManaged.getItems().add(item);        
+            item.setCarrito(carritoManaged);
+            carritoManaged.getItems().add(item);
 
             em.merge(carritoManaged);
 
@@ -201,4 +202,27 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
             }
         }
     }
+
+    @Override
+    public List<ItemCarrito> obtenerItemsCarrito(Carrito carrito) throws PersistenciaException {
+        iniciarConexion();
+        try {
+            TypedQuery<ItemCarrito> query = em.createQuery(
+                    "SELECT i FROM ItemCarrito i JOIN FETCH i.videojuego WHERE i.carrito.idCarrito = :idCarrito",
+                    ItemCarrito.class
+            );
+
+
+            query.setParameter("idCarrito", carrito.getIdCarrito());
+
+            return query.getResultList();
+        } catch (PersistenceException e) {
+            throw new PersistenciaException("Error al obtener los items del carrito: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+
 }
