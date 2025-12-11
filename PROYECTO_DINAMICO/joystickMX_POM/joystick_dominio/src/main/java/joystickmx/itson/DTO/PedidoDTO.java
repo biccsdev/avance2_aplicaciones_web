@@ -47,7 +47,16 @@ public class PedidoDTO {
         this.idCliente = idCliente;
     }
 
-    public PedidoDTO(Long idPedido, String estadoPedido, Float totalPagado, LocalDateTime fechaPedido, DireccionDTO direccionEnvio, List<DetallePedidoDTO> detalles, PagoDTO pago, UsuarioDTO cliente) {
+    public PedidoDTO(
+            Long idPedido, 
+            String estadoPedido, 
+            Float totalPagado, 
+            LocalDateTime fechaPedido, 
+            DireccionDTO direccionEnvio, 
+            List<DetallePedidoDTO> detalles, 
+            PagoDTO pago, 
+            UsuarioDTO cliente
+    ) {
         this.idPedido = idPedido;
         this.estadoPedido = estadoPedido;
         this.totalPagado = totalPagado;
@@ -58,8 +67,6 @@ public class PedidoDTO {
         this.cliente = cliente;
     }
     
-    
-
     public PedidoDTO(
             String estadoPedido, 
             Float totalPagado, 
@@ -78,15 +85,9 @@ public class PedidoDTO {
         this.idCliente = idCliente;
     }
 
-    public UsuarioDTO getCliente() {
-        return cliente;
-    }
+    public UsuarioDTO getCliente() {return cliente;}
 
-    public void setCliente(UsuarioDTO cliente) {
-        this.cliente = cliente;
-    }
-    
-    
+    public void setCliente(UsuarioDTO cliente) {this.cliente = cliente;}
     
     public Long getIdPedido() {return idPedido;}
 

@@ -1,7 +1,6 @@
 package joystickmx.itson.DAOS;
 
 import jakarta.persistence.NoResultException;
-import jakarta.persistence.PersistenceException;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
 import joystickmx.itson.Excepciones.PersistenciaException;
@@ -11,8 +10,10 @@ import joystickmx.itson.interfaces.IClienteDAO;
 
 /**
  *
- * @author sonic
- * @author biccs
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
 public class ClienteDAO extends BaseDAO implements IClienteDAO {
     
@@ -23,13 +24,12 @@ public class ClienteDAO extends BaseDAO implements IClienteDAO {
             em.getTransaction().begin();
             em.persist(cliente);
             em.getTransaction().commit();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
                 try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al persistir el cliente: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -41,13 +41,12 @@ public class ClienteDAO extends BaseDAO implements IClienteDAO {
             Cliente clienteActualizado = em.merge(cliente);
             em.getTransaction().commit();
             return clienteActualizado;
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
                 try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al actualizar el cliente: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -56,11 +55,10 @@ public class ClienteDAO extends BaseDAO implements IClienteDAO {
         iniciarConexion();
         try {
             return em.find(Cliente.class, idCliente);
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar cliente por ID: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -76,11 +74,10 @@ public class ClienteDAO extends BaseDAO implements IClienteDAO {
             return query.getSingleResult();
         } catch (NoResultException e) {
             return null;
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar cliente por email: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -93,11 +90,10 @@ public class ClienteDAO extends BaseDAO implements IClienteDAO {
                     Cliente.class
             );
             return query.getResultList();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar todos los clientes: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
     
@@ -111,11 +107,10 @@ public class ClienteDAO extends BaseDAO implements IClienteDAO {
             );
             query.setParameter("estadoUsuario", EstadoUsuario.ELIMINADO);
             return query.getResultList();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar todos los clientes: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
     
@@ -128,11 +123,10 @@ public class ClienteDAO extends BaseDAO implements IClienteDAO {
             );
             query.setParameter("estadoUsuario", estado);
             return query.getResultList();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar clientes por estado: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()) {em.close(); }
         }
     }
 
@@ -156,11 +150,10 @@ public class ClienteDAO extends BaseDAO implements IClienteDAO {
             );
             query.setParameter("nombre", "%" + nombre + "%");
             return query.getResultList();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar clientes por nombre: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 }

@@ -28,7 +28,6 @@ public class Cliente extends Usuario implements Serializable {
 
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
     private List<Pedido> pedidos = new ArrayList<>();
-    ;
 
     @OneToOne(
             cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE},
@@ -40,32 +39,17 @@ public class Cliente extends Usuario implements Serializable {
     @OneToMany(mappedBy = "cliente", cascade = {CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Resena> resenas = new ArrayList<>();
 
-    ;
+    public Cliente() {}
 
-    public Cliente() {
-    }
+    public List<Pedido> getPedidos() {return pedidos;}
 
-    public List<Pedido> getPedidos() {
-        return pedidos;
-    }
+    public void setPedidos(List<Pedido> pedidos) {this.pedidos = pedidos;}
 
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
-    }
+    public Carrito getCarrito() {return carrito;}
 
-    public Carrito getCarrito() {
-        return carrito;
-    }
+    public void setCarrito(Carrito carrito) {this.carrito = carrito;}
 
-    public void setCarrito(Carrito carrito) {
-        this.carrito = carrito;
-    }
+    public List<Resena> getResenas() {return resenas;}
 
-    public List<Resena> getResenas() {
-        return resenas;
-    }
-
-    public void setResenas(List<Resena> resenas) {
-        this.resenas = resenas;
-    }
+    public void setResenas(List<Resena> resenas) {this.resenas = resenas;}
 }

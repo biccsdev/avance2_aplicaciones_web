@@ -88,20 +88,12 @@ public class VideojuegoDTO {
      */
     public Long getIdVideojuego() {return idVideojuego;}
 
-    public void setIdVideojuego(Long idVideojuego) {
-        this.idVideojuego = idVideojuego;
-    }
+    public void setIdVideojuego(Long idVideojuego) {this.idVideojuego = idVideojuego;}
 
-    public void setFechaLanzamiento(LocalDate fechaLanzamiento) {
-        this.fechaLanzamiento = fechaLanzamiento;
-    }
+    public void setFechaLanzamiento(LocalDate fechaLanzamiento) {this.fechaLanzamiento = fechaLanzamiento;}
 
-    public void setPlataforma(String plataforma) {
-        this.plataforma = plataforma;
-    }
+    public void setPlataforma(String plataforma) {this.plataforma = plataforma;}
     
-    
-
     public String getPlataforma() {return plataforma;}
 
     public LocalDate getFechaLanzamiento() {return fechaLanzamiento;}

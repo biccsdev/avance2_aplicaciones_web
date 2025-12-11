@@ -25,13 +25,16 @@ import joystickmx.itson.interfaces.IClienteDAO;
 import joystickmx.itson.interfaces.IPedidoDAO;
 import joystickmx.itson.interfaces.IVideojuegoDAO;
 import joystickmx.negocio.exception.NegocioException;
+import joystickmx.negocio.interfaces.IPedidoBO;
 
 /**
  *
- * @author PC Gamer
- * @author biccs
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
-public class PedidoBO {
+public class PedidoBO implements IPedidoBO {
     
     private final IPedidoDAO pedidoDAO;
     private final IClienteDAO clienteDAO;
@@ -45,10 +48,7 @@ public class PedidoBO {
         this.videojuegoDAO = videojuegoDAO;
     }
 
-    /**
-     * Lógica de negocio principal para registrar un pedido.
-     * Valida stock, calcula total, actualiza inventario y vacía el carrito.
-     */
+    @Override
     public PedidoDTO registrarPedido(Long idCliente, DireccionDTO direccionEnvioDTO, PagoDTO pagoDTO) throws NegocioException {
         try {
             Cliente cliente = clienteDAO.buscarPorId(idCliente);
@@ -118,7 +118,7 @@ public class PedidoBO {
         }
     }
 
-
+    @Override
     public List<PedidoDTO> obtenerPedidos() throws NegocioException {
         try {
             return this.pedidoDAO.obtenerPedidos().stream()
@@ -129,6 +129,7 @@ public class PedidoBO {
         }
     }
 
+    @Override
     public List<DetallePedidoDTO> obtenerDetallesPedido(Long idPedido) throws NegocioException {
         try {
             return this.pedidoDAO.obtenerDetallesPedido(idPedido).stream()
@@ -139,6 +140,7 @@ public class PedidoBO {
         }
     }
 
+    @Override
     public PedidoDTO buscarPorId(Long idPedido) throws NegocioException {
         try {
             Pedido pedido = pedidoDAO.buscarPorId(idPedido);
@@ -151,6 +153,7 @@ public class PedidoBO {
         }
     }
     
+    @Override
     public void pedidoEntregado(Long idpedido) throws NegocioException {
         try {
             this.pedidoDAO.pedidoEntregado(idpedido);
@@ -159,6 +162,7 @@ public class PedidoBO {
         }
     }
 
+    @Override
     public void pedidoPendiente(Long idpedido) throws NegocioException {
         try {
             this.pedidoDAO.pedidoPendiente(idpedido);
@@ -167,6 +171,7 @@ public class PedidoBO {
         }
     }
 
+    @Override
     public void pedidoEnviado(Long idpedido) throws NegocioException {
         try {
             this.pedidoDAO.pedidoEnviado(idpedido);
@@ -175,6 +180,7 @@ public class PedidoBO {
         }
     }
     
+    @Override
     public void pedidoCancelado(Long idpedido) throws NegocioException {
         try {
             this.pedidoDAO.pedidoCancelado(idpedido);
@@ -183,13 +189,7 @@ public class PedidoBO {
         }
     }
     
-    /**
-     * Busca pedidos que coincidan parcialmente con el nombre completo de un cliente.
-     *
-     * @param nombreParcial El texto a buscar en los nombres y apellidos del cliente.
-     * @return Una lista de PedidoDTO que coinciden.
-     * @throws NegocioException Si ocurre un error durante la consulta.
-     */
+    @Override
     public List<PedidoDTO> buscarPorNombreClienteParcial(String nombreParcial) throws NegocioException {
         try {
             List<Pedido> pedidosEncontrados = this.pedidoDAO.buscarPorNombreClienteParcial(nombreParcial);
@@ -202,8 +202,4 @@ public class PedidoBO {
             throw new NegocioException("Error al buscar pedidos por nombre parcial de cliente: " + e.getMessage(), e);
         }
     }
-    
-    
-    
-    
 }

@@ -7,6 +7,4 @@ package joystickmx.itson.DTO;
  * @author Leonardo Flores Leyva ID: 00000252390
  * @author Yuri Germán García López ID: 00000252583
  */
-public class AdministradorDTO extends UsuarioDTO {
-    
-}
+public class AdministradorDTO extends UsuarioDTO {}

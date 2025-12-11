@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package joystickmx.itson.servlets;
 
 import jakarta.servlet.ServletException;
@@ -19,7 +15,10 @@ import joystickmx.negocio.exception.NegocioException;
 
 /**
  *
- * @author sonic
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
 @WebServlet(name = "DetallePedidoServlet", urlPatterns = {"/admin/pedidos/detalles"})
 public class DetallePedidoServlet extends HttpServlet {

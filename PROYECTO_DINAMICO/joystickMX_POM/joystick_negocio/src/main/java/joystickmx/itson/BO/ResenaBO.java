@@ -1,4 +1,3 @@
-
 package joystickmx.itson.BO;
 
 import java.util.List;
@@ -9,13 +8,16 @@ import joystickmx.itson.Mappers.DTOMapeadores;
 import joystickmx.itson.Mappers.Mapeadores;
 import joystickmx.itson.interfaces.IResenaDAO;
 import joystickmx.negocio.exception.NegocioException;
+import joystickmx.negocio.interfaces.IResenaBO;
 
 /**
  *
- * @author PC Gamer
- * @author biccs
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
-public class ResenaBO {
+public class ResenaBO implements IResenaBO {
     
     private final IResenaDAO resenaDAO;
 
@@ -23,6 +25,7 @@ public class ResenaBO {
         this.resenaDAO = resenaDAO;
     }
 
+    @Override
     public void crearResena(ResenaDTO dto) throws NegocioException {
         try {
             this.resenaDAO.crearResena(DTOMapeadores.toResenaEntity(dto));
@@ -31,6 +34,7 @@ public class ResenaBO {
         }
     }
 
+    @Override
     public ResenaDTO actualizarResena(ResenaDTO dto) throws NegocioException {
         try {
             return Mapeadores.toResenaDTO(this.resenaDAO.actualizarResena(DTOMapeadores.toResenaEntity(dto)));
@@ -39,6 +43,7 @@ public class ResenaBO {
         }
     }
 
+    @Override
     public void eliminarResena(Long idResena) throws NegocioException {
         try {
             this.resenaDAO.eliminarResena(idResena);
@@ -47,6 +52,7 @@ public class ResenaBO {
         }
     }
 
+    @Override
     public List<ResenaDTO> buscarPorVideojuego(Long idVideojuego) throws NegocioException {
         try {
             return this.resenaDAO.buscarPorVideojuego(idVideojuego).stream()
@@ -57,6 +63,7 @@ public class ResenaBO {
         }
     }
     
+    @Override
     public List<ResenaDTO> buscarPorNombreVideojuego(String nombreVideojuego) throws NegocioException {
         try {
             return this.resenaDAO.buscarPorNombreVideojuego(nombreVideojuego).stream()
@@ -67,6 +74,7 @@ public class ResenaBO {
         }
     }
 
+    @Override
     public List<ResenaDTO> buscarPorCliente(Long idCliente) throws NegocioException {
         try {
             return this.resenaDAO.buscarPorCliente(idCliente).stream()
@@ -77,7 +85,8 @@ public class ResenaBO {
         }
     }
     
-    public List<ResenaDTO> buscarResenasPorCalificacion(Float calificacion) throws NegocioException{
+    @Override
+    public List<ResenaDTO> buscarResenasPorCalificacion(Float calificacion) throws NegocioException {
         try {
             return this.resenaDAO.buscarPorCalificacion(calificacion).stream()
                     .map(Mapeadores::toResenaDTO)
@@ -87,6 +96,7 @@ public class ResenaBO {
         }
     }
 
+    @Override
     public List<ResenaDTO> buscarTodas() throws NegocioException {
         try {
             return this.resenaDAO.buscarTodas().stream()

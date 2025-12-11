@@ -11,12 +11,16 @@ import joystickmx.itson.entidades.Cliente;
 import joystickmx.itson.entidades.ItemCarrito;
 import joystickmx.itson.interfaces.ICarritoDAO;
 import joystickmx.negocio.exception.NegocioException;
+import joystickmx.negocio.interfaces.ICarritoBO;
 
 /**
  *
- * @author biccs
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
-public class CarritoBO {
+public class CarritoBO implements ICarritoBO {
 
     private final ICarritoDAO carritoDAO;
 
@@ -24,6 +28,7 @@ public class CarritoBO {
         this.carritoDAO = carritoDAO;
     }
 
+    @Override
     public void crearCarrito(CarritoDTO dto) throws NegocioException {
         try {
             this.carritoDAO.crearCarrito(DTOMapeadores.toCarritoEntity(dto));
@@ -32,6 +37,7 @@ public class CarritoBO {
         }
     }
 
+    @Override
     public CarritoDTO actualizarCarrito(CarritoDTO dto) throws NegocioException {
         try {
             Carrito entidad = DTOMapeadores.toCarritoEntity(dto);
@@ -42,6 +48,7 @@ public class CarritoBO {
         }
     }
 
+    @Override
     public CarritoDTO buscarPorId(Long idCarrito) throws NegocioException {
         try {
             return Mapeadores.toCarritoDTO(this.carritoDAO.buscarPorId(idCarrito));
@@ -50,6 +57,7 @@ public class CarritoBO {
         }
     }
 
+    @Override
     public CarritoDTO buscarPorCliente(Long idCliente) throws NegocioException {
         try {
             Cliente cliente = new Cliente();
@@ -62,6 +70,7 @@ public class CarritoBO {
         }
     }
 
+    @Override
     public void agregarItem(Long idCarrito, ItemCarritoDTO itemDTO) throws NegocioException {
         try {
             ItemCarrito item = DTOMapeadores.toItemCarritoEntity(itemDTO);
@@ -75,6 +84,7 @@ public class CarritoBO {
         }
     }
 
+    @Override
     public void eliminarItem(Long idItemCarrito) throws NegocioException {
         try {
             this.carritoDAO.eliminarItem(idItemCarrito);
@@ -83,6 +93,7 @@ public class CarritoBO {
         }
     }
 
+    @Override
     public void vaciarCarrito(Long idCarrito) throws NegocioException {
         try {
             this.carritoDAO.vaciarCarrito(idCarrito);
@@ -91,6 +102,7 @@ public class CarritoBO {
         }
     }
 
+    @Override
     public void eliminarCarrito(Long idCarrito) throws NegocioException {
         try {
             this.carritoDAO.eliminarCarrito(idCarrito);
@@ -99,6 +111,7 @@ public class CarritoBO {
         }
     }
 
+    @Override
     public List<ItemCarritoDTO> obtenerItemsCarrito(Long idCarrito) throws NegocioException {
         try {
             if (idCarrito == null) {

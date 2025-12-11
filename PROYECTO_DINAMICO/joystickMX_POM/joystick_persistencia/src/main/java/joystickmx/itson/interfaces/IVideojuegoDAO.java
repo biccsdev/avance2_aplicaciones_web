@@ -6,7 +6,10 @@ import joystickmx.itson.entidades.Videojuego;
 
 /**
  *
- * @author PC WHITE WOLF
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
 public interface IVideojuegoDAO {
 
@@ -32,5 +35,11 @@ public interface IVideojuegoDAO {
     
     Videojuego buscarPorNombreExacto(String nombre) throws PersistenciaException;
     
-    List<Videojuego> buscarConFiltros(String nombre, Float precioMin, Float precioMax, Long idCategoria, String plataforma) throws PersistenciaException;
+    List<Videojuego> buscarConFiltros(
+            String nombre, 
+            Float precioMin, 
+            Float precioMax, 
+            Long idCategoria, 
+            String plataforma
+    ) throws PersistenciaException;
 }

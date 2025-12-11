@@ -1,16 +1,16 @@
 package pruebas;
 
 import jakarta.persistence.EntityManager;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
+//import java.time.LocalDate;
+//import java.util.ArrayList;
+//import java.util.List;
 import joystickmx.itson.conexion.Conexion;
-import joystickmx.itson.entidades.Administrador;
+//import joystickmx.itson.entidades.Administrador;
 import joystickmx.itson.entidades.Categoria;
-import joystickmx.itson.entidades.Cliente;
-import joystickmx.itson.entidades.Direccion;
-import joystickmx.itson.entidades.Videojuego;
-import joystickmx.itson.enums.EstadoUsuario;
+//import joystickmx.itson.entidades.Cliente;
+//import joystickmx.itson.entidades.Direccion;
+//import joystickmx.itson.entidades.Videojuego;
+//import joystickmx.itson.enums.EstadoUsuario;
 
 /**
  *

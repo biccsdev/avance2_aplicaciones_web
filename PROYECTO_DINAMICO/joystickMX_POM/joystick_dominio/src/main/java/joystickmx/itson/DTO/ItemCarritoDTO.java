@@ -18,8 +18,6 @@ public class ItemCarritoDTO {
     
     private VideojuegoDTO videojuego; // pruebas
     
-    
-
     public ItemCarritoDTO() {}
 
     public ItemCarritoDTO(
@@ -41,26 +39,11 @@ public class ItemCarritoDTO {
         this.idCarrito = idCarrito;
         this.videojuego = videojuego;
     }
+    
+    public VideojuegoDTO getVideojuego() {return videojuego;}
 
+    public void setVideojuego(VideojuegoDTO videojuego) {this.videojuego = videojuego;}
     
-    
-    
-    
-    
-    public VideojuegoDTO getVideojuego() {
-        return videojuego;
-    }
-
-    public void setVideojuego(VideojuegoDTO videojuego) {
-        this.videojuego = videojuego;
-    }
-    
-    
-    
-    
-    
-    
-
     public Long getIdItemCarrito() {return idItemCarrito;}
 
     public void setIdItemCarrito(Long idItemCarrito) {this.idItemCarrito = idItemCarrito;}

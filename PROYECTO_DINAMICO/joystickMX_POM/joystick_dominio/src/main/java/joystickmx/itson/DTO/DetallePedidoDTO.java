@@ -48,12 +48,6 @@ public class DetallePedidoDTO {
         this.videojuego = videojuego;
     }
     
-    
-    
-    
-    
-    
-
     public DetallePedidoDTO(
             Integer cantidad, 
             Float precioUnitario, 
@@ -66,16 +60,10 @@ public class DetallePedidoDTO {
         this.idPedido = idPedido;
     }
 
-    public VideojuegoDTO getVideojuego() {
-        return videojuego;
-    }
+    public VideojuegoDTO getVideojuego() {return videojuego;}
 
-    public void setVideojuego(VideojuegoDTO videojuego) {
-        this.videojuego = videojuego;
-    }
+    public void setVideojuego(VideojuegoDTO videojuego) {this.videojuego = videojuego;}
     
-    
-
     public Integer getCantidad() {return cantidad;}
 
     public void setCantidad(Integer cantidad) {this.cantidad = cantidad;}

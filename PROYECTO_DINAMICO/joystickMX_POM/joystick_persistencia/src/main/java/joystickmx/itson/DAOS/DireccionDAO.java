@@ -1,14 +1,15 @@
 package joystickmx.itson.DAOS;
 
-import jakarta.persistence.PersistenceException;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.entidades.Direccion;
 import joystickmx.itson.interfaces.IDireccionDAO;
 
 /**
  *
- * @author PC Gamer
- * @author biccs
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
 public class DireccionDAO extends BaseDAO implements IDireccionDAO {
 
@@ -19,13 +20,12 @@ public class DireccionDAO extends BaseDAO implements IDireccionDAO {
             em.getTransaction().begin();
             em.persist(direccion);
             em.getTransaction().commit();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
                 try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al crear la dirección: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -37,13 +37,12 @@ public class DireccionDAO extends BaseDAO implements IDireccionDAO {
             Direccion direccionActualizada = em.merge(direccion);
             em.getTransaction().commit();
             return direccionActualizada;
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
                 try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al actualizar la dirección: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -52,11 +51,10 @@ public class DireccionDAO extends BaseDAO implements IDireccionDAO {
         iniciarConexion();
         try {
             return em.find(Direccion.class, idDireccion);
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar dirección por ID: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -71,13 +69,12 @@ public class DireccionDAO extends BaseDAO implements IDireccionDAO {
             }
             em.remove(direccion);
             em.getTransaction().commit();
-        } catch (IllegalArgumentException | PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
                 try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al eliminar la dirección: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 }

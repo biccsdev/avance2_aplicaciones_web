@@ -15,13 +15,16 @@ import joystickmx.itson.enums.EstadoUsuario;
 import joystickmx.itson.interfaces.ICarritoDAO;
 import joystickmx.itson.interfaces.IClienteDAO;
 import joystickmx.negocio.exception.NegocioException;
+import joystickmx.negocio.interfaces.IClienteBO;
 
 /**
  *
- * @author PC Gamer
- * @author biccs
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
-public class ClienteBO {
+public class ClienteBO implements IClienteBO {
     
     private final IClienteDAO clienteDAO;
     private final ICarritoDAO carritoDAO; 
@@ -30,7 +33,8 @@ public class ClienteBO {
         this.clienteDAO = clienteDAO;
         this.carritoDAO = carritoDAO;
     }
-
+    
+    @Override
     public void crearCliente(UsuarioRegistroDTO dto) throws NegocioException {
         try {
             if (this.clienteDAO.buscarPorEmail(dto.getEmail()) != null) {
@@ -53,7 +57,8 @@ public class ClienteBO {
             throw new NegocioException("Error al registrar cliente: " + e.getMessage(), e);
         }
     }
-
+    
+    @Override
     public List<UsuarioDTO> buscarUsuariosActivos() throws NegocioException {
         try {
             return this.clienteDAO.buscarClientesActivos().stream()
@@ -63,7 +68,8 @@ public class ClienteBO {
             throw new NegocioException("Error al buscar clientes activos: " + e.getMessage(), e);
         }
     }
-
+    
+    @Override
     public List<UsuarioDTO> buscarUsuariosInactivos() throws NegocioException {
         try {
             return this.clienteDAO.buscarClientesInactivos().stream()
@@ -74,7 +80,8 @@ public class ClienteBO {
         }
     }
     
-    public List<UsuarioDTO> buscarClientesExistentes() throws NegocioException{
+    @Override
+    public List<UsuarioDTO> buscarClientesExistentes() throws NegocioException {
         try {
             return this.clienteDAO.buscarClientesExistentes().stream()
                     .map(Mapeadores::toUsuarioDTO)
@@ -84,6 +91,7 @@ public class ClienteBO {
         }
     }
     
+    @Override
     public UsuarioDTO actualizarCliente(ClienteDTO dto) throws NegocioException {
         try {
             Cliente cliente = this.clienteDAO.buscarPorId(dto.getIdUsuario());
@@ -103,7 +111,8 @@ public class ClienteBO {
             throw new NegocioException("Error al actualizar cliente: " + e.getMessage(), e);
         }
     }
-
+    
+    @Override
     public UsuarioDTO buscarPorId(Long idCliente) throws NegocioException {
         try {
             Cliente cliente = this.clienteDAO.buscarPorId(idCliente);
@@ -115,7 +124,8 @@ public class ClienteBO {
             throw new NegocioException("Error al buscar cliente por ID: " + e.getMessage(), e);
         }
     }
-
+    
+    @Override
     public UsuarioDTO buscarPorEmail(String email) throws NegocioException {
         try {
             Cliente cliente = this.clienteDAO.buscarPorEmail(email);
@@ -127,7 +137,8 @@ public class ClienteBO {
             throw new NegocioException("Error al buscar cliente por email: " + e.getMessage(), e);
         }
     }
-
+    
+    @Override
     public List<UsuarioDTO> buscarTodos() throws NegocioException {
         try {
             return this.clienteDAO.buscarTodos().stream()
@@ -137,7 +148,8 @@ public class ClienteBO {
             throw new NegocioException("Error al buscar todos los clientes: " + e.getMessage(), e);
         }
     }
-
+    
+    @Override
     public List<UsuarioDTO> buscarPorNombre(String nombre) throws NegocioException {
         try {
             return this.clienteDAO.buscarPorNombre(nombre).stream()

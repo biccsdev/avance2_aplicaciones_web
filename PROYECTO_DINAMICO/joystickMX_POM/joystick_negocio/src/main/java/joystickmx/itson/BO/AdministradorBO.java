@@ -7,17 +7,19 @@ import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.Mappers.DTOMapeadores;
 import joystickmx.itson.Mappers.Mapeadores;
 import joystickmx.itson.entidades.Administrador;
-import joystickmx.itson.entidades.Direccion;
 import joystickmx.itson.enums.EstadoUsuario;
 import joystickmx.itson.interfaces.IAdministradorDAO;
 import joystickmx.negocio.exception.NegocioException;
+import joystickmx.negocio.interfaces.IAdministradorBO;
 
 /**
  *
- * @author PC Gamer
- * @author biccs
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
-public class AdministradorBO {
+public class AdministradorBO implements IAdministradorBO{
     
     private final IAdministradorDAO adminDAO;
 
@@ -25,6 +27,7 @@ public class AdministradorBO {
         this.adminDAO = adminDAO;
     }
 
+    @Override
     public void crearAdmin(UsuarioRegistroDTO dto) throws NegocioException {
         try {
             
@@ -45,6 +48,7 @@ public class AdministradorBO {
         }
     }
 
+    @Override
     public UsuarioDTO actualizarAdministrador(UsuarioDTO dto) throws NegocioException {
         try {
             Administrador admin = this.adminDAO.buscarPorId(dto.getIdUsuario());
@@ -67,6 +71,7 @@ public class AdministradorBO {
         }
     }
 
+    @Override
     public UsuarioDTO buscarPorId(Long idAdmin) throws NegocioException {
         try {
             Administrador admin = this.adminDAO.buscarPorId(idAdmin);
@@ -79,6 +84,7 @@ public class AdministradorBO {
         }
     }
 
+    @Override
     public UsuarioDTO buscarPorEmail(String email) throws NegocioException {
         try {
             Administrador admin = this.adminDAO.buscarPorEmail(email);

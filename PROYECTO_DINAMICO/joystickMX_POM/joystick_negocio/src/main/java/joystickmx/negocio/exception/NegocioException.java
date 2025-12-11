@@ -1,32 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package joystickmx.negocio.exception;
 
 /**
  *
- * @author PC WHITE WOLF
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
 public class NegocioException extends Exception {
 
-    public NegocioException() {
-    }
+    public NegocioException() {}
 
-    public NegocioException(String message) {
-        super(message);
-    }
+    public NegocioException(String message) {super(message);}
 
-    public NegocioException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-    public NegocioException(Throwable cause) {
-        super(cause);
-    }
+    public NegocioException(String message, Throwable cause) {super(message, cause);}
 
     public NegocioException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
-    
 }

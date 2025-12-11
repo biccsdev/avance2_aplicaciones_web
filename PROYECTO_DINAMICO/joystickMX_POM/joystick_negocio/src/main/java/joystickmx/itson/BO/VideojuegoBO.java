@@ -10,13 +10,16 @@ import joystickmx.itson.Mappers.Mapeadores;
 import joystickmx.itson.entidades.Videojuego;
 import joystickmx.itson.interfaces.IVideojuegoDAO;
 import joystickmx.negocio.exception.NegocioException;
+import joystickmx.negocio.interfaces.IVideojuegoBO;
 
 /**
  *
- * @author PC Gamer
- * @author biccs
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
-public class VideojuegoBO {
+public class VideojuegoBO implements IVideojuegoBO {
 
     private final IVideojuegoDAO videojuegoDAO;
 
@@ -24,6 +27,7 @@ public class VideojuegoBO {
         this.videojuegoDAO = videojuegoDAO;
     }
 
+    @Override
     public void crearVideojuego(VideojuegoDTO dto) throws NegocioException {
         try {
             
@@ -32,19 +36,16 @@ public class VideojuegoBO {
                 
                 if (juegoExistente.getNombre().equalsIgnoreCase(dto.getNombre())) {
                     throw new NegocioException("Ya existe un videojuego activo con el nombre: " + dto.getNombre());
-                }
-                
-                
+                }    
             }
-
-                this.videojuegoDAO.persistir(DTOMapeadores.toVideojuegoEntity(dto));
-            }catch (PersistenciaException e) {
+            this.videojuegoDAO.persistir(DTOMapeadores.toVideojuegoEntity(dto));
+            
+        } catch (PersistenciaException e) {
             throw new NegocioException("Error al crear videojuego: " + e.getMessage(), e);
         }
-        }
+    }
 
-    
-
+    @Override
     public VideojuegoDTO actualizarVideojuego(VideojuegoDTO dto) throws NegocioException {
         try {
             return Mapeadores.toVideojuegoDTO(this.videojuegoDAO.actualizar(DTOMapeadores.toVideojuegoEntity(dto)));
@@ -53,6 +54,7 @@ public class VideojuegoBO {
         }
     }
 
+    @Override
     public void habilitarVideojuego(Long idVideojuego) throws NegocioException {
         try {
             this.videojuegoDAO.habilitarVideojuego(idVideojuego);
@@ -61,6 +63,7 @@ public class VideojuegoBO {
         }
     }
 
+    @Override
     public void deshabilitarVideojuego(Long idVideojuego) throws NegocioException {
         try {
             this.videojuegoDAO.deshabilitarVideojuego(idVideojuego);
@@ -69,6 +72,7 @@ public class VideojuegoBO {
         }
     }
 
+    @Override
     public List<VideojuegoDTO> buscarTodosLosVideojuegos() throws NegocioException {
         try {
             return this.videojuegoDAO.buscarTodosLosVideojuegos().stream()
@@ -79,6 +83,7 @@ public class VideojuegoBO {
         }
     }
 
+    @Override
     public List<VideojuegoDTO> buscarVideojuegosActivos() throws NegocioException {
         try {
             return this.videojuegoDAO.buscarVideojuegosActivos().stream()
@@ -89,6 +94,7 @@ public class VideojuegoBO {
         }
     }
 
+    @Override
     public List<VideojuegoDTO> buscarPorRangoDePrecio(Float min, Float max) throws NegocioException {
         try {
             return this.videojuegoDAO.buscarPorRangoDePrecio(min, max).stream()
@@ -99,6 +105,7 @@ public class VideojuegoBO {
         }
     }
 
+    @Override
     public List<VideojuegoDTO> buscarPorCategoria(Long idCategoria) throws NegocioException {
         try {
             return this.videojuegoDAO.buscarPorCategoria(idCategoria).stream()
@@ -109,6 +116,7 @@ public class VideojuegoBO {
         }
     }
 
+    @Override
     public List<VideojuegoDTO> buscarPorNombre(String nombre) throws NegocioException {
         try {
             return this.videojuegoDAO.buscarPorNombre(nombre).stream()
@@ -119,6 +127,7 @@ public class VideojuegoBO {
         }
     }
 
+    @Override
     public VideojuegoDTO buscarPorNombreExacto(String nombre) throws NegocioException {
         try {
             return Mapeadores.toVideojuegoDTO(this.videojuegoDAO.buscarPorNombreExacto(nombre));
@@ -127,6 +136,7 @@ public class VideojuegoBO {
         }
     }
 
+    @Override
     public VideojuegoDTO buscarPorId(Long idVideojuego) throws NegocioException {
         try {
             return Mapeadores.toVideojuegoDTO(this.videojuegoDAO.buscarPorId(idVideojuego));
@@ -135,18 +145,14 @@ public class VideojuegoBO {
         }
     }
 
-    /**
-     * Busca videojuegos aplicando filtros combinados.
-     *
-     * @param nombre Parte del nombre del videojuego (opcional).
-     * @param precioMin Precio mínimo (opcional).
-     * @param precioMax Precio máximo (opcional).
-     * @param idCategoria ID de la categoría (opcional).
-     * @param plataforma Nombre de la plataforma (opcional).
-     * @return Lista de VideojuegoDTO que cumplen con los criterios.
-     * @throws NegocioException Si ocurre un error en la persistencia.
-     */
-    public List<VideojuegoDTO> buscarVideojuegosConFiltros(String nombre, Float precioMin, Float precioMax, Long idCategoria, String plataforma) throws NegocioException {
+    @Override
+    public List<VideojuegoDTO> buscarVideojuegosConFiltros(
+            String nombre, 
+            Float precioMin, 
+            Float precioMax, 
+            Long idCategoria, 
+            String plataforma
+    ) throws NegocioException {
         try {
             List<Videojuego> videojuegos = this.videojuegoDAO.buscarConFiltros(nombre, precioMin, precioMax, idCategoria, plataforma);
 
@@ -157,5 +163,4 @@ public class VideojuegoBO {
             throw new NegocioException("Error al filtrar videojuegos: " + e.getMessage(), e);
         }
     }
-
 }

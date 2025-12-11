@@ -1,7 +1,6 @@
 package joystickmx.itson.DAOS;
 
 import jakarta.persistence.NoResultException;
-import jakarta.persistence.PersistenceException;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
 import joystickmx.itson.Excepciones.PersistenciaException;
@@ -9,7 +8,10 @@ import joystickmx.itson.entidades.Categoria;
 import joystickmx.itson.interfaces.ICategoriaDAO;
 
 /**
- * @author biccs
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
 public class CategoriaDAO extends BaseDAO implements ICategoriaDAO {
 
@@ -20,13 +22,12 @@ public class CategoriaDAO extends BaseDAO implements ICategoriaDAO {
             em.getTransaction().begin();
             em.persist(categoria);
             em.getTransaction().commit();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
                 try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al crear la categoría: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -38,13 +39,12 @@ public class CategoriaDAO extends BaseDAO implements ICategoriaDAO {
             Categoria categoriaActualizada = em.merge(categoria);
             em.getTransaction().commit();
             return categoriaActualizada;
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
                 try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al actualizar la categoría: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -58,13 +58,12 @@ public class CategoriaDAO extends BaseDAO implements ICategoriaDAO {
                 throw new PersistenciaException("No se encontró la categoría con ID: " + idCategoria);
             em.remove(categoria);
             em.getTransaction().commit();
-        } catch (IllegalArgumentException | PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
                 try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al eliminar la categoría: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -73,11 +72,10 @@ public class CategoriaDAO extends BaseDAO implements ICategoriaDAO {
         iniciarConexion();
         try {
             return em.find(Categoria.class, idCategoria);
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar categoría por ID: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -93,11 +91,10 @@ public class CategoriaDAO extends BaseDAO implements ICategoriaDAO {
             return query.getSingleResult();
         } catch (NoResultException e) {
             return null;
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar categoría por nombre: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -110,11 +107,10 @@ public class CategoriaDAO extends BaseDAO implements ICategoriaDAO {
                     Categoria.class
             );
             return query.getResultList();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar todas las categorías: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -128,11 +124,27 @@ public class CategoriaDAO extends BaseDAO implements ICategoriaDAO {
             );
             query.setParameter("nombre", "%" + nombreParcial + "%");
             return query.getResultList();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar categorías por nombre parcial: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()) { em.close(); }
+        }
+    }
+
+    @Override
+    public List<Categoria> buscarPorVideojuego(Long idVideojuego) throws PersistenciaException {
+        iniciarConexion();
+        try {
+            TypedQuery<Categoria> query = em.createQuery(
+                    "SELECT v.categorias FROM Videojuego v WHERE v.idVideojuego = :idVideojuego", 
+                    Categoria.class
+            );
+            query.setParameter("idVideojuego", idVideojuego);
+            return query.getResultList();
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al buscar categorías por videojuego: " + e.getMessage());
+        } finally{
+            if (em.isOpen()){ em.close(); }
         }
     }
 }

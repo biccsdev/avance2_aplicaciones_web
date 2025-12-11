@@ -1,6 +1,5 @@
 package joystickmx.itson.DAOS;
 
-import jakarta.persistence.PersistenceException;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
 import joystickmx.itson.Excepciones.PersistenciaException;
@@ -11,7 +10,10 @@ import joystickmx.itson.entidades.Videojuego;
 import joystickmx.itson.interfaces.ICarritoDAO;
 
 /**
- * @author biccs
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
 public class CarritoDAO extends BaseDAO implements ICarritoDAO {
 
@@ -22,17 +24,12 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
             em.getTransaction().begin();
             em.persist(carrito);
             em.getTransaction().commit();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try {
-                em.getTransaction().rollback();
-            } catch (Exception ignored) {
-            }
+                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al crear el carrito: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -44,17 +41,12 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
             Carrito carritoActualizado = em.merge(carrito);
             em.getTransaction().commit();
             return carritoActualizado;
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try {
-                em.getTransaction().rollback();
-            } catch (Exception ignored) {
-            }
+                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al actualizar el carrito: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -63,12 +55,10 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
         iniciarConexion();
         try {
             return em.find(Carrito.class, idCarrito);
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar carrito por ID: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -84,12 +74,10 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
             query.setParameter("cliente", cliente);
             return query.getSingleResult();
 
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar carrito por cliente: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -116,17 +104,12 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
             em.merge(carritoManaged);
 
             em.getTransaction().commit();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try {
-                em.getTransaction().rollback();
-            } catch (Exception ignored) {
-            }
+                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al agregar item al carrito: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -141,17 +124,12 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
             }
             em.remove(item);
             em.getTransaction().commit();
-        } catch (IllegalArgumentException | PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try {
-                em.getTransaction().rollback();
-            } catch (Exception ignored) {
-            }
+                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al eliminar item del carrito: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -164,17 +142,12 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
                     .setParameter("carritoId", idCarrito)
                     .executeUpdate();
             em.getTransaction().commit();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try {
-                em.getTransaction().rollback();
-            } catch (Exception ignored) {
-            }
+                try {em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al vaciar el carrito: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -189,17 +162,12 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
             }
             em.remove(carrito);
             em.getTransaction().commit();
-        } catch (IllegalArgumentException | PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try {
-                em.getTransaction().rollback();
-            } catch (Exception ignored) {
-            }
+                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al eliminar el carrito: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -216,13 +184,10 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
             query.setParameter("idCarrito", carrito.getIdCarrito());
 
             return query.getResultList();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al obtener los items del carrito: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
-
 }

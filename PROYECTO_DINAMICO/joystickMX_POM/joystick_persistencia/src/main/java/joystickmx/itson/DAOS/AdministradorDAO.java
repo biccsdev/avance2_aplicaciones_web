@@ -1,7 +1,6 @@
 package joystickmx.itson.DAOS;
 
 import jakarta.persistence.NoResultException;
-import jakarta.persistence.PersistenceException;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
 import joystickmx.itson.Excepciones.PersistenciaException;
@@ -11,8 +10,10 @@ import joystickmx.itson.interfaces.IAdministradorDAO;
 
 /**
  *
- * @author sonic
- * @author biccs
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
 public class AdministradorDAO extends BaseDAO implements IAdministradorDAO {
 
@@ -23,13 +24,12 @@ public class AdministradorDAO extends BaseDAO implements IAdministradorDAO {
             em.getTransaction().begin();
             em.persist(administrador);
             em.getTransaction().commit();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
                 try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al crear el administrador: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
     
@@ -42,13 +42,12 @@ public class AdministradorDAO extends BaseDAO implements IAdministradorDAO {
             Administrador administradorRegistrado = em.merge(administrador);
             em.getTransaction().commit();
             return administradorRegistrado;
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
                 try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al actualizar el administrador: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -57,11 +56,10 @@ public class AdministradorDAO extends BaseDAO implements IAdministradorDAO {
         iniciarConexion();
         try {
             return em.find(Administrador.class, idAdministrador);
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar administrador por ID: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -77,11 +75,10 @@ public class AdministradorDAO extends BaseDAO implements IAdministradorDAO {
             return query.getSingleResult();
         } catch (NoResultException e) {
             return null;
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar administrador por email: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -94,11 +91,10 @@ public class AdministradorDAO extends BaseDAO implements IAdministradorDAO {
                     Administrador.class
             );
             return query.getResultList();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar todos los administradores: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -112,11 +108,10 @@ public class AdministradorDAO extends BaseDAO implements IAdministradorDAO {
             );
             query.setParameter("estado", EstadoUsuario.ACTIVO);
             return query.getResultList();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar administradores activos: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 }

@@ -1,7 +1,6 @@
 package joystickmx.itson.DAOS;
 
 import jakarta.persistence.NoResultException;
-import jakarta.persistence.PersistenceException;
 import jakarta.persistence.TypedQuery;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.entidades.Direccion;
@@ -11,8 +10,10 @@ import joystickmx.itson.interfaces.IUsuarioDAO;
 
 /**
  *
- * @author sonic
- * @author biccs
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
 public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
 
@@ -23,17 +24,12 @@ public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
             em.getTransaction().begin();
             em.persist(usuario);
             em.getTransaction().commit();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try {
-                em.getTransaction().rollback();
-            } catch (Exception ignored) {
-            }
+                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al crear el usuario: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -45,17 +41,13 @@ public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
             Usuario usuarioActualizado = em.merge(usuario);
             em.getTransaction().commit();
             return usuarioActualizado;
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try {
-                em.getTransaction().rollback();
-            } catch (Exception ignored) {
+                try { em.getTransaction().rollback(); } catch (Exception ignored) {
             }
             throw new PersistenciaException("Error al actualizar el usuario: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -64,12 +56,10 @@ public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
         iniciarConexion();
         try {
             return em.find(Usuario.class, idUsuario);
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar usuario por ID: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -85,12 +75,10 @@ public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
             return query.getSingleResult();
         } catch (NoResultException e) {
             return null;
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar usuario por email: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -120,9 +108,7 @@ public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
             }
             throw new PersistenciaException("Error al actualizar estado del usuario: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -164,17 +150,13 @@ public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
             em.getTransaction().commit();
             return usuario;
 
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try {
-                em.getTransaction().rollback();
-            } catch (Exception ignored) {
+                try { em.getTransaction().rollback(); } catch (Exception ignored) {
             }
             throw new PersistenciaException("Error al modificar la dirección: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 }

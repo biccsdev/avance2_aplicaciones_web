@@ -1,18 +1,15 @@
-
 package joystickmx.itson.Excepciones;
 
 /**
  *
- * @author PC WHITE WOLF
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
 public class PersistenciaException extends Exception {
 
+    public PersistenciaException() {}
 
-    public PersistenciaException() {
-    }
-
-    public PersistenciaException(String msg) {
-        super(msg);
-    }
-    
+    public PersistenciaException(String msg) { super(msg); }
 }

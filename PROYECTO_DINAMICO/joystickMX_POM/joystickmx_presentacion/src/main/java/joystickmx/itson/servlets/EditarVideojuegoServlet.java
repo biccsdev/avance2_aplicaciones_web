@@ -1,4 +1,3 @@
-
 package joystickmx.itson.servlets;
 
 import jakarta.servlet.ServletException;
@@ -11,7 +10,6 @@ import jakarta.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -26,7 +24,10 @@ import joystickmx.negocio.exception.NegocioException;
 
 /**
  *
- * @author PC Gamer
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
 @WebServlet(name = "EditarVideojuegoServlet", urlPatterns = {"/admin/productos/editar"})
 @MultipartConfig(
@@ -45,32 +46,6 @@ public class EditarVideojuegoServlet extends HttpServlet {
         }
         try (InputStream inputStream = part.getInputStream(); Scanner scanner = new Scanner(inputStream, StandardCharsets.UTF_8.name())) {
             return scanner.useDelimiter("\\A").hasNext() ? scanner.next() : "";
-        }
-    }
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet EditarVideojuegoServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet EditarVideojuegoServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
         }
     }
 

@@ -1,7 +1,5 @@
 package joystickmx.itson.DAOS;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceException;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
 import joystickmx.itson.Excepciones.PersistenciaException;
@@ -10,8 +8,10 @@ import joystickmx.itson.interfaces.IResenaDAO;
 
 /**
  *
- * @author sonic
- * @author biccs
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
 public class ResenaDAO extends BaseDAO implements IResenaDAO {
 
@@ -22,13 +22,12 @@ public class ResenaDAO extends BaseDAO implements IResenaDAO {
             em.getTransaction().begin();
             em.persist(resena);
             em.getTransaction().commit();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
                 try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al crear la reseña: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -40,13 +39,12 @@ public class ResenaDAO extends BaseDAO implements IResenaDAO {
             Resena resenaActualizada = em.merge(resena);
             em.getTransaction().commit();
             return resenaActualizada;
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
                 try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al actualizar la reseña: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -60,13 +58,12 @@ public class ResenaDAO extends BaseDAO implements IResenaDAO {
                 throw new PersistenciaException("No se encontró la reseña con ID: " + idResena);
             em.remove(resena);
             em.getTransaction().commit();
-        } catch (IllegalArgumentException | PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
                 try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al eliminar la reseña: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -75,11 +72,10 @@ public class ResenaDAO extends BaseDAO implements IResenaDAO {
         iniciarConexion();
         try {
             return em.find(Resena.class, idResena);
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar reseña por ID: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -98,11 +94,10 @@ public class ResenaDAO extends BaseDAO implements IResenaDAO {
                 r.getVideojuego(); // Obtiene el videojuego de cada reseña
             });
             return resenas;
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar reseñas por videojuego: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()) { em.close(); }
         }
     }
     
@@ -121,11 +116,10 @@ public class ResenaDAO extends BaseDAO implements IResenaDAO {
                 r.getVideojuego(); // Obtiene el videojuego de cada reseña
             });
             return resenas;
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar reseñas por videojuego: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -144,11 +138,10 @@ public class ResenaDAO extends BaseDAO implements IResenaDAO {
                 r.getVideojuego(); // Obtiene el videojuego de cada reseña
             });
             return resenas;
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar reseñas por cliente: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()) { em.close();}
         }
     }
 
@@ -168,11 +161,10 @@ public class ResenaDAO extends BaseDAO implements IResenaDAO {
                 r.getVideojuego(); // Obtiene el videojuego de cada reseña
             });
             return resenas;
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar reseñas por calificación: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 
@@ -190,11 +182,10 @@ public class ResenaDAO extends BaseDAO implements IResenaDAO {
                 r.getVideojuego(); // Obtiene el videojuego de cada reseña
             });
             return resenas;
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar todas las reseñas: " + e.getMessage());
         } finally{
-            if (em.isOpen()) 
-                em.close();
+            if (em.isOpen()){ em.close(); }
         }
     }
 }

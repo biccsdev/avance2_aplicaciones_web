@@ -1,25 +1,21 @@
 package joystickmx.itson.DAOS;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.NoResultException;
-import jakarta.persistence.PersistenceException;
 import jakarta.persistence.TypedQuery;
 import java.time.LocalDate;
 import java.util.List;
 import joystickmx.itson.Excepciones.PersistenciaException;
-import static joystickmx.itson.conexion.Conexion.crearConexion;
 import joystickmx.itson.entidades.Cliente;
 import joystickmx.itson.entidades.DetallePedido;
 import joystickmx.itson.entidades.Pedido;
-import joystickmx.itson.entidades.Usuario;
 import joystickmx.itson.enums.EstadoPedido;
-import joystickmx.itson.enums.EstadoUsuario;
 import joystickmx.itson.interfaces.IPedidoDAO;
 
 /**
  *
- * @author PC Gamer
- * @author biccs
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
 public class PedidoDAO extends BaseDAO implements IPedidoDAO {
 
@@ -30,17 +26,12 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
             em.getTransaction().begin();
             em.persist(pedido);
             em.getTransaction().commit();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try {
-                em.getTransaction().rollback();
-            } catch (Exception ignored) {
-            }
+                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al crear el pedido: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -52,17 +43,12 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
             Pedido pedidoActualizado = em.merge(pedido);
             em.getTransaction().commit();
             return pedidoActualizado;
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try {
-                em.getTransaction().rollback();
-            } catch (Exception ignored) {
-            }
+                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al actualizar el pedido: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -77,17 +63,12 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
             pedido.setEstadoPedido(nuevoEstado);
             em.merge(pedido);
             em.getTransaction().commit();
-        } catch (IllegalArgumentException | PersistenceException e) {
+        } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try {
-                em.getTransaction().rollback();
-            } catch (Exception ignored) {
-            }
+                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al actualizar estado del pedido: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -108,12 +89,10 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
             return query.getSingleResult();
         } catch (jakarta.persistence.NoResultException e) {
             return null;
-        } catch (IllegalArgumentException | PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar pedido por ID: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -125,12 +104,10 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
                     "SELECT p FROM Pedido p LEFT JOIN FETCH p.cliente ORDER BY p.fechaPedido DESC", Pedido.class
             );
             return query.getResultList();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al obtener la lista de pedidos: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -144,12 +121,10 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
             );
             query.setParameter("clienteId", cliente.getIdUsuario());
             return query.getResultList();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar pedidos por cliente: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -163,12 +138,10 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
             );
             query.setParameter("estado", estado);
             return query.getResultList();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar pedidos por estado: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -183,12 +156,10 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
             query.setParameter("inicio", fechaInicio.atStartOfDay());
             query.setParameter("fin", fechaFin.plusDays(1).atStartOfDay());
             return query.getResultList();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar pedidos por rango de fecha: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -202,12 +173,10 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
             );
             query.setParameter("pid", idPedido);
             return query.getResultList();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al obtener los detalles del pedido: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -254,13 +223,10 @@ public class PedidoDAO extends BaseDAO implements IPedidoDAO {
             query.setParameter("nombreParcial", "%" + nombreParcial + "%");
 
             return query.getResultList();
-        } catch (PersistenceException e) {
+        } catch (Exception e) {
             throw new PersistenciaException("Error al buscar pedidos por nombre parcial de cliente: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
-
 }

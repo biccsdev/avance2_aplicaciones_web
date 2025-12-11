@@ -12,13 +12,16 @@ import joystickmx.itson.entidades.Usuario;
 import joystickmx.itson.enums.EstadoUsuario;
 import joystickmx.itson.interfaces.IUsuarioDAO;
 import joystickmx.negocio.exception.NegocioException;
+import joystickmx.negocio.interfaces.IUsuarioBO;
 
 /**
  *
- * @author PC Gamer
- * @author biccs
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
-public class UsuarioBO {
+public class UsuarioBO implements IUsuarioBO {
 
     private final IUsuarioDAO usuarioDAO;
 
@@ -26,6 +29,7 @@ public class UsuarioBO {
         this.usuarioDAO = usuarioDAO;
     }
 
+    @Override
     public void crearUsuario(UsuarioRegistroDTO dto) throws NegocioException {
         try {
 
@@ -38,6 +42,7 @@ public class UsuarioBO {
         }
     }
 
+    @Override
     public UsuarioDTO actualizarUsuario(UsuarioRegistroDTO dto) throws NegocioException {
         try {
             Usuario usuarioExistente = this.usuarioDAO.buscarPorEmail(dto.getEmail());
@@ -72,6 +77,7 @@ public class UsuarioBO {
         }
     }
 
+    @Override
     public UsuarioDTO buscarPorId(Long idUsuario) throws NegocioException {
         try {
             return Mapeadores.toUsuarioDTO(this.usuarioDAO.buscarPorId(idUsuario));
@@ -80,6 +86,7 @@ public class UsuarioBO {
         }
     }
 
+    @Override
     public UsuarioDTO buscarPorEmail(String email) throws NegocioException {
         try {
 
@@ -89,6 +96,7 @@ public class UsuarioBO {
         }
     }
 
+    @Override
     public void activarUsuario(String email) throws NegocioException {
         try {
             this.usuarioDAO.activarUsuario(email);
@@ -97,6 +105,7 @@ public class UsuarioBO {
         }
     }
 
+    @Override
     public void desactivarUsuario(String email) throws NegocioException {
         try {
             this.usuarioDAO.desactivarUsuario(email);
@@ -105,6 +114,7 @@ public class UsuarioBO {
         }
     }
 
+    @Override
     public void eliminarUsuario(String email) throws NegocioException {
         try {
             this.usuarioDAO.eliminarUsuario(email);
@@ -113,16 +123,7 @@ public class UsuarioBO {
         }
     }
 
-    /**
-     * Actualiza la dirección de un usuario basado en su email. Reemplaza la
-     * lógica incorrecta que estaba en DireccionBO.
-     *
-     * * @param email Email del usuario a modificar.
-     * @param email
-     * @param dto El DTO con la nueva información de dirección.
-     * @return El UsuarioDTO actualizado.
-     * @throws NegocioException Si el usuario no se encuentra o falla la BD.
-     */
+    @Override
     public UsuarioDTO modificarDireccion(String email, DireccionDTO dto) throws NegocioException {
         try {
             Direccion datosNuevos = DTOMapeadores.toDireccionEntity(dto);
@@ -136,16 +137,7 @@ public class UsuarioBO {
         }
     }
 
-    /**
-     * Valida las credenciales de un usuario.
-     *
-     * @param email El email del usuario.
-     * @param passwordPlano La contraseña en texto plano.
-     * @return El UsuarioDTO si las credenciales son correctas y el usuario está
-     * activo.
-     * @throws NegocioException Si el usuario no existe, la contraseña es
-     * incorrecta o el usuario está inactivo.
-     */
+    @Override
     public UsuarioDTO validarCredenciales(String email, String passwordPlano) throws NegocioException {
         try {
             Usuario usuario = this.usuarioDAO.buscarPorEmail(email);
@@ -170,5 +162,4 @@ public class UsuarioBO {
             throw new NegocioException("Error al validar credenciales: " + e.getMessage(), e);
         }
     }
-
 }

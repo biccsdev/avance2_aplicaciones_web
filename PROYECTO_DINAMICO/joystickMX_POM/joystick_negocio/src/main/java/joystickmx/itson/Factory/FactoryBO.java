@@ -24,8 +24,10 @@ import joystickmx.negocio.exception.NegocioException;
 
 /**
  *
- * @author PC WHITE WOLF
- * @author biccs
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
  */
 public class FactoryBO {
 
@@ -43,7 +45,7 @@ public class FactoryBO {
             return new UsuarioBO(FactoryDAO.crearUsuarioDAO()).validarCredenciales(email, password);
 
         } catch (NegocioException e) {
-            throw new NegocioException("Error de persistencia en login: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar iniciar sesión: " + e.getMessage(), e);
         }
     }
 
@@ -51,7 +53,7 @@ public class FactoryBO {
         try {
             return new UsuarioBO(FactoryDAO.crearUsuarioDAO()).buscarPorEmail(email);
         } catch (NegocioException e) {
-            throw new NegocioException(e.getMessage(), e);
+            throw new NegocioException("Error al intentar buscar el usuario: " + e.getMessage(), e);
         }
     }
 
@@ -59,7 +61,7 @@ public class FactoryBO {
         try {
             return new ClienteBO(FactoryDAO.crearClienteDAO(), null).buscarPorId(idCliente);
         } catch (NegocioException e) {
-            throw new NegocioException(e.getMessage(), e);
+            throw new NegocioException("Error al intentar buscar el cliente: " + e.getMessage(), e);
         }
     }
 
@@ -67,16 +69,15 @@ public class FactoryBO {
         try {
             return new ClienteBO(FactoryDAO.crearClienteDAO(), null).buscarUsuariosActivos();
         } catch (NegocioException e) {
-            throw new NegocioException(e.getMessage(), e);
+            throw new NegocioException("Error al intentar buscar clientes activos: " + e.getMessage(), e);
         }
     }
 
-    //  pendientes metodos de buscar clientes activos inactivos por nombre etc
     public static List<UsuarioDTO> buscarClientesExistentes() throws NegocioException {
         try {
             return new ClienteBO(FactoryDAO.crearClienteDAO(), null).buscarClientesExistentes();
         } catch (NegocioException e) {
-            throw new NegocioException(e.getMessage(), e);
+            throw new NegocioException("Error al intentar buscar clientes existentes: " + e.getMessage(), e);
         }
     }
 
@@ -84,7 +85,7 @@ public class FactoryBO {
         try {
             new ClienteBO(FactoryDAO.crearClienteDAO(), FactoryDAO.crearCarritoDAO()).crearCliente(dto);
         } catch (NegocioException e) {
-            throw new NegocioException("Error al registrar cliente: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar registrar cliente: " + e.getMessage(), e);
         }
     }
 
@@ -92,7 +93,7 @@ public class FactoryBO {
         try {
             new AdministradorBO(FactoryDAO.crearAdministradorDAO()).crearAdmin(dto);
         } catch (NegocioException e) {
-            throw new NegocioException("Error al registrar administrador: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar registrar administrador: " + e.getMessage(), e);
         }
     }
 
@@ -101,7 +102,7 @@ public class FactoryBO {
             UsuarioDTO usuarioActualizado = new UsuarioBO(FactoryDAO.crearUsuarioDAO()).modificarDireccion(email, dto);
             return usuarioActualizado;
         } catch (NegocioException e) {
-            throw new NegocioException("Error al modificar dirección: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar modificar dirección: " + e.getMessage(), e);
         }
     }
 
@@ -109,15 +110,16 @@ public class FactoryBO {
         try {
             return new VideojuegoBO(FactoryDAO.crearVideojuegoDAO()).buscarPorId(idVideojuego);
         } catch (NegocioException e) {
-            throw new NegocioException(e.getMessage(), e);
+            throw new NegocioException("Error al intentar buscar el videojuego: " + e.getMessage(), e);
         }
     }
-
+    
+    // Esta debería devolver una lista, ya que hay muchos videojuegos con el mismo nombre (corrección sugerida desde DAO)
     public static VideojuegoDTO buscarVideojuegoPorNombeExacto(String nombre) throws NegocioException {
         try {
             return new VideojuegoBO(FactoryDAO.crearVideojuegoDAO()).buscarPorNombreExacto(nombre);
         } catch (NegocioException e) {
-            throw new NegocioException(e.getMessage(), e);
+            throw new NegocioException("Error al intentar buscar el videojuego: " + e.getMessage(), e);
         }
     }
 
@@ -125,7 +127,15 @@ public class FactoryBO {
         try {
             return new CategoriaBO(FactoryDAO.crearCategoriaDAO()).buscarPorNombre(nombre);
         } catch (NegocioException e) {
-            throw new NegocioException(e.getMessage(), e);
+            throw new NegocioException("Error al intentar buscar la categoria: " + e.getMessage(), e);
+        }
+    }
+    
+    public static List<CategoriaDTO> buscarCategoriaPorVideojuego(Long idVideojuego) throws NegocioException{
+        try {
+            return new CategoriaBO(FactoryDAO.crearCategoriaDAO()).buscarPorVideojuego(idVideojuego);
+        } catch (NegocioException e) {
+            throw new NegocioException("Error al intentar buscar la categoria: " + e.getMessage(), e);
         }
     }
 
@@ -134,16 +144,15 @@ public class FactoryBO {
             VideojuegoBO videojuegoBO = new VideojuegoBO(FactoryDAO.crearVideojuegoDAO());
             return videojuegoBO.buscarVideojuegosActivos();
         } catch (NegocioException e) {
-            throw new NegocioException(e.getMessage(), e);
+            throw new NegocioException("Error al intentar buscar los videojuegos: " + e.getMessage(), e);
         }
     }
 
-    // pendiente bussquedas de juegos por nombre etc
     public static void crearVideojuego(VideojuegoDTO dto) throws NegocioException {
         try {
             new VideojuegoBO(FactoryDAO.crearVideojuegoDAO()).crearVideojuego(dto);
         } catch (NegocioException e) {
-            throw new NegocioException("Error al crear videojuego: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar crear videojuego: " + e.getMessage(), e);
         }
     }
 
@@ -151,7 +160,7 @@ public class FactoryBO {
         try {
             return new VideojuegoBO(FactoryDAO.crearVideojuegoDAO()).actualizarVideojuego(dto);
         } catch (NegocioException e) {
-            throw new NegocioException("Error al actualizar videojuego: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar actualizar videojuego: " + e.getMessage(), e);
         }
     }
 
@@ -159,7 +168,7 @@ public class FactoryBO {
         try {
             return new UsuarioBO(FactoryDAO.crearUsuarioDAO()).actualizarUsuario(dto);
         } catch (NegocioException e) {
-            throw new NegocioException("Error al actualizar videojuego: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar actualizar videojuego: " + e.getMessage(), e);
         }
     }
 
@@ -167,7 +176,7 @@ public class FactoryBO {
         try {
             return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarPorNombreVideojuego(nombreVideojuego);
         } catch (NegocioException e) {
-            throw new NegocioException("Error al consultar las resenas: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar consultar las resenas: " + e.getMessage(), e);
         }
     }
 
@@ -175,7 +184,7 @@ public class FactoryBO {
         try {
             return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarPorVideojuego(idVideojuego);
         } catch (NegocioException e) {
-            throw new NegocioException("Error al consultar las resenas: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar consultar las resenas: " + e.getMessage(), e);
         }
     }
 
@@ -183,7 +192,7 @@ public class FactoryBO {
         try {
             return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarPorCliente(idCliente);
         } catch (NegocioException e) {
-            throw new NegocioException("Error al consultar las resenas: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar consultar las resenas: " + e.getMessage(), e);
         }
     }
 
@@ -191,7 +200,7 @@ public class FactoryBO {
         try {
             return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarResenasPorCalificacion(calificacion);
         } catch (NegocioException e) {
-            throw new NegocioException("Error al consultar las resenas: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar consultar las resenas: " + e.getMessage(), e);
         }
     }
 
@@ -199,7 +208,7 @@ public class FactoryBO {
         try {
             return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarTodas();
         } catch (NegocioException e) {
-            throw new NegocioException("Error al consultar las resenas: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar consultar las resenas: " + e.getMessage(), e);
         }
     }
 
@@ -207,7 +216,7 @@ public class FactoryBO {
         try {
             return new CarritoBO(FactoryDAO.crearCarritoDAO()).buscarPorCliente(idCliente);
         } catch (NegocioException e) {
-            throw new NegocioException(e.getMessage(), e);
+            throw new NegocioException("Error al intentar buscar el carrito: " + e.getMessage(), e);
         }
     }
 
@@ -220,9 +229,7 @@ public class FactoryBO {
             carritoBO.agregarItem(idCarrito, itemDTO);
 
         } catch (NegocioException e) {
-            throw e;
-        } catch (Exception e) {
-            throw new NegocioException("Error en FactoryBO al agregar item: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar agregar el item: " + e.getMessage(), e);
         }
     }
 
@@ -231,7 +238,7 @@ public class FactoryBO {
         try {
             return new PedidoBO(FactoryDAO.crearPedidoDAO(), null, null, null).obtenerPedidos();
         } catch (NegocioException e) {
-            throw new NegocioException(e.getMessage(), e);
+            throw new NegocioException("Error al intentar obtener los pedidos: " + e.getMessage(), e);
         }
     }
 
@@ -239,7 +246,7 @@ public class FactoryBO {
         try {
             new CarritoBO(FactoryDAO.crearCarritoDAO()).crearCarrito(carrito);
         } catch (NegocioException e) {
-            throw new NegocioException(e.getMessage(), e);
+            throw new NegocioException("Error al intentar crear el carrito: " + e.getMessage(), e);
         }
     }
 
@@ -247,7 +254,7 @@ public class FactoryBO {
         try {
             new PedidoBO(FactoryDAO.crearPedidoDAO(), null, null, null).pedidoEntregado(idPedido);
         } catch (NegocioException e) {
-            throw new NegocioException("Error al marcar pedido como entregado: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar marcar pedido como entregado: " + e.getMessage(), e);
         }
     }
 
@@ -255,7 +262,7 @@ public class FactoryBO {
         try {
             new PedidoBO(FactoryDAO.crearPedidoDAO(), null, null, null).pedidoEnviado(idPedido);
         } catch (NegocioException e) {
-            throw new NegocioException("Error al marcar pedido como enviado: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar marcar pedido como enviado: " + e.getMessage(), e);
         }
     }
 
@@ -263,7 +270,7 @@ public class FactoryBO {
         try {
             new PedidoBO(FactoryDAO.crearPedidoDAO(), null, null, null).pedidoPendiente(idPedido);
         } catch (NegocioException e) {
-            throw new NegocioException("Error al marcar pedido como pendiente: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar marcar pedido como pendiente: " + e.getMessage(), e);
         }
     }
 
@@ -271,7 +278,7 @@ public class FactoryBO {
         try {
             new PedidoBO(FactoryDAO.crearPedidoDAO(), null, null, null).pedidoCancelado(idPedido);
         } catch (NegocioException e) {
-            throw new NegocioException("Error al marcar pedido como cancelado: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar marcar pedido como cancelado: " + e.getMessage(), e);
         }
     }
 
@@ -280,7 +287,7 @@ public class FactoryBO {
             VideojuegoBO videojuegoBO = new VideojuegoBO(FactoryDAO.crearVideojuegoDAO());
             return videojuegoBO.buscarPorNombre(nombre);
         } catch (NegocioException e) {
-            throw new NegocioException("Error al buscar videojuegos por nombre: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar buscar videojuegos por nombre: " + e.getMessage(), e);
         }
     }
 
@@ -288,7 +295,7 @@ public class FactoryBO {
         try {
             return new ClienteBO(FactoryDAO.crearClienteDAO(), null).buscarPorNombre(nombre);
         } catch (NegocioException e) {
-            throw new NegocioException("Error al buscar clientes por nombre: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar buscar clientes por nombre: " + e.getMessage(), e);
         }
     }
 
@@ -314,7 +321,7 @@ public class FactoryBO {
             return pedidoBO.registrarPedido(idCliente, direccionEnvioDTO, pagoDTO);
 
         } catch (NegocioException e) {
-            throw new NegocioException("Error al registrar el pedido: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar registrar el pedido: " + e.getMessage(), e);
         }
     }
 
@@ -323,7 +330,7 @@ public class FactoryBO {
             PedidoBO pedidoBO = new PedidoBO(FactoryDAO.crearPedidoDAO(), null, null, null);
             return pedidoBO.buscarPorId(idPedido);
         } catch (NegocioException e) {
-            throw new NegocioException("Error al buscar pedido por ID: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar buscar un pedido por ID: " + e.getMessage(), e);
         }
     }
 
@@ -331,7 +338,7 @@ public class FactoryBO {
         try {
             return new CategoriaBO(FactoryDAO.crearCategoriaDAO()).buscarTodas();
         } catch (NegocioException e) {
-            throw new NegocioException(e.getMessage(), e);
+            throw new NegocioException("Error al intentar buscar las categorías: " + e.getMessage(), e);
         }
     }
 
@@ -340,7 +347,7 @@ public class FactoryBO {
             // VALIDACIONES NEGOCIO IF EL CLIENTE SI LO COMPRO ENTONCES PROCEDER
             new ResenaBO(FactoryDAO.crearResenaDAO()).crearResena(dto);
         } catch (NegocioException e) {
-            throw new NegocioException("Error al crear reseña: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar crear la reseña: " + e.getMessage(), e);
         }
     }
 
@@ -349,7 +356,7 @@ public class FactoryBO {
             // VALIDACIONES NEGOCIO IF EL CLIENTE SI LO COMPRO ENTONCES PROCEDER
             new ResenaBO(FactoryDAO.crearResenaDAO()).eliminarResena(idResena);
         } catch (NegocioException e) {
-            throw new NegocioException("Error al crear reseña: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar eliminar la reseña: " + e.getMessage(), e);
         }
     }
 
@@ -357,7 +364,7 @@ public class FactoryBO {
         try {
             new UsuarioBO(FactoryDAO.crearUsuarioDAO()).activarUsuario(email);
         } catch (NegocioException e) {
-            throw new NegocioException(e.getMessage(), e);
+            throw new NegocioException("Error al intentar activar el usuario: " + e.getMessage(), e);
         }
     }
 
@@ -365,7 +372,7 @@ public class FactoryBO {
         try {
             new UsuarioBO(FactoryDAO.crearUsuarioDAO()).desactivarUsuario(email);
         } catch (NegocioException e) {
-            throw new NegocioException(e.getMessage(), e);
+            throw new NegocioException("Error al intentar desactivar el usuario: " + e.getMessage(), e);
         }
     }
 
@@ -373,7 +380,7 @@ public class FactoryBO {
         try {
             new UsuarioBO(FactoryDAO.crearUsuarioDAO()).eliminarUsuario(email);
         } catch (NegocioException e) {
-            throw new NegocioException(e.getMessage(), e);
+            throw new NegocioException("Error al intentar eliminar el usuario: " + e.getMessage(), e);
         }
     }
 
@@ -397,7 +404,7 @@ public class FactoryBO {
             return pedidoBO.buscarPorNombreClienteParcial(nombre);
 
         } catch (NegocioException e) {
-            throw new NegocioException("Error al buscar pedidos por nombre de cliente: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar buscar pedidos por nombre de cliente: " + e.getMessage(), e);
         }
     }
 
@@ -420,7 +427,7 @@ public class FactoryBO {
 
             return videojuegoBO.buscarVideojuegosConFiltros(nombre, precioMin, precioMax, idCategoria, plataforma);
         } catch (NegocioException e) {
-            throw new NegocioException(e.getMessage(), e);
+            throw new NegocioException("Error al intentar filtrar la búsqueda de videojuegos: " + e.getMessage(), e);
         }
     }
 
@@ -428,7 +435,7 @@ public class FactoryBO {
         try {
             new VideojuegoBO(FactoryDAO.crearVideojuegoDAO()).deshabilitarVideojuego(idVideojuego);
         } catch (NegocioException e) {
-            throw new NegocioException("Error al deshabilitar videojuego: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar deshabilitar el videojuego: " + e.getMessage(), e);
         }
     }
 
@@ -441,7 +448,7 @@ public class FactoryBO {
         } catch (NegocioException e) {
             throw e;
         } catch (Exception e) {
-            throw new NegocioException("Error inesperado al obtener items del carrito: " + e.getMessage(), e);
+            throw new NegocioException("Error inesperado al intentar obtener items del carrito: " + e.getMessage(), e);
         }
     }
 

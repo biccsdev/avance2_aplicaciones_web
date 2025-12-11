@@ -103,10 +103,8 @@ public class AuthFilter implements Filter {
     }
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-    }
+    public void init(FilterConfig filterConfig) throws ServletException {}
 
     @Override
-    public void destroy() {
-    }
+    public void destroy() {}
 }

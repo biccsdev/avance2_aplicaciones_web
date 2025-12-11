@@ -43,8 +43,7 @@ public class ItemCarrito implements Serializable {
     @JoinColumn(name = "id_videojuego", nullable = false)
     private Videojuego videojuego;
 
-    public ItemCarrito() {
-    }
+    public ItemCarrito() {}
 
     public ItemCarrito(Carrito carrito, Videojuego videojuego, Integer cantidad) {
         this.carrito = carrito;
@@ -52,37 +51,21 @@ public class ItemCarrito implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public Long getIdItemCarrito() {
-        return idItemCarrito;
-    }
+    public Long getIdItemCarrito() {return idItemCarrito;}
 
-    public void setIdItemCarrito(Long idItemCarrito) {
-        this.idItemCarrito = idItemCarrito;
-    }
+    public void setIdItemCarrito(Long idItemCarrito) {this.idItemCarrito = idItemCarrito;}
 
-    public Integer getCantidad() {
-        return cantidad;
-    }
+    public Integer getCantidad() {return cantidad;}
 
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = cantidad;
-    }
+    public void setCantidad(Integer cantidad) {this.cantidad = cantidad;}
 
-    public Carrito getCarrito() {
-        return carrito;
-    }
+    public Carrito getCarrito() {return carrito;}
 
-    public void setCarrito(Carrito carrito) {
-        this.carrito = carrito;
-    }
+    public void setCarrito(Carrito carrito) {this.carrito = carrito;}
 
-    public Videojuego getVideojuego() {
-        return videojuego;
-    }
+    public Videojuego getVideojuego() {return videojuego;}
 
-    public void setVideojuego(Videojuego videojuego) {
-        this.videojuego = videojuego;
-    }
+    public void setVideojuego(Videojuego videojuego) {this.videojuego = videojuego;}
 
     @Override
     public String toString() {

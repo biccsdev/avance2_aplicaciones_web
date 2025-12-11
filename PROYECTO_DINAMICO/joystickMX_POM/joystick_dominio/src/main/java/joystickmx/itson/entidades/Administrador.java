@@ -6,7 +6,6 @@ import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import java.io.Serializable;
 
-
 /**
  *
  * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
