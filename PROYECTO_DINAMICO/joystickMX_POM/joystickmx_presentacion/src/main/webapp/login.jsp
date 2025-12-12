@@ -42,9 +42,7 @@
                 placeholder="••••••••" required>
             </div>
 
-            <a href="../videojuegos/index.html">
             <button class="btn btn-primary mt-4" type="submit">Ingresar</button>
-            </a>
 
             <p class="text-center text-muted mt-4">
               ¿No tienes cuenta?
