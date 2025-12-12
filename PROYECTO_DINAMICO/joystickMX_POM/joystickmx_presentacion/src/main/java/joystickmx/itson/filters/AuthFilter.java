@@ -36,7 +36,7 @@ public class AuthFilter implements Filter {
     private static final List<String> PUBLIC_RESOURCES = Arrays.asList(
             "/css/",
             "/imgs/",
-            "/js/"
+            "/JavaScript/"
     );
 
     private static final List<String> ADMIN_PATHS = Arrays.asList(
@@ -47,7 +47,8 @@ public class AuthFilter implements Filter {
             "/user/",
             "/carrito",
             "/perfil",
-            "/pedidos"
+            "/pedidos",
+            "/videojuego"
     );
 
     @Override
@@ -86,13 +87,13 @@ public class AuthFilter implements Filter {
         String rol = (String) session.getAttribute("rol");
 
         // Si es admin, puede ver todo
-        if (rol.equals("ADMIN")) {
+        if (rol.toUpperCase().equals("ADMIN")) {
             chain.doFilter(request, response);
             return;
         }
 
         // Si es cliente, revisamos si intenta entrar a /admin/
-        if (rol.equals("CLIENTE") && ADMIN_PATHS.stream().anyMatch(path::startsWith)) {
+        if (rol.toUpperCase().equals("CLIENTE") && ADMIN_PATHS.stream().anyMatch(path::startsWith)) {
             // Es un cliente intentando entrar al panel de admin
             res.sendRedirect(contextPath + "/home"); // Lo mandamos al home
             return;

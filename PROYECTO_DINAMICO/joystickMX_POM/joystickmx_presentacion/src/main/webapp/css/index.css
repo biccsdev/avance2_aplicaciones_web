@@ -88,11 +88,6 @@ header{
     border-radius: 3%;
 }
 
-.videojuego-item:hover{
-    cursor: pointer;
-    
-}
-
 .videojuego{
     display: grid;
     width: 100%;

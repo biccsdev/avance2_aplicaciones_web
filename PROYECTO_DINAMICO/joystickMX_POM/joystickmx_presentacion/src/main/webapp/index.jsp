@@ -91,16 +91,16 @@
                             </c:if>
 
                             <c:forEach var="juego" items="${videojuegos}">
-                                <li class="videojuego-item">
-                                    <div class="videojuego">
-                                        <div class="videojuego-imagen">
-                                            <img class="videojuego-imagen" src="${pageContext.request.contextPath}${juego.getUrlImagen()}" alt="Portada de ${juego.nombre}">
-                                        </div>
-                                        <div class="videojuego-info">
-                                            <h3 class="videojuego-nombre">${String.format("%s (%s)", juego.getNombre(), juego.getPlataforma())}</h3>
-                                            <h2 class="videojuego-precio">$${String.format("%.2f", juego.getPrecio())}</h2>
-                                            <c:choose>
-                                                <c:when test="${sessionScope.rol == 'admin'}">
+                                <c:choose>
+                                    <c:when test="${sessionScope.rol == 'admin'}">
+                                        <li class="videojuego-item">
+                                            <div class="videojuego">
+                                                <div class="videojuego-imagen">
+                                                    <img class="videojuego-imagen" src="${pageContext.request.contextPath}${juego.getUrlImagen()}" alt="Portada de ${juego.nombre}">
+                                                </div>
+                                                <div class="videojuego-info">
+                                                    <h3 class="videojuego-nombre">${String.format("%s (%s)", juego.getNombre(), juego.getPlataforma())}</h3>
+                                                    <h2 class="videojuego-precio">$${String.format("%.2f", juego.getPrecio())}</h2>
                                                     <div class="botones-admin">
                                                         <form action="${pageContext.request.contextPath}/admin/productos/editar" method="get">
                                                             <button type="submit" class="btn-carrito btn-dark btn-admin" name="idVideojuego" value="${juego.getIdVideojuego()}"> Editar </button>
@@ -109,15 +109,32 @@
                                                             <button class="btn-carrito btn-dark btn-admin" name="idVideojuego" value="${juego.getIdVideojuego().toString()}">Reseñas</button>
                                                         </form>
                                                     </div>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <button class="btn-carrito btn-dark">Agregar al carrito</button>
-                                                </c:otherwise>
-                                            </c:choose>
 
-                                        </div>
-                                    </div>
-                                </li>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <li class="videojuego-item">
+                                            <a href="
+                                               <c:url value="/videojuego/detalleVideojuego.jsp">
+                                                   <c:param name="idVideojuego" value="${juego.getIdVideojuego()}"/>
+                                               </c:url>
+                                            ">
+                                                <div class="videojuego">
+                                                    <div class="videojuego-imagen">
+                                                        <img class="videojuego-imagen" src="${pageContext.request.contextPath}${juego.getUrlImagen()}" alt="Portada de ${juego.nombre}">
+                                                    </div>
+                                                    <div class="videojuego-info">
+                                                        <h3 class="videojuego-nombre">${String.format("%s (%s)", juego.getNombre(), juego.getPlataforma())}</h3>
+                                                        <h2 class="videojuego-precio">$${String.format("%.2f", juego.getPrecio())}</h2>
+                                                        <button class="btn-carrito btn-dark">Agregar al carrito</button>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:forEach>
                         </ul>
                     </c:otherwise>

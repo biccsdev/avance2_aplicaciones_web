@@ -49,11 +49,7 @@ public class LoginServlet extends HttpServlet {
             if (categoria == null) {
                 RellenoBD.llenarBD();
             }
-                
-
             
-
-
             request.getRequestDispatcher("/login.jsp").forward(request, response); 
         } catch (NegocioException ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);

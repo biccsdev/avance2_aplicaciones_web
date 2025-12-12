@@ -9,6 +9,7 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import java.util.List;
 import joystickmx.itson.DTO.VideojuegoDTO;
 import joystickmx.itson.Factory.FactoryBO;
@@ -40,7 +41,7 @@ public class VideojuegoResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<VideojuegoDTO> getJson() {
+    public Response getVideojuegos() {
         try {
             List<VideojuegoDTO> videojuegos;
             videojuegos = FactoryBO.buscarVideojuegosActivos();
@@ -50,18 +51,18 @@ public class VideojuegoResource {
                     videojuego.setCategorias(FactoryBO.buscarCategoriaPorVideojuego(videojuego.getIdVideojuego()));
             }
             // Si se requieren reseñas, se consultan por separado.
-            return videojuegos;
+            return Response.ok(videojuegos).build();
         } catch (NegocioException e) {
             // ¿Qué debería devolver realmente?
-            return null;
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
     
     @GET
-    @Path("{id}")
+    @Path("videojuego/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public VideojuegoDTO getUniqueJson(@PathParam("id") String id){
+    public Response getVideojuego(@PathParam("id") String id){
         try {
             Long idVideojuego = Long.valueOf(id);
             VideojuegoDTO videojuego = FactoryBO.buscarVideojuegoPorId(idVideojuego);
@@ -69,10 +70,10 @@ public class VideojuegoResource {
             if(videojuego.getCategorias() == null)
                 videojuego.setCategorias(FactoryBO.buscarCategoriaPorVideojuego(videojuego.getIdVideojuego()));
             // Si se requieren las reseñas del videojuego, se consultan por separado.
-            return videojuego;
+            return Response.ok(videojuego).build();
         } catch (NegocioException | NumberFormatException e) {
             // ¿Qué debería devolver realmente?
-            return null;
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
     

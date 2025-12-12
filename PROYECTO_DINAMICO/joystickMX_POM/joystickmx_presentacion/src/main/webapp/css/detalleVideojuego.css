@@ -1,5 +1,5 @@
-@import url("../global.css");
-@import url("../Header/header.css");
+@import url("./global.css");
+@import url("./header.css");
 @import url("./index.css");
 
 body{
@@ -39,6 +39,7 @@ header{
     grid-row-end: 2;
     grid-column-start: 2;
     grid-column-end: 3;
+    padding: 0% 2%;
 }
 
 .videojuego-info > .videojuego-nombre{
@@ -50,7 +51,7 @@ header{
 .videojuego-info > .videojuego-existencias{
     color: var(--color-white);
     max-width: 100%;
-    font-size: 1.2vw;
+    font-size: 1.4vw;
     font-weight: 300;
     margin: 3% 0% 0% 0%;
 }
@@ -108,14 +109,14 @@ header{
     font-weight: 700;
 }
 
-.reseñas-container{
+.resenas-container{
     width: 70%;
     display: flex;
     flex-direction: column;
     align-self: center;
 }
 
-.titulo-reseñas{
+.titulo-resenas{
     max-width: 100%;
     max-height: 100%;
     color: var(--color-white);
@@ -124,7 +125,7 @@ header{
     margin: 3% 0%;
 }
 
-.videojuego-reseñas{
+.videojuego-resenas{
     width: 100%;
     height: 100%;
     margin: 0% 0% 3% 0%;
@@ -134,7 +135,7 @@ header{
     gap: 1vh;
 }
 
-.videojuego-reseña{
+.videojuego-resena{
     width: 100%;
     max-height: fit-content;
     display: grid;
@@ -142,23 +143,23 @@ header{
     background-color: var(--primary-300);
 }
 
-.reseña{
+.resena{
     max-width: 100%;
     max-height: 100%;
     margin-left: 2%;
 }
 
-.reseña > h3{
+.resena > h3{
     margin: 3% 0%;
     font-size: 1.5vw;
 }
 
-.reseña > h4{
+.resena > h4{
     margin: 0%;
     font-size: 1.2vw;
 }
 
-.reseña > p{
+.resena > p{
     text-align: justify;
     margin: 3% 0%;
     font-size: 1.2vw;
@@ -181,37 +182,60 @@ header{
     max-height: 100%;
 }
 
-@media (max-width: 576px){
+@media (max-width: 768px){
+    
+    .flex-container{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-top: 5%;
+    }
+    
     .videojuego-detalle{
-        width: 90%;
+        width: 80%;
         display: flex;
         flex-direction: column;
     }
-
+    
+    .videojuego-imagen > img{
+        max-width: 90%;
+    }
+    
     .videojuego-precio-carrito{
         width: 100%;
-        height: 5vh;
+        height: fit-content;
         flex-direction: column;
-
+        align-items: start;
+        justify-content: space-evenly;
     }
 
     .btn-carrito{
         display: flex;
         width: 100%;
+        height: 80%;
         justify-content: center;
         font-size: 3vw;
+    }
+    
+    .videojuego-info{
+        display: flex;
+        flex-direction: column;
     }
 
     .videojuego-info > .videojuego-nombre{
         font-size: 4vw;
+        padding: 2% 0%;
     }
 
     .videojuego-info > .videojuego-existencias{
         font-size: 3vw;
+        margin: 0%;
+        padding: 2% 0%;
     }
 
     .videojuego-precio-carrito > .videojuego-precio{
         font-size: 4.5vw;
+        padding: 2% 0%;
     }
 
     .videojuego-descripcion{
@@ -222,20 +246,20 @@ header{
         font-size: 3vw;
     }
 
-    .reseñas-container{
+    .resenas-container{
         width: 90%;
     }
 
-    .reseña > h3{
+    .resena > h3{
         font-size: 3vw;
     }
 
-    .reseña > h4{
+    .resena > h4{
         margin: 0%;
         font-size: 2vw;
     }
 
-    .reseña > p{
+    .resena > p{
         text-align: justify;
         margin: 3% 0%;
         font-size: 2vw;
