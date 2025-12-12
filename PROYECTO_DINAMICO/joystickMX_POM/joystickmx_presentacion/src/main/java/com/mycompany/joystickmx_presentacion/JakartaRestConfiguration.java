@@ -24,6 +24,7 @@ public class JakartaRestConfiguration extends Application {
         final HashSet<Class<?>> classes = new HashSet<>();
         classes.add(VideojuegoResource.class);
         classes.add(ResenasResource.class);
+        classes.add(CarritoResource.class);
         return classes;
     }
     

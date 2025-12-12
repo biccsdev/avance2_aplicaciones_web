@@ -81,7 +81,7 @@
         <c:if test="${isCliente}">
             <div class="user-panel-button">
                 <span class="margin-label">.</span>
-                <a href="${contextPath}/carrito">
+                <a href="${contextPath}/carrito/ver.jsp">
                     <img src="${contextPath}/imgs/carrito.png" alt="Icono de carrito de compras" class="cart-icon">
                 </a>
             </div>

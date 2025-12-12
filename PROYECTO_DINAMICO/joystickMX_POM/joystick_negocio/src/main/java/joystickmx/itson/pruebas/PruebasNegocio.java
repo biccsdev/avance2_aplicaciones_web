@@ -157,7 +157,7 @@ public class PruebasNegocio {
 
             
             
-            PedidoDTO pedidoPersistido = FactoryBO.registrarPedido(FactoryBO.buscarUsuarioPorEmail(cliente1.getEmail()).getIdUsuario(), direccionEnvio, pago1);
+        //    PedidoDTO pedidoPersistido = FactoryBO.registrarPedido(FactoryBO.buscarUsuarioPorEmail(cliente1.getEmail()).getIdUsuario(), direccionEnvio, pago1);
             
             
             

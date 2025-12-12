@@ -36,14 +36,16 @@
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>joystickmx.itson.servlets.LoginServlet</servlet-class>
     </servlet>
+    
+    
     <!-- Configuración para mapear api como servlet -->
-    <servlet>
+  <!--  <servlet>
         <servlet-name>JerseyServlet</servlet-name>
         <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
         <init-param>
-        <param-name>jakarta.ws.rs.Application</param-name>
+        <param-name>jakarta.ws.rs.Application</param-name> -->
         <!-- Probablemente haya puesto la dirección mal (!!!) -->
-        <param-value>com.mycompany.joystickmx_presentacion.api.JakartaRestConfiguration</param-value>
+       <!-- <param-value>com.mycompany.joystickmx_presentacion.api.JakartaRestConfiguration</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -51,7 +53,7 @@
     <servlet-mapping>
         <servlet-name>JerseyServlet</servlet-name>
         <url-pattern>/api/*</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
     
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
