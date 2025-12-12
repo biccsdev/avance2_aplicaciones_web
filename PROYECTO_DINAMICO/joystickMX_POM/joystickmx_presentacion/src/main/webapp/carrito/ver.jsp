@@ -52,11 +52,9 @@
                     </h2>
                     <p class="resumen-texto">*Se pueden aplicar tarifas extras</p>
                     
-                    <a href="${pageContext.request.contextPath}/carrito/pago.jsp">
-                        <button class="btn-pago">Proceder al pago</button>
-                    </a>
+                    <button class="btn-pago" id="btn-pago" onclick="irAPago()">Proceder al pago</button>
                     
-                    <button class="btn-vaciar" onclick="vaciarCarritoCompleto()">Vaciar Carrito</button>
+                    <button class="btn-vaciar" id = "btn-vaciar" onclick="vaciarCarritoCompleto()">Vaciar Carrito</button>
                 </aside>
             </div>
         </main>

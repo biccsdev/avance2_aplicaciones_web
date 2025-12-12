@@ -2,16 +2,35 @@
 
 .main {
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: space-between; 
     align-items: flex-start;
     gap: 30px;
     padding: 40px 20px;
     width: 100%;
     box-sizing: border-box;
+    flex-wrap: nowrap;
 }
 
 .resumen-carrito {
     flex-shrink: 0;
+}
+
+.oculto {
+    display: none !important;
+}
+
+.detalles-item-carrito {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #000000;
+}
+
+.detalles-item-carrito span:last-child {
+    font-weight: bold;
+    color: #333333;
 }
 
 .detalles {

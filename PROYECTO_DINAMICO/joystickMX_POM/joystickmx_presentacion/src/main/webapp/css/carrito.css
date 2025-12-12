@@ -218,6 +218,13 @@
     background-color: var(--primary-600);
 }
 
+.btn-disabled {
+    opacity: 0.4;            
+    pointer-events: none;      
+    cursor: default !important;
+    filter: grayscale(100%);  
+}
+
 a {
     text-decoration: none;
     color: inherit;

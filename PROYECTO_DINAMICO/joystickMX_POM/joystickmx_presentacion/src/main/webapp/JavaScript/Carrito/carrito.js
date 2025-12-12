@@ -1,15 +1,15 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
     if (!ID_USUARIO_ACTUAL || ID_USUARIO_ACTUAL === "") {
-        console.error("No se encontró ID de usuario en la sesión.");
-        document.getElementById('lista-productos').innerHTML = '<p>Por favor inicia sesión nuevamente.</p>';
+        console.error("No se encontro ID de usuario en la sesión.");
+        document.getElementById("lista-productos").innerHTML = "<p>Por favor inicia sesión nuevamente.</p>";
         return;
     }
     cargarCarrito();
 });
 
 async function cargarCarrito() {
-    const listaProductosContainer = document.getElementById('lista-productos');
-    const lblSubtotal = document.getElementById('lbl-subtotal');
+    const listaProductosContainer = document.getElementById("lista-productos");
+    const lblSubtotal = document.getElementById("lbl-subtotal");
 
     try {
         const urlApi = `${CONTEXT_PATH}/resources/carrito/usuario/${ID_USUARIO_ACTUAL}`;
@@ -17,8 +17,9 @@ async function cargarCarrito() {
 
         if (!response.ok) {
             if (response.status === 404) {
-                listaProductosContainer.innerHTML = '<p>No tienes productos en el carrito.</p>';
-                lblSubtotal.innerText = '$0.00';
+                listaProductosContainer.innerHTML = "<p>No tienes productos en el carrito.</p>";
+                lblSubtotal.innerText = "$0.00";
+                actualizarEstadoBotones(true);
                 return;
             }
             throw new Error(`Error ${response.status}: ${response.statusText}`);
@@ -27,14 +28,16 @@ async function cargarCarrito() {
         const carrito = await response.json();
         const items = carrito.items || [];
 
-        listaProductosContainer.innerHTML = '';
+        listaProductosContainer.innerHTML = "";
         let subtotal = 0;
 
         if (items.length === 0) {
-            listaProductosContainer.innerHTML = '<p>Tu carrito está vacío.</p>';
-            lblSubtotal.innerText = '$0.00';
+            listaProductosContainer.innerHTML = "<p>Tu carrito esta vacio.</p>";
+            lblSubtotal.innerText = "$0.00";
+            actualizarEstadoBotones(true);
             return;
         }
+        
 
         items.forEach(item => {
             const videojuego = item.videojuego || {};
@@ -42,7 +45,7 @@ async function cargarCarrito() {
             const precioJuego = videojuego.precio || 0;
             const plataforma = videojuego.plataforma || "";
             const urlImagen = videojuego.urlImagen ?
-                    (videojuego.urlImagen.startsWith('http') ? videojuego.urlImagen : `${CONTEXT_PATH}/${videojuego.urlImagen}`)
+                    (videojuego.urlImagen.startsWith("http") ? videojuego.urlImagen : `${CONTEXT_PATH}/${videojuego.urlImagen}`)
                     : `${CONTEXT_PATH}/imgs/iconoImagen.png`;
 
             const precioItem = precioJuego * item.cantidad;
@@ -54,7 +57,7 @@ async function cargarCarrito() {
                         <img class="producto-img" 
                              src="${urlImagen}" 
                              alt="${nombreJuego}"
-                             onerror="this.src='${CONTEXT_PATH}/imgs/iconoImagen.png'"> 
+                             onerror="this.src="${CONTEXT_PATH}/imgs/iconoImagen.png""> 
                              
                         <div class="producto-meta">
                             <h2 class="producto-nombre">${nombreJuego} - ${plataforma}</h2>
@@ -72,25 +75,26 @@ async function cargarCarrito() {
                 </article>
             `;
 
-            listaProductosContainer.insertAdjacentHTML('beforeend', htmlProducto);
+            listaProductosContainer.insertAdjacentHTML("beforeend", htmlProducto);
         });
 
-        lblSubtotal.innerText = `$${subtotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        lblSubtotal.innerText = `$${subtotal.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        actualizarEstadoBotones(false);
 
     } catch (error) {
-        console.error('Error detallado:', error);
-        listaProductosContainer.innerHTML = '<p>Hubo un error al cargar tu carrito.</p>';
+        console.error("Error detallado:", error);
+        listaProductosContainer.innerHTML = "<p>Hubo un error al cargar tu carrito.</p>";
     }
 }
 
 //funciones para los botones del carrito
 
 async function eliminarItem(idItem) {
-    if (!confirm("¿Estás seguro de eliminar este producto?")) return;
+    if (!confirm("¿Estas seguro de eliminar este producto?")) return;
 
     try {
         const urlApi = `${CONTEXT_PATH}/resources/carrito/item/${idItem}`;
-        const response = await fetch(urlApi, { method: 'DELETE' });
+        const response = await fetch(urlApi, { method: "DELETE" });
 
         if (response.ok) {
             cargarCarrito(); 
@@ -111,7 +115,7 @@ async function actualizarCantidad(idItem, nuevaCantidad) {
 
     try {
         const urlApi = `${CONTEXT_PATH}/resources/carrito/item/${idItem}?cantidad=${nuevaCantidad}`;
-        const response = await fetch(urlApi, { method: 'PUT' });
+        const response = await fetch(urlApi, { method: "PUT" });
 
         if (response.ok) {
             cargarCarrito(); 
@@ -125,7 +129,7 @@ async function actualizarCantidad(idItem, nuevaCantidad) {
 }
 
 async function vaciarCarritoCompleto() {
-    if (!confirm("¿Estás seguro de que quieres eliminar TODOS los productos del carrito?")) {
+    if (!confirm("¿Estas seguro de que quieres eliminar TODOS los productos del carrito?")) {
         return;
     }
 
@@ -133,7 +137,7 @@ async function vaciarCarritoCompleto() {
         const urlApi = `${CONTEXT_PATH}/resources/carrito/usuario/${ID_USUARIO_ACTUAL}/vaciar`;
         
         const response = await fetch(urlApi, {
-            method: 'DELETE'
+            method: "DELETE"
         });
 
         if (response.ok) {
@@ -147,4 +151,29 @@ async function vaciarCarritoCompleto() {
         console.error("Error al vaciar carrito:", error);
         alert("Ocurrió un error de conexión.");
     }
+}
+
+function actualizarEstadoBotones(carritoVacio) {
+    const botones = [
+        document.getElementById("btn-vaciar"),
+        document.getElementById("btn-pago")
+    ];
+
+    botones.forEach(btn => {
+        if (!btn) return;
+        if (carritoVacio) {
+            btn.classList.add("btn-disabled");
+            btn.disabled = true;
+        } else {
+            btn.classList.remove("btn-disabled");
+            btn.disabled = false;
+        }
+    });
+}
+
+function irAPago() {
+    const btn = document.getElementById("btn-pago");
+    if (btn.disabled) return;
+
+    window.location.href = `${CONTEXT_PATH}/carrito/pago.jsp`;
 }
