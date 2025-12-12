@@ -20,4 +20,6 @@ public interface IDireccionDAO {
     Direccion buscarPorId(Long idDireccion) throws PersistenciaException;
 
     void eliminarDireccion(Long idDireccion) throws PersistenciaException;
+    
+    public Direccion buscarPorEmailUsuario(String email) throws PersistenciaException;
 }

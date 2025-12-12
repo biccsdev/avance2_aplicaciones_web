@@ -1,5 +1,7 @@
 package joystickmx.itson.DAOS;
 
+import jakarta.persistence.NoResultException;
+import jakarta.persistence.TypedQuery;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.entidades.Direccion;
 import joystickmx.itson.interfaces.IDireccionDAO;
@@ -77,4 +79,27 @@ public class DireccionDAO extends BaseDAO implements IDireccionDAO {
             if (em.isOpen()){ em.close(); }
         }
     }
+    
+    @Override
+    public Direccion buscarPorEmailUsuario(String email) throws PersistenciaException {
+        iniciarConexion();
+        try {
+            String jpql = "SELECT u.direccion FROM Usuario u WHERE u.email = :email";
+            TypedQuery<Direccion> query = em.createQuery(jpql, Direccion.class);
+            query.setParameter("email", email);
+            
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null; 
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al buscar Direccion mediante Usuario: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+    
+    
+    
 }

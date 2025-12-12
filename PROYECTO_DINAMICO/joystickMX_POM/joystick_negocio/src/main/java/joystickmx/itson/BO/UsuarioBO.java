@@ -1,6 +1,7 @@
 package joystickmx.itson.BO;
 
 import joystickmx.itson.BO.Utils.PasswordUtil;
+import joystickmx.itson.DAOS.DireccionDAO;
 import joystickmx.itson.DTO.DireccionDTO;
 import joystickmx.itson.DTO.UsuarioDTO;
 import joystickmx.itson.DTO.UsuarioRegistroDTO;
@@ -162,4 +163,26 @@ public class UsuarioBO implements IUsuarioBO {
             throw new NegocioException("Error al validar credenciales: " + e.getMessage(), e);
         }
     }
+
+    @Override
+    public DireccionDTO obtenerDireccionPorUsuario(String email) throws NegocioException {
+        try {
+            if (email == null || email.trim().isEmpty()) {
+                throw new NegocioException("El Email de usuario es obligatorio");
+            }
+
+            DireccionDAO direccionDAO = new DireccionDAO();
+            Direccion direccionEntidad = direccionDAO.buscarPorEmailUsuario(email);
+
+            if (direccionEntidad == null) {
+                return null; 
+            }
+
+            return Mapeadores.toDireccionDTO(direccionEntidad);
+
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error en Negocio al recuperar la direccion  : " + e.getMessage(), e);
+        }
+    }
+
 }

@@ -475,5 +475,17 @@ public class FactoryBO {
             throw new NegocioException(e.getMessage());
         }
     }
+    
+    
+    
+    public static DireccionDTO obtenerDireccionUsuario(String email) throws NegocioException {
+        try {
+            
+            return new UsuarioBO(FactoryDAO.crearUsuarioDAO()).obtenerDireccionPorUsuario(email);
+            
+        } catch (NegocioException e) {
+            throw new NegocioException("Error al intentar obtener direccion de usuario: " + e.getMessage(), e);
+        }
+    }
 
 }

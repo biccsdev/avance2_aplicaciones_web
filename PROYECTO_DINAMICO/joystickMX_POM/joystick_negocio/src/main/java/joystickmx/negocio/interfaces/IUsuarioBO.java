@@ -51,4 +51,6 @@ public interface IUsuarioBO {
      * incorrecta o el usuario está inactivo.
      */
     public UsuarioDTO validarCredenciales(String email, String passwordPlano) throws NegocioException;
+    
+    public DireccionDTO obtenerDireccionPorUsuario(String email) throws NegocioException;
 }
