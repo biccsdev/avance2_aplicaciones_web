@@ -45,7 +45,6 @@ public class CarritoResource {
     }
 
     //actualizar y eliminar items del carrito
-
     @PUT
     @Path("item/{idItem}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -73,7 +72,7 @@ public class CarritoResource {
                     .build();
         }
     }
-    
+
     @DELETE
     @Path("usuario/{idUsuario}/vaciar")
     @Produces(MediaType.APPLICATION_JSON)
@@ -96,4 +95,25 @@ public class CarritoResource {
                     .build();
         }
     }
+
+    @GET
+    @Path("usuario/{idUsuario}/validar-stock")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response validarStock(@PathParam("idUsuario") Long idUsuario) {
+        try {
+            List<String> errores = FactoryBO.validarExistenciasVideojuego(idUsuario);
+
+            if (errores.isEmpty()) {
+                return Response.ok("{\"valido\": true}").build();
+            } else {
+                return Response.ok(errores).build();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.serverError()
+                    .entity("{\"error\": \"Error al validar stock: " + e.getMessage() + "\"}")
+                    .build();
+        }
+    }
+
 }

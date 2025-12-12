@@ -113,7 +113,7 @@ public class FactoryBO {
             throw new NegocioException("Error al intentar buscar el videojuego: " + e.getMessage(), e);
         }
     }
-    
+
     // Esta debería devolver una lista, ya que hay muchos videojuegos con el mismo nombre (corrección sugerida desde DAO)
     public static VideojuegoDTO buscarVideojuegoPorNombeExacto(String nombre) throws NegocioException {
         try {
@@ -130,8 +130,8 @@ public class FactoryBO {
             throw new NegocioException("Error al intentar buscar la categoria: " + e.getMessage(), e);
         }
     }
-    
-    public static List<CategoriaDTO> buscarCategoriaPorVideojuego(Long idVideojuego) throws NegocioException{
+
+    public static List<CategoriaDTO> buscarCategoriaPorVideojuego(Long idVideojuego) throws NegocioException {
         try {
             return new CategoriaBO(FactoryDAO.crearCategoriaDAO()).buscarPorVideojuego(idVideojuego);
         } catch (NegocioException e) {
@@ -451,7 +451,7 @@ public class FactoryBO {
             throw new NegocioException("Error inesperado al intentar obtener items del carrito: " + e.getMessage(), e);
         }
     }
-    
+
     public static void actualizarCantidadItem(Long idItemCarrito, Integer cantidad) throws NegocioException {
         try {
             new CarritoBO(FactoryDAO.crearCarritoDAO()).actualizarCantidadItem(idItemCarrito, cantidad);
@@ -467,7 +467,7 @@ public class FactoryBO {
             throw new NegocioException(e.getMessage());
         }
     }
-    
+
     public static void vaciarCarrito(Long idCarrito) throws NegocioException {
         try {
             new CarritoBO(FactoryDAO.crearCarritoDAO()).vaciarCarrito(idCarrito);
@@ -475,16 +475,25 @@ public class FactoryBO {
             throw new NegocioException(e.getMessage());
         }
     }
-    
-    
-    
+
     public static DireccionDTO obtenerDireccionUsuario(String email) throws NegocioException {
         try {
-            
+
             return new UsuarioBO(FactoryDAO.crearUsuarioDAO()).obtenerDireccionPorUsuario(email);
-            
+
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar obtener direccion de usuario: " + e.getMessage(), e);
+        }
+    }
+
+    public static List<String> validarExistenciasVideojuego(Long idUsuario) throws NegocioException {
+        try {
+            CarritoBO carritoBO = new CarritoBO(
+                    FactoryDAO.crearCarritoDAO()
+            );
+            return carritoBO.validarExistenciasVideojuego(idUsuario);
+        } catch (NegocioException e) {
+            throw new NegocioException("Error en Factory al validar existencias: " + e.getMessage(), e);
         }
     }
 

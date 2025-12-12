@@ -24,10 +24,15 @@ public class VideojuegoDAO extends BaseDAO implements IVideojuegoDAO {
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
+                try {
+                em.getTransaction().rollback();
+            } catch (Exception ignored) {
+            }
             throw new PersistenciaException("Error al persistir el videojuego: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -41,10 +46,15 @@ public class VideojuegoDAO extends BaseDAO implements IVideojuegoDAO {
             return videojuegoActualizado;
         } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
+                try {
+                em.getTransaction().rollback();
+            } catch (Exception ignored) {
+            }
             throw new PersistenciaException("Error al actualizar el videojuego: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -61,10 +71,15 @@ public class VideojuegoDAO extends BaseDAO implements IVideojuegoDAO {
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
+                try {
+                em.getTransaction().rollback();
+            } catch (Exception ignored) {
+            }
             throw new PersistenciaException("Error al cambiar estado del videojuego: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -89,7 +104,9 @@ public class VideojuegoDAO extends BaseDAO implements IVideojuegoDAO {
         } catch (Exception e) {
             throw new PersistenciaException("Error al buscar todos los videojuegos: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -104,7 +121,9 @@ public class VideojuegoDAO extends BaseDAO implements IVideojuegoDAO {
         } catch (Exception e) {
             throw new PersistenciaException("Error al buscar videojuegos activos: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -122,7 +141,9 @@ public class VideojuegoDAO extends BaseDAO implements IVideojuegoDAO {
         } catch (Exception e) {
             throw new PersistenciaException("Error al buscar por rango de precio: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -139,7 +160,9 @@ public class VideojuegoDAO extends BaseDAO implements IVideojuegoDAO {
         } catch (Exception e) {
             throw new PersistenciaException("Error al buscar por categoría: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -156,7 +179,9 @@ public class VideojuegoDAO extends BaseDAO implements IVideojuegoDAO {
         } catch (Exception e) {
             throw new PersistenciaException("Error al buscar por nombre: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -172,7 +197,11 @@ public class VideojuegoDAO extends BaseDAO implements IVideojuegoDAO {
             return query.getSingleResult();
         } catch (Exception e) {
             throw new PersistenciaException("Error al buscar por nombre: " + e.getMessage());
-        } finally { if (em.isOpen()) { em.close(); } }
+        } finally {
+            if (em.isOpen()) {
+                em.close();
+            }
+        }
     }
 
     @Override
@@ -183,7 +212,9 @@ public class VideojuegoDAO extends BaseDAO implements IVideojuegoDAO {
         } catch (Exception e) {
             throw new PersistenciaException("Error al buscar videojuego por ID: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -252,7 +283,26 @@ public class VideojuegoDAO extends BaseDAO implements IVideojuegoDAO {
         } catch (Exception e) {
             throw new PersistenciaException("Error al buscar videojuegos con filtros: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
+
+    @Override
+    public Videojuego obtenerParaValidacion(Long idVideojuego) throws PersistenciaException {
+        iniciarConexion();
+        try {
+            Videojuego videojuego = em.find(Videojuego.class, idVideojuego);
+            em.refresh(videojuego);
+            return videojuego;
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al obtener videojuego para validación: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) {
+                em.close();
+            }
+        }
+    }
+
 }

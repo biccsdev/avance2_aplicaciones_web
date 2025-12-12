@@ -37,7 +37,7 @@ async function cargarCarrito() {
             actualizarEstadoBotones(true);
             return;
         }
-        
+
 
         items.forEach(item => {
             const videojuego = item.videojuego || {};
@@ -78,7 +78,7 @@ async function cargarCarrito() {
             listaProductosContainer.insertAdjacentHTML("beforeend", htmlProducto);
         });
 
-        lblSubtotal.innerText = `$${subtotal.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        lblSubtotal.innerText = `$${subtotal.toLocaleString("en-US", {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
         actualizarEstadoBotones(false);
 
     } catch (error) {
@@ -90,14 +90,15 @@ async function cargarCarrito() {
 //funciones para los botones del carrito
 
 async function eliminarItem(idItem) {
-    if (!confirm("¿Estas seguro de eliminar este producto?")) return;
+    if (!confirm("¿Estas seguro de eliminar este producto?"))
+        return;
 
     try {
         const urlApi = `${CONTEXT_PATH}/resources/carrito/item/${idItem}`;
-        const response = await fetch(urlApi, { method: "DELETE" });
+        const response = await fetch(urlApi, {method: "DELETE"});
 
         if (response.ok) {
-            cargarCarrito(); 
+            cargarCarrito();
         } else {
             alert("No se pudo eliminar el producto. Intenta nuevamente.");
         }
@@ -115,10 +116,10 @@ async function actualizarCantidad(idItem, nuevaCantidad) {
 
     try {
         const urlApi = `${CONTEXT_PATH}/resources/carrito/item/${idItem}?cantidad=${nuevaCantidad}`;
-        const response = await fetch(urlApi, { method: "PUT" });
+        const response = await fetch(urlApi, {method: "PUT"});
 
         if (response.ok) {
-            cargarCarrito(); 
+            cargarCarrito();
         } else {
             const data = await response.json().catch(() => ({}));
             alert("Error: " + (data.error || "No se pudo actualizar la cantidad."));
@@ -135,7 +136,7 @@ async function vaciarCarritoCompleto() {
 
     try {
         const urlApi = `${CONTEXT_PATH}/resources/carrito/usuario/${ID_USUARIO_ACTUAL}/vaciar`;
-        
+
         const response = await fetch(urlApi, {
             method: "DELETE"
         });
@@ -160,7 +161,8 @@ function actualizarEstadoBotones(carritoVacio) {
     ];
 
     botones.forEach(btn => {
-        if (!btn) return;
+        if (!btn)
+            return;
         if (carritoVacio) {
             btn.classList.add("btn-disabled");
             btn.disabled = true;
@@ -171,9 +173,42 @@ function actualizarEstadoBotones(carritoVacio) {
     });
 }
 
-function irAPago() {
+async function irAPago() {
     const btn = document.getElementById("btn-pago");
-    if (btn.disabled) return;
+    if (btn.disabled)
+        return;
 
-    window.location.href = `${CONTEXT_PATH}/carrito/pago.jsp`;
+    const textoOriginal = btn.innerText;
+
+    try {
+        btn.disabled = true;
+        btn.innerText = "Verificando...";
+
+        const urlValidacion = `${CONTEXT_PATH}/resources/carrito/usuario/${ID_USUARIO_ACTUAL}/validar-stock`;
+        const response = await fetch(urlValidacion);
+
+        if (!response.ok)
+            throw new Error("Error en la validación de stock");
+
+        const resultado = await response.json();
+
+        if (Array.isArray(resultado) && resultado.length > 0) {
+            let mensajeAlerta = "️ NO SE PUEDE CONTINUAR️\n\nAlgunos productos superan las existencias disponibles:\n\n";
+            mensajeAlerta += resultado.join("\n\n");
+            mensajeAlerta += "\n\nPor favor, reduce la cantidad de estos productos antes de continuar.";
+
+            alert(mensajeAlerta);
+
+            return;
+        }
+
+        window.location.href = `${CONTEXT_PATH}/carrito/pago.jsp`;
+
+    } catch (error) {
+        console.error("Error validando stock:", error);
+        alert("Ocurrió un error al verificar las existencias. Intente nuevamente.");
+    } finally {
+        btn.disabled = false;
+        btn.innerText = textoOriginal;
+    }
 }

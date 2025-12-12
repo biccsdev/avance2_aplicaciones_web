@@ -1,6 +1,9 @@
 package joystickmx.itson.BO;
 
+import java.util.ArrayList;
 import java.util.List;
+import joystickmx.itson.DAOS.ClienteDAO;
+import joystickmx.itson.DAOS.VideojuegoDAO;
 import joystickmx.itson.DTO.CarritoDTO;
 import joystickmx.itson.DTO.ItemCarritoDTO;
 import joystickmx.itson.Excepciones.PersistenciaException;
@@ -9,6 +12,7 @@ import joystickmx.itson.Mappers.Mapeadores;
 import joystickmx.itson.entidades.Carrito;
 import joystickmx.itson.entidades.Cliente;
 import joystickmx.itson.entidades.ItemCarrito;
+import joystickmx.itson.entidades.Videojuego;
 import joystickmx.itson.interfaces.ICarritoDAO;
 import joystickmx.negocio.exception.NegocioException;
 import joystickmx.negocio.interfaces.ICarritoBO;
@@ -129,7 +133,7 @@ public class CarritoBO implements ICarritoBO {
             throw new NegocioException("Error al recuperar los items del carrito: " + e.getMessage(), e);
         }
     }
-    
+
     @Override
     public void actualizarCantidadItem(Long idItemCarrito, Integer cantidad) throws NegocioException {
         try {
@@ -142,5 +146,50 @@ public class CarritoBO implements ICarritoBO {
         }
     }
 
+    @Override
+    public List<String> validarExistenciasVideojuego(Long idCliente) throws NegocioException {
+        List<String> errores = new ArrayList<>();
+
+        try {
+            ClienteDAO clienteDAO = new ClienteDAO();
+            VideojuegoDAO videojuegoDAO = new VideojuegoDAO();
+            Cliente cliente = clienteDAO.buscarPorId(idCliente);
+            if (cliente == null) {
+                throw new NegocioException("Cliente no encontrado");
+            }
+
+            Carrito carrito = carritoDAO.buscarPorCliente(cliente);
+            if (carrito == null || carrito.getItems().isEmpty()) {
+                errores.add("El carrito está vacío.");
+                return errores;
+            }
+
+            for (ItemCarrito item : carrito.getItems()) {
+                Videojuego videojuegoReal = videojuegoDAO.obtenerParaValidacion(item.getVideojuego().getIdVideojuego());
+
+                if (videojuegoReal != null) {
+                    int cantidadSolicitada = item.getCantidad();
+                    int stockDisponible = videojuegoReal.getExistencias();
+
+                    if (cantidadSolicitada > stockDisponible) {
+                        String mensaje = String.format(
+                                "No hay existencias suficientes para el videojuego: %s. Seleccionadas: %d, Disponibles: %d",
+                                videojuegoReal.getNombre(),
+                                cantidadSolicitada,
+                                stockDisponible
+                        );
+                        errores.add(mensaje);
+                    }
+                } else {
+                    errores.add("El videojuego con ID " + item.getVideojuego().getIdVideojuego() + " ya no existe.");
+                }
+            }
+
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al validar existencias: " + e.getMessage(), e);
+        }
+
+        return errores;
+    }
 
 }

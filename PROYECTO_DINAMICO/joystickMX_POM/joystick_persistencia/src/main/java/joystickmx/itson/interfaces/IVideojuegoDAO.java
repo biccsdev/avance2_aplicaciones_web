@@ -42,4 +42,9 @@ public interface IVideojuegoDAO {
             Long idCategoria, 
             String plataforma
     ) throws PersistenciaException;
+    
+    
+    public Videojuego obtenerParaValidacion(Long idVideojuego) throws PersistenciaException;
+    
+    
 }

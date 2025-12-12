@@ -29,7 +29,7 @@ async function cargarResumenPago() {
     const lblSubtotal = document.getElementById("lbl-subtotal");
     const lblTotal = document.getElementById("lbl-total-final");
     const lblCantidad = document.getElementById("lbl-cantidad-productos");
-    const btnConfirmar = document.getElementById("btn-confirmar-pedido"); 
+    const btnConfirmar = document.getElementById("btn-confirmar-pedido");
     const COSTO_ENVIO = 100.00;
 
     try {
@@ -92,7 +92,7 @@ async function cargarResumenPago() {
     }
 }
 
-function procesarPago() {
+async function procesarPago() {
     const metodo = document.querySelector("input[name='metodoPago']:checked")?.value;
 
     if (!metodo) {
@@ -123,15 +123,54 @@ function procesarPago() {
             return;
         }
 
-        const datosTarjeta = {numero: numero.slice(-4), nombre: nombre};
-        sessionStorage.setItem("datosPagoDetalle", JSON.stringify(datosTarjeta));
+        // DUMMY
+        sessionStorage.setItem("datosPagoDetalle", JSON.stringify({numero: numero.slice(-4), nombre: nombre}));
     } else {
         sessionStorage.removeItem("datosPagoDetalle");
     }
 
+    const btnConfirmar = document.getElementById("btn-confirmar-pedido");
+    try {
+        if (btnConfirmar)
+            btnConfirmar.disabled = true;
+
+        const urlValidacion = `${CONTEXT_PATH}/resources/carrito/usuario/${ID_USUARIO_ACTUAL}/validar-stock`;
+        const response = await fetch(urlValidacion);
+
+        if (!response.ok)
+            throw new Error("Error en la validación de stock");
+
+        const resultado = await response.json();
+
+        if (Array.isArray(resultado) && resultado.length > 0) {
+            let mensajeAlerta = "NO SE PUEDE CONTINUAR ️\n\nAlgunos productos superan las existencias disponibles:\n\n";
+
+            mensajeAlerta += resultado.join("\n\n");
+            mensajeAlerta += "\n\nPor favor, ajusta las cantidades en tu carrito.";
+
+            alert(mensajeAlerta);
+
+            window.location.href = `${CONTEXT_PATH}/carrito/ver.jsp`;
+
+            return;
+        }
+
+    } catch (error) {
+        console.error("Error validando stock:", error);
+        alert("Ocurrió un error al verificar las existencias. Intente nuevamente.");
+        return;
+    } finally {
+        if (btnConfirmar)
+            btnConfirmar.disabled = false;
+    }
+
+
     sessionStorage.setItem("metodoPagoSeleccionado", metodo);
 
-    window.location.href = `${CONTEXT_PATH}/carrito/confirmacion.jsp`;
+    const totalTexto = document.getElementById('lbl-total-final').innerText;
+    if (confirm(`¿Confirmar pedido por ${totalTexto}?`)) {
+        window.location.href = `${CONTEXT_PATH}/carrito/confirmacion.jsp`;
+    }
 }
 
 // Valida formato 16 dígitos
