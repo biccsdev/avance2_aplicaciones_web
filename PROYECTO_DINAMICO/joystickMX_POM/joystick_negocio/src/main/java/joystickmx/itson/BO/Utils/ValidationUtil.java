@@ -203,6 +203,8 @@ public class ValidationUtil {
                 !estadoPago.toUpperCase().equals(EstadoPago.CONFIRMADO.toString())
                                                 ||
                 !estadoPago.toUpperCase().equals(EstadoPago.RECHAZADO.toString())
+                ||
+                !estadoPago.toUpperCase().equals(EstadoPago.PENDIENTE.toString())
         )
             throw new NegocioException("El estado del pago no es válido.");
     }
