@@ -231,4 +231,25 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
             }
         }
     }
+    
+    @Override
+    public void actualizarCantidadItem(Long idItemCarrito, Integer nuevaCantidad) throws PersistenciaException {
+        iniciarConexion();
+        try {
+            em.getTransaction().begin();
+            ItemCarrito item = em.find(ItemCarrito.class, idItemCarrito);
+            if (item == null) {
+                throw new PersistenciaException("El item no existe.");
+            }
+            item.setCantidad(nuevaCantidad);
+            em.merge(item);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) 
+                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
+            throw new PersistenciaException("Error al actualizar cantidad: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) { em.close(); }
+        }
+    }
 }

@@ -451,5 +451,29 @@ public class FactoryBO {
             throw new NegocioException("Error inesperado al intentar obtener items del carrito: " + e.getMessage(), e);
         }
     }
+    
+    public static void actualizarCantidadItem(Long idItemCarrito, Integer cantidad) throws NegocioException {
+        try {
+            new CarritoBO(FactoryDAO.crearCarritoDAO()).actualizarCantidadItem(idItemCarrito, cantidad);
+        } catch (NegocioException e) {
+            throw new NegocioException(e.getMessage());
+        }
+    }
+
+    public static void eliminarItemCarrito(Long idItemCarrito) throws NegocioException {
+        try {
+            new CarritoBO(FactoryDAO.crearCarritoDAO()).eliminarItem(idItemCarrito);
+        } catch (NegocioException e) {
+            throw new NegocioException(e.getMessage());
+        }
+    }
+    
+    public static void vaciarCarrito(Long idCarrito) throws NegocioException {
+        try {
+            new CarritoBO(FactoryDAO.crearCarritoDAO()).vaciarCarrito(idCarrito);
+        } catch (NegocioException e) {
+            throw new NegocioException(e.getMessage());
+        }
+    }
 
 }

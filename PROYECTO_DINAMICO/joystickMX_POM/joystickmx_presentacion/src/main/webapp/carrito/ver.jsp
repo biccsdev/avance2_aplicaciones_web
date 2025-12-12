@@ -51,9 +51,12 @@
                         <span class="resumen-subtotal" id="lbl-subtotal">$0.00</span>
                     </h2>
                     <p class="resumen-texto">*Se pueden aplicar tarifas extras</p>
+                    
                     <a href="${pageContext.request.contextPath}/carrito/pago.jsp">
                         <button class="btn-pago">Proceder al pago</button>
                     </a>
+                    
+                    <button class="btn-vaciar" onclick="vaciarCarritoCompleto()">Vaciar Carrito</button>
                 </aside>
             </div>
         </main>

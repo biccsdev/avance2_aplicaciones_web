@@ -129,5 +129,18 @@ public class CarritoBO implements ICarritoBO {
             throw new NegocioException("Error al recuperar los items del carrito: " + e.getMessage(), e);
         }
     }
+    
+    @Override
+    public void actualizarCantidadItem(Long idItemCarrito, Integer cantidad) throws NegocioException {
+        try {
+            if (cantidad <= 0) {
+                throw new NegocioException("La cantidad debe ser mayor a 0.");
+            }
+            this.carritoDAO.actualizarCantidadItem(idItemCarrito, cantidad);
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al actualizar la cantidad del item: " + e.getMessage(), e);
+        }
+    }
+
 
 }

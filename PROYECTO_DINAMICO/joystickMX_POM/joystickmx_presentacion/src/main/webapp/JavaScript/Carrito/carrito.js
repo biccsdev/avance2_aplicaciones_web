@@ -13,9 +13,6 @@ async function cargarCarrito() {
 
     try {
         const urlApi = `${CONTEXT_PATH}/resources/carrito/usuario/${ID_USUARIO_ACTUAL}`;
-
-        console.log("Consultando API:", urlApi);
-
         const response = await fetch(urlApi);
 
         if (!response.ok) {
@@ -31,7 +28,6 @@ async function cargarCarrito() {
         const items = carrito.items || [];
 
         listaProductosContainer.innerHTML = '';
-
         let subtotal = 0;
 
         if (items.length === 0) {
@@ -64,9 +60,9 @@ async function cargarCarrito() {
                             <h2 class="producto-nombre">${nombreJuego} - ${plataforma}</h2>
                             
                             <div class="producto-cantidad">
-                                <button class="btn-menos" onclick="actualizarCantidad(${item.idItemCarrito}, -1)">-</button>
+                                <button class="btn-menos" onclick="actualizarCantidad(${item.idItemCarrito}, ${item.cantidad - 1})">-</button>
                                 <span class="qty-num">${item.cantidad}</span>
-                                <button class="btn-mas" onclick="actualizarCantidad(${item.idItemCarrito}, 1)">+</button>
+                                <button class="btn-mas" onclick="actualizarCantidad(${item.idItemCarrito}, ${item.cantidad + 1})">+</button>
                             </div>
                             
                             <button class="btn-eliminar" onclick="eliminarItem(${item.idItemCarrito})">Eliminar del carro</button>
@@ -79,20 +75,76 @@ async function cargarCarrito() {
             listaProductosContainer.insertAdjacentHTML('beforeend', htmlProducto);
         });
 
-        lblSubtotal.innerText = `$${subtotal.toFixed(2)}`;
+        lblSubtotal.innerText = `$${subtotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
     } catch (error) {
         console.error('Error detallado:', error);
-        listaProductosContainer.innerHTML = '<p>Hubo un error al cargar tu carrito. Revisa la consola para más detalles.</p>';
+        listaProductosContainer.innerHTML = '<p>Hubo un error al cargar tu carrito.</p>';
     }
 }
 
-function eliminarItem(idItem) {
-    if (confirm("¿Estás seguro de eliminar este producto?")) {
-        console.log("Eliminando item ID:", idItem);
+//funciones para los botones del carrito
+
+async function eliminarItem(idItem) {
+    if (!confirm("¿Estás seguro de eliminar este producto?")) return;
+
+    try {
+        const urlApi = `${CONTEXT_PATH}/resources/carrito/item/${idItem}`;
+        const response = await fetch(urlApi, { method: 'DELETE' });
+
+        if (response.ok) {
+            cargarCarrito(); 
+        } else {
+            alert("No se pudo eliminar el producto. Intenta nuevamente.");
+        }
+    } catch (error) {
+        console.error("Error al eliminar:", error);
+        alert("Error de conexión al intentar eliminar.");
     }
 }
 
-function actualizarCantidad(idItem, cambio) {
-    console.log(`Actualizando item ${idItem}, cambio: ${cambio}`);
+async function actualizarCantidad(idItem, nuevaCantidad) {
+    if (nuevaCantidad < 1) {
+        eliminarItem(idItem);
+        return;
+    }
+
+    try {
+        const urlApi = `${CONTEXT_PATH}/resources/carrito/item/${idItem}?cantidad=${nuevaCantidad}`;
+        const response = await fetch(urlApi, { method: 'PUT' });
+
+        if (response.ok) {
+            cargarCarrito(); 
+        } else {
+            const data = await response.json().catch(() => ({}));
+            alert("Error: " + (data.error || "No se pudo actualizar la cantidad."));
+        }
+    } catch (error) {
+        console.error("Error al actualizar:", error);
+    }
+}
+
+async function vaciarCarritoCompleto() {
+    if (!confirm("¿Estás seguro de que quieres eliminar TODOS los productos del carrito?")) {
+        return;
+    }
+
+    try {
+        const urlApi = `${CONTEXT_PATH}/resources/carrito/usuario/${ID_USUARIO_ACTUAL}/vaciar`;
+        
+        const response = await fetch(urlApi, {
+            method: 'DELETE'
+        });
+
+        if (response.ok) {
+            cargarCarrito();
+        } else {
+            const data = await response.json().catch(() => ({}));
+            alert("Error: " + (data.error || "No se pudo vaciar el carrito."));
+        }
+
+    } catch (error) {
+        console.error("Error al vaciar carrito:", error);
+        alert("Ocurrió un error de conexión.");
+    }
 }

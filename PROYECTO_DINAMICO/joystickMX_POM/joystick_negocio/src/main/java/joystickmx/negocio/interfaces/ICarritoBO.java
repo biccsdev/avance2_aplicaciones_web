@@ -31,4 +31,6 @@ public interface ICarritoBO {
     public void eliminarCarrito(Long idCarrito) throws NegocioException;
     
     public List<ItemCarritoDTO> obtenerItemsCarrito(Long idCarrito) throws NegocioException;
+    
+    public void actualizarCantidadItem(Long idItemCarrito, Integer cantidad) throws NegocioException;
 }
