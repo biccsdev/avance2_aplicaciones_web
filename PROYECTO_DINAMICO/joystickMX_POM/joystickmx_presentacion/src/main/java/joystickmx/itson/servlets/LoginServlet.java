@@ -7,8 +7,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import joystickmx.itson.DTO.CategoriaDTO;
 import joystickmx.itson.DTO.UsuarioDTO;
 import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.RellenoBD.RellenoBD;
 import joystickmx.negocio.exception.NegocioException;
 
 /**
@@ -33,12 +37,27 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(true);
-        if(session.getAttribute("usuario") != null){
-            response.sendRedirect(request.getContextPath() + "/home");
-            return;
+        try {
+            HttpSession session = request.getSession(true);
+            if (session.getAttribute("usuario") != null) {
+                response.sendRedirect(request.getContextPath() + "/home");
+                return;
+            }
+
+            CategoriaDTO categoria = FactoryBO.buscarCategoriaPorNombre("Acción y Aventuras");
+            
+            if (categoria == null) {
+                RellenoBD.llenarBD();
+            }
+                
+
+            
+
+
+            request.getRequestDispatcher("/login.jsp").forward(request, response); 
+        } catch (NegocioException ex) {
+            Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-        request.getRequestDispatcher("/login.jsp").forward(request, response); //
     }
 
     /**
@@ -57,7 +76,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         try {
-            UsuarioDTO usuario = FactoryBO.login(email, password); //
+            UsuarioDTO usuario = FactoryBO.login(email, password); 
 
             HttpSession session = request.getSession(true);
             session.setAttribute("usuario", usuario);
@@ -69,8 +88,7 @@ public class LoginServlet extends HttpServlet {
             } else {
                 session.setAttribute("rol", "DESCONOCIDO");
             }
-            
-            // 4. REDIRIGIR SIEMPRE (¡CORREGIDO!)
+
             response.sendRedirect(request.getContextPath() + "/home");
 
         } catch (NegocioException e) {

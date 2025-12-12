@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/pago.css">
         <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/imgs/icono_app.png">
         <title>Pantalla de pago</title>
-        
+
         <script>
             const CONTEXT_PATH = "${pageContext.request.contextPath}";
             const ID_USUARIO_ACTUAL = "${sessionScope.usuario.idUsuario}";
@@ -42,17 +42,17 @@
 
                         <label class="radio-row paypal-row">
                             <img src="${pageContext.request.contextPath}/imgs/paypal.png" alt="PayPal" class="icono-paypal">
-                            <input type="radio" name="metodoPago" value="TRANSFERENCIA" checked onchange="toggleFormularioTarjeta()" />
+                            <input type="radio" name="metodoPago" value="PAYPAL" checked onchange="mostrarFormularioTarjeta()" />
                         </label>
 
                         <label class="radio-row">
                             <span>Contra entrega</span>
-                            <input type="radio" name="metodoPago" value="CONTRA_PAGO" onchange="toggleFormularioTarjeta()" />
+                            <input type="radio" name="metodoPago" value="CONTRA_PAGO" onchange="mostrarFormularioTarjeta()" />
                         </label>
 
                         <label class="radio-row">
                             <span>Tarjeta de Crédito o Débito</span>
-                            <input type="radio" name="metodoPago" value="TARJETA" onchange="toggleFormularioTarjeta()" />
+                            <input type="radio" name="metodoPago" value="TARJETA" onchange="mostrarFormularioTarjeta()" />
                         </label>
 
                         <div class="tarjeta-form oculto" id="seccion-tarjeta">
@@ -93,7 +93,7 @@
                     <span>Total:</span>
                     <span class="monto" id="lbl-total-final">$0.00</span>
                 </div>
-                <button type="button" class="btn-confirmar" onclick="procesarPago()">Confirmar Pedido</button>
+                <button type="button" id="btn-confirmar-pedido" class="btn-confirmar" onclick="procesarPago()">Confirmar Pedido</button>
             </div>
         </main>
     </body>

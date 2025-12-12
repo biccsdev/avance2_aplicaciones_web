@@ -1,17 +1,14 @@
-/* 
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/JavaScript.js to edit this template
- */
+
 
 document.addEventListener("DOMContentLoaded", () => {
     cargarResumenPago();
-    mostrarFormularioTarjeta(); 
+    mostrarFormularioTarjeta();
 });
 
 function mostrarFormularioTarjeta() {
     const metodoSeleccionado = document.querySelector("input[name='metodoPago']:checked").value;
     const seccionTarjeta = document.getElementById("seccion-tarjeta");
-    
+
     const camposIds = ["numeroTarjeta", "nombreTitular", "fechaExpiracion", "cvv"];
 
     if (metodoSeleccionado === "TARJETA") {
@@ -32,13 +29,16 @@ async function cargarResumenPago() {
     const lblSubtotal = document.getElementById("lbl-subtotal");
     const lblTotal = document.getElementById("lbl-total-final");
     const lblCantidad = document.getElementById("lbl-cantidad-productos");
+    const btnConfirmar = document.getElementById("btn-confirmar-pedido"); 
     const COSTO_ENVIO = 100.00;
 
     try {
-        const urlApi = "${CONTEXT_PATH}/resources/carrito/usuario/${ID_USUARIO_ACTUAL}";
+        const urlApi = `${CONTEXT_PATH}/resources/carrito/usuario/${ID_USUARIO_ACTUAL}`;
+
         const response = await fetch(urlApi);
 
-        if (!response.ok) throw new Error("Error al obtener carrito");
+        if (!response.ok)
+            throw new Error("Error al obtener carrito");
 
         const carrito = await response.json();
         const items = carrito.items || [];
@@ -49,10 +49,14 @@ async function cargarResumenPago() {
 
         if (items.length === 0) {
             contenedorItems.innerHTML = "<p>El carrito esta vacio.</p>";
+            if (btnConfirmar)
+                btnConfirmar.disabled = true;
             return;
         }
 
-        // Generar html por cada producto
+        if (btnConfirmar)
+            btnConfirmar.disabled = false;
+
         items.forEach(item => {
             const nombre = item.videojuego ? item.videojuego.nombre : "Producto";
             const precio = item.videojuego ? item.videojuego.precio : 0;
@@ -70,20 +74,24 @@ async function cargarResumenPago() {
             contenedorItems.insertAdjacentHTML("beforeend", htmlItem);
         });
 
-        //calcular total final
         const totalFinal = subtotal + COSTO_ENVIO;
 
-        lblCantidad.innerText = "Productos (${cantidadTotalItems}):";
-        lblSubtotal.innerText = "$${subtotal.toFixed(2)}";
-        lblTotal.innerText = "$${totalFinal.toFixed(2)}";
+        lblCantidad.innerText = `Productos (${cantidadTotalItems}):`;
+        lblSubtotal.innerText = `$${subtotal.toFixed(2)}`;
+        lblTotal.innerText = `$${totalFinal.toFixed(2)}`;
 
     } catch (error) {
         console.error(error);
-        contenedorItems.innerHTML = "<p>Error cargando resumen.</p>";
+        contenedorItems.innerHTML = "<p class='error-msg'>Error cargando resumen. Intente nuevamente.</p>";
+
+        if (btnConfirmar) {
+            btnConfirmar.disabled = true;
+            btnConfirmar.innerText = "Error de conexión";
+            btnConfirmar.classList.add("btn-disabled");
+        }
     }
 }
 
-// procesamiento del pago, aqui se llaman a las funciones para validar los datos de el metodo de pago tarjeta
 function procesarPago() {
     const metodo = document.querySelector("input[name='metodoPago']:checked")?.value;
 
@@ -99,31 +107,31 @@ function procesarPago() {
         const cvv = document.getElementById("cvv").value.trim();
 
         if (!validarNumeroTarjeta(numero)) {
-            alert("El numero de tarjeta no es valido.");
+            alert("Número de tarjeta inválido");
             return;
         }
-
         if (!validarNombreTitular(nombre)) {
-            alert("El nombre del titular solo puede contener letras y espacios.");
+            alert("Nombre titular inválido");
             return;
         }
-
         if (!validarFechaExpiracion(expiracion)) {
-            alert("La fecha de expiración es invalida o la tarjeta está vencida.");
+            alert("Fecha expiración inválida");
             return;
         }
-
         if (!validarCVV(cvv)) {
-            alert("El CVV debe ser un codigo de 3 o 4 dígitos.");
+            alert("CVV inválido");
             return;
         }
+
+        const datosTarjeta = {numero: numero.slice(-4), nombre: nombre};
+        sessionStorage.setItem("datosPagoDetalle", JSON.stringify(datosTarjeta));
+    } else {
+        sessionStorage.removeItem("datosPagoDetalle");
     }
 
-    // Confirmación
-    if (confirm("¿Confirmar pedido por ${document.getElementById('lbl-total-final').innerText}?")) {
-        console.log("Enviando pedido...");
+    sessionStorage.setItem("metodoPagoSeleccionado", metodo);
 
-    }
+    window.location.href = `${CONTEXT_PATH}/carrito/confirmacion.jsp`;
 }
 
 // Valida formato 16 dígitos
@@ -140,22 +148,26 @@ function validarNombreTitular(nombre) {
 // Valida MM/AA y que no este vencida
 function validarFechaExpiracion(fecha) {
     fecha = fecha.trim();
-    if (!/^\d{2}\/\d{2}$/.test(fecha)) return false;
+    if (!/^\d{2}\/\d{2}$/.test(fecha))
+        return false;
 
     const [mesStr, anioStr] = fecha.split("/");
     const mes = parseInt(mesStr, 10);
     const anio = parseInt(anioStr, 10);
-    
-    if (mes < 1 || mes > 12) return false;
+
+    if (mes < 1 || mes > 12)
+        return false;
 
     // Obtener fecha actual
     const hoy = new Date();
     const mesActual = hoy.getMonth() + 1;
     const anioActual = hoy.getFullYear() % 100;
 
-    if (anio < anioActual) return false;
+    if (anio < anioActual)
+        return false;
 
-    if (anio === anioActual && mes < mesActual) return false;
+    if (anio === anioActual && mes < mesActual)
+        return false;
 
     return true;
 }

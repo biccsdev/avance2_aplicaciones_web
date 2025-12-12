@@ -50,6 +50,11 @@
     font-weight: 600;
 }
 
+.lbl-metodo-pago{
+    font-size: 0.8rem;
+    color: #333333;
+}
+
 .total-item>span:last-child {
     font-weight: 800;
     font-size: 16.32px;

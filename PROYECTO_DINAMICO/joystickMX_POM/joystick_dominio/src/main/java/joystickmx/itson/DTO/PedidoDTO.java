@@ -24,6 +24,10 @@ public class PedidoDTO {
     private PagoDTO pago;
     private Long idCliente;
     private UsuarioDTO cliente;
+    
+    private String metodoPago;
+    
+    
 
     public PedidoDTO() {}
 
@@ -127,4 +131,17 @@ public class PedidoDTO {
     public Long getIdCliente() {return idCliente;}
 
     public void setIdCliente(Long idCliente) {this.idCliente = idCliente;}
+
+    public String getMetodoPago() {
+        return metodoPago;
+    }
+
+    public void setMetodoPago(String metodoPago) {
+        this.metodoPago = metodoPago;
+    }
+    
+    
+    
+    
+    
 }

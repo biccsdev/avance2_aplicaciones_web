@@ -20,6 +20,7 @@ import joystickmx.itson.entidades.Pedido;
 import joystickmx.itson.entidades.Videojuego;
 import joystickmx.itson.enums.EstadoPago;
 import joystickmx.itson.enums.EstadoPedido;
+import joystickmx.itson.enums.MetodoPago;
 import joystickmx.itson.interfaces.ICarritoDAO;
 import joystickmx.itson.interfaces.IClienteDAO;
 import joystickmx.itson.interfaces.IPedidoDAO;
@@ -35,7 +36,7 @@ import joystickmx.negocio.interfaces.IPedidoBO;
  * @author Yuri Germán García López ID: 00000252583
  */
 public class PedidoBO implements IPedidoBO {
-    
+
     private final IPedidoDAO pedidoDAO;
     private final IClienteDAO clienteDAO;
     private final ICarritoDAO carritoDAO;
@@ -60,35 +61,41 @@ public class PedidoBO implements IPedidoBO {
                 throw new NegocioException("El carrito está vacío.");
             }
 
-            float totalCalculado = 0;
+            float totalCalculado = 100;
             List<DetallePedido> detallesDelPedido = new ArrayList<>();
             List<Videojuego> videojuegosParaActualizar = new ArrayList<>();
 
             for (ItemCarrito item : carrito.getItems()) {
                 Videojuego videojuego = videojuegoDAO.buscarPorId(item.getVideojuego().getIdVideojuego());
-                
+
                 if (videojuego.getExistencias() < item.getCantidad()) {
                     throw new NegocioException("Stock insuficiente para: " + videojuego.getNombre());
                 }
-                
+
                 videojuego.setExistencias(videojuego.getExistencias() - item.getCantidad());
                 videojuegosParaActualizar.add(videojuego);
 
                 float subtotal = videojuego.getPrecio() * item.getCantidad();
                 totalCalculado += subtotal;
-                
+
                 DetallePedido detalle = new DetallePedido(
-                    null,
-                    videojuego, 
-                    item.getCantidad(), 
-                    videojuego.getPrecio()
+                        null,
+                        videojuego,
+                        item.getCantidad(),
+                        videojuego.getPrecio()
                 );
                 detallesDelPedido.add(detalle);
             }
 
             Pago pago = DTOMapeadores.toPagoEntity(pagoDTO);
             pago.setMonto(totalCalculado);
-            pago.setEstadoPago(EstadoPago.CONFIRMADO); 
+            
+            if (pago.getMetodoPago() == MetodoPago.CONTRA_PAGO) {
+                pago.setEstadoPago(EstadoPago.PENDIENTE);
+            } else {
+                pago.setEstadoPago(EstadoPago.CONFIRMADO);
+            }
+
             pago.setFechaPago(LocalDateTime.now());
 
             Pedido pedido = new Pedido();
@@ -110,7 +117,7 @@ public class PedidoBO implements IPedidoBO {
             }
 
             carritoDAO.vaciarCarrito(carrito.getIdCarrito());
-            
+
             return Mapeadores.toPedidoDTO(pedido);
 
         } catch (PersistenciaException e) {
@@ -152,7 +159,7 @@ public class PedidoBO implements IPedidoBO {
             throw new NegocioException("Error en BO al buscar pedido por ID: " + e.getMessage(), e);
         }
     }
-    
+
     @Override
     public void pedidoEntregado(Long idpedido) throws NegocioException {
         try {
@@ -179,7 +186,7 @@ public class PedidoBO implements IPedidoBO {
             throw new NegocioException("Error al eliminar (soft delete) usuario: " + e.getMessage(), e);
         }
     }
-    
+
     @Override
     public void pedidoCancelado(Long idpedido) throws NegocioException {
         try {
@@ -188,16 +195,16 @@ public class PedidoBO implements IPedidoBO {
             throw new NegocioException("Error al eliminar (soft delete) usuario: " + e.getMessage(), e);
         }
     }
-    
+
     @Override
     public List<PedidoDTO> buscarPorNombreClienteParcial(String nombreParcial) throws NegocioException {
         try {
             List<Pedido> pedidosEncontrados = this.pedidoDAO.buscarPorNombreClienteParcial(nombreParcial);
-            
+
             return pedidosEncontrados.stream()
                     .map(Mapeadores::toPedidoDTO)
                     .collect(Collectors.toList());
-                    
+
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al buscar pedidos por nombre parcial de cliente: " + e.getMessage(), e);
         }
