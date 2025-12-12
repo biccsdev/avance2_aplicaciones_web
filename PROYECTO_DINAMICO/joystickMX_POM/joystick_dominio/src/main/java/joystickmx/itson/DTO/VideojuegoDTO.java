@@ -1,5 +1,6 @@
 package joystickmx.itson.DTO;
 import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.List;
 /**
  * VideojuegoDTO - Data Transfer Object para Videojuego
@@ -20,6 +21,7 @@ public class VideojuegoDTO {
     private Integer existencias;
     private boolean habilitado; 
     private String desarrollador;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate fechaLanzamiento;
     private String plataforma;
     private String urlImagen; 

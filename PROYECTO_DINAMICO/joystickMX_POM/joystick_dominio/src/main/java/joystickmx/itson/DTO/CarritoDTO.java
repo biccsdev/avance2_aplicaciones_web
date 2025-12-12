@@ -1,5 +1,6 @@
 package joystickmx.itson.DTO;
 import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.List;
 /**
  * CarritoDTO - Data Transfer Object para Carrito
@@ -14,6 +15,7 @@ import java.util.List;
 public class CarritoDTO {
 
     private Long idCarrito;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate fechaCreacion;
     private List<ItemCarritoDTO> items;
 

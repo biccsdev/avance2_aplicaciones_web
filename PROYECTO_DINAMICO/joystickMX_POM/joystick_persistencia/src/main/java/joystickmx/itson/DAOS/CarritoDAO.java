@@ -26,10 +26,15 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
+                try {
+                em.getTransaction().rollback();
+            } catch (Exception ignored) {
+            }
             throw new PersistenciaException("Error al crear el carrito: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -43,10 +48,15 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
             return carritoActualizado;
         } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
+                try {
+                em.getTransaction().rollback();
+            } catch (Exception ignored) {
+            }
             throw new PersistenciaException("Error al actualizar el carrito: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -58,7 +68,9 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
         } catch (Exception e) {
             throw new PersistenciaException("Error al buscar carrito por ID: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -66,8 +78,14 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
     public Carrito buscarPorCliente(Cliente cliente) throws PersistenciaException {
         iniciarConexion();
         try {
+            // CORRECCIÓN: Agregamos 'JOIN FETCH i.videojuego'
             TypedQuery<Carrito> query = em.createQuery(
-                    "SELECT cr FROM Cliente c JOIN c.carrito cr LEFT JOIN FETCH cr.items WHERE c = :cliente",
+                    "SELECT cr FROM Cliente c "
+                    + "JOIN c.carrito cr "
+                    + "LEFT JOIN FETCH cr.items i "
+                    + "LEFT JOIN FETCH i.videojuego "
+                    +
+                    "WHERE c = :cliente",
                     Carrito.class
             );
 
@@ -77,7 +95,9 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
         } catch (Exception e) {
             throw new PersistenciaException("Error al buscar carrito por cliente: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -106,10 +126,15 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
+                try {
+                em.getTransaction().rollback();
+            } catch (Exception ignored) {
+            }
             throw new PersistenciaException("Error al agregar item al carrito: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -126,10 +151,15 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
+                try {
+                em.getTransaction().rollback();
+            } catch (Exception ignored) {
+            }
             throw new PersistenciaException("Error al eliminar item del carrito: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -144,10 +174,15 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try {em.getTransaction().rollback(); } catch (Exception ignored) {}
+                try {
+                em.getTransaction().rollback();
+            } catch (Exception ignored) {
+            }
             throw new PersistenciaException("Error al vaciar el carrito: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -164,10 +199,15 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
+                try {
+                em.getTransaction().rollback();
+            } catch (Exception ignored) {
+            }
             throw new PersistenciaException("Error al eliminar el carrito: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -180,14 +220,15 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
                     ItemCarrito.class
             );
 
-
             query.setParameter("idCarrito", carrito.getIdCarrito());
 
             return query.getResultList();
         } catch (Exception e) {
             throw new PersistenciaException("Error al obtener los items del carrito: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 }

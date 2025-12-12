@@ -48,7 +48,6 @@ public class ClienteBO implements IClienteBO {
             nuevoCliente.setEstadoUsuario(EstadoUsuario.ACTIVO);
             
             Carrito nuevoCarrito = new Carrito();
-            this.carritoDAO.crearCarrito(nuevoCarrito);
             nuevoCliente.setCarrito(nuevoCarrito); 
             
             this.clienteDAO.crearCliente(nuevoCliente);

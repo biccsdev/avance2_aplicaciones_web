@@ -129,17 +129,19 @@ public class Mapeadores {
         }
 
         Long vjId = null;
-        if (entity.getVideojuego() != null) {
-            vjId = entity.getVideojuego().getIdVideojuego();
-        }
-
-        // --- LÓGICA AGREGADA ---
         VideojuegoDTO videojuegoCompleto = null;
 
         if (entity.getVideojuego() != null) {
             vjId = entity.getVideojuego().getIdVideojuego();
-            // Aquí reutilizamos el método toVideojuegoDTO que ya existe en esta clase
-            videojuegoCompleto = toVideojuegoDTO(entity.getVideojuego());
+
+            Videojuego vEntity = entity.getVideojuego();
+            videojuegoCompleto = new VideojuegoDTO();
+            videojuegoCompleto.setIdVideojuego(vEntity.getIdVideojuego());
+            videojuegoCompleto.setNombre(vEntity.getNombre());
+            videojuegoCompleto.setPrecio(vEntity.getPrecio());
+            videojuegoCompleto.setUrlImagen(vEntity.getUrlImagen());
+            videojuegoCompleto.setPlataforma(vEntity.getPlataforma());
+            videojuegoCompleto.setExistencias(vEntity.getExistencias());
         }
 
         Long idCarrito = null;
@@ -154,11 +156,9 @@ public class Mapeadores {
                 idCarrito
         );
 
-        // Asignamos el objeto completo
         dto.setVideojuego(videojuegoCompleto);
 
         return dto;
-
     }
 
     public static List<ItemCarritoDTO> toItemCarritoDTOList(List<ItemCarrito> entities) {

@@ -1,37 +1,37 @@
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\AdministradorRegistroDTO.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\Carrito.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\DetallePedidoDTO.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\CategoriaDTO.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\Videojuego.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\DireccionDTO.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\UsuarioDTO.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\enums\EstadoPedido.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\Usuario.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\ClienteDTO.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\DireccionEnvio.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\ItemCarrito.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\Pago.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\DetallePedido.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\Mappers\DTOMapeadores.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\VideojuegoDTO.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\pruebas\PruebaPersistencia.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\Categoria.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\enums\MetodoPago.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\Direccion.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\Resena.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\PedidoDTO.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\VideojuegoResenaDTO.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\conexion\Conexion.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\PagoDTO.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\CarritoDTO.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\Pedido.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\Cliente.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\Mappers\Mapeadores.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\ResenaDTO.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\ItemCarritoDTO.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\ClienteRegistroDTO.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\enums\EstadoPago.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\UsuarioRegistroDTO.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\AdministradorDTO.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\Administrador.java
-C:\Users\PC Gamer\OneDrive\Documents\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\enums\EstadoUsuario.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\Pago.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\Cliente.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\Mappers\Mapeadores.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\enums\EstadoPedido.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\Usuario.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\AdministradorDTO.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\PagoDTO.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\AdministradorRegistroDTO.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\enums\MetodoPago.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\enums\EstadoUsuario.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\Direccion.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\ItemCarrito.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\DetallePedido.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\DireccionEnvio.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\Resena.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\Categoria.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\UsuarioDTO.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\ResenaDTO.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\Pedido.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\VideojuegoDTO.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\Administrador.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\CategoriaDTO.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\DetallePedidoDTO.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\CarritoDTO.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\enums\EstadoPago.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\pruebas\PruebaPersistencia.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\Mappers\DTOMapeadores.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\ClienteDTO.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\ClienteRegistroDTO.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\Carrito.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\DireccionDTO.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\entidades\Videojuego.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\ItemCarritoDTO.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\UsuarioRegistroDTO.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\PedidoDTO.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\conexion\Conexion.java
+C:\Users\sonic\OneDrive\Documentos\GitHub\avance2_aplicaciones_web\PROYECTO_DINAMICO\joystickMX_POM\joystick_dominio\src\main\java\joystickmx\itson\DTO\VideojuegoResenaDTO.java
