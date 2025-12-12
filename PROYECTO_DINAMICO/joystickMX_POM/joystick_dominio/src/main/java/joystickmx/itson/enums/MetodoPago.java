@@ -9,6 +9,6 @@ package joystickmx.itson.enums;
  */
 public enum MetodoPago {
     TARJETA, 
-    TRANSFERENCIA, 
+    PAYPAL, 
     CONTRA_PAGO
 }

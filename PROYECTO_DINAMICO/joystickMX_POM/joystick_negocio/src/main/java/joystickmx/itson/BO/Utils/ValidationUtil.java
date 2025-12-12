@@ -190,7 +190,7 @@ public class ValidationUtil {
                                                 ||
                 !metodoPago.toUpperCase().equals(MetodoPago.TARJETA.toString())
                                                 ||
-                !metodoPago.toUpperCase().equals(MetodoPago.TRANSFERENCIA.toString())
+                !metodoPago.toUpperCase().equals(MetodoPago.PAYPAL.toString())
         )
             throw new NegocioException("El método de pago no es válido.");
     }
