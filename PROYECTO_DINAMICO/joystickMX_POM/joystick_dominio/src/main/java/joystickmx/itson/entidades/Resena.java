@@ -37,7 +37,10 @@ public class Resena implements Serializable {
     @Max(value = 5, message = "La calificación no puede ser mayor a 5")
     @Digits(integer = 2, fraction = 1, message = "La calificación debe ser un número con máximo 1 decimal y 2 enteros.")
     private Float calificacion;
-
+    
+    @Column(length = 100, nullable = false)
+    private String titulo;
+    
     @Column(length = 500, nullable = true)
     private String comentario;
 
@@ -55,10 +58,11 @@ public class Resena implements Serializable {
 
     public Resena() {this.fechaResena = LocalDate.now();}
 
-    public Resena(Cliente cliente, Videojuego videojuego, Float calificacion, String comentario) {
+    public Resena(Cliente cliente, Videojuego videojuego, Float calificacion, String titulo, String comentario) {
         this.cliente = cliente;
         this.videojuego = videojuego;
         this.calificacion = calificacion;
+        this.titulo = titulo;
         this.comentario = comentario;
         this.fechaResena = LocalDate.now();
     }
@@ -70,7 +74,11 @@ public class Resena implements Serializable {
     public Float getCalificacion() {return calificacion;}
 
     public void setCalificacion(Float calificacion) {this.calificacion = calificacion;}
+    
+    public String getTitulo() {return titulo;}
 
+    public void setTitulo(String titulo) {this.titulo = titulo;}
+    
     public String getComentario() {return comentario;}
 
     public void setComentario(String comentario) {this.comentario = comentario;}

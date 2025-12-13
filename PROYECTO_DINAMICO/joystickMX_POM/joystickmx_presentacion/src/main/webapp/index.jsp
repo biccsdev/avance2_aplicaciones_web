@@ -104,7 +104,7 @@
                                                         <form action="${pageContext.request.contextPath}/admin/productos/editar" method="get">
                                                             <button type="submit" class="btn-carrito btn-dark btn-admin" name="idVideojuego" value="${juego.getIdVideojuego()}"> Editar </button>
                                                         </form>
-                                                        <form name="moderar" action="${pageContext.request.contextPath}/moderar" method="get">
+                                                        <form name="moderar" action="${pageContext.request.contextPath}/admin/moderar" method="get">
                                                             <button class="btn-carrito btn-dark btn-admin" name="idVideojuego" value="${juego.getIdVideojuego().toString()}">Reseñas</button>
                                                         </form>
                                                     </div>

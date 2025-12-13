@@ -23,7 +23,7 @@ import joystickmx.negocio.exception.NegocioException;
  * @author Leonardo Flores Leyva ID: 00000252390
  * @author Yuri Germán García López ID: 00000252583
  */
-@WebServlet(name = "ModerarServlet", urlPatterns = {"/moderar"})
+@WebServlet(name = "ModerarServlet", urlPatterns = {"/admin/moderar"})
 public class ModerarServlet extends HttpServlet {
 
     /**

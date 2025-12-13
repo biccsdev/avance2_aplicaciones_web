@@ -53,7 +53,6 @@ public class VideojuegoResource {
             // Si se requieren reseñas, se consultan por separado.
             return Response.ok(videojuegos).build();
         } catch (NegocioException e) {
-            // ¿Qué debería devolver realmente?
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
@@ -72,7 +71,6 @@ public class VideojuegoResource {
             // Si se requieren las reseñas del videojuego, se consultan por separado.
             return Response.ok(videojuego).build();
         } catch (NegocioException | NumberFormatException e) {
-            // ¿Qué debería devolver realmente?
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }

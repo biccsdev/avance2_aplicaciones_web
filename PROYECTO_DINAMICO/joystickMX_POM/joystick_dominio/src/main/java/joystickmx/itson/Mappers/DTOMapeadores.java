@@ -165,6 +165,7 @@ public class DTOMapeadores {
             entity.setIdResena(dto.getIdResena());
         
         entity.setCalificacion(dto.getCalificacion());
+        entity.setTitulo(dto.getTitulo());
         entity.setComentario(dto.getComentario());
         entity.setFechaResena(dto.getFechaResena());
         

@@ -62,7 +62,7 @@
             </div>
             <div class="resenas-container">
                 <h2 class="titulo-resenas">Reseñas:</h2>
-                <ul class="videojuego-resenas">
+                <ul id="videojuego-resenas" class="videojuego-resenas">
                     <li class="videojuego-resena">
                         <div class="icono">
                             <img src="${pageContext.request.contextPath}/imgs/icono_user_super_prime.png">

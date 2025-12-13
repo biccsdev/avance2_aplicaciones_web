@@ -265,6 +265,7 @@ public class Mapeadores {
         return new ResenaDTO(
                 entity.getIdResena(),
                 entity.getCalificacion(),
+                entity.getTitulo(),
                 entity.getComentario(),
                 entity.getFechaResena(),
                 clienteId,

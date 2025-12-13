@@ -10,8 +10,13 @@ import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.List;
 import joystickmx.itson.DTO.ResenaDTO;
+import joystickmx.itson.DTO.UsuarioDTO;
+import joystickmx.itson.DTO.VideojuegoDTO;
+import joystickmx.itson.DTO.VideojuegoResenaDTO;
 import joystickmx.itson.Factory.FactoryBO;
 import joystickmx.negocio.exception.NegocioException;
 
@@ -23,7 +28,7 @@ import joystickmx.negocio.exception.NegocioException;
  * @author Leonardo Flores Leyva ID: 00000252390
  * @author Yuri Germán García López ID: 00000252583
  */
-@Path("resena")
+@Path("api/resena")
 @RequestScoped
 public class ResenasResource {
 
@@ -41,24 +46,30 @@ public class ResenasResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<ResenaDTO> getJson() {
+    public Response getJson() {
         try {
-            return FactoryBO.buscarTodasLasResenas();
+            List<ResenaDTO> resenas = FactoryBO.buscarTodasLasResenas();
+            return Response.ok(resenas).build();
         } catch (NegocioException e) {
-            return null;
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
 
     @GET
-    @Path("{id}")
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public List<ResenaDTO> getVideogameJson(@PathParam("id") String id){
+    public Response getVideogameJson(@PathParam("id") String id){
         try {
             Long idVideojuego = Long.valueOf(id);
-            return FactoryBO.buscarResenasPorVideojuego(idVideojuego);
+            List<ResenaDTO> resenas = FactoryBO.buscarResenasPorVideojuego(idVideojuego);
+            List<VideojuegoResenaDTO> resenasVideojuego = new ArrayList<>();
+            if(resenas != null && !resenas.isEmpty()){
+                resenasVideojuego = obtenerResenas(resenas);
+            }
+            return Response.ok(resenasVideojuego).build();
         } catch (NegocioException | NumberFormatException e) {
-            return null;
+            return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
     
@@ -73,5 +84,21 @@ public class ResenasResource {
         } catch (NegocioException e) {
             return false;
         }
+    }
+    
+    private List<VideojuegoResenaDTO> obtenerResenas(List<ResenaDTO> resenas) throws NegocioException{
+        List<VideojuegoResenaDTO> resenasVideojuegos = new ArrayList<>();
+        for(ResenaDTO resena: resenas){
+
+            VideojuegoResenaDTO resenaVideojuego = new VideojuegoResenaDTO();
+
+            UsuarioDTO cliente = FactoryBO.buscarClientePorId(resena.getIdCliente());
+
+            resenaVideojuego.setResena(resena);
+            resenaVideojuego.setNombreJugador(cliente.getNombres());
+
+            resenasVideojuegos.add(resenaVideojuego);
+        }
+        return resenasVideojuegos;
     }
 }

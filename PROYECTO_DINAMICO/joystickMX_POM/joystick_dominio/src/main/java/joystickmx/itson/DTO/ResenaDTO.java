@@ -14,6 +14,7 @@ public class ResenaDTO {
     
     private Long idResena;
     private float calificacion;
+    private String titulo;
     private String comentario;
     private LocalDate fechaResena;
     // Pienso que a lo mejor se debería referenciar a las clases tal cual, pero no sé...
@@ -24,7 +25,8 @@ public class ResenaDTO {
 
     public ResenaDTO(
             Long idResena, 
-            float calificacion, 
+            float calificacion,
+            String titulo,
             String comentario, 
             LocalDate fechaResena, 
             Long idCliente, 
@@ -40,6 +42,7 @@ public class ResenaDTO {
 
     public ResenaDTO(
             float calificacion, 
+            String titulo,
             String comentario, 
             LocalDate fechaResena, 
             Long idCliente, 
@@ -55,6 +58,10 @@ public class ResenaDTO {
 
     public void setCalificacion(float calificacion) {this.calificacion = calificacion;}
 
+    public String getTitulo() {return titulo;}
+
+    public void setTitulo(String titulo) {this.titulo = titulo;}
+    
     public String getComentario() {return comentario;}
 
     public void setComentario(String comentario) {this.comentario = comentario;}

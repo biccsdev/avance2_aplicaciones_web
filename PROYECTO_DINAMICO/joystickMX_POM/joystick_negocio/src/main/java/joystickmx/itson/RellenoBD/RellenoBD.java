@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package joystickmx.itson.RellenoBD;
 
 import jakarta.persistence.EntityManager;
@@ -25,7 +21,11 @@ import joystickmx.itson.conexion.Conexion;
 
 /**
  *
- * @author sonic
+ * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
+ * @author Victor Gerardo Torres García ID: 205869
  */
 public class RellenoBD {
 
@@ -440,7 +440,7 @@ public class RellenoBD {
             cliente1.setDireccion(dir1);
 
             UsuarioRegistroDTO cliente2 = new UsuarioRegistroDTO();
-            cliente2.setNombres("Leonard");
+            cliente2.setNombres("Leonardo");
             cliente2.setApellidoPaterno("Tequida");
             cliente2.setApellidoMaterno("Pérez");
             cliente2.setEmail("leonardo@gmail.com");
@@ -489,6 +489,7 @@ public class RellenoBD {
 
             ResenaDTO r1 = new ResenaDTO();
             r1.setCalificacion(5.0f);
+            r1.setTitulo("Obra maestra");
             r1.setComentario("Me encantó");
             r1.setFechaResena(LocalDate.now());
             r1.setIdCliente(cliente1Registrado.getIdUsuario());
@@ -496,6 +497,7 @@ public class RellenoBD {
 
             ResenaDTO r2 = new ResenaDTO();
             r2.setCalificacion(4.5f);
+            r2.setTitulo("Tamal");
             r2.setComentario("Un poco sobrevalorado.");
             r2.setFechaResena(LocalDate.now());
             r2.setIdCliente(cliente1Registrado2.getIdUsuario());
@@ -503,6 +505,7 @@ public class RellenoBD {
 
             ResenaDTO r7 = new ResenaDTO();
             r7.setCalificacion(4.0f);
+            r7.setTitulo("XD");
             r7.setComentario("Me gustó un poco más el primero.");
             r7.setFechaResena(LocalDate.now());
             r7.setIdCliente(cliente1Registrado3.getIdUsuario());
@@ -510,13 +513,15 @@ public class RellenoBD {
 
             ResenaDTO r3 = new ResenaDTO();
             r3.setCalificacion(5.0f);
-            r3.setComentario("Me encantó");
+            r3.setTitulo("Lo amé");
+            r3.setComentario("La industria necesita más juegos como éste.");
             r3.setFechaResena(LocalDate.now());
             r3.setIdCliente(cliente1Registrado3.getIdUsuario());
             r3.setIdVideojuego(v1.getIdVideojuego());
 
             ResenaDTO r4 = new ResenaDTO();
             r4.setCalificacion(3.5f);
+            r4.setTitulo("Meh");
             r4.setComentario("Me gustó más el 4");
             r4.setFechaResena(LocalDate.now());
             r4.setIdCliente(cliente1Registrado.getIdUsuario());
@@ -524,6 +529,7 @@ public class RellenoBD {
 
             ResenaDTO r5 = new ResenaDTO();
             r5.setCalificacion(5.0f);
+            r5.setTitulo("GOD");
             r5.setComentario("El mejor GTA de todos");
             r5.setFechaResena(LocalDate.now());
             r5.setIdCliente(cliente1Registrado3.getIdUsuario());
@@ -531,6 +537,7 @@ public class RellenoBD {
 
             ResenaDTO r6 = new ResenaDTO();
             r6.setCalificacion(5.0f);
+            r6.setTitulo("Donkey Kong está de vuelta!");
             r6.setComentario("Como fan de Donkey Kong desde que tengo memoria, creí que ya había visto todo: "
                     + "desde las plataformas vertiginosas del clásico arcade hasta las maravillas tropicales "
                     + "de Donkey Kong Country. Pero Donkey Kong Bananza no solo me sorprendió… me dejó "
