@@ -1,4 +1,3 @@
-
 package joystickmx.itson.interfaces;
 
 import java.util.List;
@@ -27,7 +26,9 @@ public interface IResenaDAO {
     List<Resena> buscarPorNombreVideojuego(String nombreVideojuego) throws PersistenciaException;
 
     List<Resena> buscarPorCliente(Long idCliente) throws PersistenciaException;
-
+    
+    Resena buscarPorVideojuegoCliente(Long idCliente, Long idVideojuego) throws PersistenciaException;
+    
     List<Resena> buscarPorCalificacion(Float calificacion) throws PersistenciaException;
 
     List<Resena> buscarTodas() throws PersistenciaException;

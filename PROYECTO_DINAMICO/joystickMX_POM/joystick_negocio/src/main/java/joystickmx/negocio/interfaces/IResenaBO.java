@@ -28,4 +28,6 @@ public interface IResenaBO {
     public List<ResenaDTO> buscarResenasPorCalificacion(Float calificacion) throws NegocioException;
     
     public List<ResenaDTO> buscarTodas() throws NegocioException;
+    
+    public ResenaDTO buscarPorVideojuegoCliente(Long idCliente, Long idVideojuego) throws NegocioException;
 }

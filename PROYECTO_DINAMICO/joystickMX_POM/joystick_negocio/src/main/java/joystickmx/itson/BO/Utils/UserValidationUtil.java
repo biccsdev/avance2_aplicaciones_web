@@ -13,30 +13,14 @@ import joystickmx.negocio.exception.NegocioException;
  * @author Leonardo Flores Leyva ID: 00000252390
  * @author Yuri Germán García López ID: 00000252583
  */
-public class ValidationUtil {
+public class UserValidationUtil {
     
-    public static final int NOMBRE_LENGTH = 100;
-    public static final int APELLIDO_P_LENGTH = 100;
-    public static final int APELLIDO_M__LENGTH = 100;    
-    public static final int EMAIL__LENGTH = 200;
-    public static final int PASSWORD__LENGTH = 200;    
-    public static final int TELEFONO__LENGTH = 200;
-    
-    public static final int CALLE__LENGTH = 100;
-    public static final int NUMERO__LENGTH = 15;
-    public static final int COLONIA__LENGTH = 100;
-    
-    public static final float LIMITE__CALIF = 5.0f;
-    public static final int COMENTARIO_LENGTH = 500;
-    
-    public static final int NOMBRE_VID_LENGTH = 100;
-    public static final int DESCRIPCION_LENGTH = 500;
-    public static final int URL_IMG_LENGTH = 200;
-    public static final int DESARROLLADOR_LENGTH = 100;
-    public static final int PLATAFORMA_LENGTH = 50;
-    
-    public static final int NOMBRE_CATG_LENGTH = 100;
-    public static final int DESCRIPCION_CATG_LENGTH = 200;
+    private static final int NOMBRE_LENGTH = 100;
+    private static final int APELLIDO_P_LENGTH = 100;
+    private static final int APELLIDO_M__LENGTH = 100;    
+    private static final int EMAIL__LENGTH = 200;
+    private static final int PASSWORD__LENGTH = 200;    
+    private static final int TELEFONO__LENGTH = 200;
     
     public static void validarNombreUsuario(String nombre) throws NegocioException{
         if(nombre == null || nombre.isBlank())
@@ -91,46 +75,6 @@ public class ValidationUtil {
         
         if(!telefono.matches("^\\+?[1-9]\\d{1,14}$"))
             throw new NegocioException("El telefono ingresado no es válido.");
-    }
-    
-    public static void validarDireccion(String calle, String numero, String colonia) throws NegocioException{
-        
-        if(calle == null || calle.isBlank())
-            throw new NegocioException("La calle de la dirección está vacía.");
-        
-        if(numero == null || numero.isBlank())
-            throw new NegocioException("El numero de la dirección está vacío.");
-        
-        if(colonia == null || colonia.isBlank())
-            throw new NegocioException("La colonia de la dirección está vacía.");
-        
-        if(calle.length() > CALLE__LENGTH)
-            throw new NegocioException("La calle de la dirección es demasiado largo.");
-        
-        if(numero.length() > NUMERO__LENGTH)
-            throw new NegocioException("El teléfono de la dirección es demasiado largo.");
-        
-        if(colonia.length() > COLONIA__LENGTH)
-            throw new NegocioException("La colonia de la dirección es demasiado largo.");
-    }
-    
-    public static void validarCalificacion(Float calificacion) throws NegocioException{
-        if(calificacion < 0.0)
-            throw new NegocioException("La calificación es menor a cero.");
-        
-        if(calificacion > LIMITE__CALIF)
-            throw new NegocioException("La calificacion es mayor que el límite permitido.");
-        
-        if((calificacion * 2) % 1 != 0)
-            throw new NegocioException("Solo se permiten calificaciones múltiplos de 0.5.");
-    }
-    
-    public static void validarComentario(String comentario) throws NegocioException{
-        if(comentario == null || comentario.isBlank())
-            throw new NegocioException("El comentario está vacío.");
-        
-        if(comentario.length() > COMENTARIO_LENGTH)
-            throw new NegocioException("El comentario es demasiado largo.");
     }
     
     public static void validarFechaPublicacionCreacion(LocalDate fecha) throws NegocioException{
@@ -207,64 +151,5 @@ public class ValidationUtil {
                 !estadoPago.toUpperCase().equals(EstadoPago.PENDIENTE.toString())
         )
             throw new NegocioException("El estado del pago no es válido.");
-    }
-    
-    public static void validarNombreVideojuego(String nombreVideojuego) throws NegocioException{
-        if(nombreVideojuego == null || nombreVideojuego.isBlank())
-            throw new NegocioException("El nombre está vacío.");
-        
-        if(nombreVideojuego.length() > NOMBRE_VID_LENGTH)
-            throw new NegocioException("El nombre es demasiado largo.");
-    }
-    
-    public static void validarDescripcion(String descripcion) throws NegocioException{
-        if(descripcion == null || descripcion.isBlank())
-            throw new NegocioException("El comentario está vacío.");
-        
-        if(descripcion.length() > DESCRIPCION_LENGTH)
-            throw new NegocioException("El comentario es demasiado largo.");
-    }
-    
-    public static void validarUrlImagen(String urlImagen) throws NegocioException{
-        if(urlImagen == null || urlImagen.isBlank())
-            throw new NegocioException("La url de la iimagen está vacía.");
-        
-        if(urlImagen.length() > URL_IMG_LENGTH)
-            throw new NegocioException("La url de la imagen es demasiada larga.");
-        
-        if(!urlImagen.matches("(?i).*\\.(png|jpe?g|gif|bmp|webp|svg)$"))
-            throw new NegocioException("La url de la imagen no es válida.");
-    }
-    
-    public static void validarDesarrollador(String desarrollador) throws NegocioException{
-        if(desarrollador == null || desarrollador.isBlank())
-            throw new NegocioException("El desarrollador está vacío.");
-        
-        if(desarrollador.length() > DESARROLLADOR_LENGTH)
-            throw new NegocioException("El desarrollador es demasiado largo.");
-    }
-    
-    public static void validarPlataforma(String plataforma) throws NegocioException{
-        if(plataforma == null || plataforma.isBlank())
-            throw new NegocioException("La plataforma está vacía.");
-        
-        if(plataforma.length() > PLATAFORMA_LENGTH)
-            throw new NegocioException("La plataforma es demasiado larga.");
-    }
-    
-    public static void validarNombreCategoria(String nombreCategoria) throws NegocioException{
-        if(nombreCategoria == null || nombreCategoria.isBlank())
-            throw new NegocioException("El nombre de la categoría está vacío.");
-        
-        if(nombreCategoria.length() > NOMBRE_CATG_LENGTH)
-            throw new NegocioException("El nombre de la categoría es demasiado largo.");
-    }
-    
-    public static void validarDescripcionCategoria(String descripcionCategoria) throws NegocioException{
-        if(descripcionCategoria == null || descripcionCategoria.isBlank())
-            throw new NegocioException("La descripción de la categoría está vacía.");
-        
-        if(descripcionCategoria.length() > DESCRIPCION_CATG_LENGTH)
-            throw new NegocioException("La descripción de la categoría es demasiado larga.");
     }
 }

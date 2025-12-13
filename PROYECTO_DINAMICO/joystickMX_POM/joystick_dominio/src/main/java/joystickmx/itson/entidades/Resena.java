@@ -22,6 +22,7 @@ import java.time.LocalDate;
  * @author Sebastián Bórquez Huerta ID: 00000252115
  * @author Leonardo Flores Leyva ID: 00000252390
  * @author Yuri Germán García López ID: 00000252583
+ * @author Victor Gerardo Torres García ID: 205869
  */
 @Entity
 @Table(name = "Resenas")

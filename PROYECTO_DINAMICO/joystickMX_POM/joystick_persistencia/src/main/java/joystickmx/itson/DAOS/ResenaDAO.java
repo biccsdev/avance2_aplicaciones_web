@@ -144,7 +144,26 @@ public class ResenaDAO extends BaseDAO implements IResenaDAO {
             if (em.isOpen()) { em.close();}
         }
     }
-
+    
+    @Override
+    public Resena buscarPorVideojuegoCliente(Long idCliente, Long idVideojuego) throws PersistenciaException{
+        iniciarConexion();
+        try {
+            TypedQuery<Resena> query = em.createQuery(
+                    "SELECT r FROM Resena r WHERE r.cliente.idUsuario = :idCliente AND r.videojuego.idVideojuego = :idVideojuego",
+                    Resena.class
+            );
+            query.setParameter("idCliente", idCliente);
+            query.setParameter("idVideojuego", idVideojuego);
+            
+            return query.getResultList().getFirst();
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al buscar reseñas por cliente: " + e.getMessage());
+        } finally{
+            if (em.isOpen()) { em.close();}
+        }
+    }
+    
     @Override
     public List<Resena> buscarPorCalificacion(Float calificacion) throws PersistenciaException {
         iniciarConexion();

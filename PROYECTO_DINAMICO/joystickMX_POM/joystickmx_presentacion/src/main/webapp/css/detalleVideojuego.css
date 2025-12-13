@@ -246,6 +246,10 @@ header{
     max-height: 100%;
 }
 
+.oculto{
+    display: none;
+}
+
 @media (max-width: 768px){
     
     .flex-container{
