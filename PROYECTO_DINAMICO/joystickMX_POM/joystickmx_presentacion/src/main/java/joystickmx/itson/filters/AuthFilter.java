@@ -36,7 +36,8 @@ public class AuthFilter implements Filter {
     private static final List<String> PUBLIC_RESOURCES = Arrays.asList(
             "/css/",
             "/imgs/",
-            "/JavaScript/"
+            "/JavaScript/",
+            "/resources/"
     );
 
     private static final List<String> ADMIN_PATHS = Arrays.asList(
@@ -47,7 +48,8 @@ public class AuthFilter implements Filter {
             "/user/",
             "/carrito/",
             "/perfil/",
-            "/pedidos"
+            "/pedidos", 
+            "/resources/"
     );
 
     @Override
@@ -60,27 +62,23 @@ public class AuthFilter implements Filter {
         String contextPath = req.getContextPath();
         String path = req.getRequestURI().substring(contextPath.length());
 
-        // 1. Revisamos si es un recurso estático (usando la lista)
         boolean isStaticResource = PUBLIC_RESOURCES.stream().anyMatch(path::startsWith);
-
-        // 2. Revisamos si es una página pública (usando la lista)
         boolean isPublicPage = PUBLIC_PATHS.contains(path);
 
         if (isStaticResource || isPublicPage) {
             // Es público o es CSS/IMG, déjalo pasar
             chain.doFilter(request, response);
-            // Salimos del filtro
-            // return // ESTO TAMBIÉN LO DESCOMENTAREAS
-        } 
-        // ---------------------------- A PARTIR DE AQUÍ COMENTAREAS -------------------------------------
-        else{
+            return;
+        }   
+         // ---------------------------- A PARTIR DE AQUÍ COMENTAREAS -------------------------------------
+        else {
             // Revisa si es una página accesible para un cliente
             boolean isClientPath = CLIENT_PATHS.stream().anyMatch(path::startsWith) || isStaticResource;
             // Revisa si es una página exclusiva para un administrador
-            boolean isAdminPath = ADMIN_PATHS.stream().anyMatch(path::startsWith); 
+            boolean isAdminPath = ADMIN_PATHS.stream().anyMatch(path::startsWith);
             // Revisa si es una página accesible para un administrador (acceso completo)
             boolean fullAccess = isClientPath || isAdminPath;
-            
+
             // --- Si llegamos aquí, es una página protegida ---
             // 3. Revisar si el usuario está logueado
             if (session == null || session.getAttribute("usuario") == null) {
@@ -107,9 +105,8 @@ public class AuthFilter implements Filter {
             res.sendRedirect(contextPath + "/home"); // Lo mandamos al home
         }
         // ---------------------------- HASTA AQUÍ COMENTAREAS -------------------------------------
-        
+
         // ------------------------ A PARTIR DE AQUÍ DESCOMENTAREAS --------------------------------
-        
         // --- Si llegamos aquí, es una página protegida ---
         // 3. Revisar si el usuario está logueado
 //        if (session == null || session.getAttribute("usuario") == null) {
@@ -136,13 +133,14 @@ public class AuthFilter implements Filter {
 //
 //        // Es un cliente accediendo a una página de cliente (ej /carrito)
 //        chain.doFilter(request, response);
-
         // ------------------------ HASTA AQUÍ DESCOMENTAREAS --------------------------------
     }
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {}
+    public void init(FilterConfig filterConfig) throws ServletException {
+    }
 
     @Override
-    public void destroy() {}
+    public void destroy() {
+    }
 }
