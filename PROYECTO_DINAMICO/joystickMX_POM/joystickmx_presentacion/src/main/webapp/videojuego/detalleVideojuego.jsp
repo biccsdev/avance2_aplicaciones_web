@@ -10,70 +10,51 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/detalleVideojuego.css">
         <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/imgs/logo.png">
+        <script src="${pageContext.request.contextPath}/JavaScript/Videojuego/detalleVideojuego.js"></script>
+        <script>
+            const CONTEXT_PATH = "${pageContext.request.contextPath}";
+        </script>
     </head>
     <body class="app-bg-animated">
         <jsp:include page="/WEB-INF/includes/header.jsp"/>
         <main class="flex-container">
             <div class="videojuego-detalle">
                 <div class="videojuego-imagen">
-                    <img class="videojuego-imagen" src="${pageContext.request.contextPath}/imgs/rdr2-xbox-one.jpg">
+                    <img id="videojuego-imagen" class="videojuego-imagen" src="">
                 </div>
                 <div class="videojuego-info">
-                    <h3 class="videojuego-nombre">Red Dead Redemption 2 (Xbox One)</h3>
-                    <h4 class="videojuego-existencias">Existencias: 27</h4>
+                    <h3 id="videojuego-nombre" class="videojuego-nombre"></h3>
+                    <h4 id="videojuego-existencias" class="videojuego-existencias">Existencias: </h4>
                     <div class="videojuego-precio-carrito">
-                        <h2 class="videojuego-precio">$299</h2>
+                        <h2 id="videojuego-precio" class="videojuego-precio">$</h2>
                         <button class="btn-carrito btn-dark">
                             Agregar al carrito
                             <img src="${pageContext.request.contextPath}/imgs/carrito.png">
                         </button>
                     </div>
-                    <p class="videojuego-descripcion">
-                        
-                        Ambientado en 1899 en un entorno ficticio, sigue las aventuras de Arthur Morgan y sus 
-                        compaÃ±eros dentro de la banda de Dutch van der Linde doce aÃ±os antes de la anterior 
-                        entrega. En este videojuego regresan personajes como John Marston, el protagonista 
-                        del tÃ­tulo previo en una aventura donde el jugador debe enfrentar a otros criminales, 
-                        a las fuerzas del orden y ejecutar asaltos en un ambiente del salvaje oeste.<br>
-
-                        <br>El juego es presentado en perspectivas de primera y tercera persona en donde el jugador 
-                        podrÃ¡ vagar libremente en un entorno de mundo abierto completamente interactivo. Como 
-                        parte de las actividades, el jugador podrÃ¡ montar a caballo, asaltar, cazar, participar
-                        en tiroteos e incluso interactuar con personajes no jugables. Asimismo el jugador 
-                        podrÃ¡ mantener la calificaciÃ³n de Honor del personaje a travÃ©s de elecciones y actos 
-                        morales. Un sistema de recompensas rige la respuesta de las fuerzas del orden y los cazadores 
-                        de recompensas a los crÃ­menes cometidos por el jugador.<br>
-
-                        <br>El juego narra los acontecimientos que llevaron a la caÃ­da en desgracia de la Banda de Dutch van
-                        der Linde y del cÃ³mo John Marston cambiÃ³ su forma de ser gracias al protagonista de esta entrega, 
-                        Arthur Morgan.
-                    </p>
+                    <p id="videojuego-descripcion" class="videojuego-descripcion"></p>
                 </div>
                 <div class="videojuego-especificaciones">
-                    <h3>Especificaciones tÃ©cnicas</h3>
+                    <h3>Especificaciones técnicas</h3>
                     <ul>
                         <li>
                             <label>
-                                <span class="especificacion">Plataforma: </span>
-                                Xbox One
+                                <span id="videojuego-plataforma" class="especificacion">Plataforma: </span>
                             </label>
                         </li>
                         <li>
                             <label>
-                                <span class="especificacion">Fecha de lanzamiento: </span>
-                                26 de octubre de 2018
+                                <span id="videojuego-fecha-lanzamiento" class="especificacion">Fecha de lanzamiento: </span>
                             </label>
                         </li>
                         <li>
                             <label>
-                                <span class="especificacion">GÃ©nero: </span>
-                                Mundo abierto, AcciÃ³n y aventuras, Disparos en tercera persona
+                                <span id="videojuego-categorias" class="especificacion">Categorías: </span>
                             </label>
                         </li>
                         <li>
                             <label>
-                                <span class="especificacion">Desarrollador: </span>
-                                Rockstar Games
+                                <span id="videojuego-desarrollador" class="especificacion">Desarrollador: </span>
                             </label>
                         </li>
                     </ul>

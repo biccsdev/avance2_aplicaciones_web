@@ -59,7 +59,7 @@ public class VideojuegoResource {
     }
     
     @GET
-    @Path("api/videojuego/{id}")
+    @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getVideojuego(@PathParam("id") String id){
