@@ -93,7 +93,7 @@
             </div>
             <div class="user-info">
                 <span class="margin-label">.</span>
-                <a href="${contextPath}/perfil">
+                <a href="${contextPath}/perfil/ver.jsp">
                     <button class="user-profile-button">
                         <div class="user-icon">
                             <img class="icono-usuario" src="${contextPath}/imgs/icono_user_super_prime.png" alt="Icono de usuario">
