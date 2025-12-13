@@ -29,15 +29,19 @@ public class PruebasDAO {
 //                    System.out.println("Categoría: " + c.getNombre());
 //                });
 //            }
-            List<Resena> resenas = new ResenaDAO().buscarPorVideojuego(3L);
-            if(resenas != null && !resenas.isEmpty()){
-                resenas.forEach(r -> {
-                    System.out.println(r.getTitulo());
-                    System.out.println(r.getComentario());
-                    System.out.println("");
-                });
-            }
-            
+//            List<Resena> resenas = new ResenaDAO().buscarPorVideojuego(3L);
+//            if(resenas != null && !resenas.isEmpty()){
+//                resenas.forEach(r -> {
+//                    System.out.println(r.getTitulo());
+//                    System.out.println(r.getComentario());
+//                    System.out.println("");
+//                });
+//            }
+            Resena resena = new ResenaDAO().buscarPorVideojuegoCliente(1L, 1L);
+            System.out.println("Calificación de la reseña: " + resena.getCalificacion().toString());
+            System.out.println("Titulo de la reseña: " + resena.getTitulo());
+            System.out.println("Comentario de la reseña: " + resena.getComentario());
+
         } catch (PersistenciaException e) {
             System.out.println("Algo salió mal: " + e.getMessage());
         }

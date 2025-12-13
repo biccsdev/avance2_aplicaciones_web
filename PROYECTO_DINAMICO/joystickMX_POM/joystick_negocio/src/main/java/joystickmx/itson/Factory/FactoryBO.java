@@ -20,6 +20,7 @@ import joystickmx.itson.DTO.ResenaDTO;
 import joystickmx.itson.DTO.UsuarioDTO;
 import joystickmx.itson.DTO.UsuarioRegistroDTO;
 import joystickmx.itson.DTO.VideojuegoDTO;
+import joystickmx.itson.DependencyInjectorBO.InjectorBO;
 import joystickmx.negocio.exception.NegocioException;
 
 /**
@@ -28,6 +29,7 @@ import joystickmx.negocio.exception.NegocioException;
  * @author Sebastián Bórquez Huerta ID: 00000252115
  * @author Leonardo Flores Leyva ID: 00000252390
  * @author Yuri Germán García López ID: 00000252583
+ * @author Victor Gerardo Torres García ID: 205869
  */
 public class FactoryBO {
 
@@ -174,7 +176,7 @@ public class FactoryBO {
 
     public static List<ResenaDTO> buscarResenasPorNombreVideojuego(String nombreVideojuego) throws NegocioException {
         try {
-            return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarPorNombreVideojuego(nombreVideojuego);
+            return InjectorBO.buildResenaBO().buscarPorNombreVideojuego(nombreVideojuego);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar consultar las resenas: " + e.getMessage(), e);
         }
@@ -182,7 +184,7 @@ public class FactoryBO {
 
     public static List<ResenaDTO> buscarResenasPorVideojuego(Long idVideojuego) throws NegocioException {
         try {
-            return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarPorVideojuego(idVideojuego);
+            return InjectorBO.buildResenaBO().buscarPorVideojuego(idVideojuego);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar consultar las resenas: " + e.getMessage(), e);
         }
@@ -190,15 +192,23 @@ public class FactoryBO {
 
     public static List<ResenaDTO> buscarResenasPorCliente(Long idCliente) throws NegocioException {
         try {
-            return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarPorCliente(idCliente);
+            return InjectorBO.buildResenaBO().buscarPorCliente(idCliente);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar consultar las resenas: " + e.getMessage(), e);
         }
     }
-
+    
+    public static ResenaDTO buscarPorVideojuegoCliente(Long idCliente, Long idVideojuego) throws NegocioException{
+        try {
+            return InjectorBO.buildResenaBO().buscarPorVideojuegoCliente(idCliente, idVideojuego);
+        } catch (NegocioException e) {
+            throw new NegocioException("Error al intentar consultar la reseña: " + e.getMessage(), e);
+        }
+    }
+    
     public static List<ResenaDTO> buscarResenasPorCalificacion(Float calificacion) throws NegocioException {
         try {
-            return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarResenasPorCalificacion(calificacion);
+            return InjectorBO.buildResenaBO().buscarResenasPorCalificacion(calificacion);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar consultar las resenas: " + e.getMessage(), e);
         }
@@ -206,7 +216,7 @@ public class FactoryBO {
 
     public static List<ResenaDTO> buscarTodasLasResenas() throws NegocioException {
         try {
-            return new ResenaBO(FactoryDAO.crearResenaDAO()).buscarTodas();
+            return InjectorBO.buildResenaBO().buscarTodas();
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar consultar las resenas: " + e.getMessage(), e);
         }
