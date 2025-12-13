@@ -27,10 +27,10 @@ public class AuthFilter implements Filter {
 
     private static final List<String> PUBLIC_PATHS = Arrays.asList(
             "/login",
-            "/login.jsp",
             "/register",
-            "/register.jsp",
-            "/logout"
+            "/logout",
+            "/home",
+            "/videojuego"
     );
 
     private static final List<String> PUBLIC_RESOURCES = Arrays.asList(
@@ -45,10 +45,9 @@ public class AuthFilter implements Filter {
 
     private static final List<String> CLIENT_PATHS = Arrays.asList(
             "/user/",
-            "/carrito",
-            "/perfil",
-            "/pedidos",
-            "/videojuego"
+            "/carrito/",
+            "/perfil/",
+            "/pedidos"
     );
 
     @Override
@@ -65,42 +64,80 @@ public class AuthFilter implements Filter {
         boolean isStaticResource = PUBLIC_RESOURCES.stream().anyMatch(path::startsWith);
 
         // 2. Revisamos si es una página pública (usando la lista)
-        // ¡AÑADÍ /home A TU LISTA!
-        boolean isPublicPage = PUBLIC_PATHS.contains(path) || path.equals("/home");
+        boolean isPublicPage = PUBLIC_PATHS.contains(path);
 
         if (isStaticResource || isPublicPage) {
             // Es público o es CSS/IMG, déjalo pasar
             chain.doFilter(request, response);
-            return; // Salimos del filtro
-        }
+            // Salimos del filtro
+            // return // ESTO TAMBIÉN LO DESCOMENTAREAS
+        } 
+        // ---------------------------- A PARTIR DE AQUÍ COMENTAREAS -------------------------------------
+        else{
+            // Revisa si es una página accesible para un cliente
+            boolean isClientPath = CLIENT_PATHS.stream().anyMatch(path::startsWith) || isStaticResource;
+            // Revisa si es una página exclusiva para un administrador
+            boolean isAdminPath = ADMIN_PATHS.stream().anyMatch(path::startsWith); 
+            // Revisa si es una página accesible para un administrador (acceso completo)
+            boolean fullAccess = isClientPath || isAdminPath;
+            
+            // --- Si llegamos aquí, es una página protegida ---
+            // 3. Revisar si el usuario está logueado
+            if (session == null || session.getAttribute("usuario") == null) {
+                // No está logueado, redirigir a login
+                res.sendRedirect(contextPath + "/login");
+                return;
+            }
 
+            // 4. (Opcional pero recomendado) Revisar roles
+            String rol = (String) session.getAttribute("rol");
+
+            // Si es admin y la ruta no contiene extensión de archivo de una página, puede ver todo
+            if (rol.toUpperCase().equals("ADMIN") && fullAccess) {
+                chain.doFilter(request, response);
+                return;
+            }
+
+            // Si es cliente y la ruta es para clientes, puede proceder
+            if (rol.toUpperCase().equals("CLIENTE") && isClientPath) {
+                chain.doFilter(request, response);
+                return;
+            }
+            // Si el usuario intenta acceder a una página con extensión de archivo, lo regresa al home
+            res.sendRedirect(contextPath + "/home"); // Lo mandamos al home
+        }
+        // ---------------------------- HASTA AQUÍ COMENTAREAS -------------------------------------
+        
+        // ------------------------ A PARTIR DE AQUÍ DESCOMENTAREAS --------------------------------
+        
         // --- Si llegamos aquí, es una página protegida ---
         // 3. Revisar si el usuario está logueado
-        if (session == null || session.getAttribute("usuario") == null) {
-            // No está logueado, redirigir a login
-            res.sendRedirect(contextPath + "/login");
-            return;
-        }
+//        if (session == null || session.getAttribute("usuario") == null) {
+//            // No está logueado, redirigir a login
+//            res.sendRedirect(contextPath + "/login");
+//            return;
+//        }
+//        
+//        // 4. (Opcional pero recomendado) Revisar roles
+//        String rol = (String) session.getAttribute("rol");
+//
+//        // Si es admin, puede ver todo
+//        if (rol.toUpperCase().equals("ADMIN")) {
+//            chain.doFilter(request, response);
+//            return;
+//        }
+//
+//        // Si es cliente, revisamos si intenta entrar a /admin/
+//        if (rol.toUpperCase().equals("CLIENTE") && ADMIN_PATHS.stream().anyMatch(path::startsWith)) {
+//            // Es un cliente intentando entrar al panel de admin
+//            res.sendRedirect(contextPath + "/home"); // Lo mandamos al home
+//            return;
+//        }
+//
+//        // Es un cliente accediendo a una página de cliente (ej /carrito)
+//        chain.doFilter(request, response);
 
-        // --- Si llegamos aquí, el usuario SÍ está logueado ---
-        // 4. (Opcional pero recomendado) Revisar roles
-        String rol = (String) session.getAttribute("rol");
-
-        // Si es admin, puede ver todo
-        if (rol.toUpperCase().equals("ADMIN")) {
-            chain.doFilter(request, response);
-            return;
-        }
-
-        // Si es cliente, revisamos si intenta entrar a /admin/
-        if (rol.toUpperCase().equals("CLIENTE") && ADMIN_PATHS.stream().anyMatch(path::startsWith)) {
-            // Es un cliente intentando entrar al panel de admin
-            res.sendRedirect(contextPath + "/home"); // Lo mandamos al home
-            return;
-        }
-
-        // Es un cliente accediendo a una página de cliente (ej /carrito)
-        chain.doFilter(request, response);
+        // ------------------------ HASTA AQUÍ DESCOMENTAREAS --------------------------------
     }
 
     @Override

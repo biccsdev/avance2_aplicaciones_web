@@ -10,7 +10,6 @@
         <title>JoystickMX - Tu tienda de videojuegos</title>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
         <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/imgs/icono_app.png">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/index.css">
     </head>
     <body class="app-bg-animated">
@@ -90,7 +89,7 @@
                                 </li>
                             </c:if>
 
-                            <c:forEach var="juego" items="${videojuegos}">
+                            <c:forEach var="juego" items="${videojuegos}" varStatus="estado">
                                 <c:choose>
                                     <c:when test="${sessionScope.rol == 'admin'}">
                                         <li class="videojuego-item">
@@ -115,23 +114,26 @@
                                         </li>
                                     </c:when>
                                     <c:otherwise>
-                                        <li class="videojuego-item">
-                                            <a href="
-                                               <c:url value="/videojuego/detalleVideojuego.jsp">
-                                                   <c:param name="idVideojuego" value="${juego.getIdVideojuego()}"/>
-                                               </c:url>
-                                            ">
-                                                <div class="videojuego">
-                                                    <div class="videojuego-imagen">
-                                                        <img class="videojuego-imagen" src="${pageContext.request.contextPath}${juego.getUrlImagen()}" alt="Portada de ${juego.nombre}">
-                                                    </div>
-                                                    <div class="videojuego-info">
-                                                        <h3 class="videojuego-nombre">${String.format("%s (%s)", juego.getNombre(), juego.getPlataforma())}</h3>
-                                                        <h2 class="videojuego-precio">$${String.format("%.2f", juego.getPrecio())}</h2>
-                                                        <button class="btn-carrito btn-dark">Agregar al carrito</button>
-                                                    </div>
+                                        <li 
+                                            id="videojuego-item" 
+                                            class="videojuego-item" 
+                                            onmouseover="this.style.cursor='pointer';" 
+                                            onmouseout="this.style.cursor='default';"
+                                            onclick ="document.getElementById('videojuego-form-${estado.index}').submit(); return false;"
+                                        >
+                                            <form id="videojuego-form-${estado.index}" name="videojuego-form" action="${pageContext.request.contextPath}/videojuego" method="get">
+                                                <input id="videojuego-sumit" type="hidden" name="idVideojuego" value="${juego.getIdVideojuego()}">
+                                            </form>
+                                            <div class="videojuego">
+                                                <div class="videojuego-imagen">
+                                                    <img class="videojuego-imagen" src="${pageContext.request.contextPath}${juego.getUrlImagen()}" alt="Portada de ${juego.nombre}">
                                                 </div>
-                                            </a>
+                                                <div class="videojuego-info">
+                                                    <h3 class="videojuego-nombre">${String.format("%s (%s)", juego.getNombre(), juego.getPlataforma())}</h3>
+                                                    <h2 class="videojuego-precio">$${String.format("%.2f", juego.getPrecio())}</h2>
+                                                    <button class="btn-carrito btn-dark">Agregar al carrito</button>
+                                                </div>
+                                            </div>
                                         </li>
                                     </c:otherwise>
                                 </c:choose>

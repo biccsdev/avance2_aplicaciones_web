@@ -23,7 +23,7 @@ import joystickmx.negocio.exception.NegocioException;
  * @author Leonardo Flores Leyva ID: 00000252390
  * @author Yuri Germán García López ID: 00000252583
  */
-@Path("videojuego")
+@Path("api/videojuego")
 @RequestScoped
 public class VideojuegoResource {
 
@@ -59,7 +59,7 @@ public class VideojuegoResource {
     }
     
     @GET
-    @Path("videojuego/{id}")
+    @Path("api/videojuego/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response getVideojuego(@PathParam("id") String id){

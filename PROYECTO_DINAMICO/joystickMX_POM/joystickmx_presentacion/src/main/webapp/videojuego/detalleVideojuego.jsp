@@ -7,7 +7,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Juego</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/detalleVideojuego.css">
         <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/imgs/logo.png">
@@ -17,7 +16,7 @@
         <main class="flex-container">
             <div class="videojuego-detalle">
                 <div class="videojuego-imagen">
-                    <img class="videojuego-imagen" src="../imgs/rdr2-xbox-one.jpg">
+                    <img class="videojuego-imagen" src="${pageContext.request.contextPath}/imgs/rdr2-xbox-one.jpg">
                 </div>
                 <div class="videojuego-info">
                     <h3 class="videojuego-nombre">Red Dead Redemption 2 (Xbox One)</h3>
@@ -26,7 +25,7 @@
                         <h2 class="videojuego-precio">$299</h2>
                         <button class="btn-carrito btn-dark">
                             Agregar al carrito
-                            <img src="../imgs/carrito.png">
+                            <img src="${pageContext.request.contextPath}/imgs/carrito.png">
                         </button>
                     </div>
                     <p class="videojuego-descripcion">
@@ -85,7 +84,7 @@
                 <ul class="videojuego-resenas">
                     <li class="videojuego-resena">
                         <div class="icono">
-                            <img src="../imgs/icono_user_super_prime.png">
+                            <img src="${pageContext.request.contextPath}/imgs/icono_user_super_prime.png">
                         </div>
                         <div class="resena">
                             <h3>Sebastián</h3>
@@ -102,7 +101,7 @@
                     </li>
                     <li class="videojuego-resena">
                         <div class="icono">
-                            <img src="../imgs/icono_user_super_prime.png">
+                            <img src="${pageContext.request.contextPath}/imgs/icono_user_super_prime.png">
                         </div>
                         <div class="resena">
                             <h3>Ariel</h3>
@@ -117,7 +116,7 @@
                     </li>
                     <li class="videojuego-resena">
                         <div class="icono">
-                            <img src="../imgs/icono_user_super_prime.png">
+                            <img src="${pageContext.request.contextPath}/imgs/icono_user_super_prime.png">
                         </div>
                         <div class="resena">
                             <h3>Victor</h3>
@@ -132,7 +131,7 @@
                     </li>
                     <li class="videojuego-resena">
                         <div class="icono">
-                            <img src="../imgs/icono_user_super_prime.png">
+                            <img src="${pageContext.request.contextPath}/imgs/icono_user_super_prime.png">
                         </div>
                         <div class="resena">
                             <h3>GokuSaiyayin69</h3>
