@@ -53,14 +53,6 @@ public class PerfilResource {
                         .entity("{\"mensaje\": \"No se encontró un usuario con los datos agregados\"}")
                         .build();
             }
-//            usuario.getApellidoPaterno();
-//            usuario.getApellidoMaterno();
-//            usuario.getEmail();
-//            usuario.getEstadoUsuario();
-            
-            //if(usuario.getNombres() == null)
-            //    videojuego.setCategorias(FactoryBO.buscarCategoriaPorVideojuego(videojuego.getIdVideojuego()));
-            // Si se requieren las reseñas del videojuego, se consultan por separado.
             return Response.ok(usuario).build();
         } catch (Exception e) {
             e.printStackTrace();

@@ -38,11 +38,10 @@
 
                     <div class="profile-info">
                         <h2 class="profile-name" id="profile-name">
-                            ${sessionScope.usuario.nombres}
-                            ${sessionScope.usuario.apellidoPaterno} ${sessionScope.usuario.apellidoMaterno}
+                            
                         </h2>
                         <div class="profile-email" id="profile-email">
-                            ${sessionScope.usuario.email}
+                            
                         </div>
 
                         <div class="profile-status" id="profile-status">
