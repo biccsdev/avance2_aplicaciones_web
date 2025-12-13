@@ -13,6 +13,7 @@
         <script src="${pageContext.request.contextPath}/JavaScript/Videojuego/detalleVideojuego.js"></script>
         <script>
             const CONTEXT_PATH = "${pageContext.request.contextPath}";
+            const ID_USUARIO_ACTUAL = "${sessionScope.usuario.idUsuario}";
         </script>
     </head>
     <body class="app-bg-animated">
@@ -38,23 +39,26 @@
                     <h3>Especificaciones técnicas</h3>
                     <ul>
                         <li>
-                            <label>
-                                <span id="videojuego-plataforma" class="especificacion">Plataforma: </span>
+                            <label id="videojuego-plataforma">
+                                <span class="especificacion">Plataforma: </span>
                             </label>
                         </li>
                         <li>
-                            <label>
-                                <span id="videojuego-fecha-lanzamiento" class="especificacion">Fecha de lanzamiento: </span>
+                            <label id="videojuego-fecha-lanzamiento">
+                                <span class="especificacion">Fecha de lanzamiento: </span>
                             </label>
                         </li>
                         <li>
-                            <label>
-                                <span id="videojuego-categorias" class="especificacion">Categorías: </span>
+                            <label id="videojuego-categorias">
+                                <span class="especificacion">Categorías: </span>
                             </label>
+                            <ul id="videojuego-categorias-lista">
+                                
+                            </ul>
                         </li>
                         <li>
-                            <label>
-                                <span id="videojuego-desarrollador" class="especificacion">Desarrollador: </span>
+                            <label id="videojuego-desarrollador">
+                                <span class="especificacion">Desarrollador: </span>
                             </label>
                         </li>
                     </ul>
@@ -62,6 +66,56 @@
             </div>
             <div class="resenas-container">
                 <h2 id="titulo-resenas" class="titulo-resenas">Reseñas:</h2>
+                <div id="nueva-resena" class="nueva-resena">
+                    <h2 id="nueva-resena-label">Escribe una reseña:</h2>
+                    <form id="resena-form" name="resena-form" method="post">
+                        <div class="nueva-resena-container">
+                            <label for="nueva-resena-calificacion">Calificación:</label>
+                            <input 
+                                type="number" 
+                                id="nueva-resena-calificacion" 
+                                name="nueva-resena-calificacion" 
+                                form="resena-form" 
+                                required 
+                                max="5" 
+                                min="0" 
+                                step="0.5"/>
+                        </div>
+                        <div class="nueva-resena-container">
+                            <label id="nueva-resena-titulo-label" for="nueva-resena-titulo">Título:</label>
+                            <input 
+                                type="text" 
+                                id="nueva-resena-titulo" 
+                                name="nueva-resena-titulo" 
+                                form="resena-form" 
+                                maxlength="100" 
+                                minlength="1" 
+                                placeholder="Escribe un título de tu reseña." 
+                                required/>
+                        </div>
+                        <div class="nueva-resena-container">
+                            <label id="nueva-resena-comentario-label" for="nueva-resena-comentario">Comentario:</label>
+                            <textarea 
+                                id="nueva-resena-comentario" 
+                                name="nueva-resena-comentario" 
+                                form="resena-form" 
+                                maxlength="500" 
+                                minlength="10" 
+                                rows="10"
+                                wrap="hard"
+                                placeholder="Escribe qué te gustó o no te gustó del juego." 
+                                required></textarea>
+                        </div>
+                        <div class="nueva-resena-container">
+                            <button 
+                                type="submit" 
+                                id="nueva-resena-button" 
+                                class="btn-dark"
+                                name="nueva-resena-button" 
+                                form="resena-form">Publicar</button>
+                        </div>
+                    </form>
+                </div>
                 <ul id="videojuego-resenas" class="videojuego-resenas"></ul>
             </div>
         </main>

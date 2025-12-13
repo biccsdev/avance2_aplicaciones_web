@@ -45,7 +45,7 @@ public class ResenasResource {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getJson() {
+    public Response getResenas() {
         try {
             List<ResenaDTO> resenas = FactoryBO.buscarTodasLasResenas();
             return Response.ok(resenas).build();
@@ -58,7 +58,7 @@ public class ResenasResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response getVideogameJson(@PathParam("id") String id){
+    public Response getResenasVideojuego(@PathParam("id") String id){
         try {
             Long idVideojuego = Long.valueOf(id);
             List<ResenaDTO> resenas = FactoryBO.buscarResenasPorVideojuego(idVideojuego);
@@ -75,13 +75,13 @@ public class ResenasResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public boolean postJson(ResenaDTO nuevaResena){
+    public Response postResena(ResenaDTO nuevaResena){
         try {
             // Validar máximo 1 reseña por cliente
             FactoryBO.crearResena(nuevaResena);
-            return true;
+            return Response.ok().build();
         } catch (NegocioException e) {
-            return false;
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
     }
     

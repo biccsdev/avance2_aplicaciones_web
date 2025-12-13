@@ -7,7 +7,7 @@ window.onload = () => {
     const descripcion = document.getElementById("videojuego-descripcion");
     const plataforma = document.getElementById("videojuego-plataforma");
     const fechaLanzamiento = document.getElementById("videojuego-fecha-lanzamiento");
-    const categorias = document.getElementById("videojuego-categorias");
+    const categorias = document.getElementById("videojuego-categorias-lista");
     const desarrollador = document.getElementById("videojuego-desarrollador");
 
     const init = () => { 
@@ -30,7 +30,7 @@ window.onload = () => {
             }).then(videojuego => {
                 cargarVideojuego(videojuego);
             }).catch(err => {
-                console.log(err);
+                console.error(err);
             });
         }
     }
@@ -53,7 +53,7 @@ window.onload = () => {
             }).then(resenas => {
                 cargarResenas(resenas);
             }).catch(err => {
-                console.log(err);
+                console.error(err);
             })
         }
     }
@@ -70,12 +70,14 @@ window.onload = () => {
         // Verifica si el juego tiene categorías (normalmente debería tener)
         if(Array.isArray(videojuego.categorias) && videojuego.categorias.length > 0){
             videojuego.categorias.forEach(element => {
-                categorias.innerHTML += `${element.nombre} `;
+                let categoria = document.createElement("li");
+                categoria.innerHTML += `${element.nombre} `;
+                categorias.appendChild(categoria);
             });
         } else{
             categorias.innerHTML += "Sin categorias";
         }
-        desarrollador.innerHTML = videojuego.desarrollador;
+        desarrollador.innerHTML += `${videojuego.desarrollador}`;
     }
 
     const cargarResenas = (resenas) => {
