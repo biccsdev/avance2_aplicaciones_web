@@ -61,75 +61,8 @@
                 </div>
             </div>
             <div class="resenas-container">
-                <h2 class="titulo-resenas">Reseñas:</h2>
-                <ul id="videojuego-resenas" class="videojuego-resenas">
-                    <li class="videojuego-resena">
-                        <div class="icono">
-                            <img src="${pageContext.request.contextPath}/imgs/icono_user_super_prime.png">
-                        </div>
-                        <div class="resena">
-                            <h3>Sebastián</h3>
-                            <h4>Está muy mediocre</h4>
-                            <p>
-                                Eeee pues esta chilo pero no tanto y ademas la caja me llego toda hecha
-                                giras xdd pero el principal problema es que tiene unos controles malisimos
-                                y el perrito esta roto en el online arreglen eso.
-                            </p>
-                        </div>
-                        <div class="calificacion">
-                            <h3>2.5/5</h3>
-                        </div>
-                    </li>
-                    <li class="videojuego-resena">
-                        <div class="icono">
-                            <img src="${pageContext.request.contextPath}/imgs/icono_user_super_prime.png">
-                        </div>
-                        <div class="resena">
-                            <h3>Ariel</h3>
-                            <h4>El mejor juego del mundo</h4>
-                            <p>
-                                con una mano en el corazon, LEJOS el mejor juego que jugue en mi vida. simplemente maravilloso. el lore es excelente, los graficos son geniales, todo es bueno en este juego. uno simplemente sueñaa ser arthur morgan en esta vida
-                            </p>
-                        </div>
-                        <div class="calificacion">
-                            <h3>5/5</h3>
-                        </div>
-                    </li>
-                    <li class="videojuego-resena">
-                        <div class="icono">
-                            <img src="${pageContext.request.contextPath}/imgs/icono_user_super_prime.png">
-                        </div>
-                        <div class="resena">
-                            <h3>Victor</h3>
-                            <h4>Muy promedio</h4>
-                            <p>
-                                Está¡ 2/3, mucho menos divertido que el primero, pero tiene mejores gráficos sin duda.
-                            </p>
-                        </div>
-                        <div class="calificacion">
-                            <h3>2.5/5</h3>
-                        </div>
-                    </li>
-                    <li class="videojuego-resena">
-                        <div class="icono">
-                            <img src="${pageContext.request.contextPath}/imgs/icono_user_super_prime.png">
-                        </div>
-                        <div class="resena">
-                            <h3>GokuSaiyayin69</h3>
-                            <h4>GOTY</h4>
-                            <p>
-                                Sé que llevo reciÃ©n pocas horas jugadas, pero este juego es realmente maravilloso, 
-                                la historia es engancha fácilmente. Pero sobre todo, el ambiente, la música y los sonidos
-                                son lo mejor por lejos. Me asombra la cantidad de detalles que están bien pensados y los
-                                eventos de los npcs te hacen sentir como si el mundo estuviese realmente vivo. Es uno 
-                                de los mejores juegos de la historia, merece mucho la pena. :3
-                            </p>
-                        </div>
-                        <div class="calificacion">
-                            <h3>5/5</h3>
-                        </div>
-                    </li>
-                </ul>
+                <h2 id="titulo-resenas" class="titulo-resenas">Reseñas:</h2>
+                <ul id="videojuego-resenas" class="videojuego-resenas"></ul>
             </div>
         </main>
 
