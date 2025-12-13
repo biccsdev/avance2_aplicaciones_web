@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import joystickmx.itson.DTO.ResenaDTO;
 import joystickmx.itson.DTO.UsuarioDTO;
-import joystickmx.itson.DTO.VideojuegoDTO;
 import joystickmx.itson.DTO.VideojuegoResenaDTO;
 import joystickmx.itson.Factory.FactoryBO;
 import joystickmx.negocio.exception.NegocioException;

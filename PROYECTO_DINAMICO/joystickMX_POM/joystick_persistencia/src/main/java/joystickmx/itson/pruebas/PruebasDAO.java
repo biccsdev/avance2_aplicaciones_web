@@ -2,9 +2,10 @@ package joystickmx.itson.pruebas;
 
 import java.util.ArrayList;
 import java.util.List;
-import joystickmx.itson.DAOS.CategoriaDAO;
+import joystickmx.itson.DAOS.ResenaDAO;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.entidades.Categoria;
+import joystickmx.itson.entidades.Resena;
 
 /**
  * Pruebas de clases DAO.
@@ -19,15 +20,24 @@ public class PruebasDAO {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        List<Categoria> categorias = new ArrayList<>();
+//        List<Categoria> categorias = new ArrayList<>();
         try {
             // Prueba el método buscarPorVideojuego de CategoriasDAO.
-            categorias = new CategoriaDAO().buscarPorVideojuego(1L);
-            if(categorias != null && !categorias.isEmpty()){
-                categorias.forEach(c -> {
-                    System.out.println("Categoría: " + c.getNombre());
+//            categorias = new CategoriaDAO().buscarPorVideojuego(1L);
+//            if(categorias != null && !categorias.isEmpty()){
+//                categorias.forEach(c -> {
+//                    System.out.println("Categoría: " + c.getNombre());
+//                });
+//            }
+            List<Resena> resenas = new ResenaDAO().buscarPorVideojuego(3L);
+            if(resenas != null && !resenas.isEmpty()){
+                resenas.forEach(r -> {
+                    System.out.println(r.getTitulo());
+                    System.out.println(r.getComentario());
+                    System.out.println("");
                 });
             }
+            
         } catch (PersistenciaException e) {
             System.out.println("Algo salió mal: " + e.getMessage());
         }

@@ -34,6 +34,7 @@ public class ResenaDTO {
     ) {
         this.idResena = idResena;
         this.calificacion = calificacion;
+        this.titulo = titulo;
         this.comentario = comentario;
         this.fechaResena = fechaResena;
         this.idCliente = idCliente;
@@ -49,6 +50,7 @@ public class ResenaDTO {
             String nombreCliente
     ) {
         this.calificacion = calificacion;
+        this.titulo = titulo;
         this.comentario = comentario;
         this.fechaResena = fechaResena;
         this.idCliente = idCliente;
