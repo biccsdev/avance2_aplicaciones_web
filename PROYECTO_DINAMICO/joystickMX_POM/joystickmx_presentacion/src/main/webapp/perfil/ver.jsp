@@ -51,7 +51,8 @@
                         </div>
                     </div>
 
-                    <a href="${pageContext.request.contextPath}/perfil/editar.jsp">
+                            <!-- Aqui nomas cambia el href por el jsp de prueba, quitar editarPRUEBA.jsp, solo para pruebas  -->
+                    <a href="${pageContext.request.contextPath}/perfil/editarPRUEBA.jsp">
                         <button class="edit-button" aria-label="Editar perfil">
                             <img src="${pageContext.request.contextPath}/imgs/icono_edit_user.png" alt="Editar" class="edit-icon">
                         </button>

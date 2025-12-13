@@ -168,7 +168,7 @@ public class FactoryBO {
         try {
             return new UsuarioBO(FactoryDAO.crearUsuarioDAO()).actualizarUsuario(dto);
         } catch (NegocioException e) {
-            throw new NegocioException("Error al intentar actualizar videojuego: " + e.getMessage(), e);
+            throw new NegocioException("Error al intentar actualizar usuario: " + e.getMessage(), e);
         }
     }
 

@@ -26,6 +26,8 @@ public class JakartaRestConfiguration extends Application {
         classes.add(ResenasResource.class);
         classes.add(CarritoResource.class);
         classes.add(PedidosResource.class);
+        //quitar esto, solo pruebas
+        classes.add(PerfilResourcePRUEBA.class);
         return classes;
     }
     
