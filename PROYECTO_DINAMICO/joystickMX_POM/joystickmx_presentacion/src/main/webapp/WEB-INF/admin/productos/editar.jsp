@@ -52,6 +52,11 @@
                     </div>
 
                     <div class="form-div">
+                        <label for="descripcion">Descripción</label>
+                        <textarea id="descripcion" name="descripcion" rows="4" required>${videojuego.descripcion}</textarea>
+                    </div>
+
+                    <div class="form-div">
                         <label for="desarrollador">Desarrollador</label>
                         <input type="text" id="desarrollador" name="desarrollador" value="${videojuego.desarrollador}" required>
                     </div>

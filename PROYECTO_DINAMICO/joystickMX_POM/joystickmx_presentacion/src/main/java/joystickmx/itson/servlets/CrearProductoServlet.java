@@ -18,8 +18,10 @@ import joystickmx.itson.DTO.CategoriaDTO;
 import joystickmx.itson.DTO.VideojuegoDTO;
 import joystickmx.itson.Factory.FactoryBO;
 import joystickmx.negocio.exception.NegocioException;
+
 /**
- * CrearProductosServlet - Maneja la creación de productos (videojuegos) por parte del administrador
+ * CrearProductosServlet - Maneja la creación de productos (videojuegos) por
+ * parte del administrador
  *
  * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
  * @author Sebastián Bórquez Huerta ID: 00000252115
@@ -28,9 +30,9 @@ import joystickmx.negocio.exception.NegocioException;
  */
 @WebServlet(name = "CrearProductoServlet", urlPatterns = {"/admin/productos/crear"})
 @MultipartConfig(
-    fileSizeThreshold = 1024 * 1024 * 1, 
-    maxFileSize = 1024 * 1024 * 10,      
-    maxRequestSize = 1024 * 1024 * 15 
+        fileSizeThreshold = 1024 * 1024 * 1,
+        maxFileSize = 1024 * 1024 * 10,
+        maxRequestSize = 1024 * 1024 * 15
 )
 public class CrearProductoServlet extends HttpServlet {
 
@@ -53,7 +55,7 @@ public class CrearProductoServlet extends HttpServlet {
             //Obtener todas las categorías
             List<CategoriaDTO> categoriasDisponibles = FactoryBO.buscarTodasCategorias();
             request.setAttribute("categoriasDisponibles", categoriasDisponibles);
-            
+
         } catch (NegocioException e) {
             LOG.log(Level.WARNING, "Error al cargar las categorías para el formulario", e.getMessage());
             request.setAttribute("error", "Error al cargar las vategorías" + e.getMessage());
@@ -79,21 +81,24 @@ public class CrearProductoServlet extends HttpServlet {
 
         try {
             String nombre = request.getParameter("nombre");
-            //La descripción no aparece en el formulario
-            String descripcion = "Descripción pendiente...";
+
+            String descripcion = request.getParameter("descripcion");
+            if (descripcion == null || descripcion.trim().isEmpty()) {
+                descripcion = "Sin descripción";
+            }
             String plataforma = request.getParameter("plataforma");
             String desarrollador = request.getParameter("desarrollador");
-            String categoriaNombre = request.getParameter("categoria"); 
+            String categoriaNombre = request.getParameter("categoria");
             LocalDate fechaLanzamiento = LocalDate.parse(request.getParameter("lanzamiento"));
             String precioStr = request.getParameter("precio").replace(",", ".");
-            
+
             Float precio = Float.valueOf(precioStr);
             Integer stock = Integer.valueOf(request.getParameter("existencias"));
 
             //Manejar toda la lógica para guardar la imagen
             String imagenUrlDB = "imgs/iconoImagen.png";
             Part filePart = request.getPart("imagenFile");
-            
+
             if (filePart != null && filePart.getSize() > 0) {
                 String fileName = filePart.getSubmittedFileName();
                 String uploadPath = getServletContext().getRealPath(UPLOAD_DIR);
@@ -101,18 +106,18 @@ public class CrearProductoServlet extends HttpServlet {
                 if (!uploadDir.exists()) {
                     uploadDir.mkdirs();
                 }
-                
+
                 String finalName = fileName;
                 filePart.write(uploadPath + File.separator + finalName);
-                
+
                 //Asignar el formato específico de la url para guardarlo en la base de datos
-                imagenUrlDB = UPLOAD_DIR + "/" + finalName; 
+                imagenUrlDB = UPLOAD_DIR + "/" + finalName;
             }
 
             //Buscar y validar las categorías
             List<CategoriaDTO> categorias = new ArrayList<>();
-            CategoriaDTO categoriaEncontrada = FactoryBO.buscarCategoriaPorNombre(categoriaNombre); 
-            
+            CategoriaDTO categoriaEncontrada = FactoryBO.buscarCategoriaPorNombre(categoriaNombre);
+
             if (categoriaEncontrada == null) {
                 throw new NegocioException("La categoría seleccionada no es válida: " + categoriaNombre);
             }
@@ -121,7 +126,7 @@ public class CrearProductoServlet extends HttpServlet {
             //Construir y persistir el videojuego
             VideojuegoDTO nuevoVideojuego = new VideojuegoDTO();
             nuevoVideojuego.setNombre(nombre);
-            nuevoVideojuego.setDescripcion(descripcion);
+            nuevoVideojuego.setDescripcion(descripcion); 
             nuevoVideojuego.setPlataforma(plataforma);
             nuevoVideojuego.setDesarrollador(desarrollador);
             nuevoVideojuego.setCategorias(categorias);
@@ -138,7 +143,7 @@ public class CrearProductoServlet extends HttpServlet {
         } catch (NumberFormatException e) {
             error = "Error: El precio y el stock deben ser números válidos.";
             LOG.log(Level.WARNING, error, e);
-            
+
         } catch (Exception e) {
             error = "Error al crear el producto: " + e.getMessage();
             LOG.log(Level.SEVERE, error, e);
@@ -148,9 +153,9 @@ public class CrearProductoServlet extends HttpServlet {
         if (error != null) {
             request.setAttribute("error", error);
             try {
-                 request.setAttribute("categoriasDisponibles", FactoryBO.buscarTodasCategorias());
-            } catch(Exception ex) {
-                 LOG.log(Level.WARNING, "Fallo al recargar categorías tras error.");
+                request.setAttribute("categoriasDisponibles", FactoryBO.buscarTodasCategorias());
+            } catch (Exception ex) {
+                LOG.log(Level.WARNING, "Fallo al recargar categorías tras error.");
             }
             request.getRequestDispatcher("/WEB-INF/admin/productos/crear.jsp").forward(request, response);
         }

@@ -18,11 +18,11 @@
             <div class="form-main">
                 <div class="sidebar-image">
 
-                <c:if test="${not empty error}">
-                    <h4 style="color: red; text-align: center; background-color: white; padding: 10px; border-radius: 8px;">
-                        ${error}
-                    </h4>
-                </c:if> 
+                    <c:if test="${not empty error}">
+                        <h4 style="color: red; text-align: center; background-color: white; padding: 10px; border-radius: 8px;">
+                            ${error}
+                        </h4>
+                    </c:if> 
 
                     <h1>Crear Producto</h1>
                     <div class="img-producto">
@@ -53,6 +53,11 @@
                             <option value="switch">Nintendo Switch</option>
                             <option value="switch-2">Nintendo Switch 2</option>
                         </select>
+                    </div>
+
+                    <div class="form-div">
+                        <label for="descripcion">Descripción</label>
+                        <textarea id="descripcion" name="descripcion" placeholder="Escribe una breve descripción del videojuego..." rows="4" required></textarea>
                     </div>
 
                     <div class="form-div">

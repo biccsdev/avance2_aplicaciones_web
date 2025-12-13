@@ -31,9 +31,9 @@ import joystickmx.negocio.exception.NegocioException;
  */
 @WebServlet(name = "EditarVideojuegoServlet", urlPatterns = {"/admin/productos/editar"})
 @MultipartConfig(
-    fileSizeThreshold = 1024 * 1024 * 1, 
-    maxFileSize = 1024 * 1024 * 10,
-    maxRequestSize = 1024 * 1024 * 15 
+        fileSizeThreshold = 1024 * 1024 * 1,
+        maxFileSize = 1024 * 1024 * 10,
+        maxRequestSize = 1024 * 1024 * 15
 )
 public class EditarVideojuegoServlet extends HttpServlet {
 
@@ -114,6 +114,7 @@ public class EditarVideojuegoServlet extends HttpServlet {
             VideojuegoDTO videojuegoOriginal = FactoryBO.buscarVideojuegoPorId(id);
 
             String nombre = obtenerValorPart(request.getPart("nombre"));
+            String descripcion = obtenerValorPart(request.getPart("descripcion"));
             String plataforma = obtenerValorPart(request.getPart("plataforma"));
             String desarrollador = obtenerValorPart(request.getPart("desarrollador"));
             String precioStr = obtenerValorPart(request.getPart("precio"));
@@ -158,6 +159,7 @@ public class EditarVideojuegoServlet extends HttpServlet {
             videojuegoOriginal.setExistencias(Integer.parseInt(existenciasStr));
             videojuegoOriginal.setFechaLanzamiento(LocalDate.parse(fechaStr));
             videojuegoOriginal.setUrlImagen(nuevaUrlImagen);
+            videojuegoOriginal.setDescripcion(descripcion);
 
             FactoryBO.actualizarVideojuego(videojuegoOriginal);
 
