@@ -10,6 +10,14 @@
     margin-bottom: 5px;
 }
 
+
+.lista-productos-resumen{
+    margin-bottom: 20px; 
+    font-size: 0.9em; 
+    color: #FFFFFF;
+}
+
+
 .resumen {
     display: flex;
     justify-content: center;

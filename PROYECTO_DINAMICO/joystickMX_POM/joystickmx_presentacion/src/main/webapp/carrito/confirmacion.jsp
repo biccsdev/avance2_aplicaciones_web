@@ -33,7 +33,7 @@
                 <div class="detalles">
                     <h2 class="detalles-pedido">Detalles del pedido</h2>
 
-                    <div id="lista-productos-resumen" style="margin-bottom: 20px; font-size: 0.9em; color: #ccc;"></div>
+                    <div id="lista-productos-resumen" class="lista-productos-resumen"></div>
 
                     <div class="detalles-item">
                         <span>Subtotal Productos:</span>
