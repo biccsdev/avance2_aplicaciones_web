@@ -30,14 +30,21 @@ async function cargarCarrito() {
 
         listaProductosContainer.innerHTML = "";
         let subtotal = 0;
+        let hayItemsDeshabilitados = false; // FLAG para controlar el botón de pago visualmente
 
         if (items.length === 0) {
             listaProductosContainer.innerHTML = "<p>Tu carrito esta vacio.</p>";
             lblSubtotal.innerText = "$0.00";
+
+            const btnPago = document.getElementById("btn-pago");
+            if (btnPago) {
+                btnPago.classList.remove("btn-warning");
+                btnPago.innerText = "Proceder al pago";
+            }
+
             actualizarEstadoBotones(true);
             return;
         }
-
 
         items.forEach(item => {
             const videojuego = item.videojuego || {};
@@ -45,26 +52,38 @@ async function cargarCarrito() {
             const precioJuego = videojuego.precio || 0;
             const plataforma = videojuego.plataforma || "";
 
-            let rutaImagen = videojuego.urlImagen;
+            const estaHabilitado = (typeof videojuego.habilitado !== 'undefined') ? videojuego.habilitado : true;
 
+            let rutaImagen = videojuego.urlImagen;
             if (!rutaImagen) {
                 rutaImagen = "imgs/iconoImagen.png";
-            }
-            else if (!rutaImagen.startsWith("http") && !rutaImagen.startsWith("imgs/") && !rutaImagen.startsWith("/imgs/")) {
+            } else if (!rutaImagen.startsWith("http") && !rutaImagen.startsWith("imgs/") && !rutaImagen.startsWith("/imgs/")) {
                 rutaImagen = `imgs/${rutaImagen}`;
             }
-
             if (rutaImagen.startsWith("/")) {
                 rutaImagen = rutaImagen.substring(1);
             }
-
             const urlFinal = rutaImagen.startsWith("http") ? rutaImagen : `${CONTEXT_PATH}/${rutaImagen}`;
 
             const precioItem = precioJuego * item.cantidad;
-            subtotal += precioItem;
+
+            if (estaHabilitado) {
+                subtotal += precioItem;
+            } else {
+                hayItemsDeshabilitados = true;
+            }
+
+            const claseDeshabilitado = !estaHabilitado ? "item-deshabilitado" : "";
+            const mensajeError = !estaHabilitado ? "<div class='error-msg-item'> PRODUCTO NO DISPONIBLE - ELIMÍNALO PARA CONTINUAR</div>" : "";
+            const controlesCantidad = estaHabilitado ?
+                    `<button class="btn-menos" onclick="actualizarCantidad(${item.idItemCarrito}, ${item.cantidad - 1})">-</button>
+                 <span class="qty-num">${item.cantidad}</span>
+                 <button class="btn-mas" onclick="actualizarCantidad(${item.idItemCarrito}, ${item.cantidad + 1})">+</button>`
+                    :
+                    `<span class="qty-num">No disponible</span>`;
 
             const htmlProducto = `
-                <article class="producto-item" data-id-item="${item.idItemCarrito}">
+                <article class="producto-item ${claseDeshabilitado}" data-id-item="${item.idItemCarrito}" data-habilitado="${estaHabilitado}">
                     <div class="producto-info">
                         <img class="producto-img" 
                              src="${urlFinal}" 
@@ -72,18 +91,19 @@ async function cargarCarrito() {
                              onerror="this.src='${CONTEXT_PATH}/imgs/iconoImagen.png'"> 
                              
                         <div class="producto-meta">
-                            <h2 class="producto-nombre">${nombreJuego} - ${plataforma}</h2>
+                            <h2 class="producto-nombre">
+                                ${nombreJuego} - ${plataforma}
+                            </h2>
+                            ${mensajeError} 
                             
                             <div class="producto-cantidad">
-                                <button class="btn-menos" onclick="actualizarCantidad(${item.idItemCarrito}, ${item.cantidad - 1})">-</button>
-                                <span class="qty-num">${item.cantidad}</span>
-                                <button class="btn-mas" onclick="actualizarCantidad(${item.idItemCarrito}, ${item.cantidad + 1})">+</button>
+                                ${controlesCantidad}
                             </div>
                             
                             <button class="btn-eliminar" onclick="eliminarItem(${item.idItemCarrito})">Eliminar del carro</button>
                         </div>
                     </div>
-                    <div class="producto-precio">$${precioJuego.toFixed(2)}</div>
+                    <div class="producto-precio">$${precioItem.toFixed(2)}</div>
                 </article>
             `;
 
@@ -91,7 +111,18 @@ async function cargarCarrito() {
         });
 
         lblSubtotal.innerText = `$${subtotal.toLocaleString("en-US", {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+
         actualizarEstadoBotones(false);
+        const btnPago = document.getElementById("btn-pago");
+        if (btnPago) {
+            if (hayItemsDeshabilitados) {
+                btnPago.classList.add("btn-warning");
+                btnPago.innerText = "Revisa tu carrito";
+            } else {
+                btnPago.classList.remove("btn-warning");
+                btnPago.innerText = "Proceder al pago";
+            }
+        }
 
     } catch (error) {
         console.error("Error detallado:", error);
@@ -189,6 +220,27 @@ async function irAPago() {
     const btn = document.getElementById("btn-pago");
     if (btn.disabled)
         return;
+
+
+    const itemsNoDisponibles = document.querySelectorAll('article[data-habilitado="false"]');
+
+    if (itemsNoDisponibles.length > 0) {
+        let nombresJuegos = "";
+        itemsNoDisponibles.forEach(item => {
+            const nombreElement = item.querySelector(".producto-nombre");
+            const nombreTexto = nombreElement ? nombreElement.innerText.split("\n")[0] : "Juego desconocido"; // Limpiamos saltos de linea
+            nombresJuegos += `- ${nombreTexto}\n`;
+        });
+
+        alert(`️NO PUEDES CONTINUAR. Los siguientes juegos ya no están disponibles en la tienda:
+                \n
+                ${nombresJuegos}
+                \n
+                Por favor, elimínalos del carrito para proceder al pago.`);
+
+
+        return;
+    }
 
     const textoOriginal = btn.innerText;
 
