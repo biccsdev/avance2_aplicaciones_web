@@ -6,6 +6,7 @@ import joystickmx.itson.DAOS.ClienteDAO;
 import joystickmx.itson.DAOS.VideojuegoDAO;
 import joystickmx.itson.DTO.CarritoDTO;
 import joystickmx.itson.DTO.ItemCarritoDTO;
+import joystickmx.itson.DependencyInjectorBO.InjectorBO;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.Mappers.DTOMapeadores;
 import joystickmx.itson.Mappers.Mapeadores;
@@ -137,9 +138,23 @@ public class CarritoBO implements ICarritoBO {
     @Override
     public void actualizarCantidadItem(Long idItemCarrito, Integer cantidad) throws NegocioException {
         try {
-            if (cantidad <= 0) {
+            // Valida el id del item
+            if(idItemCarrito == null)
+                throw new NegocioException("Sin item del carrito asociado.");
+            
+            // Valida que el id corresponda con un item existente en la BD
+            ItemCarritoDTO item = this.buscarItemPorId(idItemCarrito);
+            if(item == null)
+                throw new NegocioException("No se encontró el item asociado.");
+            
+            // Valida que la cantidad no sea menor o igual a cero
+            if (cantidad <= 0)
                 throw new NegocioException("La cantidad debe ser mayor a 0.");
-            }
+            
+            // Valida que la cantidad recibida no supere el stock disponible
+            if(cantidad > InjectorBO.buildVideojuegoBO().buscarPorId(item.getIdVideojuego()).getExistencias())
+                throw new NegocioException("La cantidad recibida supera el stock disponible.");
+            
             this.carritoDAO.actualizarCantidadItem(idItemCarrito, cantidad);
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al actualizar la cantidad del item: " + e.getMessage(), e);
@@ -190,6 +205,15 @@ public class CarritoBO implements ICarritoBO {
         }
 
         return errores;
+    }
+    
+    @Override
+    public ItemCarritoDTO buscarItemPorId(Long idItemCarrito) throws NegocioException{
+        try {
+            return Mapeadores.toItemCarritoDTO(this.carritoDAO.buscarItemPorId(idItemCarrito));
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al consultar el item: " + e.getMessage(), e);
+        }
     }
 
 }

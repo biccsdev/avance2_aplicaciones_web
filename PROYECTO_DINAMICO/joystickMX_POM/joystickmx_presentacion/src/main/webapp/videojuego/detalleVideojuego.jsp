@@ -28,7 +28,7 @@
                     <h4 id="videojuego-existencias" class="videojuego-existencias">Existencias: </h4>
                     <div class="videojuego-precio-carrito">
                         <h2 id="videojuego-precio" class="videojuego-precio">$</h2>
-                        <button class="btn-carrito btn-dark">
+                        <button id="btn-carrito" class="btn-carrito btn-dark">
                             Agregar al carrito
                             <img src="${pageContext.request.contextPath}/imgs/carrito.png">
                         </button>

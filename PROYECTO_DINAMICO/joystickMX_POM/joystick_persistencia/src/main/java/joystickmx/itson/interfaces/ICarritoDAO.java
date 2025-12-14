@@ -34,4 +34,6 @@ public interface ICarritoDAO {
     public List<ItemCarrito> obtenerItemsCarrito(Carrito carrito) throws PersistenciaException;
     
     public void actualizarCantidadItem(Long idItemCarrito, Integer nuevaCantidad) throws PersistenciaException;
+    
+    public ItemCarrito buscarItemPorId(Long idItemCarrito) throws PersistenciaException;
 }

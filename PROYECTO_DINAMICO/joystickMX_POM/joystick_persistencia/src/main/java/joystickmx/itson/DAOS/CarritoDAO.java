@@ -252,4 +252,16 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
             if (em.isOpen()) { em.close(); }
         }
     }
+    
+    @Override
+    public ItemCarrito buscarItemPorId(Long idItemCarrito) throws PersistenciaException{
+        iniciarConexion();
+        try {
+            return em.find(ItemCarrito.class, idItemCarrito);
+        } catch (Exception e) {
+            throw new PersistenciaException("Error obtener el item: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) { em.close(); }
+        }
+    }
 }

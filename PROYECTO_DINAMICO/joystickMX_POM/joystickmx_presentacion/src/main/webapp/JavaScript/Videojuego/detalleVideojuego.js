@@ -31,6 +31,7 @@ window.onload = () => {
                 cargarVideojuego(videojuego);
             }).catch(err => {
                 console.error(err);
+                alert("Ocurrió un error al consultar la información del juego.");
             });
         }
     }
@@ -54,6 +55,7 @@ window.onload = () => {
                 cargarResenas(resenas);
             }).catch(err => {
                 console.error(err);
+                alert("Ocurrió un error al intentar obtener las reseñas del videojuego.");
             })
         }
     }

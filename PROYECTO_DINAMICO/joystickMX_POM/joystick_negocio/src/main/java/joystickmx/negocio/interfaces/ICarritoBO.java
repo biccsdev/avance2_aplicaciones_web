@@ -35,4 +35,6 @@ public interface ICarritoBO {
     public void actualizarCantidadItem(Long idItemCarrito, Integer cantidad) throws NegocioException;
     
     public List<String> validarExistenciasVideojuego(Long idCliente) throws NegocioException;
+    
+    public ItemCarritoDTO buscarItemPorId(Long idItemCarrito) throws NegocioException;
 }
