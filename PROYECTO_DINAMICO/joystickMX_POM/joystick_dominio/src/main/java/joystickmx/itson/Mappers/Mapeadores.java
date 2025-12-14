@@ -142,6 +142,8 @@ public class Mapeadores {
             videojuegoCompleto.setUrlImagen(vEntity.getUrlImagen());
             videojuegoCompleto.setPlataforma(vEntity.getPlataforma());
             videojuegoCompleto.setExistencias(vEntity.getExistencias());
+            
+            videojuegoCompleto.setHabilitado(vEntity.isHabilitado());
         }
 
         Long idCarrito = null;
