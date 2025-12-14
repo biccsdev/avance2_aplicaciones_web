@@ -25,7 +25,11 @@
                         <img src="${pageContext.request.contextPath}${videojuego.urlImagen}" 
                              alt="Portada de ${videojuego.nombre}" 
                              class="img-producto"
-                             style="object-fit: cover;">
+                             style="object-fit: cover;"
+                             onerror="this.src='${pageContext.request.contextPath}/imgs/iconoImagen.png'">
+                             
+                             
+                        
                     </div>
                 </div>
 
