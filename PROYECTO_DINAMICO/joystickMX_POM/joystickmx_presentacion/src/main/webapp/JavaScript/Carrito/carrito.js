@@ -44,9 +44,21 @@ async function cargarCarrito() {
             const nombreJuego = videojuego.nombre || "Producto desconocido";
             const precioJuego = videojuego.precio || 0;
             const plataforma = videojuego.plataforma || "";
-            const urlImagen = videojuego.urlImagen ?
-                    (videojuego.urlImagen.startsWith("http") ? videojuego.urlImagen : `${CONTEXT_PATH}/${videojuego.urlImagen}`)
-                    : `${CONTEXT_PATH}/imgs/iconoImagen.png`;
+
+            let rutaImagen = videojuego.urlImagen;
+
+            if (!rutaImagen) {
+                rutaImagen = "imgs/iconoImagen.png";
+            }
+            else if (!rutaImagen.startsWith("http") && !rutaImagen.startsWith("imgs/") && !rutaImagen.startsWith("/imgs/")) {
+                rutaImagen = `imgs/${rutaImagen}`;
+            }
+
+            if (rutaImagen.startsWith("/")) {
+                rutaImagen = rutaImagen.substring(1);
+            }
+
+            const urlFinal = rutaImagen.startsWith("http") ? rutaImagen : `${CONTEXT_PATH}/${rutaImagen}`;
 
             const precioItem = precioJuego * item.cantidad;
             subtotal += precioItem;
@@ -55,9 +67,9 @@ async function cargarCarrito() {
                 <article class="producto-item" data-id-item="${item.idItemCarrito}">
                     <div class="producto-info">
                         <img class="producto-img" 
-                             src="${urlImagen}" 
+                             src="${urlFinal}" 
                              alt="${nombreJuego}"
-                             onerror="this.src="${CONTEXT_PATH}/imgs/iconoImagen.png""> 
+                             onerror="this.src='${CONTEXT_PATH}/imgs/iconoImagen.png'"> 
                              
                         <div class="producto-meta">
                             <h2 class="producto-nombre">${nombreJuego} - ${plataforma}</h2>
