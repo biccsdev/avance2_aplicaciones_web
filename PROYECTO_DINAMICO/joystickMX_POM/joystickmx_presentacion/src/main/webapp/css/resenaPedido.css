@@ -41,7 +41,7 @@
 
 .product-list {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 15px;
 }
 
@@ -49,10 +49,10 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 10px;
+    padding: 12px;
     background: var(--gray-100);
     border-radius: var(--radius-md);
-    flex: 1 1 calc(50% - 15px);
+    width: 100%;
 }
 
 [data-theme="dark"] .product-preview {

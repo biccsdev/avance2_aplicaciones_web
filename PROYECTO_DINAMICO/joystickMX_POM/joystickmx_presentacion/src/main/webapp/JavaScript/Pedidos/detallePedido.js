@@ -92,9 +92,20 @@ function renderizarDetalle(pedido) {
     document.getElementById("resumen-envio").innerText = `$${envio.toFixed(2)}`;
     document.getElementById("resumen-total").innerText = `$${total.toFixed(2)}`;
 
-    const btnResena = document.getElementById("btn-dejar-resena");
-    if(btnResena) {
-        btnResena.href = `${CONTEXT_PATH}/pedidos/resena?id=${pedido.idPedido}`;
+    const actionButtonsContainer = document.querySelector(".action-buttons");
+    
+    if (pedido.estadoPedido === "ENTREGADO") {
+        actionButtonsContainer.innerHTML = `
+            <a href="${CONTEXT_PATH}/pedidos/resena?id=${pedido.idPedido}" class="btn btn-primary">
+                Dejar Reseña
+            </a>
+        `;
+    } else {
+        actionButtonsContainer.innerHTML = `
+            <button class="btn btn-secondary" disabled title="Solo puedes reseñar pedidos entregados">
+                Dejar Reseña
+            </button>
+        `;
     }
 }
 

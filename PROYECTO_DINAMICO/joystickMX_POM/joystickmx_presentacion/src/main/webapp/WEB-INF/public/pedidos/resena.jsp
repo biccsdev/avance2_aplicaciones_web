@@ -1,5 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+
+<c:if test="${empty sessionScope.usuario}">
+    <c:redirect url="/login"/>
+</c:if>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -10,6 +15,13 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/resenaPedido.css">
     <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/imgs/icono_app.png">
+    
+    <script>
+        const CONTEXT_PATH = "${pageContext.request.contextPath}";
+        const ID_USUARIO_ACTUAL = "${sessionScope.usuario.idUsuario}";
+        const ID_PEDIDO = "${param.id}"; 
+    </script>
+    <script src="${pageContext.request.contextPath}/JavaScript/Resenas/dejarResena.js" defer></script>
 </head>
 <body class="app-bg-animated">
     <jsp:include page="/WEB-INF/includes/header.jsp"/>
@@ -18,31 +30,28 @@
         <h1 class="review-title brand-title">Dejar Reseña - Pedido #${param.id}</h1>
 
         <div class="review-content">
+            
             <section class="products-to-review">
                 <h2>Productos en este pedido</h2>
-                <div class="product-list">
-                    <div class="product-preview">
-                        <img src="${pageContext.request.contextPath}/imgs/ghosts.png" alt="Producto" class="product-img">
-                        <span>Call of Duty: Ghosts - PlayStation 4</span>
-                    </div>
-                    <div class="product-preview">
-                        <img src="${pageContext.request.contextPath}/imgs/poly.png" alt="Producto" class="product-img">
-                        <span>The Battle of Polytopia - PC</span>
-                    </div>
+                <div class="product-list" id="lista-visual-productos">
+                    <p>Cargando productos...</p>
                 </div>
             </section>
 
             <section class="review-form-section">
-                <form action="${pageContext.request.contextPath}/pedidos/guardar-resena" method="post" class="review-form">
-                    <input type="hidden" name="pedidoId" value="${param.id}">
-
+                <form id="form-resena" class="review-form">
+                    
                     <div class="form-group">
                         <label for="productoId" class="form-label">Producto a reseñar</label>
                         <select id="productoId" name="productoId" class="input" required>
-                            <option value="">Selecciona un producto</option>
-                            <option value="1">Call of Duty: Ghosts - PlayStation 4</option>
-                            <option value="2">The Battle of Polytopia - PC</option>
+                            <option value="">Cargando opciones...</option>
                         </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="titulo" class="form-label">Título de la reseña</label>
+                        <input type="text" id="titulo" name="titulo" class="input" 
+                               placeholder="Ej. ¡Increíble experiencia de juego!" required>
                     </div>
 
                     <div class="form-group">
@@ -67,17 +76,9 @@
                                   placeholder="Cuéntanos tu experiencia con este producto..." required></textarea>
                     </div>
 
-                    <c:if test="${not empty error}">
-                        <div class="error-text">${error}</div>
-                    </c:if>
-
-                    <c:if test="${not empty success}">
-                        <div class="success-text">${success}</div>
-                    </c:if>
-
                     <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">Enviar Reseña</button>
-                        <a href="${pageContext.request.contextPath}/pedidos" class="btn btn-secondary">Cancelar</a>
+                        <button type="submit" class="btn btn-primary" id="btn-enviar">Enviar Reseña</button>
+                        <a href="${pageContext.request.contextPath}/pedidos/detalle?id=${param.id}" class="btn btn-secondary">Cancelar</a>
                     </div>
                 </form>
             </section>

@@ -79,9 +79,18 @@ public class ResenasResource {
         try {
             // Validar máximo 1 reseña por cliente
             FachadaBO.crearResena(nuevaResena);
-            return Response.ok().build();
+            
+            return Response.ok("{\"mensaje\": \"Reseña publicada con éxito\"}").build();
+            
         } catch (NegocioException e) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("{\"error\": \"" + e.getMessage() + "\"}")
+                    .build();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.serverError()
+                    .entity("{\"error\": \"Error interno del servidor.\"}")
+                    .build();
         }
     }
     
