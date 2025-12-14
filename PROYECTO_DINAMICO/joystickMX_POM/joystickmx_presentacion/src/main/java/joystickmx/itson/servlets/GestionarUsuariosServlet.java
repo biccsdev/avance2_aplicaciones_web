@@ -53,7 +53,13 @@ public class GestionarUsuariosServlet extends HttpServlet {
 
         try {
             if (busqueda != null && !busqueda.trim().isEmpty()) {
-                listaUsuarios = FachadaBO.buscarClientesPorNombre(busqueda.trim());
+                listaUsuarios = FachadaBO.buscarClientesPorNombreNoEliminados(busqueda.trim());
+                
+                if (listaUsuarios.isEmpty() || listaUsuarios == null) {
+                    listaUsuarios = FachadaBO.buscarClientesPorNombre(busqueda.trim());
+                }
+                
+                
             } else {
                 listaUsuarios = FachadaBO.buscarClientesExistentes();
             }

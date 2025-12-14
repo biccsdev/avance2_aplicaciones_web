@@ -3,6 +3,7 @@ package joystickmx.itson.interfaces;
 import java.util.List;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.entidades.Cliente;
+import joystickmx.itson.entidades.Usuario;
 
 /**
  *
@@ -30,4 +31,6 @@ public interface IClienteDAO {
     List<Cliente> buscarClientesInactivos() throws PersistenciaException;
 
     List<Cliente> buscarPorNombre(String nombre) throws PersistenciaException;
+    
+    public List<Usuario> buscarPorNombreNoEliminados(String nombre) throws PersistenciaException;
 }

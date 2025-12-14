@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import joystickmx.itson.DTO.UsuarioDTO;
 import joystickmx.itson.Fachada.FachadaBO;
+import joystickmx.negocio.exception.NegocioException;
 
 /**
  *
@@ -63,13 +64,14 @@ public class UsuarioEliminadoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String idUsuarioStr = request.getParameter("id");
-        String contextPath = request.getContextPath();
+        String email = request.getParameter("email");
 
         try {
-            Long idUsuario = Long.valueOf(idUsuarioStr);
-            UsuarioDTO usuario = FachadaBO.buscarClientePorId(idUsuario);
-            request.setAttribute("usuario", usuario);
+            if (email != null && !email.isEmpty()) {
+                UsuarioDTO usuario = FachadaBO.buscarUsuarioPorEmail(email);
+
+                request.setAttribute("usuario", usuario);
+            }
         } catch (Exception e) {
             LOG.log(Level.WARNING, "No se pudo obtener info de usuario post-eliminación", e);
         }

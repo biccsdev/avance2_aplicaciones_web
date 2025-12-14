@@ -52,7 +52,7 @@ public class EliminarUsuarioServlet extends HttpServlet {
 
             request.setAttribute("usuario", usuario);
 
-            request.getRequestDispatcher("/WEB-INF/admin/usuarios/confirmar-eliminar.jsp")
+            request.getRequestDispatcher("/WEB-INF/admin/usuarios/confirmarEliminarUsuario.jsp")
                     .forward(request, response);
 
         } catch (Exception e) {

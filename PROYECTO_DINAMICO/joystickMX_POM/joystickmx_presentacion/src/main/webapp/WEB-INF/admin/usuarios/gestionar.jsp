@@ -20,15 +20,15 @@
             <form class="sidebar-filter" 
                   action="${pageContext.request.contextPath}/admin/usuarios"
                   method="GET">
-                
+
                 <h1 class="title">Gestionar Usuarios</h1>
                 <label class="filter-label" for="nombre-filtro">Nombre:</label>
-                
+
                 <input id="nombre-filtro" class="input-filter" type="text" 
                        name="busqueda_usuario" 
                        placeholder="Buscar usuario y presionar Enter..."
                        value="<c:out value='${param.busqueda_usuario}'/>">
-                
+
             </form>
 
             <div class="main-users">
@@ -75,12 +75,17 @@
                                     </c:when>
 
                                     <c:otherwise>
-                                        <button type="submit" name="action" value="eliminar" class="btn-eliminar">
+                                        <a href="${pageContext.request.contextPath}/admin/usuarios/confirmar-eliminar?email=${usuario.email}" 
+                                           class="btn-eliminar"
+                                           style="text-decoration: none; display: inline-block; text-align: center; line-height: normal;">
                                             Eliminar
-                                        </button>
+                                        </a>
                                     </c:otherwise>
                                 </c:choose>
                             </form>
+
+
+
 
                         </div>
                     </div>
