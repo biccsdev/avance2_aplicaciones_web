@@ -10,8 +10,14 @@
 
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/editProfileAdmin.css">
-        <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/imgs/icono_app.png">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/editProfileAdmin.css"> <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/imgs/icono_app.png">
+        
+        <script>
+            const CONTEXT_PATH = "${pageContext.request.contextPath}";
+            const USER_EMAIL = "${sessionScope.usuario.email}";
+        </script>
+        
+        <script src="${pageContext.request.contextPath}/JavaScript/Perfil/editarPerfilCliente.js" defer></script>
     </head>
 
     <body class="app-bg-animated">
@@ -20,14 +26,11 @@
 
         <main class="profile-wrapper">
 
-            <!-- TÍTULO -->
             <h1 class="profile-title-big">Mi informacion</h1>
 
             <section class="profile-card-simple">
-
-                <form action="${pageContext.request.contextPath}/admin/perfil/editar" 
-                      method="post" 
-                      class="profile-form">
+                
+                <form class="profile-form" onsubmit="return false;">
 
                     <div class="form-group">
                         <label class="form-label">Nombre</label>
@@ -78,14 +81,6 @@
                                    value="${sessionScope.usuario.direccion.colonia}">
                         </div>
                     </div>
-
-                    <c:if test="${not empty error}">
-                        <div class="error-text">${error}</div>
-                    </c:if>
-
-                    <c:if test="${not empty success}">
-                        <div class="success-text">${success}</div>
-                    </c:if>
 
                     <div class="form-actions-center">
                         <button type="submit" class="btn-black-big">Guardar</button>

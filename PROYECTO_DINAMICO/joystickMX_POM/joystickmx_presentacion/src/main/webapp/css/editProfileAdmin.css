@@ -52,6 +52,28 @@ a {
     color: inherit;
 }
 
+.input-large.selected {
+    border: 2px solid #000;
+    outline: none;
+    background-color: #fff;
+}
+
+.input-large.error {
+    border: 2px solid #ff4444;
+    background-color: #fff0f0;
+}
+
+.input-large {
+    transition: all 0.3s ease;
+    border: 1px solid #ccc;
+}
+
+/* Valido (Verde) - NUEVO */
+.input-large.valid {
+    border: 2px solid #28a745; /* Verde bonito */
+    background-color: #f0fff4;
+}
+
 /* Desktop */
 @media (min-width: 768px) {
   .profile-container {

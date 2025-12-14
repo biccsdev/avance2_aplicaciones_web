@@ -8,10 +8,13 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import joystickmx.itson.DTO.UsuarioDTO;
+import joystickmx.itson.DTO.UsuarioRegistroDTO;
 import joystickmx.itson.Factory.FactoryBO;
 /**
  * REST Web Service
@@ -23,7 +26,7 @@ import joystickmx.itson.Factory.FactoryBO;
 public class PerfilResource {
 
     @Context
-    private UriInfo context;
+    private HttpServletRequest request;
 
     /**
      * Creates a new instance of PerfilResource
@@ -43,14 +46,10 @@ public class PerfilResource {
     public Response obtenerUsuario(@PathParam("idUsuario") Long idUsuario){
         try {
             UsuarioDTO usuario = FactoryBO.buscarClientePorId(idUsuario);
-            // Obtiene los nombres del usuario
-            if(usuario.getNombres() == null || 
-                    usuario.getApellidoPaterno() == null ||
-                    usuario.getApellidoMaterno() == null ||
-                    usuario.getEmail() == null ||
-                    usuario.getEstadoUsuario() == null){
+            // Valida si el usuario existe
+            if (usuario == null) {
                 return Response.status(Response.Status.NOT_FOUND)
-                        .entity("{\"mensaje\": \"No se encontró un usuario con los datos agregados\"}")
+                        .entity("{\"mensaje\": \"Usuario no encontrado.\"}")
                         .build();
             }
             return Response.ok(usuario).build();
@@ -65,7 +64,25 @@ public class PerfilResource {
      * @param content representation for the resource
      */
     @PUT
-    @Consumes(MediaType.APPLICATION_XML)
-    public void putXml(String content) {
+    @Path("actualizar")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response actualizarPerfil(UsuarioRegistroDTO usuarioDTO) {
+        try {
+            UsuarioDTO usuarioActualizado = FactoryBO.actualizarUsuario(usuarioDTO);
+
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                session.setAttribute("usuario", usuarioActualizado);
+            }
+
+            return Response.ok("{\"mensaje\": \"Perfil actualizado correctamente\"}").build();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST)
+                    .entity("{\"error\": \"" + e.getMessage() + "\"}")
+                    .build();
+        }
     }
 }
