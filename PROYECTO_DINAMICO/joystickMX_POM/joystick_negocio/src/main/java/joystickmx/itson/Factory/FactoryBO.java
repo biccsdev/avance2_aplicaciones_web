@@ -234,7 +234,7 @@ public class FactoryBO {
         try {
             InjectorBO.buildCarritoBO().agregarItem(idCarrito, itemDTO);
         } catch (NegocioException e) {
-            throw new NegocioException("Error al intentar agregar el item: " + e.getMessage(), e);
+            throw new NegocioException(e.getMessage());
         }
     }
     

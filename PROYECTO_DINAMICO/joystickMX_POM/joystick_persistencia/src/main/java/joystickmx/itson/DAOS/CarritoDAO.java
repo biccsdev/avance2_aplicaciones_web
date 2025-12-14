@@ -1,5 +1,6 @@
 package joystickmx.itson.DAOS;
 
+import jakarta.persistence.CacheStoreMode;
 import jakarta.persistence.TypedQuery;
 import java.util.List;
 import joystickmx.itson.Excepciones.PersistenciaException;
@@ -78,22 +79,29 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
     public Carrito buscarPorCliente(Cliente cliente) throws PersistenciaException {
         iniciarConexion();
         try {
-            // CORRECCIÓN: Agregamos 'JOIN FETCH i.videojuego'
             TypedQuery<Carrito> query = em.createQuery(
-                    "SELECT cr FROM Cliente c "
-                    + "JOIN c.carrito cr "
-                    + "LEFT JOIN FETCH cr.items i "
+                    "SELECT c FROM Cliente cl "
+                    + "JOIN cl.carrito c "
+                    + "LEFT JOIN FETCH c.items i "
                     + "LEFT JOIN FETCH i.videojuego "
-                    +
-                    "WHERE c = :cliente",
+                    + "WHERE cl.idUsuario = :clienteId",
                     Carrito.class
             );
 
-            query.setParameter("cliente", cliente);
-            return query.getSingleResult();
+            query.setParameter("clienteId", cliente.getIdUsuario());
 
+            query.setHint("jakarta.persistence.cache.storeMode",CacheStoreMode.REFRESH );
+
+            Carrito carrito = query.getSingleResult();
+
+            em.refresh(carrito);
+
+            return carrito;
+
+        } catch (jakarta.persistence.NoResultException e) {
+            return null;
         } catch (Exception e) {
-            throw new PersistenciaException("Error al buscar carrito por cliente: " + e.getMessage());
+            throw new PersistenciaException("Error al buscar carrito: " + e.getMessage());
         } finally {
             if (em.isOpen()) {
                 em.close();
@@ -112,13 +120,22 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
                 throw new PersistenciaException("No se encontró el carrito con ID: " + carritoProxy.getIdCarrito());
             }
 
+            em.refresh(carritoManaged);
+
             Videojuego videojuegoManaged = em.find(Videojuego.class, item.getVideojuego().getIdVideojuego());
             if (videojuegoManaged == null) {
                 throw new PersistenciaException("No se encontró el videojuego con ID: " + item.getVideojuego().getIdVideojuego());
             }
 
+            if (videojuegoManaged.getExistencias() <= 0) {
+                throw new PersistenciaException("No se tienen Existencias del videojuego actualmente.");
+            }
+
             item.setVideojuego(videojuegoManaged);
             item.setCarrito(carritoManaged);
+
+            em.persist(item);
+
             carritoManaged.getItems().add(item);
 
             em.merge(carritoManaged);
@@ -168,15 +185,18 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
         iniciarConexion();
         try {
             em.getTransaction().begin();
-            em.createQuery("DELETE FROM ItemCarrito ic WHERE ic.carrito.idCarrito = :carritoId")
-                    .setParameter("carritoId", idCarrito)
+
+            int eliminados = em.createQuery("DELETE FROM ItemCarrito i WHERE i.carrito.idCarrito = :idCarrito")
+                    .setParameter("idCarrito", idCarrito)
                     .executeUpdate();
+
             em.getTransaction().commit();
+
+            System.out.println("Se eliminaron " + eliminados + " items del carrito ID: " + idCarrito);
+
         } catch (Exception e) {
-            if (em.getTransaction().isActive()) 
-                try {
+            if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
-            } catch (Exception ignored) {
             }
             throw new PersistenciaException("Error al vaciar el carrito: " + e.getMessage());
         } finally {
@@ -185,6 +205,7 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
             }
         }
     }
+
 
     @Override
     public void eliminarCarrito(Long idCarrito) throws PersistenciaException {
@@ -231,7 +252,7 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
             }
         }
     }
-    
+
     @Override
     public void actualizarCantidadItem(Long idItemCarrito, Integer nuevaCantidad) throws PersistenciaException {
         iniciarConexion();
@@ -246,27 +267,34 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
+                try {
+                em.getTransaction().rollback();
+            } catch (Exception ignored) {
+            }
             throw new PersistenciaException("Error al actualizar cantidad: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
-    
+
     @Override
-    public ItemCarrito buscarItemPorId(Long idItemCarrito) throws PersistenciaException{
+    public ItemCarrito buscarItemPorId(Long idItemCarrito) throws PersistenciaException {
         iniciarConexion();
         try {
             return em.find(ItemCarrito.class, idItemCarrito);
         } catch (Exception e) {
             throw new PersistenciaException("Error obtener el item: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
-    
+
     @Override
-    public ItemCarrito buscarVideojuegoEnCarrito(Long idCarrito, Long idVideojuego) throws PersistenciaException{
+    public ItemCarrito buscarVideojuegoEnCarrito(Long idCarrito, Long idVideojuego) throws PersistenciaException {
         iniciarConexion();
         try {
             TypedQuery<ItemCarrito> query = em.createQuery(
@@ -276,9 +304,9 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
 
             query.setParameter("idCarrito", idCarrito);
             query.setParameter("idVideojuego", idVideojuego);
-            
+
             List<ItemCarrito> items = query.getResultList();
-            
+
             return items != null && !items.isEmpty() ? items.getFirst() : null;
         } catch (Exception e) {
             throw new PersistenciaException("Error al obtener el item: " + e.getMessage());

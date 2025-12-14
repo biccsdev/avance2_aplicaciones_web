@@ -18,7 +18,7 @@ window.onload = () => {
         if(btnCarrito){
             btnCarrito.addEventListener("click", agregarAlCarrito);
         }
-    }
+    };
 
     const agregarAlCarrito = () => {
          let idVideojuego = new URLSearchParams(window.location.search).get("idVideojuego");
@@ -54,7 +54,7 @@ window.onload = () => {
              console.error(err);
              alert(err.message);
          });
-    }
+    };
 
     const obtenerVideojuego = () => {
         let host = `${CONTEXT_PATH}/resources/api/videojuego`;
@@ -75,7 +75,7 @@ window.onload = () => {
                 alert("Ocurrió un error al consultar la información del juego.");
             });
         }
-    }
+    };
 
     const obtenerResenas = () => {
         // URL host
@@ -97,9 +97,9 @@ window.onload = () => {
             }).catch(err => {
                 console.error(err);
                 alert("Ocurrió un error al intentar obtener las reseñas del videojuego.");
-            })
+            });
         }
-    }
+    };
 
     const cargarVideojuego = (videojuego) => {
         // Carga cada propiedad del juego obtenido en sus elementos correspondientes
@@ -121,7 +121,7 @@ window.onload = () => {
             categorias.innerHTML += "Sin categorias";
         }
         desarrollador.innerHTML += `${videojuego.desarrollador}`;
-    }
+    };
 
     const cargarResenas = (resenas) => {
         if(Array.isArray(resenas) && resenas.length > 0){
@@ -201,7 +201,7 @@ window.onload = () => {
         } else{
             document.getElementById("titulo-resenas").innerHTML = "Sin reseñas. ¡Sé el primero en dejar una reseña del videojuego!";
         }
-    }
+    };
 
     init();
-}
+};

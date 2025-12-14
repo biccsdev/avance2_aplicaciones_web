@@ -102,7 +102,7 @@ public class CarritoBO implements ICarritoBO {
                 this.carritoDAO.agregarItem(carrito, item);
             }
         } catch (PersistenciaException e) {
-            throw new NegocioException("Error al agregar item al carrito: " + e.getMessage(), e);
+            throw new NegocioException("" + e.getMessage(), e);
         }
     }
 
