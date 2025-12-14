@@ -95,7 +95,7 @@
                                         <li class="videojuego-item">
                                             <div class="videojuego">
                                                 <div class="videojuego-imagen">
-                                                    <img class="videojuego-imagen" src="${pageContext.request.contextPath}${juego.getUrlImagen()}" alt="Portada de ${juego.nombre}">
+                                                    <img class="videojuego-imagen" src="${pageContext.request.contextPath}${juego.getUrlImagen()}" alt="Portada de ${juego.nombre}" onerror="this.src='${pageContext.request.contextPath}/imgs/iconoImagen.png'">>
                                                 </div>
                                                 <div class="videojuego-info">
                                                     <h3 class="videojuego-nombre">${String.format("%s (%s)", juego.getNombre(), juego.getPlataforma())}</h3>
@@ -126,7 +126,7 @@
                                             </form>
                                             <div class="videojuego">
                                                 <div class="videojuego-imagen">
-                                                    <img class="videojuego-imagen" src="${pageContext.request.contextPath}${juego.getUrlImagen()}" alt="Portada de ${juego.nombre}">
+                                                    <img class="videojuego-imagen" src="${pageContext.request.contextPath}${juego.getUrlImagen()}" alt="Portada de ${juego.nombre}" onerror="this.src='${pageContext.request.contextPath}/imgs/iconoImagen.png'">>
                                                 </div>
                                                 <div class="videojuego-info">
                                                     <h3 class="videojuego-nombre">${String.format("%s (%s)", juego.getNombre(), juego.getPlataforma())}</h3>
