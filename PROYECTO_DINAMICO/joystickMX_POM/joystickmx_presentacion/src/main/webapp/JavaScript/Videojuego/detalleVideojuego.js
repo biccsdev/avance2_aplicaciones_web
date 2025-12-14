@@ -84,6 +84,21 @@ window.onload = () => {
         if(Array.isArray(resenas) && resenas.length > 0){
             // Obtiene la lista de reseñas.
             const listaResenas = document.getElementById("videojuego-resenas");
+
+            // Obtiene la reseña del videojuego del usuario actual
+            let resenaUsuario = resenas.find(element => element.resena.idCliente == ID_USUARIO_ACTUAL);
+            // Verifica si la reseña obtenida realmente existe (no es undefined)
+            if(typeof(resenaUsuario) !== "undefined"){
+                // Filtra la reseña del usuario actual del arreglo original y guarda el arreglo resultante en la variable
+                let resenasSinUsuario = resenas.filter(resena => resena.resena.idCliente != ID_USUARIO_ACTUAL);
+                // Añade la reseña del usuario actual y la inserta en un nuevo arreglo como el primer elemento
+                let resenasOrdenadas = [resenaUsuario];
+                // Anexa el arreglo de las reseñas filtradas al arreglo con la reseña del usuario actual
+                resenasOrdenadas = resenasOrdenadas.concat(resenasSinUsuario);
+                // El arreglo original ahora es el arreglo re ordenado (reseña del usuario como primer elemento)
+                resenas = resenasOrdenadas;
+            }
+
             // Recorre cada reseña obtenida.
             resenas.forEach(resena => {
                 // Extrae la reseña (ResenaDTO).
