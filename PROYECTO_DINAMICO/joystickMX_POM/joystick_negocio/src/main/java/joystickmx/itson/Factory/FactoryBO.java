@@ -224,7 +224,7 @@ public class FactoryBO {
 
     public static CarritoDTO buscarCarritoPorCliente(Long idCliente) throws NegocioException {
         try {
-            return new CarritoBO(FactoryDAO.crearCarritoDAO()).buscarPorCliente(idCliente);
+            return InjectorBO.buildCarritoBO().buscarPorCliente(idCliente);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar buscar el carrito: " + e.getMessage(), e);
         }
@@ -232,17 +232,20 @@ public class FactoryBO {
 
     public static void agregarItemACarrito(Long idCarrito, ItemCarritoDTO itemDTO) throws NegocioException {
         try {
-            CarritoBO carritoBO = new CarritoBO(
-                    FactoryDAO.crearCarritoDAO()
-            );
-
-            carritoBO.agregarItem(idCarrito, itemDTO);
-
+            InjectorBO.buildCarritoBO().agregarItem(idCarrito, itemDTO);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar agregar el item: " + e.getMessage(), e);
         }
     }
-
+    
+    public static ItemCarritoDTO buscarVideojuegoEnCarrito(Long idCarrito, Long idVideojuego) throws NegocioException{
+        try {
+            return InjectorBO.buildCarritoBO().buscarVideojuegoEnCarrito(idCarrito, idVideojuego);
+        } catch (NegocioException e) {
+            throw new NegocioException("Error al intentar verificar la existencia del videojuego: " + e.getMessage(), e);
+        }
+    }
+    
     // PENDIENTE ELIMINAR ITEM Y VACIAR CARRITO
     public static List<PedidoDTO> obtenerPedidos() throws NegocioException {
         try {
@@ -431,7 +434,13 @@ public class FactoryBO {
      * @return Lista de videojuegos filtrados.
      * @throws NegocioException
      */
-    public static List<VideojuegoDTO> filtrarVideojuegos(String nombre, Float precioMin, Float precioMax, Long idCategoria, String plataforma) throws NegocioException {
+    public static List<VideojuegoDTO> filtrarVideojuegos(
+            String nombre, 
+            Float precioMin, 
+            Float precioMax, 
+            Long idCategoria, 
+            String plataforma
+    ) throws NegocioException {
         try {
             VideojuegoBO videojuegoBO = new VideojuegoBO(FactoryDAO.crearVideojuegoDAO());
 

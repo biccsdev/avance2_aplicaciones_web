@@ -264,4 +264,28 @@ public class CarritoDAO extends BaseDAO implements ICarritoDAO {
             if (em.isOpen()) { em.close(); }
         }
     }
+    
+    @Override
+    public ItemCarrito buscarVideojuegoEnCarrito(Long idCarrito, Long idVideojuego) throws PersistenciaException{
+        iniciarConexion();
+        try {
+            TypedQuery<ItemCarrito> query = em.createQuery(
+                    "SELECT i FROM ItemCarrito i WHERE i.carrito.idCarrito = :idCarrito AND i.videojuego.idVideojuego = :idVideojuego",
+                    ItemCarrito.class
+            );
+
+            query.setParameter("idCarrito", idCarrito);
+            query.setParameter("idVideojuego", idVideojuego);
+            
+            List<ItemCarrito> items = query.getResultList();
+            
+            return items != null && !items.isEmpty() ? items.getFirst() : null;
+        } catch (Exception e) {
+            throw new PersistenciaException("Error al obtener el item: " + e.getMessage());
+        } finally {
+            if (em.isOpen()) {
+                em.close();
+            }
+        }
+    }
 }

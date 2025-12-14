@@ -215,5 +215,13 @@ public class CarritoBO implements ICarritoBO {
             throw new NegocioException("Error al consultar el item: " + e.getMessage(), e);
         }
     }
-
+    
+    @Override
+    public ItemCarritoDTO buscarVideojuegoEnCarrito(Long idCarrito, Long idVideojuego) throws NegocioException{
+        try {
+            return Mapeadores.toItemCarritoDTO(this.carritoDAO.buscarVideojuegoEnCarrito(idCarrito, idVideojuego));
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al verificar la existencia del videojuego en el carrito: " + e.getMessage(), e);
+        }
+    }
 }

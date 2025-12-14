@@ -61,7 +61,7 @@ window.onload = () => {
     }
 
     const cargarVideojuego = (videojuego) => {
-        // Carga cada propieda del juego obtenido en sus elementos correspondientes
+        // Carga cada propiedad del juego obtenido en sus elementos correspondientes
         imagen.src = CONTEXT_PATH + videojuego.urlImagen;
         nombre.innerHTML = `${videojuego.nombre} (${videojuego.plataforma})`;
         existencias.innerHTML += videojuego.existencias;

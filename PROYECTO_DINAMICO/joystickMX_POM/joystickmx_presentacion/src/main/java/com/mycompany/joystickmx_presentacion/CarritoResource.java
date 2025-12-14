@@ -1,8 +1,10 @@
 package com.mycompany.joystickmx_presentacion;
 
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -58,7 +60,23 @@ public class CarritoResource {
                     .build();
         }
     }
-
+    
+    @POST
+    @Path("/item/{idUsuario}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response agregarItem(@PathParam("idUsuario") Long idUsuario, ItemCarritoDTO nuevoItem){
+        try {
+            // Obtiene el ID del carrito asociado al cliente
+            Long idCarrito = FactoryBO.buscarCarritoPorCliente(idUsuario).getIdCarrito();
+            // Agrega el item al carrito del cliente
+            FactoryBO.agregarItemACarrito(idCarrito, nuevoItem);
+            return Response.ok("{\"mensaje\": \"Videojuego agregado correctamente al carrito.\"}").build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\": \"" + e.getMessage() + "\"}").build();
+        }
+    }
+    
     @DELETE
     @Path("item/{idItem}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -95,7 +113,25 @@ public class CarritoResource {
                     .build();
         }
     }
-
+    
+    @GET
+    @Path("item/{idUsuario}/verificar/{idVideojuego}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response buscarVideojuegoEnCarrito(@PathParam("idUsuario") Long idUsuario, @PathParam("idVideojuego") Long idVideojuego){
+        try {
+            // Se obtiene el ID del carrito asociado al cliente
+            Long idCarrito = FactoryBO.buscarCarritoPorCliente(idUsuario).getIdCarrito();
+            // Se verifica si el videojuego se encuentra dentro del carrito del cliente
+            ItemCarritoDTO item = FactoryBO.buscarVideojuegoEnCarrito(idCarrito, idVideojuego);
+            return Response.ok(item).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity("{\"error\": \"" + e.getMessage() + "\"}")
+                    .build();
+        }
+    }
+    
     @GET
     @Path("usuario/{idUsuario}/validar-stock")
     @Produces(MediaType.APPLICATION_JSON)

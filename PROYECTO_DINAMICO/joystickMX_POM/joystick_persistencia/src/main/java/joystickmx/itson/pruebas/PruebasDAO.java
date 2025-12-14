@@ -1,11 +1,8 @@
 package joystickmx.itson.pruebas;
 
-import java.util.ArrayList;
-import java.util.List;
-import joystickmx.itson.DAOS.ResenaDAO;
+import joystickmx.itson.DAOS.CarritoDAO;
 import joystickmx.itson.Excepciones.PersistenciaException;
-import joystickmx.itson.entidades.Categoria;
-import joystickmx.itson.entidades.Resena;
+import joystickmx.itson.entidades.ItemCarrito;
 
 /**
  * Pruebas de clases DAO.
@@ -37,10 +34,14 @@ public class PruebasDAO {
 //                    System.out.println("");
 //                });
 //            }
-            Resena resena = new ResenaDAO().buscarPorVideojuegoCliente(1L, 1L);
-            System.out.println("Calificación de la reseña: " + resena.getCalificacion().toString());
-            System.out.println("Titulo de la reseña: " + resena.getTitulo());
-            System.out.println("Comentario de la reseña: " + resena.getComentario());
+//            Resena resena = new ResenaDAO().buscarPorVideojuegoCliente(1L, 1L);
+//            System.out.println("Calificación de la reseña: " + resena.getCalificacion().toString());
+//            System.out.println("Titulo de la reseña: " + resena.getTitulo());
+//            System.out.println("Comentario de la reseña: " + resena.getComentario());
+
+            ItemCarrito item = new CarritoDAO().buscarVideojuegoEnCarrito(1L, 3L);
+            if(item != null)
+                System.out.println("El videojuego si existe en el carrito del Sebas!");
 
         } catch (PersistenciaException e) {
             System.out.println("Algo salió mal: " + e.getMessage());
