@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.PastOrPresent;
 import java.util.ArrayList;
 
 /**
@@ -32,7 +33,7 @@ public class Carrito implements Serializable {
     private Long idCarrito;
 
     @Column(name = "fecha_creacion", nullable = false)
-    @FutureOrPresent(message = "La fecha no puede ser menor a la actual.")
+    @PastOrPresent(message = "La fecha de creación no puede ser futura.") 
     private LocalDate fechaCreacion;
 
     @OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

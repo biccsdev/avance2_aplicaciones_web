@@ -84,22 +84,6 @@ public class CarritoResource {
         }
     }
     
-    @POST
-    @Path("/item/{idUsuario}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response agregarItem(@PathParam("idUsuario") Long idUsuario, ItemCarritoDTO nuevoItem){
-        try {
-            // Obtiene el ID del carrito asociado al cliente
-            Long idCarrito = FactoryBO.buscarCarritoPorCliente(idUsuario).getIdCarrito();
-            // Agrega el item al carrito del cliente
-            FactoryBO.agregarItemACarrito(idCarrito, nuevoItem);
-            return Response.ok("{\"mensaje\": \"Videojuego agregado correctamente al carrito.\"}").build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity("{\"error\": \"" + e.getMessage() + "\"}").build();
-        }
-    }
-    
     @DELETE
     @Path("item/{idItem}")
     @Produces(MediaType.APPLICATION_JSON)
