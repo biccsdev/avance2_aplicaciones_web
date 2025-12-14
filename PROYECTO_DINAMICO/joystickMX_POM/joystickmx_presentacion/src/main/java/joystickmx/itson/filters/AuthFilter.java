@@ -106,36 +106,6 @@ public class AuthFilter implements Filter {
             // Si el usuario intenta acceder a una página con extensión de archivo, lo regresa al home
             res.sendRedirect(contextPath + "/home"); // Lo mandamos al home
         }
-        // ---------------------------- HASTA AQUÍ COMENTAREAS -------------------------------------
-
-        // ------------------------ A PARTIR DE AQUÍ DESCOMENTAREAS --------------------------------
-        // --- Si llegamos aquí, es una página protegida ---
-        // 3. Revisar si el usuario está logueado
-//        if (session == null || session.getAttribute("usuario") == null) {
-//            // No está logueado, redirigir a login
-//            res.sendRedirect(contextPath + "/login");
-//            return;
-//        }
-//        
-//        // 4. (Opcional pero recomendado) Revisar roles
-//        String rol = (String) session.getAttribute("rol");
-//
-//        // Si es admin, puede ver todo
-//        if (rol.toUpperCase().equals("ADMIN")) {
-//            chain.doFilter(request, response);
-//            return;
-//        }
-//
-//        // Si es cliente, revisamos si intenta entrar a /admin/
-//        if (rol.toUpperCase().equals("CLIENTE") && ADMIN_PATHS.stream().anyMatch(path::startsWith)) {
-//            // Es un cliente intentando entrar al panel de admin
-//            res.sendRedirect(contextPath + "/home"); // Lo mandamos al home
-//            return;
-//        }
-//
-//        // Es un cliente accediendo a una página de cliente (ej /carrito)
-//        chain.doFilter(request, response);
-        // ------------------------ HASTA AQUÍ DESCOMENTAREAS --------------------------------
     }
 
     @Override
