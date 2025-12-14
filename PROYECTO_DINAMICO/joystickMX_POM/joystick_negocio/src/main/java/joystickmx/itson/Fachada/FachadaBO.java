@@ -197,15 +197,15 @@ public class FachadaBO {
             throw new NegocioException("Error al intentar consultar las resenas: " + e.getMessage(), e);
         }
     }
-    
-    public static ResenaDTO buscarPorVideojuegoCliente(Long idCliente, Long idVideojuego) throws NegocioException{
+
+    public static ResenaDTO buscarPorVideojuegoCliente(Long idCliente, Long idVideojuego) throws NegocioException {
         try {
             return InjectorBO.buildResenaBO().buscarPorVideojuegoCliente(idCliente, idVideojuego);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar consultar la reseña: " + e.getMessage(), e);
         }
     }
-    
+
     public static List<ResenaDTO> buscarResenasPorCalificacion(Float calificacion) throws NegocioException {
         try {
             return InjectorBO.buildResenaBO().buscarResenasPorCalificacion(calificacion);
@@ -237,15 +237,15 @@ public class FachadaBO {
             throw new NegocioException(e.getMessage());
         }
     }
-    
-    public static ItemCarritoDTO buscarVideojuegoEnCarrito(Long idCarrito, Long idVideojuego) throws NegocioException{
+
+    public static ItemCarritoDTO buscarVideojuegoEnCarrito(Long idCarrito, Long idVideojuego) throws NegocioException {
         try {
             return InjectorBO.buildCarritoBO().buscarVideojuegoEnCarrito(idCarrito, idVideojuego);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar verificar la existencia del videojuego: " + e.getMessage(), e);
         }
     }
-    
+
     // PENDIENTE ELIMINAR ITEM Y VACIAR CARRITO
     public static List<PedidoDTO> obtenerPedidos() throws NegocioException {
         try {
@@ -449,10 +449,10 @@ public class FachadaBO {
      * @throws NegocioException
      */
     public static List<VideojuegoDTO> filtrarVideojuegos(
-            String nombre, 
-            Float precioMin, 
-            Float precioMax, 
-            Long idCategoria, 
+            String nombre,
+            Float precioMin,
+            Float precioMax,
+            Long idCategoria,
             String plataforma
     ) throws NegocioException {
         try {
@@ -527,6 +527,14 @@ public class FachadaBO {
             return carritoBO.validarExistenciasVideojuego(idUsuario);
         } catch (NegocioException e) {
             throw new NegocioException("Error al validar existencias: " + e.getMessage(), e);
+        }
+    }
+
+    public static List<UsuarioDTO> buscarClientesPorNombreNoEliminados(String nombre) throws NegocioException {
+        try {
+            return new ClienteBO(FactoryDAO.crearClienteDAO(), null).buscarClientesNoEliminadosPorNombre(nombre);
+        } catch (NegocioException e) {
+            throw new NegocioException("Error al intentar buscar clientes por nombre: " + e.getMessage(), e);
         }
     }
 

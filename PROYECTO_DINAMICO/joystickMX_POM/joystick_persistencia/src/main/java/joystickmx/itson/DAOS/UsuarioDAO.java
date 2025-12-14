@@ -26,10 +26,15 @@ public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
+                try {
+                em.getTransaction().rollback();
+            } catch (Exception ignored) {
+            }
             throw new PersistenciaException("Error al crear el usuario: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -43,11 +48,15 @@ public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
             return usuarioActualizado;
         } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try { em.getTransaction().rollback(); } catch (Exception ignored) {
+                try {
+                em.getTransaction().rollback();
+            } catch (Exception ignored) {
             }
             throw new PersistenciaException("Error al actualizar el usuario: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -59,7 +68,9 @@ public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
         } catch (Exception e) {
             throw new PersistenciaException("Error al buscar usuario por ID: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -78,37 +89,51 @@ public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
         } catch (Exception e) {
             throw new PersistenciaException("Error al buscar usuario por email: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
+    /**
+     * Método auxiliar que reutilizan eliminar, activar y desactivar.
+     */
     private void actualizarEstadoUsuario(String email, EstadoUsuario nuevoEstado) throws PersistenciaException {
-        iniciarConexion();
+        iniciarConexion(); 
         try {
             em.getTransaction().begin();
 
-            // Buscar al usuario dentro del mismo EM
-            Usuario usuario = em.createQuery(
-                    "SELECT u FROM Usuario u WHERE u.email = :email", Usuario.class)
-                    .setParameter("email", email)
-                    .getSingleResult();
+            TypedQuery<Usuario> query = em.createQuery(
+                    "SELECT u FROM Usuario u WHERE u.email = :email", Usuario.class);
+            query.setParameter("email", email);
 
-            if (usuario == null) {
-                throw new PersistenciaException("No se encontró el usuario con email: " + email);
-            }
+            Usuario usuario = query.getSingleResult(); 
 
-            // Actualizar el estado
             usuario.setEstadoUsuario(nuevoEstado);
+
+            em.merge(usuario);
 
             em.getTransaction().commit();
 
-        } catch (Exception e) {
+        } catch (NoResultException e) {
             if (em.getTransaction().isActive()) {
                 em.getTransaction().rollback();
             }
+            throw new PersistenciaException("No se encontró el usuario con email: " + email);
+
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                try {
+                    em.getTransaction().rollback();
+                } catch (Exception ignored) {
+                }
+            }
+            e.printStackTrace();
             throw new PersistenciaException("Error al actualizar estado del usuario: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 
@@ -152,11 +177,15 @@ public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
 
         } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try { em.getTransaction().rollback(); } catch (Exception ignored) {
+                try {
+                em.getTransaction().rollback();
+            } catch (Exception ignored) {
             }
             throw new PersistenciaException("Error al modificar la dirección: " + e.getMessage());
         } finally {
-            if (em.isOpen()) { em.close(); }
+            if (em.isOpen()) {
+                em.close();
+            }
         }
     }
 }

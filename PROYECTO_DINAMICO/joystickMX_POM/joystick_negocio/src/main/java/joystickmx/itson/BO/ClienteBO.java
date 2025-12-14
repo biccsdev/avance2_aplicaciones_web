@@ -1,5 +1,6 @@
 package joystickmx.itson.BO;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import joystickmx.itson.BO.Utils.PasswordUtil;
@@ -11,6 +12,7 @@ import joystickmx.itson.Mappers.DTOMapeadores;
 import joystickmx.itson.Mappers.Mapeadores;
 import joystickmx.itson.entidades.Carrito;
 import joystickmx.itson.entidades.Cliente;
+import joystickmx.itson.entidades.Usuario;
 import joystickmx.itson.enums.EstadoUsuario;
 import joystickmx.itson.interfaces.ICarritoDAO;
 import joystickmx.itson.interfaces.IClienteDAO;
@@ -25,38 +27,38 @@ import joystickmx.negocio.interfaces.IClienteBO;
  * @author Yuri Germán García López ID: 00000252583
  */
 public class ClienteBO implements IClienteBO {
-    
+
     private final IClienteDAO clienteDAO;
-    private final ICarritoDAO carritoDAO; 
+    private final ICarritoDAO carritoDAO;
 
     public ClienteBO(IClienteDAO clienteDAO, ICarritoDAO carritoDAO) {
         this.clienteDAO = clienteDAO;
         this.carritoDAO = carritoDAO;
     }
-    
+
     @Override
     public void crearCliente(UsuarioRegistroDTO dto) throws NegocioException {
         try {
             if (this.clienteDAO.buscarPorEmail(dto.getEmail()) != null) {
                 throw new NegocioException("El correo ya se encuentra registrado.");
             }
-            
+
             Cliente nuevoCliente = DTOMapeadores.toClienteEntity(dto);
-            
+
             nuevoCliente.setContrasenia(PasswordUtil.hashPassword(dto.getContrasenia()));
-            
+
             nuevoCliente.setEstadoUsuario(EstadoUsuario.ACTIVO);
-            
+
             Carrito nuevoCarrito = new Carrito();
-            nuevoCliente.setCarrito(nuevoCarrito); 
-            
+            nuevoCliente.setCarrito(nuevoCarrito);
+
             this.clienteDAO.crearCliente(nuevoCliente);
-            
+
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al registrar cliente: " + e.getMessage(), e);
         }
     }
-    
+
     @Override
     public List<UsuarioDTO> buscarUsuariosActivos() throws NegocioException {
         try {
@@ -67,7 +69,7 @@ public class ClienteBO implements IClienteBO {
             throw new NegocioException("Error al buscar clientes activos: " + e.getMessage(), e);
         }
     }
-    
+
     @Override
     public List<UsuarioDTO> buscarUsuariosInactivos() throws NegocioException {
         try {
@@ -78,7 +80,7 @@ public class ClienteBO implements IClienteBO {
             throw new NegocioException("Error al buscar clientes inactivos: " + e.getMessage(), e);
         }
     }
-    
+
     @Override
     public List<UsuarioDTO> buscarClientesExistentes() throws NegocioException {
         try {
@@ -89,7 +91,7 @@ public class ClienteBO implements IClienteBO {
             throw new NegocioException("Error al buscar clientes inactivos: " + e.getMessage(), e);
         }
     }
-    
+
     @Override
     public UsuarioDTO actualizarCliente(ClienteDTO dto) throws NegocioException {
         try {
@@ -97,20 +99,20 @@ public class ClienteBO implements IClienteBO {
             if (cliente == null) {
                 throw new NegocioException("Cliente no encontrado.");
             }
-            
+
             cliente.setNombres(dto.getNombres());
             cliente.setApellidoPaterno(dto.getApellidoPaterno());
             cliente.setApellidoMaterno(dto.getApellidoMaterno());
             cliente.setEmail(dto.getEmail());
             cliente.setTelefono(dto.getTelefono());
-            
-            return Mapeadores.toUsuarioDTO(this.clienteDAO.actualizarCliente(cliente)); 
-            
+
+            return Mapeadores.toUsuarioDTO(this.clienteDAO.actualizarCliente(cliente));
+
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al actualizar cliente: " + e.getMessage(), e);
         }
     }
-    
+
     @Override
     public UsuarioDTO buscarPorId(Long idCliente) throws NegocioException {
         try {
@@ -123,7 +125,7 @@ public class ClienteBO implements IClienteBO {
             throw new NegocioException("Error al buscar cliente por ID: " + e.getMessage(), e);
         }
     }
-    
+
     @Override
     public UsuarioDTO buscarPorEmail(String email) throws NegocioException {
         try {
@@ -136,7 +138,7 @@ public class ClienteBO implements IClienteBO {
             throw new NegocioException("Error al buscar cliente por email: " + e.getMessage(), e);
         }
     }
-    
+
     @Override
     public List<UsuarioDTO> buscarTodos() throws NegocioException {
         try {
@@ -147,7 +149,7 @@ public class ClienteBO implements IClienteBO {
             throw new NegocioException("Error al buscar todos los clientes: " + e.getMessage(), e);
         }
     }
-    
+
     @Override
     public List<UsuarioDTO> buscarPorNombre(String nombre) throws NegocioException {
         try {
@@ -158,4 +160,25 @@ public class ClienteBO implements IClienteBO {
             throw new NegocioException("Error al buscar clientes por nombre: " + e.getMessage(), e);
         }
     }
+
+    @Override
+    public List<UsuarioDTO> buscarClientesNoEliminadosPorNombre(String nombre) throws NegocioException {
+        try {
+            if (nombre == null || nombre.trim().isEmpty()) {
+                return this.buscarClientesExistentes();
+            }
+
+            List<Usuario> usuarios = this.clienteDAO.buscarPorNombreNoEliminados(nombre.trim());
+            List<UsuarioDTO> usuariosDTO = new ArrayList<>();
+            for (Usuario u : usuarios) {
+                usuariosDTO.add(Mapeadores.toUsuarioDTO(u));
+            }
+
+            return usuariosDTO;
+
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error en negocio al buscar clientes: " + e.getMessage(), e);
+        }
+    }
+
 }

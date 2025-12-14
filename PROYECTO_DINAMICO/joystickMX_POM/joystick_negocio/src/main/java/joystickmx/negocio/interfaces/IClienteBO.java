@@ -32,4 +32,6 @@ public interface IClienteBO {
     public List<UsuarioDTO> buscarTodos() throws NegocioException;
     
     public List<UsuarioDTO> buscarPorNombre(String nombre) throws NegocioException;
+    
+    public List<UsuarioDTO> buscarClientesNoEliminadosPorNombre(String nombre) throws NegocioException;
 }
