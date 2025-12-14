@@ -131,7 +131,6 @@
                                                 <div class="videojuego-info">
                                                     <h3 class="videojuego-nombre">${String.format("%s (%s)", juego.getNombre(), juego.getPlataforma())}</h3>
                                                     <h2 class="videojuego-precio">$${String.format("%.2f", juego.getPrecio())}</h2>
-                                                    <button class="btn-carrito btn-dark">Agregar al carrito</button>
                                                 </div>
                                             </div>
                                         </li>
