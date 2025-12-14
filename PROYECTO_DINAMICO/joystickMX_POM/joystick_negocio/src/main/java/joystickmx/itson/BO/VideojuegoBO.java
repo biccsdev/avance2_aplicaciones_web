@@ -1,18 +1,12 @@
 package joystickmx.itson.BO;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import joystickmx.itson.DAOS.CarritoDAO;
-import joystickmx.itson.DAOS.ClienteDAO;
 import joystickmx.itson.DTO.VideojuegoDTO;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.Fachada.FachadaBO;
 import joystickmx.itson.Mappers.DTOMapeadores;
 import joystickmx.itson.Mappers.Mapeadores;
-import joystickmx.itson.entidades.Carrito;
-import joystickmx.itson.entidades.Cliente;
-import joystickmx.itson.entidades.ItemCarrito;
 import joystickmx.itson.entidades.Videojuego;
 import joystickmx.itson.interfaces.IVideojuegoDAO;
 import joystickmx.negocio.exception.NegocioException;
@@ -20,18 +14,17 @@ import joystickmx.negocio.interfaces.IVideojuegoBO;
 
 /**
  *
- * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Ariel Eduardo Borbón Izaguirre ID: 00000252116
  * @author Sebastián Bórquez Huerta ID: 00000252115
  * @author Leonardo Flores Leyva ID: 00000252390
  * @author Yuri Germán García López ID: 00000252583
+ * @author Victor Gerardo Torres García ID: 205869
  */
 public class VideojuegoBO implements IVideojuegoBO {
 
     private final IVideojuegoDAO videojuegoDAO;
 
-    public VideojuegoBO(IVideojuegoDAO videojuegoDAO) {
-        this.videojuegoDAO = videojuegoDAO;
-    }
+    public VideojuegoBO(IVideojuegoDAO videojuegoDAO) { this.videojuegoDAO = videojuegoDAO; }
 
     @Override
     public void crearVideojuego(VideojuegoDTO dto) throws NegocioException {
@@ -169,7 +162,4 @@ public class VideojuegoBO implements IVideojuegoBO {
             throw new NegocioException("Error al filtrar videojuegos: " + e.getMessage(), e);
         }
     }
-
-
-
 }

@@ -1,7 +1,6 @@
 package com.mycompany.joystickmx_presentacion;
 
 import jakarta.ws.rs.core.Context;
-import jakarta.ws.rs.core.UriInfo;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Produces;
@@ -19,7 +18,11 @@ import joystickmx.itson.Fachada.FachadaBO;
 /**
  * REST Web Service
  *
- * @author Usuario
+ * @author Ariel Eduardo Borbón Izaguirre ID: 00000252116
+ * @author Sebastián Bórquez Huerta ID: 00000252115
+ * @author Leonardo Flores Leyva ID: 00000252390
+ * @author Yuri Germán García López ID: 00000252583
+ * @author Victor Gerardo Torres García ID: 205869
  */
 @Path("api/perfil")
 @RequestScoped
@@ -31,8 +34,7 @@ public class PerfilResource {
     /**
      * Creates a new instance of PerfilResource
      */
-    public PerfilResource() {
-    }
+    public PerfilResource() {}
 
     /**
      * Retrieves representation of an instance of com.mycompany.joystickmx_presentacion.PerfilResource

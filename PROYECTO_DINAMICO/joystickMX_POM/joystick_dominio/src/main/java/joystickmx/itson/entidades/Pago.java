@@ -17,10 +17,11 @@ import joystickmx.itson.enums.MetodoPago;
 
 /**
  *
- * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Ariel Eduardo Borbón Izaguirre ID: 00000252116
  * @author Sebastián Bórquez Huerta ID: 00000252115
  * @author Leonardo Flores Leyva ID: 00000252390
  * @author Yuri Germán García López ID: 00000252583
+ * @author Victor Gerardo Torres García ID: 205869
  */
 @Entity
 @Table(name = "Pagos")
@@ -47,8 +48,7 @@ public class Pago implements Serializable {
     @PastOrPresent(message = "La fecha del pago no puede ser futura.")
     private LocalDateTime fechaPago;
 
-    public Pago() {
-    }
+    public Pago() {}
 
     public Pago(
             Long idPago,
@@ -64,43 +64,23 @@ public class Pago implements Serializable {
         this.fechaPago = fechaPago;
     }
 
-    public Long getIdPago() {
-        return idPago;
-    }
+    public Long getIdPago() {return idPago;}
 
-    public void setIdPago(Long idPago) {
-        this.idPago = idPago;
-    }
+    public void setIdPago(Long idPago) {this.idPago = idPago;}
 
-    public Float getMonto() {
-        return monto;
-    }
+    public Float getMonto() {return monto;}
 
-    public void setMonto(Float monto) {
-        this.monto = monto;
-    }
+    public void setMonto(Float monto) {this.monto = monto;}
 
-    public MetodoPago getMetodoPago() {
-        return metodoPago;
-    }
+    public MetodoPago getMetodoPago() {return metodoPago;}
 
-    public void setMetodoPago(MetodoPago metodoPago) {
-        this.metodoPago = metodoPago;
-    }
+    public void setMetodoPago(MetodoPago metodoPago) {this.metodoPago = metodoPago;}
 
-    public EstadoPago getEstadoPago() {
-        return estadoPago;
-    }
+    public EstadoPago getEstadoPago() {return estadoPago;}
 
-    public void setEstadoPago(EstadoPago estadoPago) {
-        this.estadoPago = estadoPago;
-    }
+    public void setEstadoPago(EstadoPago estadoPago) {this.estadoPago = estadoPago;}
 
-    public LocalDateTime getFechaPago() {
-        return fechaPago;
-    }
+    public LocalDateTime getFechaPago() {return fechaPago;}
 
-    public void setFechaPago(LocalDateTime fechaPago) {
-        this.fechaPago = fechaPago;
-    }
+    public void setFechaPago(LocalDateTime fechaPago) {this.fechaPago = fechaPago;}
 }

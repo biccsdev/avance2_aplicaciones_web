@@ -8,10 +8,11 @@ import java.util.List;
  *
  * Se usa para transferir información de pedidos.
  *
- * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Ariel Eduardo Borbón Izaguirre ID: 00000252116
  * @author Sebastián Bórquez Huerta ID: 00000252115
  * @author Leonardo Flores Leyva ID: 00000252390
  * @author Yuri Germán García López ID: 00000252583
+ * @author Victor Gerardo Torres García ID: 205869
  */
 public class PedidoDTO {
     
@@ -24,11 +25,8 @@ public class PedidoDTO {
     private PagoDTO pago;
     private Long idCliente;
     private UsuarioDTO cliente;
-    
     private String metodoPago;
     
-    
-
     public PedidoDTO() {}
 
     public PedidoDTO(
@@ -132,16 +130,7 @@ public class PedidoDTO {
 
     public void setIdCliente(Long idCliente) {this.idCliente = idCliente;}
 
-    public String getMetodoPago() {
-        return metodoPago;
-    }
+    public String getMetodoPago() {return metodoPago;}
 
-    public void setMetodoPago(String metodoPago) {
-        this.metodoPago = metodoPago;
-    }
-    
-    
-    
-    
-    
+    public void setMetodoPago(String metodoPago) {this.metodoPago = metodoPago;}
 }

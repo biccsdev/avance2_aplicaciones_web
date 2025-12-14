@@ -1,4 +1,3 @@
-
 package joystickmx.itson.interfaces;
 
 import java.time.LocalDate;
@@ -11,36 +10,37 @@ import joystickmx.itson.enums.EstadoPedido;
 
 /**
  *
- * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Ariel Eduardo Borbón Izaguirre ID: 00000252116
  * @author Sebastián Bórquez Huerta ID: 00000252115
  * @author Leonardo Flores Leyva ID: 00000252390
  * @author Yuri Germán García López ID: 00000252583
+ * @author Victor Gerardo Torres García ID: 205869
  */
 public interface IPedidoDAO {
 
-    void crearPedido(Pedido pedido) throws PersistenciaException;
+    public void crearPedido(Pedido pedido) throws PersistenciaException;
 
-    Pedido actualizarPedido(Pedido pedido) throws PersistenciaException;
+    public Pedido actualizarPedido(Pedido pedido) throws PersistenciaException;
 
-    Pedido buscarPorId(Long idPedido) throws PersistenciaException;
+    public Pedido buscarPorId(Long idPedido) throws PersistenciaException;
 
-    List<Pedido> obtenerPedidos() throws PersistenciaException;
+    public List<Pedido> obtenerPedidos() throws PersistenciaException;
 
-    List<Pedido> buscarPorCliente(Cliente cliente) throws PersistenciaException;
+    public List<Pedido> buscarPorCliente(Cliente cliente) throws PersistenciaException;
 
-    List<Pedido> buscarPorEstado(EstadoPedido estado) throws PersistenciaException;
+    public List<Pedido> buscarPorEstado(EstadoPedido estado) throws PersistenciaException;
 
-    List<Pedido> buscarPorRangoFecha(LocalDate fechaInicio, LocalDate fechaFin) throws PersistenciaException;
+    public List<Pedido> buscarPorRangoFecha(LocalDate fechaInicio, LocalDate fechaFin) throws PersistenciaException;
 
-    List<DetallePedido> obtenerDetallesPedido(Long idPedido) throws PersistenciaException;
+    public List<DetallePedido> obtenerDetallesPedido(Long idPedido) throws PersistenciaException;
     
-    void pedidoCancelado(Long idPedido) throws PersistenciaException;
+    public void pedidoCancelado(Long idPedido) throws PersistenciaException;
 
-    void pedidoEntregado(Long idPedido) throws PersistenciaException;
+    public void pedidoEntregado(Long idPedido) throws PersistenciaException;
 
-    void pedidoPendiente(Long idPedido) throws PersistenciaException;
+    public void pedidoPendiente(Long idPedido) throws PersistenciaException;
     
-    void pedidoEnviado(Long idPedido) throws PersistenciaException;
+    public void pedidoEnviado(Long idPedido) throws PersistenciaException;
     
-    List<Pedido> buscarPorNombreClienteParcial(String nombreParcial) throws PersistenciaException;
+    public List<Pedido> buscarPorNombreClienteParcial(String nombreParcial) throws PersistenciaException;
 }

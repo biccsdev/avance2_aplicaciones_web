@@ -95,17 +95,32 @@
                                         <li class="videojuego-item">
                                             <div class="videojuego">
                                                 <div class="videojuego-imagen">
-                                                    <img class="videojuego-imagen" src="${pageContext.request.contextPath}${juego.getUrlImagen()}" alt="Portada de ${juego.nombre}" onerror="this.src='${pageContext.request.contextPath}/imgs/iconoImagen.png'">>
+                                                    <img 
+                                                        class="videojuego-imagen" 
+                                                        src="${pageContext.request.contextPath}${juego.getUrlImagen()}" 
+                                                        alt="Portada de ${juego.nombre}" 
+                                                        onerror="this.src='${pageContext.request.contextPath}/imgs/iconoImagen.png'">
                                                 </div>
                                                 <div class="videojuego-info">
                                                     <h3 class="videojuego-nombre">${String.format("%s (%s)", juego.getNombre(), juego.getPlataforma())}</h3>
                                                     <h2 class="videojuego-precio">$${String.format("%.2f", juego.getPrecio())}</h2>
                                                     <div class="botones-admin">
                                                         <form action="${pageContext.request.contextPath}/admin/productos/editar" method="get">
-                                                            <button type="submit" class="btn-carrito btn-dark btn-admin" name="idVideojuego" value="${juego.getIdVideojuego()}"> Editar </button>
+                                                            <button 
+                                                                type="submit" 
+                                                                class="btn-carrito btn-dark btn-admin" 
+                                                                name="idVideojuego" 
+                                                                value="${juego.getIdVideojuego()}"> 
+                                                                Editar 
+                                                            </button>
                                                         </form>
                                                         <form name="moderar" action="${pageContext.request.contextPath}/admin/moderar" method="get">
-                                                            <button class="btn-carrito btn-dark btn-admin" name="idVideojuego" value="${juego.getIdVideojuego().toString()}">Reseñas</button>
+                                                            <button 
+                                                                class="btn-carrito btn-dark btn-admin" 
+                                                                name="idVideojuego" 
+                                                                value="${juego.getIdVideojuego().toString()}">
+                                                                Reseñas
+                                                            </button>
                                                         </form>
                                                     </div>
 
@@ -121,12 +136,20 @@
                                             onmouseout="this.style.cursor='default';"
                                             onclick ="document.getElementById('videojuego-form-${estado.index}').submit(); return false;"
                                         >
-                                            <form id="videojuego-form-${estado.index}" name="videojuego-form" action="${pageContext.request.contextPath}/videojuego" method="get">
+                                            <form 
+                                                id="videojuego-form-${estado.index}" 
+                                                name="videojuego-form" 
+                                                action="${pageContext.request.contextPath}/videojuego" 
+                                                method="get">
                                                 <input id="videojuego-sumit" type="hidden" name="idVideojuego" value="${juego.getIdVideojuego()}">
                                             </form>
                                             <div class="videojuego">
                                                 <div class="videojuego-imagen">
-                                                    <img class="videojuego-imagen" src="${pageContext.request.contextPath}${juego.getUrlImagen()}" alt="Portada de ${juego.nombre}" onerror="this.src='${pageContext.request.contextPath}/imgs/iconoImagen.png'">>
+                                                    <img 
+                                                        class="videojuego-imagen" 
+                                                        src="${pageContext.request.contextPath}${juego.getUrlImagen()}" 
+                                                        alt="Portada de ${juego.nombre}" 
+                                                        onerror="this.src='${pageContext.request.contextPath}/imgs/iconoImagen.png'">
                                                 </div>
                                                 <div class="videojuego-info">
                                                     <h3 class="videojuego-nombre">${String.format("%s (%s)", juego.getNombre(), juego.getPlataforma())}</h3>

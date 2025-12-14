@@ -10,10 +10,11 @@ import joystickmx.itson.interfaces.IUsuarioDAO;
 
 /**
  *
- * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Ariel Eduardo Borbón Izaguirre ID: 00000252116
  * @author Sebastián Bórquez Huerta ID: 00000252115
  * @author Leonardo Flores Leyva ID: 00000252390
  * @author Yuri Germán García López ID: 00000252583
+ * @author Victor Gerardo Torres García ID: 205869
  */
 public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
 
@@ -26,15 +27,10 @@ public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
             em.getTransaction().commit();
         } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try {
-                em.getTransaction().rollback();
-            } catch (Exception ignored) {
-            }
+                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al crear el usuario: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -48,15 +44,10 @@ public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
             return usuarioActualizado;
         } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try {
-                em.getTransaction().rollback();
-            } catch (Exception ignored) {
-            }
+                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al actualizar el usuario: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -68,9 +59,7 @@ public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
         } catch (Exception e) {
             throw new PersistenciaException("Error al buscar usuario por ID: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -89,9 +78,7 @@ public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
         } catch (Exception e) {
             throw new PersistenciaException("Error al buscar usuario por email: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -122,18 +109,11 @@ public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
             throw new PersistenciaException("No se encontró el usuario con email: " + email);
 
         } catch (Exception e) {
-            if (em.getTransaction().isActive()) {
-                try {
-                    em.getTransaction().rollback();
-                } catch (Exception ignored) {
-                }
-            }
-            e.printStackTrace();
+            if (em.getTransaction().isActive()) 
+                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al actualizar estado del usuario: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 
@@ -177,15 +157,10 @@ public class UsuarioDAO extends BaseDAO implements IUsuarioDAO {
 
         } catch (Exception e) {
             if (em.getTransaction().isActive()) 
-                try {
-                em.getTransaction().rollback();
-            } catch (Exception ignored) {
-            }
+                try { em.getTransaction().rollback(); } catch (Exception ignored) {}
             throw new PersistenciaException("Error al modificar la dirección: " + e.getMessage());
         } finally {
-            if (em.isOpen()) {
-                em.close();
-            }
+            if (em.isOpen()) { em.close(); }
         }
     }
 }

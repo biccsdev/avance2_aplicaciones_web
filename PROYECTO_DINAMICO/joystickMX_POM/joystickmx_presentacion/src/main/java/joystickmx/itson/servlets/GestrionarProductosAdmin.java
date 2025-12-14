@@ -1,7 +1,6 @@
 package joystickmx.itson.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -17,10 +16,11 @@ import joystickmx.negocio.exception.NegocioException;
 
 Maneja la edición y eliminación de videojuegos por parte del administrador
  *
- * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Ariel Eduardo Borbón Izaguirre ID: 00000252116
  * @author Sebastián Bórquez Huerta ID: 00000252115
  * @author Leonardo Flores Leyva ID: 00000252390
  * @author Yuri Germán García López ID: 00000252583
+ * @author Victor Gerardo Torres García ID: 205869
  */
 @WebServlet(name = "ProductosAdminServlet", urlPatterns = {"/editar-productos"})
 public class GestrionarProductosAdmin extends HttpServlet {

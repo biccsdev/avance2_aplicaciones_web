@@ -8,7 +8,7 @@ import joystickmx.itson.BO.PedidoBO;
 import joystickmx.itson.BO.ResenaBO;
 import joystickmx.itson.BO.UsuarioBO;
 import joystickmx.itson.BO.VideojuegoBO;
-import joystickmx.itson.DAOS.Factory.FactoryDAO;
+import joystickmx.itson.DAOS.DependencyInjectorDAO.InjectorDAO;
 import joystickmx.negocio.interfaces.IAdministradorBO;
 import joystickmx.negocio.interfaces.ICarritoBO;
 import joystickmx.negocio.interfaces.ICategoriaBO;
@@ -20,7 +20,7 @@ import joystickmx.negocio.interfaces.IVideojuegoBO;
 
 /**
  *
- * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Ariel Eduardo Borbón Izaguirre ID: 00000252116
  * @author Sebastián Bórquez Huerta ID: 00000252115
  * @author Leonardo Flores Leyva ID: 00000252390
  * @author Yuri Germán García López ID: 00000252583
@@ -29,34 +29,56 @@ import joystickmx.negocio.interfaces.IVideojuegoBO;
 public class InjectorBO {
     
     public static IAdministradorBO buildAdiministradorBO(){
-        return new AdministradorBO(FactoryDAO.crearAdministradorDAO());
+        return new AdministradorBO(InjectorDAO.crearAdministradorDAO());
     }
     
     public static ICarritoBO buildCarritoBO(){
-        return  new CarritoBO(FactoryDAO.crearCarritoDAO());
+        return  new CarritoBO(InjectorDAO.crearCarritoDAO());
     }
     
     public static ICategoriaBO buildCategoriaBO(){
-        return new CategoriaBO(FactoryDAO.crearCategoriaDAO());
+        return new CategoriaBO(InjectorDAO.crearCategoriaDAO());
     }
     
     public static IClienteBO buildClienteBO(){
-        return new ClienteBO(FactoryDAO.crearClienteDAO(), FactoryDAO.crearCarritoDAO());
+        return new ClienteBO(InjectorDAO.crearClienteDAO(), InjectorDAO.crearCarritoDAO());
+    }
+    
+    public static IClienteBO buildClienteSinCarritoBO(){
+        return new ClienteBO(InjectorDAO.crearClienteDAO(), null);
     }
     
     public static IPedidoBO buildPedidoBO(){
-        return new PedidoBO(FactoryDAO.crearPedidoDAO(), FactoryDAO.crearClienteDAO(), FactoryDAO.crearCarritoDAO(), FactoryDAO.crearVideojuegoDAO());
+        return new PedidoBO(
+                InjectorDAO.crearPedidoDAO(), 
+                InjectorDAO.crearClienteDAO(), 
+                InjectorDAO.crearCarritoDAO(), 
+                InjectorDAO.crearVideojuegoDAO()
+        );
+    }
+    
+    public static IPedidoBO buildPedidoClienteBO(){
+        return new PedidoBO(
+                InjectorDAO.crearPedidoDAO(), 
+                InjectorDAO.crearClienteDAO(), 
+                null, 
+                null
+        );
+    }
+    
+    public static IPedidoBO buildPedidoSinClienteCarritoVideojuegoBO(){
+        return new PedidoBO(InjectorDAO.crearPedidoDAO(), null, null, null);
     }
     
     public static IResenaBO buildResenaBO(){
-        return new ResenaBO(FactoryDAO.crearResenaDAO());
+        return new ResenaBO(InjectorDAO.crearResenaDAO());
     }
     
     public static IUsuarioBO buildUsuarioBO(){
-        return new UsuarioBO(FactoryDAO.crearUsuarioDAO());
+        return new UsuarioBO(InjectorDAO.crearUsuarioDAO());
     }
     
     public static IVideojuegoBO buildVideojuegoBO(){
-        return new VideojuegoBO(FactoryDAO.crearVideojuegoDAO());
+        return new VideojuegoBO(InjectorDAO.crearVideojuegoDAO());
     }
 }

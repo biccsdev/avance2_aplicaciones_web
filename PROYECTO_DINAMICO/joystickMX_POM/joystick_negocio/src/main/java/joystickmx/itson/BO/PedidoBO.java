@@ -30,10 +30,11 @@ import joystickmx.negocio.interfaces.IPedidoBO;
 
 /**
  *
- * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Ariel Eduardo Borbón Izaguirre ID: 00000252116
  * @author Sebastián Bórquez Huerta ID: 00000252115
  * @author Leonardo Flores Leyva ID: 00000252390
  * @author Yuri Germán García López ID: 00000252583
+ * @author Victor Gerardo Torres García ID: 205869
  */
 public class PedidoBO implements IPedidoBO {
 
@@ -42,7 +43,12 @@ public class PedidoBO implements IPedidoBO {
     private final ICarritoDAO carritoDAO;
     private final IVideojuegoDAO videojuegoDAO;
 
-    public PedidoBO(IPedidoDAO pedidoDAO, IClienteDAO clienteDAO, ICarritoDAO carritoDAO, IVideojuegoDAO videojuegoDAO) {
+    public PedidoBO(
+            IPedidoDAO pedidoDAO, 
+            IClienteDAO clienteDAO, 
+            ICarritoDAO carritoDAO, 
+            IVideojuegoDAO videojuegoDAO
+    ) {
         this.pedidoDAO = pedidoDAO;
         this.clienteDAO = clienteDAO;
         this.carritoDAO = carritoDAO;

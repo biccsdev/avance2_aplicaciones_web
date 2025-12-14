@@ -1,4 +1,4 @@
-package joystickmx.itson.DAOS.Factory;
+package joystickmx.itson.DAOS.DependencyInjectorDAO;
 
 import joystickmx.itson.DAOS.AdministradorDAO;
 import joystickmx.itson.DAOS.CarritoDAO;
@@ -26,7 +26,7 @@ import joystickmx.itson.interfaces.IVideojuegoDAO;
  * @author Leonardo Flores Leyva ID: 00000252390
  * @author Yuri Germán García López ID: 00000252583
  */
-public class FactoryDAO {
+public class InjectorDAO {
     
     public static IUsuarioDAO crearUsuarioDAO(){
         return new UsuarioDAO();

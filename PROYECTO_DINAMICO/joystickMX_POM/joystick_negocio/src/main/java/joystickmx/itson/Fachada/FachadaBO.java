@@ -1,15 +1,6 @@
 package joystickmx.itson.Fachada;
 
 import java.util.List;
-import joystickmx.itson.BO.AdministradorBO;
-import joystickmx.itson.BO.CarritoBO;
-import joystickmx.itson.BO.CategoriaBO;
-import joystickmx.itson.BO.ClienteBO;
-import joystickmx.itson.BO.PedidoBO;
-import joystickmx.itson.BO.ResenaBO;
-import joystickmx.itson.BO.UsuarioBO;
-import joystickmx.itson.BO.VideojuegoBO;
-import joystickmx.itson.DAOS.Factory.FactoryDAO;
 import joystickmx.itson.DTO.CarritoDTO;
 import joystickmx.itson.DTO.CategoriaDTO;
 import joystickmx.itson.DTO.DireccionDTO;
@@ -25,7 +16,7 @@ import joystickmx.negocio.exception.NegocioException;
 
 /**
  *
- * @author Ariel Eduardo Borbon Izaguirre ID: 00000252116
+ * @author Ariel Eduardo Borbón Izaguirre ID: 00000252116
  * @author Sebastián Bórquez Huerta ID: 00000252115
  * @author Leonardo Flores Leyva ID: 00000252390
  * @author Yuri Germán García López ID: 00000252583
@@ -44,7 +35,7 @@ public class FachadaBO {
      */
     public static UsuarioDTO login(String email, String password) throws NegocioException {
         try {
-            return new UsuarioBO(FactoryDAO.crearUsuarioDAO()).validarCredenciales(email, password);
+            return InjectorBO.buildUsuarioBO().validarCredenciales(email, password);
 
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar iniciar sesión: " + e.getMessage(), e);
@@ -53,7 +44,7 @@ public class FachadaBO {
 
     public static UsuarioDTO buscarUsuarioPorEmail(String email) throws NegocioException {
         try {
-            return new UsuarioBO(FactoryDAO.crearUsuarioDAO()).buscarPorEmail(email);
+            return InjectorBO.buildUsuarioBO().buscarPorEmail(email);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar buscar el usuario: " + e.getMessage(), e);
         }
@@ -61,7 +52,7 @@ public class FachadaBO {
 
     public static UsuarioDTO buscarClientePorId(Long idCliente) throws NegocioException {
         try {
-            return new ClienteBO(FactoryDAO.crearClienteDAO(), null).buscarPorId(idCliente);
+            return InjectorBO.buildClienteSinCarritoBO().buscarPorId(idCliente);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar buscar el cliente: " + e.getMessage(), e);
         }
@@ -69,7 +60,7 @@ public class FachadaBO {
 
     public static List<UsuarioDTO> buscarClientesActivos() throws NegocioException {
         try {
-            return new ClienteBO(FactoryDAO.crearClienteDAO(), null).buscarUsuariosActivos();
+            return InjectorBO.buildClienteSinCarritoBO().buscarUsuariosActivos();
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar buscar clientes activos: " + e.getMessage(), e);
         }
@@ -77,7 +68,7 @@ public class FachadaBO {
 
     public static List<UsuarioDTO> buscarClientesExistentes() throws NegocioException {
         try {
-            return new ClienteBO(FactoryDAO.crearClienteDAO(), null).buscarClientesExistentes();
+            return InjectorBO.buildClienteSinCarritoBO().buscarClientesExistentes();
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar buscar clientes existentes: " + e.getMessage(), e);
         }
@@ -85,7 +76,7 @@ public class FachadaBO {
 
     public static void registrarCliente(UsuarioRegistroDTO dto) throws NegocioException {
         try {
-            new ClienteBO(FactoryDAO.crearClienteDAO(), FactoryDAO.crearCarritoDAO()).crearCliente(dto);
+            InjectorBO.buildClienteBO().crearCliente(dto);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar registrar cliente: " + e.getMessage(), e);
         }
@@ -93,7 +84,7 @@ public class FachadaBO {
 
     public static void registrarAdministrador(UsuarioRegistroDTO dto) throws NegocioException {
         try {
-            new AdministradorBO(FactoryDAO.crearAdministradorDAO()).crearAdmin(dto);
+            InjectorBO.buildAdiministradorBO().crearAdmin(dto);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar registrar administrador: " + e.getMessage(), e);
         }
@@ -101,8 +92,7 @@ public class FachadaBO {
 
     public static UsuarioDTO modificarDireccionUsuario(String email, DireccionDTO dto) throws NegocioException {
         try {
-            UsuarioDTO usuarioActualizado = new UsuarioBO(FactoryDAO.crearUsuarioDAO()).modificarDireccion(email, dto);
-            return usuarioActualizado;
+            return InjectorBO.buildUsuarioBO().modificarDireccion(email, dto);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar modificar dirección: " + e.getMessage(), e);
         }
@@ -110,7 +100,7 @@ public class FachadaBO {
 
     public static VideojuegoDTO buscarVideojuegoPorId(Long idVideojuego) throws NegocioException {
         try {
-            return new VideojuegoBO(FactoryDAO.crearVideojuegoDAO()).buscarPorId(idVideojuego);
+            return InjectorBO.buildVideojuegoBO().buscarPorId(idVideojuego);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar buscar el videojuego: " + e.getMessage(), e);
         }
@@ -119,7 +109,7 @@ public class FachadaBO {
     // Esta debería devolver una lista, ya que hay muchos videojuegos con el mismo nombre (corrección sugerida desde DAO)
     public static VideojuegoDTO buscarVideojuegoPorNombeExacto(String nombre) throws NegocioException {
         try {
-            return new VideojuegoBO(FactoryDAO.crearVideojuegoDAO()).buscarPorNombreExacto(nombre);
+            return InjectorBO.buildVideojuegoBO().buscarPorNombreExacto(nombre);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar buscar el videojuego: " + e.getMessage(), e);
         }
@@ -127,7 +117,7 @@ public class FachadaBO {
 
     public static CategoriaDTO buscarCategoriaPorNombre(String nombre) throws NegocioException {
         try {
-            return new CategoriaBO(FactoryDAO.crearCategoriaDAO()).buscarPorNombre(nombre);
+            return InjectorBO.buildCategoriaBO().buscarPorNombre(nombre);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar buscar la categoria: " + e.getMessage(), e);
         }
@@ -135,7 +125,7 @@ public class FachadaBO {
 
     public static List<CategoriaDTO> buscarCategoriaPorVideojuego(Long idVideojuego) throws NegocioException {
         try {
-            return new CategoriaBO(FactoryDAO.crearCategoriaDAO()).buscarPorVideojuego(idVideojuego);
+            return InjectorBO.buildCategoriaBO().buscarPorVideojuego(idVideojuego);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar buscar la categoria: " + e.getMessage(), e);
         }
@@ -143,8 +133,7 @@ public class FachadaBO {
 
     public static List<VideojuegoDTO> buscarVideojuegosActivos() throws NegocioException {
         try {
-            VideojuegoBO videojuegoBO = new VideojuegoBO(FactoryDAO.crearVideojuegoDAO());
-            return videojuegoBO.buscarVideojuegosActivos();
+            return InjectorBO.buildVideojuegoBO().buscarVideojuegosActivos();
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar buscar los videojuegos: " + e.getMessage(), e);
         }
@@ -152,7 +141,7 @@ public class FachadaBO {
 
     public static void crearVideojuego(VideojuegoDTO dto) throws NegocioException {
         try {
-            new VideojuegoBO(FactoryDAO.crearVideojuegoDAO()).crearVideojuego(dto);
+            InjectorBO.buildVideojuegoBO().crearVideojuego(dto);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar crear videojuego: " + e.getMessage(), e);
         }
@@ -160,7 +149,7 @@ public class FachadaBO {
 
     public static VideojuegoDTO actualizarVideojuego(VideojuegoDTO dto) throws NegocioException {
         try {
-            return new VideojuegoBO(FactoryDAO.crearVideojuegoDAO()).actualizarVideojuego(dto);
+            return InjectorBO.buildVideojuegoBO().actualizarVideojuego(dto);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar actualizar videojuego: " + e.getMessage(), e);
         }
@@ -168,7 +157,7 @@ public class FachadaBO {
 
     public static UsuarioDTO actualizarUsuario(UsuarioRegistroDTO dto) throws NegocioException {
         try {
-            return new UsuarioBO(FactoryDAO.crearUsuarioDAO()).actualizarUsuario(dto);
+            return InjectorBO.buildUsuarioBO().actualizarUsuario(dto);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar actualizar usuario: " + e.getMessage(), e);
         }
@@ -249,7 +238,7 @@ public class FachadaBO {
     // PENDIENTE ELIMINAR ITEM Y VACIAR CARRITO
     public static List<PedidoDTO> obtenerPedidos() throws NegocioException {
         try {
-            return new PedidoBO(FactoryDAO.crearPedidoDAO(), null, null, null).obtenerPedidos();
+            return InjectorBO.buildPedidoSinClienteCarritoVideojuegoBO().obtenerPedidos();
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar obtener los pedidos: " + e.getMessage(), e);
         }
@@ -257,7 +246,7 @@ public class FachadaBO {
 
     public static void crearCarrito(CarritoDTO carrito) throws NegocioException {
         try {
-            new CarritoBO(FactoryDAO.crearCarritoDAO()).crearCarrito(carrito);
+            InjectorBO.buildCarritoBO().crearCarrito(carrito);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar crear el carrito: " + e.getMessage(), e);
         }
@@ -265,7 +254,7 @@ public class FachadaBO {
 
     public static void pedidoEntregado(Long idPedido) throws NegocioException {
         try {
-            new PedidoBO(FactoryDAO.crearPedidoDAO(), null, null, null).pedidoEntregado(idPedido);
+            InjectorBO.buildPedidoSinClienteCarritoVideojuegoBO().pedidoEntregado(idPedido);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar marcar pedido como entregado: " + e.getMessage(), e);
         }
@@ -273,7 +262,7 @@ public class FachadaBO {
 
     public static void pedidoEnviado(Long idPedido) throws NegocioException {
         try {
-            new PedidoBO(FactoryDAO.crearPedidoDAO(), null, null, null).pedidoEnviado(idPedido);
+            InjectorBO.buildPedidoSinClienteCarritoVideojuegoBO().pedidoEnviado(idPedido);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar marcar pedido como enviado: " + e.getMessage(), e);
         }
@@ -281,7 +270,7 @@ public class FachadaBO {
 
     public static void pedidoPendiente(Long idPedido) throws NegocioException {
         try {
-            new PedidoBO(FactoryDAO.crearPedidoDAO(), null, null, null).pedidoPendiente(idPedido);
+            InjectorBO.buildPedidoSinClienteCarritoVideojuegoBO().pedidoPendiente(idPedido);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar marcar pedido como pendiente: " + e.getMessage(), e);
         }
@@ -289,7 +278,7 @@ public class FachadaBO {
 
     public static void pedidoCancelado(Long idPedido) throws NegocioException {
         try {
-            new PedidoBO(FactoryDAO.crearPedidoDAO(), null, null, null).pedidoCancelado(idPedido);
+            InjectorBO.buildPedidoSinClienteCarritoVideojuegoBO().pedidoCancelado(idPedido);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar marcar pedido como cancelado: " + e.getMessage(), e);
         }
@@ -297,8 +286,7 @@ public class FachadaBO {
 
     public static List<VideojuegoDTO> buscarVideojuegosPorNombreParcial(String nombre) throws NegocioException {
         try {
-            VideojuegoBO videojuegoBO = new VideojuegoBO(FactoryDAO.crearVideojuegoDAO());
-            return videojuegoBO.buscarPorNombre(nombre);
+            return InjectorBO.buildVideojuegoBO().buscarPorNombre(nombre);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar buscar videojuegos por nombre: " + e.getMessage(), e);
         }
@@ -306,7 +294,7 @@ public class FachadaBO {
 
     public static List<UsuarioDTO> buscarClientesPorNombre(String nombre) throws NegocioException {
         try {
-            return new ClienteBO(FactoryDAO.crearClienteDAO(), null).buscarPorNombre(nombre);
+            return InjectorBO.buildClienteSinCarritoBO().buscarPorNombre(nombre);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar buscar clientes por nombre: " + e.getMessage(), e);
         }
@@ -324,15 +312,7 @@ public class FachadaBO {
      */
     public static PedidoDTO registrarPedido(Long idCliente, DireccionDTO direccionEnvioDTO, PagoDTO pagoDTO) throws NegocioException {
         try {
-
-            PedidoBO pedidoBO = new PedidoBO(
-                    FactoryDAO.crearPedidoDAO(),
-                    FactoryDAO.crearClienteDAO(),
-                    FactoryDAO.crearCarritoDAO(),
-                    FactoryDAO.crearVideojuegoDAO()
-            );
-            return pedidoBO.registrarPedido(idCliente, direccionEnvioDTO, pagoDTO);
-
+            return InjectorBO.buildPedidoBO().registrarPedido(idCliente, direccionEnvioDTO, pagoDTO);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar registrar el pedido: " + e.getMessage(), e);
         }
@@ -340,8 +320,7 @@ public class FachadaBO {
 
     public static PedidoDTO buscarPedidoPorId(Long idPedido) throws NegocioException {
         try {
-            PedidoBO pedidoBO = new PedidoBO(FactoryDAO.crearPedidoDAO(), null, null, null);
-            return pedidoBO.buscarPorId(idPedido);
+            return InjectorBO.buildPedidoSinClienteCarritoVideojuegoBO().buscarPorId(idPedido);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar buscar un pedido por ID: " + e.getMessage(), e);
         }
@@ -349,7 +328,7 @@ public class FachadaBO {
 
     public static List<CategoriaDTO> buscarTodasCategorias() throws NegocioException {
         try {
-            return new CategoriaBO(FactoryDAO.crearCategoriaDAO()).buscarTodas();
+            return InjectorBO.buildCategoriaBO().buscarTodas();
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar buscar las categorías: " + e.getMessage(), e);
         }
@@ -357,8 +336,7 @@ public class FachadaBO {
 
     public static void crearResena(ResenaDTO dto) throws NegocioException {
         try {
-            // VALIDACIONES NEGOCIO IF EL CLIENTE SI LO COMPRO ENTONCES PROCEDER
-            new ResenaBO(FactoryDAO.crearResenaDAO()).crearResena(dto);
+            InjectorBO.buildResenaBO().crearResena(dto);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar crear la reseña: " + e.getMessage(), e);
         }
@@ -366,8 +344,7 @@ public class FachadaBO {
 
     public static void eliminarResenaPorId(Long idResena) throws NegocioException {
         try {
-            // VALIDACIONES NEGOCIO IF EL CLIENTE SI LO COMPRO ENTONCES PROCEDER
-            new ResenaBO(FactoryDAO.crearResenaDAO()).eliminarResena(idResena);
+            InjectorBO.buildResenaBO().eliminarResena(idResena);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar eliminar la reseña: " + e.getMessage(), e);
         }
@@ -375,7 +352,7 @@ public class FachadaBO {
 
     public static void activarUsuario(String email) throws NegocioException {
         try {
-            new UsuarioBO(FactoryDAO.crearUsuarioDAO()).activarUsuario(email);
+            InjectorBO.buildUsuarioBO().activarUsuario(email);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar activar el usuario: " + e.getMessage(), e);
         }
@@ -383,7 +360,7 @@ public class FachadaBO {
 
     public static void desactivarUsuario(String email) throws NegocioException {
         try {
-            new UsuarioBO(FactoryDAO.crearUsuarioDAO()).desactivarUsuario(email);
+            InjectorBO.buildUsuarioBO().desactivarUsuario(email);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar desactivar el usuario: " + e.getMessage(), e);
         }
@@ -391,7 +368,7 @@ public class FachadaBO {
 
     public static void eliminarUsuario(String email) throws NegocioException {
         try {
-            new UsuarioBO(FactoryDAO.crearUsuarioDAO()).eliminarUsuario(email);
+            InjectorBO.buildUsuarioBO().eliminarUsuario(email);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar eliminar el usuario: " + e.getMessage(), e);
         }
@@ -407,15 +384,7 @@ public class FachadaBO {
      */
     public static List<PedidoDTO> buscarPedidosPorNombreClienteParcial(String nombre) throws NegocioException {
         try {
-            PedidoBO pedidoBO = new PedidoBO(
-                    FactoryDAO.crearPedidoDAO(),
-                    null,
-                    null,
-                    null
-            );
-
-            return pedidoBO.buscarPorNombreClienteParcial(nombre);
-
+            return InjectorBO.buildPedidoSinClienteCarritoVideojuegoBO().buscarPorNombreClienteParcial(nombre);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar buscar pedidos por nombre de cliente: " + e.getMessage(), e);
         }
@@ -423,13 +392,7 @@ public class FachadaBO {
 
     public static List<PedidoDTO> buscarPedidosPorCliente(Long idCliente) throws NegocioException {
         try {
-            PedidoBO pedidoBO = new PedidoBO(
-                    FactoryDAO.crearPedidoDAO(),
-                    FactoryDAO.crearClienteDAO(),
-                    null,
-                    null
-            );
-            return pedidoBO.buscarPorCliente(idCliente);
+            return InjectorBO.buildPedidoClienteBO().buscarPorCliente(idCliente);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar buscar pedidos por cliente: " + e.getMessage(), e);
         }
@@ -456,9 +419,13 @@ public class FachadaBO {
             String plataforma
     ) throws NegocioException {
         try {
-            VideojuegoBO videojuegoBO = new VideojuegoBO(FactoryDAO.crearVideojuegoDAO());
-
-            return videojuegoBO.buscarVideojuegosConFiltros(nombre, precioMin, precioMax, idCategoria, plataforma);
+            return InjectorBO.buildVideojuegoBO().buscarVideojuegosConFiltros(
+                    nombre, 
+                    precioMin, 
+                    precioMax, 
+                    idCategoria, 
+                    plataforma
+            );
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar filtrar la búsqueda de videojuegos: " + e.getMessage(), e);
         }
@@ -466,7 +433,7 @@ public class FachadaBO {
 
     public static void deshabilitarVideojuego(Long idVideojuego) throws NegocioException {
         try {
-            new VideojuegoBO(FactoryDAO.crearVideojuegoDAO()).deshabilitarVideojuego(idVideojuego);
+            InjectorBO.buildVideojuegoBO().deshabilitarVideojuego(idVideojuego);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar deshabilitar el videojuego: " + e.getMessage(), e);
         }
@@ -474,10 +441,7 @@ public class FachadaBO {
 
     public static List<ItemCarritoDTO> obtenerItemsCarrito(Long idCarrito) throws NegocioException {
         try {
-            CarritoBO carritoBO = new CarritoBO(FactoryDAO.crearCarritoDAO());
-
-            return carritoBO.obtenerItemsCarrito(idCarrito);
-
+            return InjectorBO.buildCarritoBO().obtenerItemsCarrito(idCarrito);
         } catch (NegocioException e) {
             throw e;
         } catch (Exception e) {
@@ -487,7 +451,7 @@ public class FachadaBO {
 
     public static void actualizarCantidadItem(Long idItemCarrito, Integer cantidad) throws NegocioException {
         try {
-            new CarritoBO(FactoryDAO.crearCarritoDAO()).actualizarCantidadItem(idItemCarrito, cantidad);
+            InjectorBO.buildCarritoBO().actualizarCantidadItem(idItemCarrito, cantidad);
         } catch (NegocioException e) {
             throw new NegocioException(e.getMessage());
         }
@@ -495,7 +459,7 @@ public class FachadaBO {
 
     public static void eliminarItemCarrito(Long idItemCarrito) throws NegocioException {
         try {
-            new CarritoBO(FactoryDAO.crearCarritoDAO()).eliminarItem(idItemCarrito);
+            InjectorBO.buildCarritoBO().eliminarItem(idItemCarrito);
         } catch (NegocioException e) {
             throw new NegocioException(e.getMessage());
         }
@@ -503,7 +467,7 @@ public class FachadaBO {
 
     public static void vaciarCarrito(Long idCarrito) throws NegocioException {
         try {
-            new CarritoBO(FactoryDAO.crearCarritoDAO()).vaciarCarrito(idCarrito);
+            InjectorBO.buildCarritoBO().vaciarCarrito(idCarrito);
         } catch (NegocioException e) {
             throw new NegocioException(e.getMessage());
         }
@@ -511,9 +475,7 @@ public class FachadaBO {
 
     public static DireccionDTO obtenerDireccionUsuario(String email) throws NegocioException {
         try {
-
-            return new UsuarioBO(FactoryDAO.crearUsuarioDAO()).obtenerDireccionPorUsuario(email);
-
+            return InjectorBO.buildUsuarioBO().obtenerDireccionPorUsuario(email);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar obtener direccion de usuario: " + e.getMessage(), e);
         }
@@ -521,10 +483,7 @@ public class FachadaBO {
 
     public static List<String> validarExistenciasVideojuego(Long idUsuario) throws NegocioException {
         try {
-            CarritoBO carritoBO = new CarritoBO(
-                    FactoryDAO.crearCarritoDAO()
-            );
-            return carritoBO.validarExistenciasVideojuego(idUsuario);
+            return InjectorBO.buildCarritoBO().validarExistenciasVideojuego(idUsuario);
         } catch (NegocioException e) {
             throw new NegocioException("Error al validar existencias: " + e.getMessage(), e);
         }
@@ -532,10 +491,9 @@ public class FachadaBO {
 
     public static List<UsuarioDTO> buscarClientesPorNombreNoEliminados(String nombre) throws NegocioException {
         try {
-            return new ClienteBO(FactoryDAO.crearClienteDAO(), null).buscarClientesNoEliminadosPorNombre(nombre);
+            return InjectorBO.buildClienteSinCarritoBO().buscarClientesNoEliminadosPorNombre(nombre);
         } catch (NegocioException e) {
             throw new NegocioException("Error al intentar buscar clientes por nombre: " + e.getMessage(), e);
         }
     }
-
 }
