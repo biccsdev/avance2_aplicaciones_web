@@ -125,70 +125,6 @@ header{
     margin: 3% 0%;
 }
 
-#nueva-resena{
-    max-width: 100%;
-    height: 25%;
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 5%;
-    margin: 0%;
-}
-
-#nueva-resena input{
-    font-family: var(--font-sans-nunito);
-    font-size: 0.7em;
-}
-
-#nueva-resena-label{
-    width: 100%;
-    color: var(--color-white);
-    font-size: 2vw;
-    font-weight: 300;
-    margin: 0% 0% 3% 0%;
-}
-
-.nueva-resena-container{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: 0.5% 0%;
-    margin: 0%;
-    font-size: 1.4vw;
-}
-
-.nueva-resena-container > label{
-    width: 100%;
-    color: var(--color-white);
-    padding-bottom: 1%;
-    font-size: 0.8em;
-}
-
-#nueva-resena-calificacion{
-    width:fit-content;
-    padding: 0.5%;
-}
-
-#nueva-resena-titulo{
-    width: 75%;
-    padding: 1%;
-}
-
-#nueva-resena-comentario{
-    width: 100%;
-    padding: 1%;
-    font-family: var(--font-sans-nunito);
-    font-size: 0.7em;
-}
-
-#nueva-resena-button{
-    width: fit-content;
-    font-size: 0.7em;
-    padding: 1%;
-    border-radius: 10%;
-    font-family: var(--font-sans-nunito);
-    font-weight: 500;
-}
-
 .videojuego-resenas{
     width: 100%;
     height: 100%;
@@ -318,40 +254,10 @@ header{
         width: 90%;
     }
 
-    #nueva-resena-label{
-        font-size: 1.2em;
-    }
-
     .titulo-resenas{
         font-size: 1.8em;
     }
-
-    .nueva-resena-container{
-        font-size: 1.2em;
-    }
-
-    #nueva-resena input{
-        font-size: 2.8vw;
-    }
-
-    .nueva-resena-container > label{
-        width: 100%;
-        color: var(--color-white);
-        padding-bottom: 1%;
-        font-size: 3vw;
-    }
-
-    #nueva-resena-comentario{
-        font-size: 2.8vw;
-    }
-
-    #nueva-resena-button{
-        width: fit-content;
-        font-size: 3vw;
-        padding: 2%;
-        border-radius: 5%;
-    }
-
+    
     .resena > h3{
         font-size: 3vw;
     }
