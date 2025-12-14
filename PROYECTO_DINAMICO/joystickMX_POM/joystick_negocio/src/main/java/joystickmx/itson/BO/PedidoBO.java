@@ -209,4 +209,19 @@ public class PedidoBO implements IPedidoBO {
             throw new NegocioException("Error al buscar pedidos por nombre parcial de cliente: " + e.getMessage(), e);
         }
     }
+
+    @Override
+    public List<PedidoDTO> buscarPorCliente(Long idCliente) throws NegocioException {
+        try {
+            Cliente cliente = clienteDAO.buscarPorId(idCliente);
+            if (cliente == null) {
+                throw new NegocioException("Cliente no encontrado.");
+            }
+            return this.pedidoDAO.buscarPorCliente(cliente).stream()
+                    .map(Mapeadores::toPedidoDTO)
+                    .collect(Collectors.toList());
+        } catch (PersistenciaException e) {
+            throw new NegocioException("Error al buscar pedidos por cliente: " + e.getMessage(), e);
+        }
+    }
 }

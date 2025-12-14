@@ -2,12 +2,15 @@ package com.mycompany.joystickmx_presentacion;
 
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.time.LocalDateTime;
+import java.util.List;
 import joystickmx.itson.DTO.DireccionDTO;
 import joystickmx.itson.DTO.PagoDTO;
 import joystickmx.itson.DTO.PedidoDTO; 
@@ -19,6 +22,20 @@ import joystickmx.itson.enums.MetodoPago;
 @Path("pedidos")
 @RequestScoped
 public class PedidosResource {
+
+    @GET
+    @Path("usuario/{idUsuario}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerPedidosPorUsuario(@PathParam("idUsuario") Long idUsuario) {
+        try {
+            List<PedidoDTO> pedidos = FactoryBO.buscarPedidosPorCliente(idUsuario);
+            return Response.ok(pedidos).build();
+        } catch (Exception e) {
+             return Response.serverError()
+                    .entity("{\"error\": \"" + e.getMessage() + "\"}")
+                    .build();
+        }
+    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

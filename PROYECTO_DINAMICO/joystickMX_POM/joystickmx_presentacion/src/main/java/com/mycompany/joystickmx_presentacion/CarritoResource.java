@@ -46,7 +46,30 @@ public class CarritoResource {
         }
     }
 
-    //actualizar y eliminar items del carrito
+    @POST
+    @Path("usuario/{idUsuario}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response agregarItem(@PathParam("idUsuario") Long idUsuario, ItemCarritoDTO item) {
+        try {
+            CarritoDTO carrito = FactoryBO.buscarCarritoPorCliente(idUsuario);
+            if (carrito == null) {
+                return Response.status(Response.Status.NOT_FOUND)
+                        .entity("{\"mensaje\": \"El usuario no tiene un carrito activo.\"}")
+                        .build();
+            }
+            
+            item.setIdCarrito(carrito.getIdCarrito());
+            FactoryBO.agregarItemACarrito(carrito.getIdCarrito(), item);
+            
+            return Response.ok("{\"mensaje\": \"Producto agregado al carrito\"}").build();
+        } catch (Exception e) {
+            return Response.serverError()
+                    .entity("{\"error\": \"" + e.getMessage() + "\"}")
+                    .build();
+        }
+    }
+
     @PUT
     @Path("item/{idItem}")
     @Produces(MediaType.APPLICATION_JSON)

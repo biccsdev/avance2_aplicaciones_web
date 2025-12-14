@@ -13,6 +13,47 @@ window.onload = () => {
     const init = () => { 
         obtenerVideojuego();
         obtenerResenas();
+        
+        const btnCarrito = document.getElementById("btn-carrito");
+        if(btnCarrito){
+            btnCarrito.addEventListener("click", agregarAlCarrito);
+        }
+    }
+
+    const agregarAlCarrito = () => {
+         let idVideojuego = new URLSearchParams(window.location.search).get("idVideojuego");
+         
+         if(!ID_USUARIO_ACTUAL || ID_USUARIO_ACTUAL.trim() === ""){
+             alert("Debes iniciar sesión para agregar productos.");
+             window.location.href = `${CONTEXT_PATH}/login`;
+             return;
+         }
+         
+         const payload = {
+             idVideojuego: parseInt(idVideojuego),
+             cantidad: 1
+         };
+         
+         fetch(`${CONTEXT_PATH}/resources/carrito/usuario/${ID_USUARIO_ACTUAL}`, {
+             method: 'POST',
+             headers: {
+                 'Content-Type': 'application/json'
+             },
+             body: JSON.stringify(payload)
+         })
+         .then(response => {
+             if(response.ok){
+                 alert("Producto agregado al carrito.");
+             } else {
+                 return response.json().then(data => {
+                     throw new Error(data.mensaje || data.error || "Error al agregar al carrito");
+                 });
+             }
+         })
+         .catch(err => {
+             console.error(err);
+             alert(err.message);
+         });
     }
 
     const obtenerVideojuego = () => {

@@ -49,4 +49,6 @@ public interface IPedidoBO {
      * @throws NegocioException Si ocurre un error durante la consulta.
      */
     public List<PedidoDTO> buscarPorNombreClienteParcial(String nombreParcial) throws NegocioException;
+
+    public List<PedidoDTO> buscarPorCliente(Long idCliente) throws NegocioException;
 }

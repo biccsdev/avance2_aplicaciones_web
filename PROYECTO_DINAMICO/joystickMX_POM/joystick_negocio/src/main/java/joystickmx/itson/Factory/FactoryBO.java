@@ -421,6 +421,20 @@ public class FactoryBO {
         }
     }
 
+    public static List<PedidoDTO> buscarPedidosPorCliente(Long idCliente) throws NegocioException {
+        try {
+            PedidoBO pedidoBO = new PedidoBO(
+                    FactoryDAO.crearPedidoDAO(),
+                    FactoryDAO.crearClienteDAO(),
+                    null,
+                    null
+            );
+            return pedidoBO.buscarPorCliente(idCliente);
+        } catch (NegocioException e) {
+            throw new NegocioException("Error al intentar buscar pedidos por cliente: " + e.getMessage(), e);
+        }
+    }
+
     /**
      * Filtra videojuegos por múltiples criterios de forma dinámica. Los
      * parámetros nulos o vacíos serán ignorados en la búsqueda.
