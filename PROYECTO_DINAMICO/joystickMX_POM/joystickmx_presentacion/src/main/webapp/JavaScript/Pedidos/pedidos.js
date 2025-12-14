@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
     cargarPedidos();
 
     const formBusqueda = document.querySelector(".orders-filter");
-    if(formBusqueda){
+    if (formBusqueda) {
         formBusqueda.addEventListener("submit", (e) => {
             e.preventDefault();
             const input = document.getElementById("orderNumber");
@@ -15,8 +15,8 @@ let todosLosPedidos = [];
 
 async function cargarPedidos() {
     const listaContainer = document.getElementById("lista-pedidos");
-    
-    if(!ID_USUARIO_ACTUAL || ID_USUARIO_ACTUAL === "") {
+
+    if (!ID_USUARIO_ACTUAL || ID_USUARIO_ACTUAL === "") {
         listaContainer.innerHTML = "<p>Inicia sesión para ver tus pedidos.</p>";
         return;
     }
@@ -26,7 +26,7 @@ async function cargarPedidos() {
         const response = await fetch(url);
 
         if (!response.ok) {
-             throw new Error("Error al obtener pedidos");
+            throw new Error("Error al obtener pedidos");
         }
 
         todosLosPedidos = await response.json();
@@ -39,11 +39,11 @@ async function cargarPedidos() {
 }
 
 function filtrarPedidos(termino) {
-    if(!termino || termino.trim() === ""){
+    if (!termino || termino.trim() === "") {
         renderizarLista(todosLosPedidos);
         return;
     }
-    
+
     const terminoLower = termino.toLowerCase();
     const filtrados = todosLosPedidos.filter(p => p.idPedido.toString().includes(terminoLower));
     renderizarLista(filtrados);
@@ -52,23 +52,21 @@ function filtrarPedidos(termino) {
 function renderizarLista(lista) {
     const listaContainer = document.getElementById("lista-pedidos");
     listaContainer.innerHTML = "";
-    
+
     if (lista.length === 0) {
         listaContainer.innerHTML = "<p>No se encontraron pedidos.</p>";
         return;
     }
 
     lista.forEach(pedido => {
-         const html = renderPedido(pedido);
-         listaContainer.insertAdjacentHTML("beforeend", html);
+        const html = renderPedido(pedido);
+        listaContainer.insertAdjacentHTML("beforeend", html);
     });
 }
 
 function renderPedido(pedido) {
-    // La fecha puede venir como arreglo [anio, mes, dia, hora, min, etc] o string
     let fecha = "Fecha desconocida";
     if (Array.isArray(pedido.fechaPedido)) {
-        // [2025, 12, 10, 15, 30]
         const [anio, mes, dia] = pedido.fechaPedido;
         fecha = `${dia}/${mes}/${anio}`;
     } else if (pedido.fechaPedido) {
@@ -77,13 +75,32 @@ function renderPedido(pedido) {
 
     const total = pedido.totalPagado ? pedido.totalPagado.toFixed(2) : "0.00";
     const id = pedido.idPedido;
-    
-    const estado = pedido.estadoPedido; // e.g. "ENTREGADO", "PENDIENTE"
-    
-    const isEntregado = estado === "ENTREGADO" ? "dot-active" : "";
-    const isEnviado = estado === "ENVIADO" ? "dot-active" : "";
-    const isPendiente = estado === "PENDIENTE" ? "dot-active" : "";
-    
+    const estado = pedido.estadoPedido;
+
+    let dotClass = "";
+    let estadoTexto = estado;
+
+    switch (estado) {
+        case "ENTREGADO":
+            dotClass = "dot-success";
+            estadoTexto = "Entregado";
+            break;
+        case "ENVIADO":
+            dotClass = "dot-info";
+            estadoTexto = "Enviado";
+            break;
+        case "PENDIENTE":
+            dotClass = "dot-warning";
+            estadoTexto = "Pendiente";
+            break;
+        case "CANCELADO":
+            dotClass = "dot-danger";
+            estadoTexto = "Cancelado";
+            break;
+        default:
+            dotClass = "";
+    }
+
     return `
     <li class="order-card">
         <div class="order-info">
@@ -93,7 +110,7 @@ function renderPedido(pedido) {
             </div>
             <div class="order-meta">
                 <div class="order-row">
-                    <span class="text-muted">total:</span> 
+                    <span class="text-muted">Total:</span> 
                     <strong class="order-total">$${total}</strong>
                 </div>
             </div>
@@ -103,18 +120,11 @@ function renderPedido(pedido) {
                 </a>
             </div>
         </div>
+        
         <div class="order-status">
             <div class="status-item">
-                <span class="status-label">Entregado</span>
-                <span class="dot dot-success ${isEntregado}"></span>
-            </div>
-            <div class="status-item">
-                <span class="status-label">Enviado</span>
-                <span class="dot dot-info ${isEnviado}"></span>
-            </div>
-            <div class="status-item">
-                <span class="status-label">Pendiente</span>
-                <span class="dot dot-warning ${isPendiente}"></span>
+                <span class="status-label">${estadoTexto}</span>
+                <span class="dot ${dotClass} dot-active"></span>
             </div>
         </div>
     </li>

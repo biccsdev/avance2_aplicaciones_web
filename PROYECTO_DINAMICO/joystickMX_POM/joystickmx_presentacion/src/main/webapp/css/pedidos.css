@@ -123,6 +123,7 @@
 .dot-success { background: var(--success-500); }
 .dot-info { background: var(--accent-blue); }
 .dot-warning { background: var(--warning-500); }
+.dot-danger { background: var(--danger-500); }
 
 .dot-active {
   box-shadow: 0 0 0 3px var(--ring-color);
@@ -131,6 +132,57 @@
 a {
     text-decoration: none;
     color: inherit;
+}
+
+/* ------------------------------------
+   Admin Specific Styles
+------------------------------------- */
+.admin-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+  justify-content: center;
+  height: 100%;
+}
+
+.admin-select {
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background-color: white;
+  font-size: 0.9rem;
+  width: 100%;
+  max-width: 150px;
+  color: var(--gray-900);
+}
+
+.client-name {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--gray-700);
+  margin-bottom: 4px;
+}
+
+/* Alert Messages (Success/Error) */
+.alert-box {
+  padding: 15px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.alert-error {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef9a9a;
+}
+
+.alert-success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #a5d6a7;
 }
 
 /* ------------------------------------
@@ -154,7 +206,19 @@ a {
     border-top: 2px solid var(--border-color);
     padding-left: 0;
     padding-top: var(--space-3);
-    grid-template-columns: repeat(3, 1fr);
+    /* En móvil, cambiamos el grid para el admin controls */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .admin-controls {
+      align-items: flex-start;
+      width: 100%;
+  }
+  
+  .admin-select {
+      max-width: 100%;
   }
 
   .status-item {
