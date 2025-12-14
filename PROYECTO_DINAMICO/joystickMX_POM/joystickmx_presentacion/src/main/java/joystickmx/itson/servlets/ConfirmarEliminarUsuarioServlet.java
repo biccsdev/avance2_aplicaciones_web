@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import joystickmx.itson.DTO.UsuarioDTO;
-import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.Fachada.FachadaBO;
 
 /**
  *
@@ -72,7 +72,7 @@ public class ConfirmarEliminarUsuarioServlet extends HttpServlet {
         }
 
         try {
-            UsuarioDTO usuario = FactoryBO.buscarUsuarioPorEmail(email);
+            UsuarioDTO usuario = FachadaBO.buscarUsuarioPorEmail(email);
 
             if (usuario == null) {
                 response.sendRedirect(contextPath + "/admin/usuarios/gestionar?error=no_encontrado");

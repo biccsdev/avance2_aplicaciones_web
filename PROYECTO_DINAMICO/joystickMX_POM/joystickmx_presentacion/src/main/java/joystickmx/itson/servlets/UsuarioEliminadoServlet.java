@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import joystickmx.itson.DTO.UsuarioDTO;
-import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.Fachada.FachadaBO;
 
 /**
  *
@@ -68,7 +68,7 @@ public class UsuarioEliminadoServlet extends HttpServlet {
 
         try {
             Long idUsuario = Long.valueOf(idUsuarioStr);
-            UsuarioDTO usuario = FactoryBO.buscarClientePorId(idUsuario);
+            UsuarioDTO usuario = FachadaBO.buscarClientePorId(idUsuario);
             request.setAttribute("usuario", usuario);
         } catch (Exception e) {
             LOG.log(Level.WARNING, "No se pudo obtener info de usuario post-eliminación", e);

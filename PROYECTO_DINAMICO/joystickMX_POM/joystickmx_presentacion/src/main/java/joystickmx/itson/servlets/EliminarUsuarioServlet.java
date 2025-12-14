@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import joystickmx.itson.DTO.UsuarioDTO;
-import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.Fachada.FachadaBO;
 
 /**
  *
@@ -44,7 +44,7 @@ public class EliminarUsuarioServlet extends HttpServlet {
         }
 
         try {
-            UsuarioDTO usuario = FactoryBO.buscarUsuarioPorEmail(email);
+            UsuarioDTO usuario = FachadaBO.buscarUsuarioPorEmail(email);
 
             if (usuario == null) {
                 throw new RuntimeException("Usuario no encontrado");
@@ -81,7 +81,7 @@ public class EliminarUsuarioServlet extends HttpServlet {
         }
 
         try {
-            FactoryBO.eliminarUsuario(email);
+            FachadaBO.eliminarUsuario(email);
 
             response.sendRedirect(contextPath + "/admin/usuarios/usuario-eliminado?email=" + email);
 

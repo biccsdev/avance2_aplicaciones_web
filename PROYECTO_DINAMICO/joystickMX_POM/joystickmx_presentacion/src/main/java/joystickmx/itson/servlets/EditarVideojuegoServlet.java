@@ -19,7 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import joystickmx.itson.DTO.CategoriaDTO;
 import joystickmx.itson.DTO.VideojuegoDTO;
-import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.Fachada.FachadaBO;
 import joystickmx.negocio.exception.NegocioException;
 
 /**
@@ -71,12 +71,12 @@ public class EditarVideojuegoServlet extends HttpServlet {
 
             Long idVideojuego = Long.parseLong(idStr);
 
-            VideojuegoDTO videojuego = FactoryBO.buscarVideojuegoPorId(idVideojuego);
+            VideojuegoDTO videojuego = FachadaBO.buscarVideojuegoPorId(idVideojuego);
             if (videojuego == null) {
                 throw new NegocioException("Videojuego no encontrado.");
             }
 
-            List<CategoriaDTO> categorias = FactoryBO.buscarTodasCategorias();
+            List<CategoriaDTO> categorias = FachadaBO.buscarTodasCategorias();
 
             request.setAttribute("videojuego", videojuego);
             request.setAttribute("categoriasDisponibles", categorias);
@@ -111,7 +111,7 @@ public class EditarVideojuegoServlet extends HttpServlet {
             }
             Long id = Long.parseLong(idStr);
 
-            VideojuegoDTO videojuegoOriginal = FactoryBO.buscarVideojuegoPorId(id);
+            VideojuegoDTO videojuegoOriginal = FachadaBO.buscarVideojuegoPorId(id);
 
             String nombre = obtenerValorPart(request.getPart("nombre"));
             String descripcion = obtenerValorPart(request.getPart("descripcion"));
@@ -144,7 +144,7 @@ public class EditarVideojuegoServlet extends HttpServlet {
             }
 
             if (categoriaNombre != null && !categoriaNombre.isEmpty()) {
-                CategoriaDTO cat = FactoryBO.buscarCategoriaPorNombre(categoriaNombre);
+                CategoriaDTO cat = FachadaBO.buscarCategoriaPorNombre(categoriaNombre);
                 if (cat != null) {
                     List<CategoriaDTO> nuevaLista = new ArrayList<>();
                     nuevaLista.add(cat);
@@ -161,7 +161,7 @@ public class EditarVideojuegoServlet extends HttpServlet {
             videojuegoOriginal.setUrlImagen(nuevaUrlImagen);
             videojuegoOriginal.setDescripcion(descripcion);
 
-            FactoryBO.actualizarVideojuego(videojuegoOriginal);
+            FachadaBO.actualizarVideojuego(videojuegoOriginal);
 
             response.sendRedirect(request.getContextPath() + "/home?mensaje=Juego+actualizado");
 

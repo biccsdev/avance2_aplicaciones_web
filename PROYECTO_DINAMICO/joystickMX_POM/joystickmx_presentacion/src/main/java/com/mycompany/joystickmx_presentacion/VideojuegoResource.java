@@ -12,7 +12,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.util.List;
 import joystickmx.itson.DTO.VideojuegoDTO;
-import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.Fachada.FachadaBO;
 import joystickmx.negocio.exception.NegocioException;
 
 /**
@@ -44,11 +44,11 @@ public class VideojuegoResource {
     public Response getVideojuegos() {
         try {
             List<VideojuegoDTO> videojuegos;
-            videojuegos = FactoryBO.buscarVideojuegosActivos();
+            videojuegos = FachadaBO.buscarVideojuegosActivos();
             // Obtiene las categorías de cada juego
             for(VideojuegoDTO videojuego : videojuegos){
                 if(videojuego.getCategorias() == null)
-                    videojuego.setCategorias(FactoryBO.buscarCategoriaPorVideojuego(videojuego.getIdVideojuego()));
+                    videojuego.setCategorias(FachadaBO.buscarCategoriaPorVideojuego(videojuego.getIdVideojuego()));
             }
             // Si se requieren reseñas, se consultan por separado.
             return Response.ok(videojuegos).build();
@@ -64,10 +64,10 @@ public class VideojuegoResource {
     public Response getVideojuego(@PathParam("id") String id){
         try {
             Long idVideojuego = Long.valueOf(id);
-            VideojuegoDTO videojuego = FactoryBO.buscarVideojuegoPorId(idVideojuego);
+            VideojuegoDTO videojuego = FachadaBO.buscarVideojuegoPorId(idVideojuego);
             // Obtiene las categorías del juego
             if(videojuego.getCategorias() == null)
-                videojuego.setCategorias(FactoryBO.buscarCategoriaPorVideojuego(videojuego.getIdVideojuego()));
+                videojuego.setCategorias(FachadaBO.buscarCategoriaPorVideojuego(videojuego.getIdVideojuego()));
             // Si se requieren las reseñas del videojuego, se consultan por separado.
             return Response.ok(videojuego).build();
         } catch (NegocioException | NumberFormatException e) {

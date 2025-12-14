@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import joystickmx.itson.DTO.DireccionDTO;
 import joystickmx.itson.DTO.UsuarioDTO;
 import joystickmx.itson.DTO.UsuarioRegistroDTO;
-import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.Fachada.FachadaBO;
 
 /**
  *
@@ -67,7 +67,7 @@ public class RegisterServlet extends HttpServlet {
         String telefono = request.getParameter("telefono");
         try {
             // Se registra el cliente en la base de datos
-            FactoryBO.registrarCliente(new UsuarioRegistroDTO(
+            FachadaBO.registrarCliente(new UsuarioRegistroDTO(
                     nombre, 
                     apellidoPaterno, 
                     apellidoMaterno, 
@@ -76,14 +76,14 @@ public class RegisterServlet extends HttpServlet {
                     password, 
                     new DireccionDTO(calle, numero, colonia))
             );
-            // Si el registro es exitoso (no lanzó excepción), se obtiene el usuario registrado
-            UsuarioDTO usuario = FactoryBO.buscarUsuarioPorEmail(email);
+            // Si el registro es exitoso se obtiene el usuario registrado
+            UsuarioDTO usuario = FachadaBO.buscarUsuarioPorEmail(email);
             
-            // Se agrega el rol del cliente y su información a la sesión.
+            // Se agrega el rol del cliente y su información a la sesión
             HttpSession session = request.getSession(true);
             session.setAttribute("usuario", usuario);
             session.setAttribute("rol", "cliente");
-            // Se manda al catálogo de videojuegos.
+            // Se manda al catálogo de videojuegos
             response.sendRedirect(request.getContextPath() + "/home");
         } catch (Exception e) {
             request.setAttribute("error", e.getMessage());

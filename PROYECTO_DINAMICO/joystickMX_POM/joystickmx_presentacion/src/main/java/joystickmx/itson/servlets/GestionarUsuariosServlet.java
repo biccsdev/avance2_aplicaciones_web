@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import joystickmx.itson.DTO.UsuarioDTO;
-import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.Fachada.FachadaBO;
 import joystickmx.negocio.exception.NegocioException;
 
 /**
@@ -53,16 +53,16 @@ public class GestionarUsuariosServlet extends HttpServlet {
 
         try {
             if (busqueda != null && !busqueda.trim().isEmpty()) {
-                listaUsuarios = FactoryBO.buscarClientesPorNombre(busqueda.trim());
+                listaUsuarios = FachadaBO.buscarClientesPorNombre(busqueda.trim());
             } else {
-                listaUsuarios = FactoryBO.buscarClientesExistentes();
+                listaUsuarios = FachadaBO.buscarClientesExistentes();
             }
 
             request.setAttribute("listaUsuarios", listaUsuarios);
 
         } catch (NegocioException e) {
             request.setAttribute("error", "Error al cargar usuarios: " + e.getMessage());
-            request.setAttribute("listaUsuarios", new ArrayList<UsuarioDTO>()); // Usamos el nombre correcto
+            request.setAttribute("listaUsuarios", new ArrayList<UsuarioDTO>());
         }
 
         request.getRequestDispatcher("/WEB-INF/admin/usuarios/gestionar.jsp").forward(request, response);
@@ -92,11 +92,11 @@ public class GestionarUsuariosServlet extends HttpServlet {
 
             switch (action) {
                 case "activar":
-                    FactoryBO.activarUsuario(correoUsuario);
+                    FachadaBO.activarUsuario(correoUsuario);
                     break;
 
                 case "desactivar":
-                    FactoryBO.desactivarUsuario(correoUsuario);
+                    FachadaBO.desactivarUsuario(correoUsuario);
                     break;
 
                 case "eliminar":

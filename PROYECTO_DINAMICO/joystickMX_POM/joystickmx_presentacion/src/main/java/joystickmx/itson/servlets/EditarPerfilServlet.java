@@ -10,7 +10,7 @@ import java.io.IOException;
 import joystickmx.itson.DTO.DireccionDTO;
 import joystickmx.itson.DTO.UsuarioDTO;
 import joystickmx.itson.DTO.UsuarioRegistroDTO;
-import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.Fachada.FachadaBO;
 import joystickmx.negocio.exception.NegocioException;
 
 /**
@@ -105,7 +105,7 @@ public class EditarPerfilServlet extends HttpServlet {
                 actualizacion.setContrasenia(contrasena);
             }
 
-            UsuarioDTO actualizado = FactoryBO.actualizarUsuario(actualizacion);
+            UsuarioDTO actualizado = FachadaBO.actualizarUsuario(actualizacion);
 
             session.setAttribute("usuario", actualizado);
 

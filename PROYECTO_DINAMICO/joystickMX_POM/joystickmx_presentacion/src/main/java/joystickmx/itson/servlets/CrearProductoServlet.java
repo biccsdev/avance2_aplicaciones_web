@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import joystickmx.itson.DTO.CategoriaDTO;
 import joystickmx.itson.DTO.VideojuegoDTO;
-import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.Fachada.FachadaBO;
 import joystickmx.negocio.exception.NegocioException;
 
 /**
@@ -53,7 +53,7 @@ public class CrearProductoServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             //Obtener todas las categorías
-            List<CategoriaDTO> categoriasDisponibles = FactoryBO.buscarTodasCategorias();
+            List<CategoriaDTO> categoriasDisponibles = FachadaBO.buscarTodasCategorias();
             request.setAttribute("categoriasDisponibles", categoriasDisponibles);
 
         } catch (NegocioException e) {
@@ -116,7 +116,7 @@ public class CrearProductoServlet extends HttpServlet {
 
             //Buscar y validar las categorías
             List<CategoriaDTO> categorias = new ArrayList<>();
-            CategoriaDTO categoriaEncontrada = FactoryBO.buscarCategoriaPorNombre(categoriaNombre);
+            CategoriaDTO categoriaEncontrada = FachadaBO.buscarCategoriaPorNombre(categoriaNombre);
 
             if (categoriaEncontrada == null) {
                 throw new NegocioException("La categoría seleccionada no es válida: " + categoriaNombre);
@@ -136,7 +136,7 @@ public class CrearProductoServlet extends HttpServlet {
             nuevoVideojuego.setExistencias(stock);
             nuevoVideojuego.setHabilitado(true);
             //Crear el videojuego
-            FactoryBO.crearVideojuego(nuevoVideojuego);
+            FachadaBO.crearVideojuego(nuevoVideojuego);
             //Redirigir al panel principal para administrador
             response.sendRedirect(contextPath + "/admin/panel-menu?success=Producto+creado+exitosamente");
 
@@ -153,7 +153,7 @@ public class CrearProductoServlet extends HttpServlet {
         if (error != null) {
             request.setAttribute("error", error);
             try {
-                request.setAttribute("categoriasDisponibles", FactoryBO.buscarTodasCategorias());
+                request.setAttribute("categoriasDisponibles", FachadaBO.buscarTodasCategorias());
             } catch (Exception ex) {
                 LOG.log(Level.WARNING, "Fallo al recargar categorías tras error.");
             }

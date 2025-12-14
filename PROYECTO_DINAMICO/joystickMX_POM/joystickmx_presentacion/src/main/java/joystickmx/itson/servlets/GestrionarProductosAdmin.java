@@ -10,7 +10,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.util.List;
 import joystickmx.itson.DTO.VideojuegoDTO;
-import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.Fachada.FachadaBO;
 import joystickmx.negocio.exception.NegocioException;
 /**
  * GestrionarProductosAdmin
@@ -45,19 +45,19 @@ public class GestrionarProductosAdmin extends HttpServlet {
         String estado = request.getParameter("estado");
 
         try {
-            request.setAttribute("categoriasDisponibles", FactoryBO.buscarTodasCategorias());
+            request.setAttribute("categoriasDisponibles", FachadaBO.buscarTodasCategorias());
             
-            if (path.equals("/admin/productos/gestionar")) {//Las rutas no estoy seguro de si las vamos a manejar así...
+            if (path.equals("/admin/productos/gestionar")) {
                 
                 if (estado == null || estado.equals("lista") || estado.equals("eliminado")) {
-                    //Lista todos los videojuegos activos ya que así lo manejamos de momento solo son los activos
-                    List<VideojuegoDTO> listaVideojuegos = FactoryBO.buscarVideojuegosActivos(); 
+
+                    List<VideojuegoDTO> listaVideojuegos = FachadaBO.buscarVideojuegosActivos(); 
                     request.setAttribute("videojuegos", listaVideojuegos);
                     request.setAttribute("estado", estado != null ? estado : "lista");
                     
                 } else if (estado.equals("editar") || estado.equals("confirmar")) {
                     Long idVideojuego = Long.parseLong(request.getParameter("id"));
-                    VideojuegoDTO videojuego = FactoryBO.buscarVideojuegoPorId(idVideojuego);
+                    VideojuegoDTO videojuego = FachadaBO.buscarVideojuegoPorId(idVideojuego);
 
                     if (videojuego == null) {
                         throw new NegocioException("Producto no encontrado.");
@@ -66,10 +66,8 @@ public class GestrionarProductosAdmin extends HttpServlet {
                     request.setAttribute("estado", estado); 
                 }
 
-            } else if (path.equals("/admin/productos/eliminar")) { //Las rutas no estoy seguro de si las vamos a manejar así...
+            } else if (path.equals("/admin/productos/eliminar")) { 
                 Long idVideojuego = Long.parseLong(request.getParameter("id"));
-                //Creo que no tenemos un método para poder deshabilitar un juego desde BO...
-//                FactoryBO.deshabilitarVideojuego(idVideojuego);
                 response.sendRedirect(request.getContextPath() + "/admin/productos/gestionar?estado=eliminado");
                 return;
             }
@@ -78,7 +76,7 @@ public class GestrionarProductosAdmin extends HttpServlet {
         } catch (NegocioException | NumberFormatException e) {
             request.setAttribute("error", "Error en la gestión de productos: " + e.getMessage());
             try {
-                 request.setAttribute("videojuegos", FactoryBO.buscarVideojuegosActivos());
+                 request.setAttribute("videojuegos", FachadaBO.buscarVideojuegosActivos());
             } catch (NegocioException ex) {
                  request.setAttribute("error", "Error crítico: No se pudieron cargar los productos después de un fallo.");
             }
@@ -102,7 +100,7 @@ public class GestrionarProductosAdmin extends HttpServlet {
         
         try {
             idVideojuego = Long.parseLong(request.getParameter("id"));
-            VideojuegoDTO dto = FactoryBO.buscarVideojuegoPorId(idVideojuego);
+            VideojuegoDTO dto = FachadaBO.buscarVideojuegoPorId(idVideojuego);
             if (dto == null) {
                  throw new NegocioException("Producto a actualizar no encontrado.");
             }
@@ -116,16 +114,9 @@ public class GestrionarProductosAdmin extends HttpServlet {
             dto.setFechaLanzamiento(LocalDate.parse(request.getParameter("lanzamiento")));
 
             String nombreCategoria = request.getParameter("genero");
-//            No estoy seguro de si necesitoar un método par abuscar a categoría por nombre 
-//            CategoriaDTO categoria = FactoryBO.buscarCategoriaPorNombre(nombreCategoria);
-//            
-//            if (categoria != null) {
-//                List<CategoriaDTO> categorias = new ArrayList<>();
-//                categorias.add(categoria);
-//                dto.setCategorias(categorias);
-//            }
 
-            FactoryBO.actualizarVideojuego(dto);
+
+            FachadaBO.actualizarVideojuego(dto);
           
             response.sendRedirect(request.getContextPath() + "/admin/productos/gestionar?estado=editar&id=" + idVideojuego + "&success=true");
             

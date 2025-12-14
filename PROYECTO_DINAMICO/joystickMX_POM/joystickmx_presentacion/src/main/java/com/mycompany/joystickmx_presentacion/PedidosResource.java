@@ -15,7 +15,7 @@ import joystickmx.itson.DTO.DireccionDTO;
 import joystickmx.itson.DTO.PagoDTO;
 import joystickmx.itson.DTO.PedidoDTO; 
 import joystickmx.itson.DTO.UsuarioDTO;
-import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.Fachada.FachadaBO;
 import joystickmx.itson.enums.EstadoPago;
 import joystickmx.itson.enums.MetodoPago;
 
@@ -28,7 +28,7 @@ public class PedidosResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerPedidosPorUsuario(@PathParam("idUsuario") Long idUsuario) {
         try {
-            List<PedidoDTO> pedidos = FactoryBO.buscarPedidosPorCliente(idUsuario);
+            List<PedidoDTO> pedidos = FachadaBO.buscarPedidosPorCliente(idUsuario);
             return Response.ok(pedidos).build();
         } catch (Exception e) {
              return Response.serverError()
@@ -42,7 +42,7 @@ public class PedidosResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerDetallePedido(@PathParam("idPedido") Long idPedido) {
         try {
-            PedidoDTO pedido = FactoryBO.buscarPedidoPorId(idPedido);
+            PedidoDTO pedido = FachadaBO.buscarPedidoPorId(idPedido);
             
             if (pedido == null) {
                 return Response.status(Response.Status.NOT_FOUND)
@@ -88,13 +88,13 @@ public class PedidosResource {
 
 
             
-            UsuarioDTO usuario = FactoryBO.buscarClientePorId(idCliente);
+            UsuarioDTO usuario = FachadaBO.buscarClientePorId(idCliente);
             
-            DireccionDTO direccion = FactoryBO.obtenerDireccionUsuario(usuario.getEmail());
+            DireccionDTO direccion = FachadaBO.obtenerDireccionUsuario(usuario.getEmail());
             
 
 
-            PedidoDTO pedidoCreado = FactoryBO.registrarPedido(idCliente, direccion, pagoDTO);
+            PedidoDTO pedidoCreado = FachadaBO.registrarPedido(idCliente, direccion, pagoDTO);
 
             return Response.ok("{\"mensaje\": \"Pedido creado exitosamente\", \"idPedido\": " + pedidoCreado.getIdPedido()+ "}")
                     .build();

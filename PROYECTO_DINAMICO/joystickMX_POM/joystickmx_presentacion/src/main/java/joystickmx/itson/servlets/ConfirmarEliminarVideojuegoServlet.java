@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import joystickmx.itson.DTO.CategoriaDTO;
 import joystickmx.itson.DTO.VideojuegoDTO;
-import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.Fachada.FachadaBO;
 import joystickmx.negocio.exception.NegocioException;
 
 /**
@@ -47,12 +47,12 @@ public class ConfirmarEliminarVideojuegoServlet extends HttpServlet {
             }
             Long idVideojuego = Long.parseLong(idStr);
 
-            VideojuegoDTO videojuego = FactoryBO.buscarVideojuegoPorId(idVideojuego);
+            VideojuegoDTO videojuego = FachadaBO.buscarVideojuegoPorId(idVideojuego);
             if (videojuego == null) {
                 throw new NegocioException("El videojuego no existe.");
             }
 
-            List<CategoriaDTO> categorias = FactoryBO.buscarTodasCategorias();
+            List<CategoriaDTO> categorias = FachadaBO.buscarTodasCategorias();
 
             request.setAttribute("videojuego", videojuego);
             request.setAttribute("categoriasDisponibles", categorias);
@@ -85,13 +85,13 @@ public class ConfirmarEliminarVideojuegoServlet extends HttpServlet {
             }
             Long idVideojuego = Long.parseLong(idStr);
 
-            VideojuegoDTO videojuego = FactoryBO.buscarVideojuegoPorId(idVideojuego);
+            VideojuegoDTO videojuego = FachadaBO.buscarVideojuegoPorId(idVideojuego);
 
-            FactoryBO.deshabilitarVideojuego(idVideojuego);
+            FachadaBO.deshabilitarVideojuego(idVideojuego);
 
             request.setAttribute("videojuego", videojuego);
 
-            request.setAttribute("categoriasDisponibles", FactoryBO.buscarTodasCategorias());
+            request.setAttribute("categoriasDisponibles", FachadaBO.buscarTodasCategorias());
 
             request.getRequestDispatcher("/WEB-INF/admin/productos/productoEliminado.jsp").forward(request, response);
 

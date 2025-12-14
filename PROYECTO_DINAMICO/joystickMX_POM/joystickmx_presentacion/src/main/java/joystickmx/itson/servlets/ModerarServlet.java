@@ -13,7 +13,7 @@ import joystickmx.itson.DTO.ResenaDTO;
 import joystickmx.itson.DTO.UsuarioDTO;
 import joystickmx.itson.DTO.VideojuegoDTO;
 import joystickmx.itson.DTO.VideojuegoResenaDTO;
-import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.Fachada.FachadaBO;
 import joystickmx.negocio.exception.NegocioException;
 
 /**
@@ -71,9 +71,9 @@ public class ModerarServlet extends HttpServlet {
                 // Extrae el ID del videojuego
                 Long idVideojuegoLong = Long.valueOf(idVideojuego);
                 // Busca el videojuego
-                VideojuegoDTO videojuego = FactoryBO.buscarVideojuegoPorId(idVideojuegoLong);
+                VideojuegoDTO videojuego = FachadaBO.buscarVideojuegoPorId(idVideojuegoLong);
                 // Busca las resenas del videojuego
-                List<ResenaDTO> resenas = FactoryBO.buscarResenasPorVideojuego(idVideojuegoLong);
+                List<ResenaDTO> resenas = FachadaBO.buscarResenasPorVideojuego(idVideojuegoLong);
                 // Lista con los detalles de la reseña
                 List<VideojuegoResenaDTO> resenasVideojuegos = obtenerResenas(resenas);
                 
@@ -85,7 +85,7 @@ public class ModerarServlet extends HttpServlet {
             } else if(request.getParameter("nombreVideojuego") != null){
                 
                 String nombreVideojuego = request.getParameter("nombreVideojuego");
-                List<ResenaDTO> resenas = FactoryBO.buscarResenasPorNombreVideojuego(nombreVideojuego);
+                List<ResenaDTO> resenas = FachadaBO.buscarResenasPorNombreVideojuego(nombreVideojuego);
                 // Lista con los detalles de la reseña
                 List<VideojuegoResenaDTO> resenasVideojuegos = obtenerResenas(resenas);
                 
@@ -95,14 +95,14 @@ public class ModerarServlet extends HttpServlet {
             } else if(request.getParameter("calificacion") != null){
                 String calificacion = request.getParameter("calificacion");
                 Float calificacionLong = Float.valueOf(calificacion);
-                List<ResenaDTO> resenas = FactoryBO.buscarResenasPorCalificacion(calificacionLong);
+                List<ResenaDTO> resenas = FachadaBO.buscarResenasPorCalificacion(calificacionLong);
                 // Lista con los detalles de la reseña
                 List<VideojuegoResenaDTO> resenasVideojuegos = obtenerResenas(resenas);
                 
                 request.setAttribute("resenas", resenasVideojuegos);
                 request.getRequestDispatcher("/WEB-INF/admin/resenas/moderar.jsp").forward(request, response);
             } else{
-                List<ResenaDTO> resenas = FactoryBO.buscarTodasLasResenas();
+                List<ResenaDTO> resenas = FachadaBO.buscarTodasLasResenas();
                 // Lista con los detalles de la reseña
                 List<VideojuegoResenaDTO> resenasVideojuegos = obtenerResenas(resenas);
                 
@@ -129,7 +129,7 @@ public class ModerarServlet extends HttpServlet {
         if(request.getParameter("idResena") != null){
             Long idResena = Long.valueOf(request.getParameter("idResena"));
             try {
-                FactoryBO.eliminarResenaPorId(idResena);
+                FachadaBO.eliminarResenaPorId(idResena);
                 request.setAttribute("mensaje", "Reseña eliminada con éxito.");
                 doGet(request, response);
             } catch (NegocioException ex) {
@@ -145,9 +145,9 @@ public class ModerarServlet extends HttpServlet {
 
             VideojuegoResenaDTO resenaVideojuego = new VideojuegoResenaDTO();
 
-            UsuarioDTO cliente = FactoryBO.buscarClientePorId(resena.getIdCliente());
+            UsuarioDTO cliente = FachadaBO.buscarClientePorId(resena.getIdCliente());
 
-            VideojuegoDTO videojuego = FactoryBO.buscarVideojuegoPorId(resena.getIdVideojuego());
+            VideojuegoDTO videojuego = FachadaBO.buscarVideojuegoPorId(resena.getIdVideojuego());
 
             resenaVideojuego.setResena(resena);
             resenaVideojuego.setNombreJugador(cliente.getNombres());

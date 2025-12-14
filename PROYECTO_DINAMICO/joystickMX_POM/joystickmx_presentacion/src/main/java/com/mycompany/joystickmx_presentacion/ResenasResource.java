@@ -16,7 +16,7 @@ import java.util.List;
 import joystickmx.itson.DTO.ResenaDTO;
 import joystickmx.itson.DTO.UsuarioDTO;
 import joystickmx.itson.DTO.VideojuegoResenaDTO;
-import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.Fachada.FachadaBO;
 import joystickmx.negocio.exception.NegocioException;
 
 /**
@@ -47,7 +47,7 @@ public class ResenasResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getResenas() {
         try {
-            List<ResenaDTO> resenas = FactoryBO.buscarTodasLasResenas();
+            List<ResenaDTO> resenas = FachadaBO.buscarTodasLasResenas();
             return Response.ok(resenas).build();
         } catch (NegocioException e) {
             return Response.status(Response.Status.NOT_FOUND).build();
@@ -61,7 +61,7 @@ public class ResenasResource {
     public Response getResenasVideojuego(@PathParam("id") String id){
         try {
             Long idVideojuego = Long.valueOf(id);
-            List<ResenaDTO> resenas = FactoryBO.buscarResenasPorVideojuego(idVideojuego);
+            List<ResenaDTO> resenas = FachadaBO.buscarResenasPorVideojuego(idVideojuego);
             List<VideojuegoResenaDTO> resenasVideojuego = new ArrayList<>();
             if(resenas != null && !resenas.isEmpty()){
                 resenasVideojuego = obtenerResenas(resenas);
@@ -78,7 +78,7 @@ public class ResenasResource {
     public Response postResena(ResenaDTO nuevaResena){
         try {
             // Validar máximo 1 reseña por cliente
-            FactoryBO.crearResena(nuevaResena);
+            FachadaBO.crearResena(nuevaResena);
             return Response.ok().build();
         } catch (NegocioException e) {
             return Response.status(Response.Status.BAD_REQUEST).build();
@@ -91,7 +91,7 @@ public class ResenasResource {
 
             VideojuegoResenaDTO resenaVideojuego = new VideojuegoResenaDTO();
 
-            UsuarioDTO cliente = FactoryBO.buscarClientePorId(resena.getIdCliente());
+            UsuarioDTO cliente = FachadaBO.buscarClientePorId(resena.getIdCliente());
 
             resenaVideojuego.setResena(resena);
             resenaVideojuego.setNombreJugador(cliente.getNombres());

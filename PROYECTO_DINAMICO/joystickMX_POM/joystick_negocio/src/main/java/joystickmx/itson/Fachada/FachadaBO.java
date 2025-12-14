@@ -1,4 +1,4 @@
-package joystickmx.itson.Factory;
+package joystickmx.itson.Fachada;
 
 import java.util.List;
 import joystickmx.itson.BO.AdministradorBO;
@@ -31,7 +31,7 @@ import joystickmx.negocio.exception.NegocioException;
  * @author Yuri Germán García López ID: 00000252583
  * @author Victor Gerardo Torres García ID: 205869
  */
-public class FactoryBO {
+public class FachadaBO {
 
     /**
      * Valida las credenciales de un usuario. Es un método de LECTURA, por lo
@@ -526,7 +526,7 @@ public class FactoryBO {
             );
             return carritoBO.validarExistenciasVideojuego(idUsuario);
         } catch (NegocioException e) {
-            throw new NegocioException("Error en Factory al validar existencias: " + e.getMessage(), e);
+            throw new NegocioException("Error al validar existencias: " + e.getMessage(), e);
         }
     }
 

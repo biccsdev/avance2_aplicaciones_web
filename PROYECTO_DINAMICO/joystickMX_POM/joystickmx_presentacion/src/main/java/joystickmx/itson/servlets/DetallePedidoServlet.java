@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import joystickmx.itson.DTO.PedidoDTO;
-import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.Fachada.FachadaBO;
 import joystickmx.negocio.exception.NegocioException;
 
 /**
@@ -70,14 +70,12 @@ public class DetallePedidoServlet extends HttpServlet {
         PedidoDTO pedido = null;
 
         try {
-            // 2. Validar y convertir el ID
             if (idParam == null || idParam.isEmpty()) {
                 throw new NegocioException("No se proporcionó un ID de pedido.");
             }
             pedidoId = Long.parseLong(idParam);
 
-            // 3. Llamar a la lógica de negocio (la crearemos en el Paso 2)
-            pedido = FactoryBO.buscarPedidoPorId(pedidoId);
+            pedido = FachadaBO.buscarPedidoPorId(pedidoId);
 
             if (pedido == null) {
                 throw new NegocioException("Pedido no encontrado con ID: " + pedidoId);
@@ -91,13 +89,10 @@ public class DetallePedidoServlet extends HttpServlet {
             errorMessage = e.getMessage();
         }
 
-        // 4. Decidir a dónde ir
         if (errorMessage != null) {
-            // Si hubo un error, regresar a la lista con un mensaje
             request.getSession().setAttribute("errorMessage", errorMessage);
             response.sendRedirect(request.getContextPath() + "/admin/pedidos/gestionar");
         } else {
-            // Si todo salió bien, enviar el DTO al JSP de detalle
             request.setAttribute("pedido", pedido);
             request.getRequestDispatcher("/WEB-INF/admin/pedidos/detalle.jsp").forward(request, response);
         }

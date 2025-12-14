@@ -7,7 +7,7 @@ import joystickmx.itson.DAOS.CarritoDAO;
 import joystickmx.itson.DAOS.ClienteDAO;
 import joystickmx.itson.DTO.VideojuegoDTO;
 import joystickmx.itson.Excepciones.PersistenciaException;
-import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.Fachada.FachadaBO;
 import joystickmx.itson.Mappers.DTOMapeadores;
 import joystickmx.itson.Mappers.Mapeadores;
 import joystickmx.itson.entidades.Carrito;
@@ -37,7 +37,7 @@ public class VideojuegoBO implements IVideojuegoBO {
     public void crearVideojuego(VideojuegoDTO dto) throws NegocioException {
         try {
 
-            List<VideojuegoDTO> juegosActivos = FactoryBO.buscarVideojuegosActivos();
+            List<VideojuegoDTO> juegosActivos = FachadaBO.buscarVideojuegosActivos();
             for (VideojuegoDTO juegoExistente : juegosActivos) {
 
                 if (juegoExistente.getNombre().equalsIgnoreCase(dto.getNombre())) {

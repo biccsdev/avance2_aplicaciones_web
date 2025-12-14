@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import joystickmx.itson.DTO.CarritoDTO;
 import joystickmx.itson.DTO.ItemCarritoDTO;
-import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.Fachada.FachadaBO;
 
 /**
  * API para gestionar el carrito de compras
@@ -32,13 +32,13 @@ public class CarritoResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response obtenerCarritoPorUsuario(@PathParam("idUsuario") Long idUsuario) {
         try {
-            CarritoDTO carrito = FactoryBO.buscarCarritoPorCliente(idUsuario);
+            CarritoDTO carrito = FachadaBO.buscarCarritoPorCliente(idUsuario);
             if (carrito == null) {
                 return Response.status(Response.Status.NOT_FOUND)
                         .entity("{\"mensaje\": \"El usuario no tiene un carrito activo.\"}")
                         .build();
             }
-            List<ItemCarritoDTO> items = FactoryBO.obtenerItemsCarrito(carrito.getIdCarrito());
+            List<ItemCarritoDTO> items = FachadaBO.obtenerItemsCarrito(carrito.getIdCarrito());
             carrito.setItems(items);
             return Response.ok(carrito).build();
         } catch (Exception e) {
@@ -53,7 +53,7 @@ public class CarritoResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response agregarItem(@PathParam("idUsuario") Long idUsuario, ItemCarritoDTO item) {
         try {
-            CarritoDTO carrito = FactoryBO.buscarCarritoPorCliente(idUsuario);
+            CarritoDTO carrito = FachadaBO.buscarCarritoPorCliente(idUsuario);
             if (carrito == null) {
                 return Response.status(Response.Status.NOT_FOUND)
                         .entity(Collections.singletonMap("mensaje", "El usuario no tiene un carrito activo."))
@@ -61,7 +61,7 @@ public class CarritoResource {
             }
 
             item.setIdCarrito(carrito.getIdCarrito());
-            FactoryBO.agregarItemACarrito(carrito.getIdCarrito(), item);
+            FachadaBO.agregarItemACarrito(carrito.getIdCarrito(), item);
 
             return Response.ok(Collections.singletonMap("mensaje", "Producto agregado al carrito")).build();
         } catch (Exception e) {
@@ -77,7 +77,7 @@ public class CarritoResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response actualizarCantidad(@PathParam("idItem") Long idItem, @QueryParam("cantidad") int cantidad) {
         try {
-            FactoryBO.actualizarCantidadItem(idItem, cantidad);
+            FachadaBO.actualizarCantidadItem(idItem, cantidad);
             return Response.ok("{\"mensaje\": \"Cantidad actualizada\"}").build();
         } catch (Exception e) {
             return Response.status(Response.Status.BAD_REQUEST)
@@ -91,7 +91,7 @@ public class CarritoResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response eliminarItem(@PathParam("idItem") Long idItem) {
         try {
-            FactoryBO.eliminarItemCarrito(idItem);
+            FachadaBO.eliminarItemCarrito(idItem);
             return Response.ok("{\"mensaje\": \"Item eliminado\"}").build();
         } catch (Exception e) {
             return Response.serverError()
@@ -105,14 +105,14 @@ public class CarritoResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response vaciarCarritoUsuario(@PathParam("idUsuario") Long idUsuario) {
         try {
-            CarritoDTO carrito = FactoryBO.buscarCarritoPorCliente(idUsuario);
+            CarritoDTO carrito = FachadaBO.buscarCarritoPorCliente(idUsuario);
             if (carrito == null) {
                 return Response.status(Response.Status.NOT_FOUND)
                         .entity("{\"mensaje\": \"No se encontró el carrito.\"}")
                         .build();
             }
 
-            FactoryBO.vaciarCarrito(carrito.getIdCarrito());
+            FachadaBO.vaciarCarrito(carrito.getIdCarrito());
 
             return Response.ok("{\"mensaje\": \"Carrito vaciado correctamente\"}").build();
 
@@ -129,8 +129,8 @@ public class CarritoResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response buscarVideojuegoEnCarrito(@PathParam("idUsuario") Long idUsuario, @PathParam("idVideojuego") Long idVideojuego) {
         try {
-            Long idCarrito = FactoryBO.buscarCarritoPorCliente(idUsuario).getIdCarrito();
-            ItemCarritoDTO item = FactoryBO.buscarVideojuegoEnCarrito(idCarrito, idVideojuego);
+            Long idCarrito = FachadaBO.buscarCarritoPorCliente(idUsuario).getIdCarrito();
+            ItemCarritoDTO item = FachadaBO.buscarVideojuegoEnCarrito(idCarrito, idVideojuego);
             return Response.ok(item).build();
         } catch (Exception e) {
             return Response.status(Response.Status.NOT_FOUND)
@@ -144,7 +144,7 @@ public class CarritoResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response validarStock(@PathParam("idUsuario") Long idUsuario) {
         try {
-            List<String> errores = FactoryBO.validarExistenciasVideojuego(idUsuario);
+            List<String> errores = FachadaBO.validarExistenciasVideojuego(idUsuario);
 
             if (errores.isEmpty()) {
                 return Response.ok("{\"valido\": true}").build();

@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import joystickmx.itson.DTO.PedidoDTO;
-import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.Fachada.FachadaBO;
 import joystickmx.negocio.exception.NegocioException;
 
 /**
@@ -51,12 +51,12 @@ public class GestionarPedidosServlet extends HttpServlet {
         try {
 
             if (filtroNombre != null && !filtroNombre.trim().isEmpty()) {
-                listaPedidos = FactoryBO.buscarPedidosPorNombreClienteParcial(filtroNombre.trim());
+                listaPedidos = FachadaBO.buscarPedidosPorNombreClienteParcial(filtroNombre.trim());
 
                 request.setAttribute("filtroAplicado", filtroNombre);
 
             } else {
-                listaPedidos = FactoryBO.obtenerPedidos();
+                listaPedidos = FachadaBO.obtenerPedidos();
             }
 
         } catch (NegocioException e) {
@@ -87,19 +87,16 @@ public class GestionarPedidosServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // 1. Obtenemos los parámetros del formulario (tu JSP los envía así)
         String action = request.getParameter("action");
         String pedidoIdStr = request.getParameter("pedidoId");
-        String nuevoEstado = request.getParameter("nuevoEstado"); // PENDIENTE, ENVIADO, etc.
+        String nuevoEstado = request.getParameter("nuevoEstado");
 
         String errorMessage = null;
         Long pedidoId = null;
 
         try {
-            // 2. Validamos que la acción sea la que esperamos del formulario
             if ("cambiarEstado".equals(action)) {
 
-                // Validamos y convertimos el ID
                 if (pedidoIdStr == null || pedidoIdStr.isEmpty()) {
                     throw new NegocioException("ID de pedido no proporcionado.");
                 }
@@ -109,20 +106,18 @@ public class GestionarPedidosServlet extends HttpServlet {
                     throw new NegocioException("ID de pedido no válido: " + pedidoIdStr);
                 }
 
-                // 3. ¡AQUÍ ESTÁ LA LÓGICA!
-                // Un switch sobre el estado seleccionado en el dropdown
                 switch (nuevoEstado.toUpperCase()) {
                     case "PENDIENTE":
-                        FactoryBO.pedidoPendiente(pedidoId);
+                        FachadaBO.pedidoPendiente(pedidoId);
                         break;
                     case "ENVIADO":
-                        FactoryBO.pedidoEnviado(pedidoId);
+                        FachadaBO.pedidoEnviado(pedidoId);
                         break;
                     case "ENTREGADO":
-                        FactoryBO.pedidoEntregado(pedidoId);
+                        FachadaBO.pedidoEntregado(pedidoId);
                         break;
                     case "CANCELADO":
-                        FactoryBO.pedidoCancelado(pedidoId);
+                        FachadaBO.pedidoCancelado(pedidoId);
                         break;
                     default:
                         throw new NegocioException("Estado desconocido: " + nuevoEstado);
@@ -133,28 +128,19 @@ public class GestionarPedidosServlet extends HttpServlet {
             }
 
         } catch (NegocioException e) {
-            // 4. Manejo de errores de negocio o validación
             LOG.log(Level.SEVERE, "Error de negocio en GestionarPedidosServlet", e);
             errorMessage = e.getMessage();
         } catch (Exception e) {
-            // 5. Manejo de cualquier otro error inesperado
             LOG.log(Level.SEVERE, "Error inesperado en GestionarPedidosServlet", e);
             errorMessage = "Ocurrió un error inesperado. Por favor, intente de nuevo.";
         }
-
-        // 6. Lógica final de redirección
         if (errorMessage == null) {
-            // ÉXITO: Redirigir de vuelta a la lista (Patrón Post-Redirect-Get)
-
-            // Usamos la sesión para mostrar un mensaje de éxito DESPUÉS de redirigir
             String successMessage = "Estado del pedido " + pedidoId + " actualizado a '" + nuevoEstado + "'.";
             request.getSession().setAttribute("successMessage", successMessage);
 
             response.sendRedirect(request.getContextPath() + "/admin/pedidos/gestionar");
         } else {
-            // ERROR: Reenviar al JSP (vía doGet) para mostrar el error
             request.setAttribute("errorMessage", errorMessage);
-            // doGet se encargará de recargar la lista de pedidos y mostrar el error
             doGet(request, response);
         }
     }

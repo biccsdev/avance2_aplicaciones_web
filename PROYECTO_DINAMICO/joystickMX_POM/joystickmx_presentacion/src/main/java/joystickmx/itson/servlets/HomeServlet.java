@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import joystickmx.itson.DTO.VideojuegoDTO;
-import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.Fachada.FachadaBO;
 import joystickmx.negocio.exception.NegocioException;
 
 /**
@@ -69,7 +69,7 @@ public class HomeServlet extends HttpServlet {
         List<VideojuegoDTO> videojuegos;
 
         try {
-            videojuegos = FactoryBO.filtrarVideojuegos(
+            videojuegos = FachadaBO.filtrarVideojuegos(
                     busqueda, 
                     precioMin, 
                     precioMax,

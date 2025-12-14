@@ -16,7 +16,7 @@ import joystickmx.itson.DTO.ResenaDTO;
 import joystickmx.itson.DTO.UsuarioDTO;
 import joystickmx.itson.DTO.UsuarioRegistroDTO;
 import joystickmx.itson.DTO.VideojuegoDTO;
-import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.Fachada.FachadaBO;
 import joystickmx.itson.conexion.Conexion;
 
 /**
@@ -374,52 +374,52 @@ public class RellenoBD {
             categoriasMKW.add(categoriaMundoAbierto);
             juegoMKW.setCategorias(categoriasMKW);
 
-            FactoryBO.crearVideojuego(juegoRDR2);
+            FachadaBO.crearVideojuego(juegoRDR2);
             System.out.println("Videojuego persistido: " + juegoRDR2.getNombre());
 
-            FactoryBO.crearVideojuego(juegoRDR2PS4);
+            FachadaBO.crearVideojuego(juegoRDR2PS4);
             System.out.println("Videojuego persistido: " + juegoRDR2PS4.getNombre());
 
-            FactoryBO.crearVideojuego(juegoGTAV);
+            FachadaBO.crearVideojuego(juegoGTAV);
             System.out.println("Videojuego persistido: " + juegoGTAV.getNombre());
 
-            FactoryBO.crearVideojuego(juegoGTAVPS4);
+            FachadaBO.crearVideojuego(juegoGTAVPS4);
             System.out.println("Videojuego persistido: " + juegoGTAVPS4.getNombre());
 
-            FactoryBO.crearVideojuego(juegoGOW);
+            FachadaBO.crearVideojuego(juegoGOW);
             System.out.println("Videojuego persistido: " + juegoGOW.getNombre());
 
-            FactoryBO.crearVideojuego(juegoFH5);
+            FachadaBO.crearVideojuego(juegoFH5);
             System.out.println("Videojuego persistido: " + juegoFH5.getNombre());
 
-            FactoryBO.crearVideojuego(juegoAW2);
+            FachadaBO.crearVideojuego(juegoAW2);
             System.out.println("Videojuego persistido: " + juegoAW2.getNombre());
 
-            FactoryBO.crearVideojuego(juegoAW2PS5);
+            FachadaBO.crearVideojuego(juegoAW2PS5);
             System.out.println("Videojuego persistido: " + juegoAW2PS5.getNombre());
 
-            FactoryBO.crearVideojuego(juegoU4);
+            FachadaBO.crearVideojuego(juegoU4);
             System.out.println("Videojuego persistido: " + juegoU4.getNombre());
 
-            FactoryBO.crearVideojuego(juegoHMCC);
+            FachadaBO.crearVideojuego(juegoHMCC);
             System.out.println("Videojuego persistido: " + juegoHMCC.getNombre());
 
-            FactoryBO.crearVideojuego(juegoSR);
+            FachadaBO.crearVideojuego(juegoSR);
             System.out.println("Videojuego persistido: " + juegoSR.getNombre());
 
-            FactoryBO.crearVideojuego(juegoSRPS3);
+            FachadaBO.crearVideojuego(juegoSRPS3);
             System.out.println("Videojuego persistido: " + juegoSRPS3.getNombre());
 
-            FactoryBO.crearVideojuego(juegoER);
+            FachadaBO.crearVideojuego(juegoER);
             System.out.println("Videojuego persistido: " + juegoER.getNombre());
 
-            FactoryBO.crearVideojuego(juegoERPS5);
+            FachadaBO.crearVideojuego(juegoERPS5);
             System.out.println("Videojuego persistido: " + juegoERPS5.getNombre());
 
-            FactoryBO.crearVideojuego(juegoDKB);
+            FachadaBO.crearVideojuego(juegoDKB);
             System.out.println("Videojuego persistido: " + juegoDKB.getNombre());
 
-            FactoryBO.crearVideojuego(juegoMKW);
+            FachadaBO.crearVideojuego(juegoMKW);
             System.out.println("Videojuego persistido: " + juegoMKW.getNombre());
 
             System.out.println("\n¡ÉXITO! ¡¡¡Se insertaron todos los videojuegos!!!!.");
@@ -457,9 +457,9 @@ public class RellenoBD {
             cliente3.setTelefono("6442587642");
             cliente3.setDireccion(dir3);
 
-            FactoryBO.registrarCliente(cliente1);
-            FactoryBO.registrarCliente(cliente2);
-            FactoryBO.registrarCliente(cliente3);
+            FachadaBO.registrarCliente(cliente1);
+            FachadaBO.registrarCliente(cliente2);
+            FachadaBO.registrarCliente(cliente3);
             System.out.println("Cliente persistido: " + cliente1.getEmail());
             System.out.println("Cliente persistido: " + cliente2.getEmail());
             System.out.println("Cliente persistido: " + cliente3.getEmail());
@@ -474,14 +474,14 @@ public class RellenoBD {
             admin.setTelefono("354627484");
             admin.setDireccion(dirAdmin);
 
-            FactoryBO.registrarAdministrador(admin);
+            FachadaBO.registrarAdministrador(admin);
             System.out.println("Admin persistido: " + admin.getEmail());
 
-            UsuarioDTO cliente1Registrado = FactoryBO.buscarUsuarioPorEmail(cliente1.getEmail());
-            UsuarioDTO cliente1Registrado2 = FactoryBO.buscarUsuarioPorEmail(cliente2.getEmail());
-            UsuarioDTO cliente1Registrado3 = FactoryBO.buscarUsuarioPorEmail(cliente3.getEmail());
+            UsuarioDTO cliente1Registrado = FachadaBO.buscarUsuarioPorEmail(cliente1.getEmail());
+            UsuarioDTO cliente1Registrado2 = FachadaBO.buscarUsuarioPorEmail(cliente2.getEmail());
+            UsuarioDTO cliente1Registrado3 = FachadaBO.buscarUsuarioPorEmail(cliente3.getEmail());
 
-            List<VideojuegoDTO> videojuegosEncontrados = FactoryBO.buscarVideojuegosActivos();
+            List<VideojuegoDTO> videojuegosEncontrados = FachadaBO.buscarVideojuegosActivos();
 
             VideojuegoDTO v1 = videojuegosEncontrados.getFirst();
             VideojuegoDTO v2 = videojuegosEncontrados.get(2);
@@ -546,13 +546,13 @@ public class RellenoBD {
             r6.setIdCliente(cliente1Registrado2.getIdUsuario());
             r6.setIdVideojuego(v3.getIdVideojuego());
 
-            FactoryBO.crearResena(r1);
-            FactoryBO.crearResena(r2);
-            FactoryBO.crearResena(r3);
-            FactoryBO.crearResena(r4);
-            FactoryBO.crearResena(r5);
-            FactoryBO.crearResena(r6);
-            FactoryBO.crearResena(r7);
+            FachadaBO.crearResena(r1);
+            FachadaBO.crearResena(r2);
+            FachadaBO.crearResena(r3);
+            FachadaBO.crearResena(r4);
+            FachadaBO.crearResena(r5);
+            FachadaBO.crearResena(r6);
+            FachadaBO.crearResena(r7);
 
             //Crear un pedido
             PagoDTO pago1 = new PagoDTO();
@@ -568,13 +568,13 @@ public class RellenoBD {
 
             ItemCarritoDTO item1 = new ItemCarritoDTO();
             item1.setCantidad(2);
-            item1.setIdVideojuego(FactoryBO.buscarVideojuegoPorNombeExacto(juegoERPS5.getNombre()).getIdVideojuego());
+            item1.setIdVideojuego(FachadaBO.buscarVideojuegoPorNombeExacto(juegoERPS5.getNombre()).getIdVideojuego());
 
-            CarritoDTO carroEncontrado = FactoryBO.buscarCarritoPorCliente(FactoryBO.buscarUsuarioPorEmail(cliente1.getEmail()).getIdUsuario());
+            CarritoDTO carroEncontrado = FachadaBO.buscarCarritoPorCliente(FachadaBO.buscarUsuarioPorEmail(cliente1.getEmail()).getIdUsuario());
 
-            FactoryBO.agregarItemACarrito(carroEncontrado.getIdCarrito(), item1);
+            FachadaBO.agregarItemACarrito(carroEncontrado.getIdCarrito(), item1);
 
-            CarritoDTO carrito = FactoryBO.buscarCarritoPorCliente(FactoryBO.buscarUsuarioPorEmail(cliente1.getEmail()).getIdUsuario());
+            CarritoDTO carrito = FachadaBO.buscarCarritoPorCliente(FachadaBO.buscarUsuarioPorEmail(cliente1.getEmail()).getIdUsuario());
 
             System.out.println(carrito.getFechaCreacion());
             System.out.println(carrito.getIdCarrito());

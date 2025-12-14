@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import joystickmx.itson.DTO.CategoriaDTO;
 import joystickmx.itson.DTO.UsuarioDTO;
-import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.Fachada.FachadaBO;
 import joystickmx.itson.RellenoBD.RellenoBD;
 import joystickmx.negocio.exception.NegocioException;
 
@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
                 return;
             }
 
-            CategoriaDTO categoria = FactoryBO.buscarCategoriaPorNombre("Acción y Aventuras");
+            CategoriaDTO categoria = FachadaBO.buscarCategoriaPorNombre("Acción y Aventuras");
             
             if (categoria == null) {
                 RellenoBD.llenarBD();
@@ -72,7 +72,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         try {
-            UsuarioDTO usuario = FactoryBO.login(email, password); 
+            UsuarioDTO usuario = FachadaBO.login(email, password); 
 
             HttpSession session = request.getSession(true);
             session.setAttribute("usuario", usuario);

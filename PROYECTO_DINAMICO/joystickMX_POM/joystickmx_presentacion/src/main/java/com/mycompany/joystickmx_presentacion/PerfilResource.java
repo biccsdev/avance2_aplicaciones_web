@@ -15,7 +15,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import joystickmx.itson.DTO.UsuarioDTO;
 import joystickmx.itson.DTO.UsuarioRegistroDTO;
-import joystickmx.itson.Factory.FactoryBO;
+import joystickmx.itson.Fachada.FachadaBO;
 /**
  * REST Web Service
  *
@@ -45,7 +45,7 @@ public class PerfilResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response obtenerUsuario(@PathParam("idUsuario") Long idUsuario){
         try {
-            UsuarioDTO usuario = FactoryBO.buscarClientePorId(idUsuario);
+            UsuarioDTO usuario = FachadaBO.buscarClientePorId(idUsuario);
             // Valida si el usuario existe
             if (usuario == null) {
                 return Response.status(Response.Status.NOT_FOUND)
@@ -69,7 +69,7 @@ public class PerfilResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response actualizarPerfil(UsuarioRegistroDTO usuarioDTO) {
         try {
-            UsuarioDTO usuarioActualizado = FactoryBO.actualizarUsuario(usuarioDTO);
+            UsuarioDTO usuarioActualizado = FachadaBO.actualizarUsuario(usuarioDTO);
 
             HttpSession session = request.getSession(false);
             if (session != null) {
