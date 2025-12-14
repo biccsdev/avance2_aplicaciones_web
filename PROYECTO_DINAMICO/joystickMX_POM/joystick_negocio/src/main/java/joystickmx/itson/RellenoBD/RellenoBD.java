@@ -517,7 +517,7 @@ public class RellenoBD {
             r3.setComentario("La industria necesita más juegos como éste.");
             r3.setFechaResena(LocalDate.now());
             r3.setIdCliente(cliente1Registrado3.getIdUsuario());
-            r3.setIdVideojuego(v1.getIdVideojuego());
+            r3.setIdVideojuego(v3.getIdVideojuego());
 
             ResenaDTO r4 = new ResenaDTO();
             r4.setCalificacion(3.5f);

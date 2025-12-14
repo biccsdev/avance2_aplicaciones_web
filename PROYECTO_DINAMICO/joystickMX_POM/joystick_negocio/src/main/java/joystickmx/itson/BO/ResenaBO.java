@@ -62,13 +62,9 @@ public class ResenaBO implements IResenaBO {
             if(InjectorBO.buildVideojuegoBO().buscarPorId(idVideojuego) == null)
                 throw new NegocioException(juegoError); // En esta ocasión la clase VideojuegoBO no valida esta parte
             
-            // Valida si el cliente ya ha tiene una reseña del videojuego
-            try {
-                if(buscarPorVideojuegoCliente(idCliente, idVideojuego) == null)
-                    throw new NegocioException();
-            } catch (NegocioException e) {
-                throw new NegocioException("Ya existe un una reseña del cliente asociada al videojuego", e);
-            }
+            // Valida si el cliente ya tiene una reseña del videojuego
+            if(buscarPorVideojuegoCliente(idCliente, idVideojuego) != null)
+                throw new NegocioException("Ya existe un una reseña del cliente asociada al videojuego");
             
             // Extra la información de la reseña
             float calificacion = dto.getCalificacion();

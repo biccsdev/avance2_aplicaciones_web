@@ -156,8 +156,8 @@ public class ResenaDAO extends BaseDAO implements IResenaDAO {
             );
             query.setParameter("idCliente", idCliente);
             query.setParameter("idVideojuego", idVideojuego);
-            
-            return query.getResultList().getFirst();
+            List<Resena> resenas = query.getResultList();
+            return resenas != null && !resenas.isEmpty() ? resenas.getFirst() : null;
         } catch (Exception e) {
             throw new PersistenciaException("Error al buscar reseñas por cliente: " + e.getMessage());
         } finally{
