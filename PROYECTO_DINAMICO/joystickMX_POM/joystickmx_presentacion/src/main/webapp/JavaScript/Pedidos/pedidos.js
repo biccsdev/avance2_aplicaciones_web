@@ -1,6 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
     cargarPedidos();
+
+    const formBusqueda = document.querySelector(".orders-filter");
+    if(formBusqueda){
+        formBusqueda.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const input = document.getElementById("orderNumber");
+            filtrarPedidos(input.value);
+        });
+    }
 });
+
+let todosLosPedidos = [];
 
 async function cargarPedidos() {
     const listaContainer = document.getElementById("lista-pedidos");
@@ -18,24 +29,39 @@ async function cargarPedidos() {
              throw new Error("Error al obtener pedidos");
         }
 
-        const pedidos = await response.json();
-        
-        listaContainer.innerHTML = "";
-        
-        if (pedidos.length === 0) {
-            listaContainer.innerHTML = "<p>No tienes pedidos realizados.</p>";
-            return;
-        }
-
-        pedidos.forEach(pedido => {
-             const html = renderPedido(pedido);
-             listaContainer.insertAdjacentHTML("beforeend", html);
-        });
+        todosLosPedidos = await response.json();
+        renderizarLista(todosLosPedidos);
 
     } catch (error) {
         console.error(error);
         listaContainer.innerHTML = "<p>Error al cargar los pedidos.</p>";
     }
+}
+
+function filtrarPedidos(termino) {
+    if(!termino || termino.trim() === ""){
+        renderizarLista(todosLosPedidos);
+        return;
+    }
+    
+    const terminoLower = termino.toLowerCase();
+    const filtrados = todosLosPedidos.filter(p => p.idPedido.toString().includes(terminoLower));
+    renderizarLista(filtrados);
+}
+
+function renderizarLista(lista) {
+    const listaContainer = document.getElementById("lista-pedidos");
+    listaContainer.innerHTML = "";
+    
+    if (lista.length === 0) {
+        listaContainer.innerHTML = "<p>No se encontraron pedidos.</p>";
+        return;
+    }
+
+    lista.forEach(pedido => {
+         const html = renderPedido(pedido);
+         listaContainer.insertAdjacentHTML("beforeend", html);
+    });
 }
 
 function renderPedido(pedido) {
@@ -94,4 +120,3 @@ function renderPedido(pedido) {
     </li>
     `;
 }
-

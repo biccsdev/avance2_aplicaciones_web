@@ -37,6 +37,27 @@ public class PedidosResource {
         }
     }
 
+    @GET
+    @Path("/{idPedido}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response obtenerDetallePedido(@PathParam("idPedido") Long idPedido) {
+        try {
+            PedidoDTO pedido = FactoryBO.buscarPedidoPorId(idPedido);
+            
+            if (pedido == null) {
+                return Response.status(Response.Status.NOT_FOUND)
+                        .entity("{\"error\": \"Pedido no encontrado\"}")
+                        .build();
+            }
+            
+            return Response.ok(pedido).build();
+        } catch (Exception e) {
+             return Response.serverError()
+                    .entity("{\"error\": \"" + e.getMessage() + "\"}")
+                    .build();
+        }
+    }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)

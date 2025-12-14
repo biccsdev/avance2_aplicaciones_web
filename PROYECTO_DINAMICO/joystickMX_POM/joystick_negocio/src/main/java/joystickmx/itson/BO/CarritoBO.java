@@ -78,12 +78,29 @@ public class CarritoBO implements ICarritoBO {
     @Override
     public void agregarItem(Long idCarrito, ItemCarritoDTO itemDTO) throws NegocioException {
         try {
-            ItemCarrito item = DTOMapeadores.toItemCarritoEntity(itemDTO);
+            Carrito carritoEntidad = new Carrito();
+            carritoEntidad.setIdCarrito(idCarrito);
+            List<ItemCarrito> itemsActuales = this.carritoDAO.obtenerItemsCarrito(carritoEntidad);
 
-            Carrito carrito = new Carrito();
-            carrito.setIdCarrito(idCarrito);
+            ItemCarrito itemExistente = null;
+            if (itemsActuales != null) {
+                for (ItemCarrito item : itemsActuales) {
+                    if (item.getVideojuego().getIdVideojuego().equals(itemDTO.getIdVideojuego())) {
+                        itemExistente = item;
+                        break;
+                    }
+                }
+            }
 
-            this.carritoDAO.agregarItem(carrito, item);
+            if (itemExistente != null) {
+                int nuevaCantidad = itemExistente.getCantidad() + itemDTO.getCantidad();
+                this.actualizarCantidadItem(itemExistente.getIdItemCarrito(), nuevaCantidad);
+            } else {
+                ItemCarrito item = DTOMapeadores.toItemCarritoEntity(itemDTO);
+                Carrito carrito = new Carrito();
+                carrito.setIdCarrito(idCarrito);
+                this.carritoDAO.agregarItem(carrito, item);
+            }
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al agregar item al carrito: " + e.getMessage(), e);
         }
