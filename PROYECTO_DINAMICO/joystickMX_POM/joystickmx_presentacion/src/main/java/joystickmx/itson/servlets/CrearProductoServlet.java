@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import jakarta.validation.ConstraintViolationException;
 import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -126,7 +127,7 @@ public class CrearProductoServlet extends HttpServlet {
             //Construir y persistir el videojuego
             VideojuegoDTO nuevoVideojuego = new VideojuegoDTO();
             nuevoVideojuego.setNombre(nombre);
-            nuevoVideojuego.setDescripcion(descripcion); 
+            nuevoVideojuego.setDescripcion(descripcion);
             nuevoVideojuego.setPlataforma(plataforma);
             nuevoVideojuego.setDesarrollador(desarrollador);
             nuevoVideojuego.setCategorias(categorias);
@@ -145,11 +146,10 @@ public class CrearProductoServlet extends HttpServlet {
             LOG.log(Level.WARNING, error, e);
 
         } catch (Exception e) {
-            error = "Error al crear el producto: " + e.getMessage();
-            LOG.log(Level.SEVERE, error, e);
+            error = obtenerMensajeAmigable(e);
+            LOG.log(Level.SEVERE, "Error en creación de producto", e);
         }
 
-        //Si hay algún error se recarga la página con el mensaje
         if (error != null) {
             request.setAttribute("error", error);
             try {
@@ -159,6 +159,31 @@ public class CrearProductoServlet extends HttpServlet {
             }
             request.getRequestDispatcher("/WEB-INF/admin/productos/crear.jsp").forward(request, response);
         }
+    }
+
+    /**
+     * Método auxiliar para "escarbar" en la excepción y encontrar el mensaje de
+     * validación real.
+     */
+    private String obtenerMensajeAmigable(Exception e) {
+        Throwable causa = e;
+
+        while (causa != null) {
+            if (causa instanceof ConstraintViolationException) {
+                ConstraintViolationException cve = (ConstraintViolationException) causa;
+                if (!cve.getConstraintViolations().isEmpty()) {
+                    return cve.getConstraintViolations().iterator().next().getMessage();
+                }
+            }
+            causa = causa.getCause();
+        }
+
+        String msg = e.getMessage();
+        if (msg != null && msg.contains(":")) {
+            return msg.substring(msg.lastIndexOf(":") + 1).trim();
+        }
+
+        return "Error al crear el producto: " + (msg != null ? msg : "Error desconocido");
     }
 
     /**

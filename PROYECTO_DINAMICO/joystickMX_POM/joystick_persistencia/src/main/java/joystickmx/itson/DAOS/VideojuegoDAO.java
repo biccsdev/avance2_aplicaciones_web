@@ -28,7 +28,7 @@ public class VideojuegoDAO extends BaseDAO implements IVideojuegoDAO {
                 em.getTransaction().rollback();
             } catch (Exception ignored) {
             }
-            throw new PersistenciaException("Error al persistir el videojuego: " + e.getMessage());
+            throw new PersistenciaException("Error al persistir el videojuego", e );
         } finally {
             if (em.isOpen()) {
                 em.close();
