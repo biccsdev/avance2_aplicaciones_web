@@ -47,7 +47,6 @@ public class Usuario implements Serializable {
     private String apellidoPaterno;
     
     @Column(name = "apellido_materno", nullable = false, length = 100)
-    @NotBlank(message = "El apellido materno no puede estar vacío.")
     private String apellidoMaterno;
 
     @Column(unique = true, nullable = false, length = 200)

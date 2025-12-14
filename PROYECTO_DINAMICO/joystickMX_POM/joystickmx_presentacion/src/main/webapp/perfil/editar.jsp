@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <label class="form-label">Apellido materno</label>
                         <input type="text" name="apellidoMaterno" class="input-large"
-                               value="${sessionScope.usuario.apellidoMaterno}" required>
+                               value="${sessionScope.usuario.apellidoMaterno}">
                     </div>
 
                     <div class="form-group">
@@ -59,26 +59,26 @@
                     <div class="form-group">
                         <label class="form-label">Teléfono</label>
                         <input type="tel" name="telefono" class="input-large"
-                               value="${sessionScope.usuario.telefono}">
+                               value="${sessionScope.usuario.telefono}" required>
                     </div>
 
                     <div class="form-group">
                         <label class="form-label">Calle</label>
                         <input type="text" name="calle" class="input-large"
-                               value="${sessionScope.usuario.direccion.calle}">
+                               value="${sessionScope.usuario.direccion.calle}" required>
                     </div>
 
                     <div class="form-row-2">
                         <div class="form-group">
                             <label class="form-label">Número exterior*</label>
                             <input type="text" name="numero" class="input-large"
-                                   value="${sessionScope.usuario.direccion.numero}">
+                                   value="${sessionScope.usuario.direccion.numero}" required>
                         </div>
 
                         <div class="form-group">
                             <label class="form-label">Colonia*</label>
                             <input type="text" name="colonia" class="input-large"
-                                   value="${sessionScope.usuario.direccion.colonia}">
+                                   value="${sessionScope.usuario.direccion.colonia}" required>
                         </div>
                     </div>
 
