@@ -41,7 +41,8 @@ public class AuthFilter implements Filter {
     );
 
     private static final List<String> ADMIN_PATHS = Arrays.asList(
-            "/admin/"
+            "/admin/",
+            "/eliminarUsuarioConfirmar"
     );
 
     private static final List<String> CLIENT_PATHS = Arrays.asList(
