@@ -54,6 +54,17 @@ public class PedidoBO implements IPedidoBO {
         this.carritoDAO = carritoDAO;
         this.videojuegoDAO = videojuegoDAO;
     }
+    
+    private void validarPedidoNoFinalizado(Long idPedido) throws NegocioException, PersistenciaException {
+        Pedido pedido = pedidoDAO.buscarPorId(idPedido);
+        if (pedido == null) {
+            throw new NegocioException("El pedido no existe.");
+        }
+        
+        if (pedido.getEstadoPedido() == EstadoPedido.ENTREGADO || pedido.getEstadoPedido() == EstadoPedido.CANCELADO) {
+            throw new NegocioException("No se puede modificar un pedido que ya está " + pedido.getEstadoPedido() + ".");
+        }
+    }
 
     @Override
     public PedidoDTO registrarPedido(Long idCliente, DireccionDTO direccionEnvioDTO, PagoDTO pagoDTO) throws NegocioException {
@@ -169,6 +180,7 @@ public class PedidoBO implements IPedidoBO {
     @Override
     public void pedidoEntregado(Long idpedido) throws NegocioException {
         try {
+            validarPedidoNoFinalizado(idpedido);
             this.pedidoDAO.pedidoEntregado(idpedido);
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al activar usuario: " + e.getMessage(), e);
@@ -178,6 +190,7 @@ public class PedidoBO implements IPedidoBO {
     @Override
     public void pedidoPendiente(Long idpedido) throws NegocioException {
         try {
+            validarPedidoNoFinalizado(idpedido);
             this.pedidoDAO.pedidoPendiente(idpedido);
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al desactivar usuario: " + e.getMessage(), e);
@@ -187,6 +200,7 @@ public class PedidoBO implements IPedidoBO {
     @Override
     public void pedidoEnviado(Long idpedido) throws NegocioException {
         try {
+            validarPedidoNoFinalizado(idpedido);
             this.pedidoDAO.pedidoEnviado(idpedido);
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al eliminar (soft delete) usuario: " + e.getMessage(), e);
@@ -196,6 +210,7 @@ public class PedidoBO implements IPedidoBO {
     @Override
     public void pedidoCancelado(Long idpedido) throws NegocioException {
         try {
+            validarPedidoNoFinalizado(idpedido);
             this.pedidoDAO.pedidoCancelado(idpedido);
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al eliminar (soft delete) usuario: " + e.getMessage(), e);
