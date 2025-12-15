@@ -136,4 +136,6 @@ public class VideojuegoDTO {
     public List<ResenaDTO> getResenas() {return resenas;}
 
     public void setResenas(List<ResenaDTO> resenas) {this.resenas = resenas;}
+    
+    
 }

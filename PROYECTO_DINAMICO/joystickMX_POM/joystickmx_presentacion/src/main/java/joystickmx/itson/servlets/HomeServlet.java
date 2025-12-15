@@ -35,6 +35,11 @@ public class HomeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String errorRedirect = request.getParameter("error");
+        if (errorRedirect != null && !errorRedirect.isEmpty()) {
+            request.setAttribute("error", errorRedirect);
+        }
 
         String busqueda = request.getParameter("busqueda");
         String precioMinStr = request.getParameter("precioMin");

@@ -6,6 +6,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import joystickmx.itson.DTO.VideojuegoDTO;
+import joystickmx.itson.Fachada.FachadaBO;
+import joystickmx.negocio.exception.NegocioException;
 
 /**
  *
@@ -33,8 +38,23 @@ public class VideojuegoServlet extends HttpServlet {
             throws ServletException, IOException {
         String nombre = request.getParameter("nombre");
         
-        if(nombre != null) {
-            request.getRequestDispatcher("/videojuego/detalleVideojuego.jsp").forward(request, response);
+        String mensajeError = "El videojuego no está disponible o ha sido eliminado.";
+        
+        if(nombre != null && !nombre.trim().isEmpty()) {
+            try {
+                VideojuegoDTO videojuego = FachadaBO.buscarVideojuegoPorNombeExacto(nombre);
+                
+                if (videojuego != null && Boolean.TRUE.equals(videojuego.isHabilitado())) {    
+                    request.getRequestDispatcher("/videojuego/detalleVideojuego.jsp").forward(request, response);
+                    
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/home?error=" + URLEncoder.encode(mensajeError, StandardCharsets.UTF_8));
+                }
+                
+            } catch (NegocioException e) {
+                e.printStackTrace();
+                response.sendRedirect(request.getContextPath() + "/home?error=" + URLEncoder.encode(mensajeError, StandardCharsets.UTF_8));
+            }
         } else {
             response.sendRedirect(request.getContextPath() + "/home");
         }
