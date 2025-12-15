@@ -6,6 +6,7 @@ import joystickmx.itson.DTO.CategoriaDTO;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.Mappers.DTOMapeadores;
 import joystickmx.itson.Mappers.Mapeadores;
+import joystickmx.itson.entidades.Categoria;
 import joystickmx.itson.interfaces.ICategoriaDAO;
 import joystickmx.negocio.exception.NegocioException;
 import joystickmx.negocio.interfaces.ICategoriaBO;
@@ -27,6 +28,20 @@ public class CategoriaBO implements ICategoriaBO {
     @Override
     public void crearCategoria(CategoriaDTO dto) throws NegocioException {
         try {
+            
+            if (dto == null) {
+                throw new NegocioException("La información de la categoría no puede ser nula.");
+            }
+            if (dto.getNombre() == null || dto.getNombre().trim().isEmpty()) {
+                throw new NegocioException("El nombre de la categoría es obligatorio.");
+            }
+
+            Categoria existente = this.categoriaDAO.buscarPorNombre(dto.getNombre());
+            if (existente != null) {
+                throw new NegocioException("Ya existe una categoria con el nombre: " + dto.getNombre());
+            }
+            
+            
             this.categoriaDAO.crearCategoria(DTOMapeadores.toCategoriaEntity(dto));
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al crear categoría: " + e.getMessage(), e);
@@ -54,6 +69,11 @@ public class CategoriaBO implements ICategoriaBO {
     @Override
     public CategoriaDTO buscarPorId(Long idCategoria) throws NegocioException {
         try {
+            
+            if (idCategoria == null) {
+                throw new NegocioException("El ID es requerido.");
+            }
+            
             return Mapeadores.toCategoriaDTO(this.categoriaDAO.buscarPorId(idCategoria));
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al buscar categoría por ID: " + e.getMessage(), e);
@@ -63,6 +83,11 @@ public class CategoriaBO implements ICategoriaBO {
     @Override
     public CategoriaDTO buscarPorNombre(String nombre) throws NegocioException {
         try {
+            
+            if (nombre == null || nombre.trim().isEmpty()) {
+                return null;
+            }
+            
             return Mapeadores.toCategoriaDTO(this.categoriaDAO.buscarPorNombre(nombre));
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al buscar categoría por nombre: " + e.getMessage(), e);
