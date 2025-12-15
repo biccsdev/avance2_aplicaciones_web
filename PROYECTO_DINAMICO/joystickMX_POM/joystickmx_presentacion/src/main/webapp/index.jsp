@@ -92,7 +92,20 @@
                             <c:forEach var="juego" items="${videojuegos}" varStatus="estado">
                                 <c:choose>
                                     <c:when test="${sessionScope.rol == 'admin'}">
-                                        <li class="videojuego-item">
+                                        <li id="videojuego-item" 
+                                            class="videojuego-item" 
+                                            onmouseover="this.style.cursor='pointer';" 
+                                            onmouseout="this.style.cursor='default';"
+                                            onclick ="document.getElementById('videojuego-form-${estado.index}').submit(); return false;"
+                                            >
+                                            
+                                            <form 
+                                                id="videojuego-form-${estado.index}" 
+                                                name="videojuego-form" 
+                                                action="${pageContext.request.contextPath}/videojuego" 
+                                                method="get">
+                                                <input id="videojuego-sumit" type="hidden" name="nombre" value="${juego.getNombre()}">
+                                            </form>
                                             <div class="videojuego">
                                                 <div class="videojuego-imagen">
                                                     <img 

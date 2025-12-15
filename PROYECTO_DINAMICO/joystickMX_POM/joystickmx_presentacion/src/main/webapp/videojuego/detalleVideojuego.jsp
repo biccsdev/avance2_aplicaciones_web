@@ -32,10 +32,15 @@
                     </div>
                     <div class="videojuego-precio-carrito">
                         <h2 id="videojuego-precio">$</h2>
-                        <button id="btn-carrito" class="btn-carrito btn-dark">
-                            Agregar al carrito
-                            <img src="${pageContext.request.contextPath}/imgs/carrito.png">
-                        </button>
+                        <c:choose>
+                            <c:when test="${sessionScope.rol == 'admin'}"></c:when>
+                            <c:otherwise>
+                                <button id="btn-carrito" class="btn-carrito btn-dark">
+                                    Agregar al carrito
+                                    <img src="${pageContext.request.contextPath}/imgs/carrito.png">
+                                </button>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                     <div class="videojuego-descripcion detalle">
                         <p id="videojuego-descripcion"></p>
