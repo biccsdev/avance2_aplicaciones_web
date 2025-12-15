@@ -12,6 +12,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import joystickmx.itson.DTO.CarritoDTO;
@@ -195,26 +196,48 @@ public class CarritoResource {
     }
 
     /**
-     * Valida si hay stock suficiente para todos los productos en el carrito del
-     * usuario.
+     * Valida y CORRIGE el stock del carrito. Si un producto excede existencias:
+     * 1. Si el stock es 0, lo elimina del carrito. 2. Si hay stock pero es
+     * insuficiente, reduce la cantidad a 1.
      *
-     * @param idUsuario El ID del usuario cuyo carrito se validará.
-     * @return Response 200 OK con un objeto JSON {"valido": true} si hay stock,
-     * o una lista de mensajes de error (Strings) si algún producto supera las
-     * existencias. Retorna 500 en caso de error interno.
+     * * @param idUsuario El ID del usuario.
+     * @return Response con {"valido": true} si no hubo cambios, o una lista de
+     * mensajes describiendo los ajustes realizados.
      */
     @GET
     @Path("usuario/{idUsuario}/validar-stock")
     @Produces(MediaType.APPLICATION_JSON)
     public Response validarStock(@PathParam("idUsuario") Long idUsuario) {
         try {
-            List<String> errores = FachadaBO.validarExistenciasVideojuego(idUsuario);
+            CarritoDTO carrito = FachadaBO.buscarCarritoPorCliente(idUsuario);
+            if (carrito == null) {
+                return Response.ok("{\"valido\": true}").build();
+            }
 
-            if (errores.isEmpty()) {
+            List<ItemCarritoDTO> items = FachadaBO.obtenerItemsCarrito(carrito.getIdCarrito());
+            List<String> ajustesRealizados = new ArrayList<>();
+
+            for (ItemCarritoDTO item : items) {
+                joystickmx.itson.DTO.VideojuegoDTO juego = FachadaBO.buscarVideojuegoPorId(item.getVideojuego().getIdVideojuego());
+
+                if (item.getCantidad() > juego.getExistencias()) {
+
+                    if (juego.getExistencias() == 0) {
+                        FachadaBO.eliminarItemCarrito(item.getIdItemCarrito());
+                        ajustesRealizados.add("El producto" + juego.getNombre() + "' se agotó y fue eliminado de tu carrito.");
+                    } else {
+                        FachadaBO.actualizarCantidadItem(item.getIdItemCarrito(), 1);
+                        ajustesRealizados.add( juego.getNombre() + "' excede existencias. Cantidad reducida a 1.");
+                    }
+                }
+            }
+
+            if (ajustesRealizados.isEmpty()) {
                 return Response.ok("{\"valido\": true}").build();
             } else {
-                return Response.ok(errores).build();
+                return Response.ok(ajustesRealizados).build();
             }
+
         } catch (Exception e) {
             e.printStackTrace();
             return Response.serverError()
@@ -222,6 +245,5 @@ public class CarritoResource {
                     .build();
         }
     }
-    
-    
+
 }

@@ -272,9 +272,9 @@ function actualizarEstadoBotones(carritoVacio) {
 
 /**
  * Inicia el proceso de pago.
- * Realiza validaciones previas: items deshabilitados y stock suficiente en el servidor.
- * Si todo es correcto, redirige a la página de pago.
- * * @async
+ * Realiza validaciones previas en el servidor que ahora AUTOCORRIGEN el carrito.
+ * Si hubo correcciones, recarga la vista. Si todo está bien, avanza.
+ * @async
  * @function irAPago
  * @returns {Promise<void>}
  */
@@ -283,14 +283,14 @@ async function irAPago() {
     if (btn.disabled)
         return;
 
-    //if Items deshabilitados
     const itemsNoDisponibles = document.querySelectorAll('article[data-habilitado="false"]');
 
+    //if items deshabilitados
     if (itemsNoDisponibles.length > 0) {
         let nombresJuegos = "";
         itemsNoDisponibles.forEach(item => {
             const nombreElement = item.querySelector(".producto-nombre");
-            const nombreTexto = nombreElement ? nombreElement.innerText.split("\n")[0] : "Juego desconocido"; 
+            const nombreTexto = nombreElement ? nombreElement.innerText.split("\n")[0] : "Juego desconocido";
             nombresJuegos += `- ${nombreTexto}\n`;
         });
 
@@ -299,7 +299,6 @@ async function irAPago() {
                 ${nombresJuegos}
                 \n
                 Por favor, elimínalos del carrito para proceder al pago.`);
-
         return;
     }
 
@@ -309,7 +308,6 @@ async function irAPago() {
         btn.disabled = true;
         btn.innerText = "Verificando...";
 
-        // if Verificación de stock en servidor
         const urlValidacion = `${CONTEXT_PATH}/resources/carrito/usuario/${ID_USUARIO_ACTUAL}/validar-stock`;
         const response = await fetch(urlValidacion);
 
@@ -318,12 +316,15 @@ async function irAPago() {
 
         const resultado = await response.json();
 
+
         if (Array.isArray(resultado) && resultado.length > 0) {
-            let mensajeAlerta = "️ NO SE PUEDE CONTINUAR️\n\nAlgunos productos superan las existencias disponibles:\n\n";
+            let mensajeAlerta = "HEMOS ACTUALIZADO TU CARRITO \n\n\ Algunos productos excedían las existencias disponibles:\n\n";
             mensajeAlerta += resultado.join("\n\n");
-            mensajeAlerta += "\n\nPor favor, reduce la cantidad de estos productos antes de continuar.";
+            mensajeAlerta += "\n\nPor favor, revisa tu pedido y vuelve a intentar.";
 
             alert(mensajeAlerta);
+
+            cargarCarrito();
 
             return;
         }
