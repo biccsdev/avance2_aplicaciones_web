@@ -78,6 +78,10 @@ public class RegisterServlet extends HttpServlet {
                 || !apellidoPaterno.matches(REGEX_SOLO_LETRAS)
                 || (!esVacio(apellidoMaterno) && !apellidoMaterno.matches(REGEX_SOLO_LETRAS))) {
             error = "Los nombres y apellidos solo pueden contener letras.";
+        } else if (!colonia.matches(REGEX_SOLO_LETRAS)) {
+            error = "La colonia solo puede contener letras y espacios.";
+        } else if (colonia.trim().length() < 5) {
+            error = "La colonia debe tener al menos 5 letras.";
         } else if (!numero.matches(REGEX_SOLO_NUMEROS)) {
             error = "El número exterior solo debe contener dígitos.";
         } else if (numero.length() < 3 || numero.length() > 4) {

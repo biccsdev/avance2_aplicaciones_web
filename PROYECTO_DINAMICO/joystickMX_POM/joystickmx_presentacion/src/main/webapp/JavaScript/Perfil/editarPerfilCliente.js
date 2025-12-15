@@ -75,6 +75,17 @@ function validarInput(evento) {
         }
     }
 
+    //validar colonia
+    else if (nombreCampo === 'colonia') {
+        if (!REGEX_SOLO_LETRAS.test(valor)) {
+            marcarError(input, "La colonia solo puede contener letras y espacios.");
+        } else if (valor.length < 5) {
+            marcarError(input, "La colonia debe tener al menos 5 caracteres.");
+        } else {
+            marcarValido(input);
+        }
+    }
+
     // Validar el número exterior
     else if (nombreCampo === 'numero') {
         if (!REGEX_SOLO_NUMEROS.test(valor)) {
@@ -104,9 +115,7 @@ function validarInput(evento) {
         } else {
             marcarValido(input);
         }
-    }
-
-    else {
+    } else {
         marcarValido(input);
     }
 }
