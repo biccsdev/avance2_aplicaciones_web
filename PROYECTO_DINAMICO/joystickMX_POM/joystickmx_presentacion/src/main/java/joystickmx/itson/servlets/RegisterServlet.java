@@ -23,6 +23,9 @@ import joystickmx.itson.Fachada.FachadaBO;
 @WebServlet(name = "RegisterServlet", urlPatterns = {"/register"})
 public class RegisterServlet extends HttpServlet {
 
+    private static final String REGEX_SOLO_LETRAS = "^[a-zA-ZÁÉÍÓÚáéíóúñÑÜü\\s]+$";
+    private static final String REGEX_SOLO_NUMEROS = "^[0-9]+$";
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -35,14 +38,11 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Obtiene la sesión de la petición
         HttpSession session = request.getSession(true);
-        // Verifica que no haya una sesión iniciada.
-        if(session.getAttribute("usuario") != null){
+        if (session.getAttribute("usuario") != null) {
             response.sendRedirect(request.getContextPath() + "/home");
             return;
         }
-        // Si no hay una sesión asociada a la petición, se manda a la página del registro.
         request.getRequestDispatcher("/register.jsp").forward(request, response);
     }
 
@@ -57,39 +57,73 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String nombre = request.getParameter("nombre");
-        String apellidoMaterno = request.getParameter("apellidoPaterno");
-        String apellidoPaterno = request.getParameter("apellidoMaterno");
+        String apellidoPaterno = request.getParameter("apellidoPaterno");
+        String apellidoMaterno = request.getParameter("apellidoMaterno"); // Opcional
         String colonia = request.getParameter("colonia");
         String calle = request.getParameter("calle");
         String numero = request.getParameter("numero");
         String telefono = request.getParameter("telefono");
+
+        String error = null;
+
+        if (esVacio(email) || esVacio(password) || esVacio(nombre)
+                || esVacio(apellidoPaterno) || esVacio(colonia) || esVacio(calle)
+                || esVacio(numero) || esVacio(telefono)) {
+            error = "Todos los campos marcados con (*) son obligatorios.";
+        } else if (!nombre.matches(REGEX_SOLO_LETRAS)
+                || !apellidoPaterno.matches(REGEX_SOLO_LETRAS)
+                || (!esVacio(apellidoMaterno) && !apellidoMaterno.matches(REGEX_SOLO_LETRAS))) {
+            error = "Los nombres y apellidos solo pueden contener letras.";
+        } else if (!numero.matches(REGEX_SOLO_NUMEROS)) {
+            error = "El número exterior solo debe contener dígitos.";
+        } else if (numero.length() < 3 || numero.length() > 4) {
+            error = "El número exterior debe tener entre 3 y 4 dígitos.";
+        } else if (!telefono.matches(REGEX_SOLO_NUMEROS)) {
+            error = "El teléfono solo debe contener números.";
+        } else if (telefono.length() != 10) {
+            error = "El teléfono debe tener exactamente 10 dígitos.";
+        } else if (password.length() < 4) {
+            error = "La contraseña debe tener al menos 4 caracteres.";
+        }
+
+        if (error != null) {
+            request.setAttribute("error", error);
+            request.getRequestDispatcher("/register.jsp").forward(request, response);
+            return;
+        }
+
         try {
-            // Se registra el cliente en la base de datos
             FachadaBO.registrarCliente(new UsuarioRegistroDTO(
-                    nombre, 
-                    apellidoPaterno, 
-                    apellidoMaterno, 
-                    email, 
-                    telefono, 
-                    password, 
+                    nombre,
+                    apellidoPaterno,
+                    apellidoMaterno,
+                    email,
+                    telefono,
+                    password,
                     new DireccionDTO(calle, numero, colonia))
             );
-            // Si el registro es exitoso se obtiene el usuario registrado
+
             UsuarioDTO usuario = FachadaBO.buscarUsuarioPorEmail(email);
-            
-            // Se agrega el rol del cliente y su información a la sesión
+
             HttpSession session = request.getSession(true);
             session.setAttribute("usuario", usuario);
             session.setAttribute("rol", "cliente");
-            // Se manda al catálogo de videojuegos
+
             response.sendRedirect(request.getContextPath() + "/home");
+
         } catch (Exception e) {
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("/register.jsp").forward(request, response);
         }
+    }
+
+    // Método auxiliar para limpiar el if
+    private boolean esVacio(String texto) {
+        return texto == null || texto.trim().isEmpty();
     }
 
     /**

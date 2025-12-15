@@ -55,7 +55,7 @@ public class Usuario implements Serializable {
     @Email(message = "Ingrese un correo válido.")
     private String email;
     
-    @Column(name = "password", nullable = false, length = 200)
+    @Column(name = "password", length = 200)
     @NotBlank(message = "La contraseña no puede estar vacía.")
     private String contrasenia;
     
