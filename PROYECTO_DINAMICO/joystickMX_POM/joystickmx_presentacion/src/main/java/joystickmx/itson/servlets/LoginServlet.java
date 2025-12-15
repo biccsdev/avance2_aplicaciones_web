@@ -28,12 +28,13 @@ public class LoginServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Muestra la página de login.
+     * Muestra la página de inicio de sesión o redirige si ya hay una sesión
+     * activa. También verifica la integridad inicial de la base de datos.
      *
-     * @param request
-     * @param response
-     * @throws jakarta.servlet.ServletException
-     * @throws java.io.IOException
+     * @param request la solicitud HTTP
+     * @param response la respuesta HTTP
+     * @throws ServletException si ocurre un error específico del servlet
+     * @throws IOException si ocurre un error de entrada/salida
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -46,24 +47,25 @@ public class LoginServlet extends HttpServlet {
             }
 
             CategoriaDTO categoria = FachadaBO.buscarCategoriaPorNombre("Acción y Aventuras");
-            
+
             if (categoria == null) {
                 RellenoBD.llenarBD();
             }
-            
-            request.getRequestDispatcher("/login.jsp").forward(request, response); 
+
+            request.getRequestDispatcher("/login.jsp").forward(request, response);
         } catch (NegocioException ex) {
             Logger.getLogger(LoginServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     /**
-     * Procesa el intento de login.
+     * Procesa las credenciales enviadas por el usuario para iniciar sesión.
+     * Gestiona la creación de la sesión y la asignación de roles de seguridad.
      *
-     * @param request
-     * @param response
-     * @throws jakarta.servlet.ServletException
-     * @throws java.io.IOException
+     * @param request la solicitud HTTP que contiene email y password
+     * @param response la respuesta HTTP
+     * @throws ServletException si ocurre un error específico del servlet
+     * @throws IOException si ocurre un error de entrada/salida
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -73,8 +75,9 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         try {
-            UsuarioDTO usuario = FachadaBO.login(email, password); 
+            UsuarioDTO usuario = FachadaBO.login(email, password);
 
+            // Crear sesión HTTP y almacenar el objeto usuario
             HttpSession session = request.getSession(true);
             session.setAttribute("usuario", usuario);
 
