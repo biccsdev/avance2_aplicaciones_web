@@ -87,7 +87,6 @@
                                             <c:set var="isSelected" value="true"/>
                                         </c:if>
                                     </c:forEach>
-
                                     <option value="${cat.nombre}" ${isSelected ? 'selected' : ''}>${cat.nombre}</option>
                                 </c:forEach>
                             </select>

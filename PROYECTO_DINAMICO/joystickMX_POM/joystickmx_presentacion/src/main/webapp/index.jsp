@@ -133,7 +133,7 @@
                                                         <form name="moderar" action="${pageContext.request.contextPath}/admin/moderar" method="get">
                                                             <button 
                                                                 class="btn-carrito btn-dark btn-admin" 
-                                                                name="nombre" 
+                                                                name="nombreVideojuego" 
                                                                 value="${juego.getNombre()}">
                                                                 Reseñas
                                                             </button>

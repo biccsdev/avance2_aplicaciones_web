@@ -69,7 +69,9 @@ public class EditarVideojuegoServlet extends HttpServlet {
                 VideojuegoDTO videojuego = FachadaBO.buscarVideojuegoPorNombeExacto(nombre);
                 
                 if (videojuego != null) {
+                    List<CategoriaDTO> categorias = FachadaBO.buscarTodasCategorias();
                     request.setAttribute("videojuego", videojuego);
+                    request.setAttribute("categoriasDisponibles", categorias);
                     request.getRequestDispatcher("/WEB-INF/admin/productos/editar.jsp").forward(request, response);
                 } else {
                     response.sendRedirect(request.getContextPath() + "/home?error=NoEncontrado");

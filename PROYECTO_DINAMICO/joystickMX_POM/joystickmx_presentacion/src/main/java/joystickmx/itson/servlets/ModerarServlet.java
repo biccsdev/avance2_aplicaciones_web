@@ -67,7 +67,7 @@ public class ModerarServlet extends HttpServlet {
             throws ServletException, IOException {
         
         // Obtenemos el nombre del videojuego desde los parámetros (ej. desde index.jsp)
-        String nombre = request.getParameter("nombre");
+        String nombre = request.getParameter("nombreVideojuego");
         
         try {
             // En caso de que seleccione un videojuego en el catálogo (Búsqueda por Nombre)
@@ -90,7 +90,7 @@ public class ModerarServlet extends HttpServlet {
                 // Envía la petición al JSP de moderación
                 request.getRequestDispatcher("/WEB-INF/admin/resenas/moderar.jsp").forward(request, response);
                 
-            } else if(request.getParameter("calificacion") != null){
+            } else if(request.getParameter("calificacion") != null && !request.getParameter("calificacion").isBlank()){
                 // Caso de filtrado por calificación
                 String calificacion = request.getParameter("calificacion");
                 Float calificacionFloat = Float.valueOf(calificacion);
@@ -117,7 +117,7 @@ public class ModerarServlet extends HttpServlet {
         } catch (ServletException | IOException | NumberFormatException | NegocioException e) {
             e.printStackTrace();
             request.setAttribute("mensaje", "Error durante la consulta de las reseñas: " + e.getMessage());
-            request.getRequestDispatcher("/index.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/admin/resenas/moderar.jsp").forward(request, response);
         }
     }
 
