@@ -19,11 +19,21 @@ async function cargarDetallePedido() {
         }
 
         const pedido = await response.json();
+        
+        const idUsuarioSesion = parseInt(ID_USUARIO_ACTUAL);
+        const idDuenoPedido = pedido.cliente ? pedido.cliente.idUsuario : null;
+
+        if (idDuenoPedido !== idUsuarioSesion) {
+            alert(" Acceso denegado: Este pedido no te pertenece.");
+            window.location.href = `${CONTEXT_PATH}/pedidos`;
+            return;
+        }
+
         renderizarDetalle(pedido);
 
     } catch (error) {
         console.error(error);
-        container.innerHTML = "<p class='error-msg'>No se pudo cargar la información del pedido. Intenta nuevamente.</p>";
+        container.innerHTML = "<p class='error-msg'>No se pudo cargar la información del pedido. Es posible que no exista.</p>";
     }
 }
 
