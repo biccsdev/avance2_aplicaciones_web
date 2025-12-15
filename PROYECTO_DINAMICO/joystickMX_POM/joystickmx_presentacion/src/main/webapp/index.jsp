@@ -152,8 +152,15 @@
                                                         onerror="this.src='${pageContext.request.contextPath}/imgs/iconoImagen.png'">
                                                 </div>
                                                 <div class="videojuego-info">
-                                                    <h3 class="videojuego-nombre">${String.format("%s (%s)", juego.getNombre(), juego.getPlataforma())}</h3>
-                                                    <h2 class="videojuego-precio">$${String.format("%.2f", juego.getPrecio())}</h2>
+                                                    <div class="videojuego-nombre">
+                                                        <h3>${String.format("%s (%s)", juego.getNombre(), juego.getPlataforma())}</h3>
+                                                    </div>
+                                                    <div class="videojuego-precio">
+                                                        <h2>$${String.format("%.2f", juego.getPrecio())}</h2>
+                                                    </div>
+                                                    <div class="videojuego-existencias">
+                                                        <h3>Existencias: ${juego.getExistencias()}</h3>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </li>

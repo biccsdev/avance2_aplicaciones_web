@@ -45,13 +45,13 @@
                         <label for="plataforma">Plataforma</label>
                         <select id="plataforma" name="plataforma" required>
                             <option value="">Selecciona una plataforma</option>
-                            <option value="pc">PC</option>
-                            <option value="ps4">PlayStation 4</option>
-                            <option value="ps5">PlayStation 5</option>
-                            <option value="xbox-one">Xbox One</option>
-                            <option value="xbox-series">Xbox Series X/S</option>
-                            <option value="switch">Nintendo Switch</option>
-                            <option value="switch-2">Nintendo Switch 2</option>
+                            <option value="PC">PC</option>
+                            <option value="Playstation 4">PlayStation 4</option>
+                            <option value="Playstation 5">PlayStation 5</option>
+                            <option value="Xbox One">Xbox One</option>
+                            <option value="Xbox Series X/S">Xbox Series X/S</option>
+                            <option value="Nintendo Switch">Nintendo Switch</option>
+                            <option value="Nintendo Switch 2">Nintendo Switch 2</option>
                         </select>
                     </div>
 
