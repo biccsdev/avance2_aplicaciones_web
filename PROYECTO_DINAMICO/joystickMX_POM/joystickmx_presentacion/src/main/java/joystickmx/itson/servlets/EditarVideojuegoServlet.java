@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import jakarta.validation.ConstraintViolationException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -62,26 +63,31 @@ public class EditarVideojuegoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String nombre = request.getParameter("nombre");
-        
+
+        String idStr = request.getParameter("idVideojuego");
+
         try {
-            if (nombre != null && !nombre.isEmpty()) {
-                VideojuegoDTO videojuego = FachadaBO.buscarVideojuegoPorNombeExacto(nombre);
-                
-                if (videojuego != null) {
-                    List<CategoriaDTO> categorias = FachadaBO.buscarTodasCategorias();
-                    request.setAttribute("videojuego", videojuego);
-                    request.setAttribute("categoriasDisponibles", categorias);
-                    request.getRequestDispatcher("/WEB-INF/admin/productos/editar.jsp").forward(request, response);
-                } else {
-                    response.sendRedirect(request.getContextPath() + "/home?error=NoEncontrado");
-                }
-            } else {
-                response.sendRedirect(request.getContextPath() + "/home");
+            if (idStr == null || idStr.isEmpty()) {
+                throw new NegocioException("ID de videojuego no proporcionado.");
             }
-        } catch (NegocioException e) {
-            e.printStackTrace();
-            response.sendRedirect(request.getContextPath() + "/home?error=ErrorInterno");
+
+            Long idVideojuego = Long.parseLong(idStr);
+
+            VideojuegoDTO videojuego = FachadaBO.buscarVideojuegoPorId(idVideojuego);
+            if (videojuego == null) {
+                throw new NegocioException("Videojuego no encontrado.");
+            }
+
+            List<CategoriaDTO> categorias = FachadaBO.buscarTodasCategorias();
+
+            request.setAttribute("videojuego", videojuego);
+            request.setAttribute("categoriasDisponibles", categorias);
+
+            request.getRequestDispatcher("/WEB-INF/admin/productos/editar.jsp").forward(request, response);
+
+        } catch (NegocioException | NumberFormatException e) {
+            LOG.log(Level.SEVERE, "Error al cargar edición", e);
+            response.sendRedirect(request.getContextPath() + "/home?error=" + e.getMessage());
         }
     }
 
@@ -163,9 +169,33 @@ public class EditarVideojuegoServlet extends HttpServlet {
 
         } catch (Exception e) {
             LOG.log(Level.SEVERE, "Error al actualizar videojuego", e);
-            request.setAttribute("error", "Error al actualizar: " + e.getMessage());
+
+            String mensajeError = obtenerMensajeAmigable(e);
+
+            request.setAttribute("error", mensajeError);
             doGet(request, response);
         }
+    }
+
+    private String obtenerMensajeAmigable(Exception e) {
+        Throwable causa = e;
+
+        while (causa != null) {
+            if (causa instanceof ConstraintViolationException) {
+                ConstraintViolationException cve = (ConstraintViolationException) causa;
+                if (!cve.getConstraintViolations().isEmpty()) {
+                    return cve.getConstraintViolations().iterator().next().getMessage();
+                }
+            }
+            causa = causa.getCause();
+        }
+
+        String msg = e.getMessage();
+        if (msg != null && msg.contains(":")) {
+            return msg.substring(msg.lastIndexOf(":") + 1).trim();
+        }
+
+        return "Error al actualizar el producto: " + (msg != null ? msg : "Error desconocido");
     }
 
     /**
