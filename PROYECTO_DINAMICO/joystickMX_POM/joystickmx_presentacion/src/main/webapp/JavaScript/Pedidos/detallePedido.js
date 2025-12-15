@@ -13,18 +13,23 @@ async function cargarDetallePedido() {
 
     try {
         const response = await fetch(`${CONTEXT_PATH}/resources/pedidos/${idPedido}`);
-        
+
+        if (response.status === 403 || response.status === 401) {
+            alert("Acceso denegado: No tienes permiso para ver este pedido.");
+            window.location.href = `${CONTEXT_PATH}/pedidos`;
+            return;
+        }
+
         if (!response.ok) {
             throw new Error("No se pudo cargar el pedido.");
         }
 
         const pedido = await response.json();
-        
-        const idUsuarioSesion = parseInt(ID_USUARIO_ACTUAL);
-        const idDuenoPedido = pedido.cliente ? pedido.cliente.idUsuario : null;
+        const idUsuarioSesion = Number(ID_USUARIO_ACTUAL); 
+        const idDuenoPedido = pedido.cliente ? Number(pedido.cliente.idUsuario) : null;
 
         if (idDuenoPedido !== idUsuarioSesion) {
-            alert(" Acceso denegado: Este pedido no te pertenece.");
+            alert("Acceso denegado: Este pedido no te pertenece.");
             window.location.href = `${CONTEXT_PATH}/pedidos`;
             return;
         }
@@ -33,7 +38,7 @@ async function cargarDetallePedido() {
 
     } catch (error) {
         console.error(error);
-        container.innerHTML = "<p class='error-msg'>No se pudo cargar la información del pedido. Es posible que no exista.</p>";
+        container.innerHTML = "<p class='error-msg'>No se pudo cargar la información del pedido. Es posible que no exista o no tengas permisos.</p>";
     }
 }
 

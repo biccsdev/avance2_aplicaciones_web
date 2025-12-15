@@ -13,7 +13,7 @@
     
     <script>
         const CONTEXT_PATH = "${pageContext.request.contextPath}";
-        const ID_USUARIO_ACTUAL = "${sessionScope.usuario.idUsuario}";
+        const ID_USUARIO_ACTUAL = "${not empty sessionScope.usuario ? sessionScope.usuario.idUsuario : ''}";
     </script>
     <script src="${pageContext.request.contextPath}/JavaScript/Pedidos/detallePedido.js" defer></script>
 </head>

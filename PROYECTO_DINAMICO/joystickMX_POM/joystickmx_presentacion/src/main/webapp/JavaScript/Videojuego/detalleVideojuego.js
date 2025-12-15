@@ -1,5 +1,6 @@
 window.onload = () => {
-    
+    let idVideojuegoActual = null;
+
     const imagen = document.getElementById("videojuego-imagen");
     const nombre = document.getElementById("videojuego-nombre");
     const existencias = document.getElementById("videojuego-existencias");
@@ -21,7 +22,10 @@ window.onload = () => {
     };
 
     const agregarAlCarrito = () => {
-         let idVideojuego = new URLSearchParams(window.location.search).get("idVideojuego");
+         if(idVideojuegoActual === null){
+             alert("Espere a que cargue la información del producto.");
+             return;
+         }
          
          if(!ID_USUARIO_ACTUAL || ID_USUARIO_ACTUAL.trim() === ""){
              alert("Debes iniciar sesión para agregar productos.");
@@ -30,7 +34,7 @@ window.onload = () => {
          }
          
          const payload = {
-             idVideojuego: parseInt(idVideojuego),
+             idVideojuego: parseInt(idVideojuegoActual),
              cantidad: 1
          };
          
@@ -58,10 +62,11 @@ window.onload = () => {
 
     const obtenerVideojuego = () => {
         let host = `${CONTEXT_PATH}/resources/api/videojuego`;
-        let id = new URLSearchParams(window.location.search).get("idVideojuego");
-        if(id != null){
+        let nombreParam = new URLSearchParams(window.location.search).get("nombre");
+        
+        if(nombreParam != null){
             fetch(
-                host + `/${id}`, 
+                host + `/nombre/${encodeURIComponent(nombreParam)}`, 
                 {method: "GET"}
             ).then(response => {
                 if(!response.ok){
@@ -69,6 +74,8 @@ window.onload = () => {
                 }
                 return response.json();
             }).then(videojuego => {
+                // Guardamos el ID para usarlo en el carrito
+                idVideojuegoActual = videojuego.idVideojuego;
                 cargarVideojuego(videojuego);
             }).catch(err => {
                 console.error(err);
@@ -78,14 +85,12 @@ window.onload = () => {
     };
 
     const obtenerResenas = () => {
-        // URL host
         let host = `${CONTEXT_PATH}/resources/api/resena`;
-        // Obtiene el parámetro del query string que almacena el ID del juego
-        let id = new URLSearchParams(window.location.search).get("idVideojuego");
-        // Realiza la petición a la API
-        if(id != null){
+        let nombreParam = new URLSearchParams(window.location.search).get("nombre");
+        
+        if(nombreParam != null){
             fetch(
-                host + `/${id}`, 
+                host + `/nombre/${encodeURIComponent(nombreParam)}`, 
                 {method: "GET"}
             ).then(response => {
                 if(!response.ok){

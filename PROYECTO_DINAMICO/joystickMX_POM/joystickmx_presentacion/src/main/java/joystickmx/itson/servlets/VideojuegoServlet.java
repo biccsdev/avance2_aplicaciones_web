@@ -31,11 +31,13 @@ public class VideojuegoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String idVideojuego = request.getParameter("idVideojuego");
-        if(idVideojuego != null)
+        String nombre = request.getParameter("nombre");
+        
+        if(nombre != null) {
             request.getRequestDispatcher("/videojuego/detalleVideojuego.jsp").forward(request, response);
-        else
+        } else {
             response.sendRedirect(request.getContextPath() + "/home");
+        }
     }
 
     /**

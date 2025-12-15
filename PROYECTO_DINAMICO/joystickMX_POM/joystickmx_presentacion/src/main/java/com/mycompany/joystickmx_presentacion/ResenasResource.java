@@ -56,19 +56,19 @@ public class ResenasResource {
     }
 
     @GET
-    @Path("/{id}")
+    @Path("/nombre/{nombre}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response getResenasVideojuego(@PathParam("id") String id){
+    public Response getResenasVideojuego(@PathParam("nombre") String nombre){
         try {
-            Long idVideojuego = Long.valueOf(id);
-            List<ResenaDTO> resenas = FachadaBO.buscarResenasPorVideojuego(idVideojuego);
+            List<ResenaDTO> resenas = FachadaBO.buscarResenasPorNombreVideojuego(nombre);
             List<VideojuegoResenaDTO> resenasVideojuego = new ArrayList<>();
+            
             if(resenas != null && !resenas.isEmpty()){
                 resenasVideojuego = obtenerResenas(resenas);
             }
             return Response.ok(resenasVideojuego).build();
-        } catch (NegocioException | NumberFormatException e) {
+        } catch (NegocioException e) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }

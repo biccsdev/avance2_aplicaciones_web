@@ -145,7 +145,7 @@
                                                 name="videojuego-form" 
                                                 action="${pageContext.request.contextPath}/videojuego" 
                                                 method="get">
-                                                <input id="videojuego-sumit" type="hidden" name="idVideojuego" value="${juego.getIdVideojuego()}">
+                                                <input id="videojuego-sumit" type="hidden" name="nombre" value="${juego.getNombre()}">
                                             </form>
                                             <div class="videojuego">
                                                 <div class="videojuego-imagen">

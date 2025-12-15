@@ -69,9 +69,15 @@ public class PedidosResource {
                         .entity("{\"error\": \"Pedido no encontrado\"}")
                         .build();
             }
-            
+
+            if (pedido.getCliente() == null || pedido.getCliente().getIdUsuario() == null) {
+                 return Response.serverError()
+                        .entity("{\"error\": \"Error en los datos del pedido.\"}")
+                        .build();
+            }
+
             Long idDuenoPedido = pedido.getCliente().getIdUsuario();
-            
+
             if (!validarAccesoUsuario(idDuenoPedido)) {
                 return Response.status(Response.Status.FORBIDDEN)
                         .entity("{\"error\": \"Acceso denegado. Este pedido no te pertenece.\"}")

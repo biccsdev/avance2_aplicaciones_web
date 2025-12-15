@@ -59,19 +59,18 @@ public class VideojuegoResource {
     }
     
     @GET
-    @Path("/{id}")
+    @Path("/nombre/{nombre}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response getVideojuego(@PathParam("id") String id){
+    public Response getVideojuego(@PathParam("nombre") String nombre){
         try {
-            Long idVideojuego = Long.valueOf(id);
-            VideojuegoDTO videojuego = FachadaBO.buscarVideojuegoPorId(idVideojuego);
-            // Obtiene las categorías del juego
+            VideojuegoDTO videojuego = FachadaBO.buscarVideojuegoPorNombeExacto(nombre);
+            
             if(videojuego.getCategorias() == null)
                 videojuego.setCategorias(FachadaBO.buscarCategoriaPorVideojuego(videojuego.getIdVideojuego()));
-            // Si se requieren las reseñas del videojuego, se consultan por separado.
+                
             return Response.ok(videojuego).build();
-        } catch (NegocioException | NumberFormatException e) {
+        } catch (NegocioException e) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
