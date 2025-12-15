@@ -64,18 +64,17 @@ public class EditarVideojuegoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String idStr = request.getParameter("idVideojuego");
+        String nombre = request.getParameter("nombre");
 
         try {
-            if (idStr == null || idStr.isEmpty()) {
-                throw new NegocioException("ID de videojuego no proporcionado.");
+            if (nombre == null || nombre.isEmpty()) {
+                throw new NegocioException("Nombre de videojuego no proporcionado.");
             }
 
-            Long idVideojuego = Long.parseLong(idStr);
+            VideojuegoDTO videojuego = FachadaBO.buscarVideojuegoPorNombeExacto(nombre);
 
-            VideojuegoDTO videojuego = FachadaBO.buscarVideojuegoPorId(idVideojuego);
             if (videojuego == null) {
-                throw new NegocioException("Videojuego no encontrado.");
+                throw new NegocioException("Videojuego no encontrado con el nombre: " + nombre);
             }
 
             List<CategoriaDTO> categorias = FachadaBO.buscarTodasCategorias();
@@ -85,7 +84,7 @@ public class EditarVideojuegoServlet extends HttpServlet {
 
             request.getRequestDispatcher("/WEB-INF/admin/productos/editar.jsp").forward(request, response);
 
-        } catch (NegocioException | NumberFormatException e) {
+        } catch (NegocioException e) {
             LOG.log(Level.SEVERE, "Error al cargar edición", e);
             response.sendRedirect(request.getContextPath() + "/home?error=" + e.getMessage());
         }

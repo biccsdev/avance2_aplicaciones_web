@@ -43,7 +43,7 @@ public class VideojuegoDAO extends BaseDAO implements IVideojuegoDAO {
         } catch (Exception e) {
             if (em.getTransaction().isActive()) 
                 try { em.getTransaction().rollback(); } catch (Exception ignored) {}
-            throw new PersistenciaException("Error al actualizar el videojuego: " + e.getMessage());
+            throw new PersistenciaException("Error al actualizar el videojuego: " + e.getMessage(), e);
         } finally {
             if (em.isOpen()) { em.close(); }
         }
