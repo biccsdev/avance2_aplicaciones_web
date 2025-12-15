@@ -92,12 +92,7 @@
                             <c:forEach var="juego" items="${videojuegos}" varStatus="estado">
                                 <c:choose>
                                     <c:when test="${sessionScope.rol == 'admin'}">
-                                        <li id="videojuego-item" 
-                                            class="videojuego-item" 
-                                            onmouseover="this.style.cursor='pointer';" 
-                                            onmouseout="this.style.cursor='default';"
-                                            onclick ="document.getElementById('videojuego-form-${estado.index}').submit(); return false;"
-                                            >
+                                        <li class="videojuego-item">
                                             
                                             <form 
                                                 id="videojuego-form-${estado.index}" 
@@ -112,7 +107,11 @@
                                                         class="videojuego-imagen" 
                                                         src="${pageContext.request.contextPath}${juego.getUrlImagen()}" 
                                                         alt="Portada de ${juego.nombre}" 
-                                                        onerror="this.src='${pageContext.request.contextPath}/imgs/iconoImagen.png'">
+                                                        onerror="this.src='${pageContext.request.contextPath}/imgs/iconoImagen.png'"
+                                                        onmouseover="this.style.cursor='pointer';" 
+                                                        onmouseout="this.style.cursor='default';"
+                                                        onclick ="document.getElementById('videojuego-form-${estado.index}').submit(); return false;"
+                                                        >
                                                 </div>
                                                 <div class="videojuego-info">
                                                     <div class="videojuego-nombre info">
