@@ -31,7 +31,7 @@
 
                 </div>
 
-                <form class="form-container" 
+                <form class="form-producto" 
                       method="POST" 
                       action="${pageContext.request.contextPath}/admin/productos/crear"
                       enctype="multipart/form-data"
