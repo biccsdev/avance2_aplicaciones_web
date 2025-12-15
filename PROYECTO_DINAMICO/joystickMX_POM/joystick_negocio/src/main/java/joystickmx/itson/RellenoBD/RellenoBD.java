@@ -496,7 +496,7 @@ public class RellenoBD {
             r1.setIdVideojuego(v1.getIdVideojuego());
 
             ResenaDTO r2 = new ResenaDTO();
-            r2.setCalificacion(4.5f);
+            r2.setCalificacion(4.0f);
             r2.setTitulo("Tamal");
             r2.setComentario("Un poco sobrevalorado.");
             r2.setFechaResena(LocalDate.now());
@@ -520,7 +520,7 @@ public class RellenoBD {
             r3.setIdVideojuego(v3.getIdVideojuego());
 
             ResenaDTO r4 = new ResenaDTO();
-            r4.setCalificacion(3.5f);
+            r4.setCalificacion(3.0f);
             r4.setTitulo("Meh");
             r4.setComentario("Me gustó más el 4");
             r4.setFechaResena(LocalDate.now());
