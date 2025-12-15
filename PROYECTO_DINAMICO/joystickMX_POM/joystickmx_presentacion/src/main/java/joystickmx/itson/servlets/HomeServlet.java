@@ -25,17 +25,19 @@ public class HomeServlet extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Maneja las peticiones HTTP <code>GET</code>. Recibe los parámetros de
+     * filtrado desde la URL o el formulario de búsqueda, consulta la lógica de
+     * negocio y envía la lista de videojuegos al JSP.
      *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @param request objeto de solicitud del servlet.
+     * @param response objeto de respuesta del servlet.
+     * @throws ServletException si ocurre un error específico del servlet.
+     * @throws IOException si ocurre un error de entrada/salida.
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String errorRedirect = request.getParameter("error");
         if (errorRedirect != null && !errorRedirect.isEmpty()) {
             request.setAttribute("error", errorRedirect);
@@ -61,6 +63,7 @@ public class HomeServlet extends HttpServlet {
             if (categoriaStr != null && !categoriaStr.isEmpty()) {
                 idCategoria = Long.parseLong(categoriaStr);
             }
+
             if (plataforma != null && (plataforma.isEmpty() || plataforma.equals("Todas"))) {
                 plataforma = null;
             }
@@ -76,11 +79,11 @@ public class HomeServlet extends HttpServlet {
 
         try {
             videojuegos = FachadaBO.filtrarVideojuegos(
-                    busqueda, 
-                    precioMin, 
+                    busqueda,
+                    precioMin,
                     precioMax,
-                    idCategoria, 
-                    plataforma 
+                    idCategoria,
+                    plataforma
             );
 
             request.setAttribute("videojuegos", videojuegos);
@@ -94,12 +97,13 @@ public class HomeServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Maneja las peticiones HTTP <code>POST</code>. Redirige el flujo al método
+     * doGet, ya que la búsqueda generalmente se maneja vía GET.
      *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
+     * @param request objeto de solicitud del servlet.
+     * @param response objeto de respuesta del servlet.
+     * @throws ServletException si ocurre un error específico del servlet.
+     * @throws IOException si ocurre un error de entrada/salida.
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -108,9 +112,8 @@ public class HomeServlet extends HttpServlet {
     }
 
     /**
-     * Returns a short description of the servlet.
+     * Retorna una descripción breve del servlet.
      *
-     * @return a String containing servlet description
      */
     @Override
     public String getServletInfo() {
