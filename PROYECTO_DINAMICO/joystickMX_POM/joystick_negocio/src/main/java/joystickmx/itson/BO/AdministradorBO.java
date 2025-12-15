@@ -29,9 +29,16 @@ public class AdministradorBO implements IAdministradorBO{
     @Override
     public void crearAdmin(UsuarioRegistroDTO dto) throws NegocioException {
         try {
+
+            validarDatosObligatorios(dto.getNombres(), dto.getApellidoPaterno(), dto.getEmail(), dto.getTelefono());
             
-            if (this.adminDAO.buscarPorEmail(dto.getEmail()) != null) 
+            if (dto.getContrasenia() == null || dto.getContrasenia().trim().isEmpty()) {
+                throw new NegocioException("La contraseña es obligatoria.");
+            }
+
+            if (this.adminDAO.buscarPorEmail(dto.getEmail()) != null) {
                 throw new NegocioException("El correo ya se encuentra registrado.");
+            }
             
             
             Administrador admin = DTOMapeadores.toAdministradorEntity(dto);
@@ -55,6 +62,14 @@ public class AdministradorBO implements IAdministradorBO{
                 throw new NegocioException("No se encontró el administrador con ID: " + dto.getIdUsuario());
             }
             
+            if (admin == null) {
+                throw new NegocioException("No se encontró el administrador con ID: " + dto.getIdUsuario());
+            }
+            
+            validarDatosObligatorios(dto.getNombres(), dto.getApellidoPaterno(), dto.getEmail(), dto.getTelefono());
+
+            
+            
             admin.setNombres(dto.getNombres());
             admin.setApellidoPaterno(dto.getApellidoPaterno());
             admin.setApellidoMaterno(dto.getApellidoMaterno());
@@ -73,6 +88,11 @@ public class AdministradorBO implements IAdministradorBO{
     @Override
     public UsuarioDTO buscarPorId(Long idAdmin) throws NegocioException {
         try {
+            
+            if (idAdmin == null) {
+                throw new NegocioException("El ID es requerido.");
+            }
+            
             Administrador admin = this.adminDAO.buscarPorId(idAdmin);
             if(admin == null) {
                 throw new NegocioException("Administrador no encontrado.");
@@ -86,6 +106,11 @@ public class AdministradorBO implements IAdministradorBO{
     @Override
     public UsuarioDTO buscarPorEmail(String email) throws NegocioException {
         try {
+            
+            if (email == null || email.trim().isEmpty()) {
+                throw new NegocioException("El email es requerido para la búsqueda.");
+            }
+            
             Administrador admin = this.adminDAO.buscarPorEmail(email);
             if(admin == null) {
                 return null;
@@ -93,6 +118,26 @@ public class AdministradorBO implements IAdministradorBO{
             return Mapeadores.toUsuarioDTO(admin);
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al buscar administrador por email: " + e.getMessage(), e);
+        }
+    }
+    
+    
+    private void validarDatosObligatorios(String nombres, String apellidoPaterno, String email, String telefono) throws NegocioException {
+        if (nombres == null || nombres.trim().isEmpty()) {
+            throw new NegocioException("El nombre es obligatorio.");
+        }
+        if (apellidoPaterno == null || apellidoPaterno.trim().isEmpty()) {
+            throw new NegocioException("El apellido paterno es obligatorio.");
+        }
+        if (email == null || email.trim().isEmpty()) {
+            throw new NegocioException("El correo electrónico es obligatorio.");
+        }
+
+        if (!email.matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+             throw new NegocioException("El formato del correo electronico no es valido.");
+        }
+        if (telefono == null || telefono.trim().isEmpty()) {
+            throw new NegocioException("El teléfono es obligatorio.");
         }
     }
 }
