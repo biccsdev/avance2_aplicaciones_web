@@ -25,7 +25,6 @@
                         <img src="${pageContext.request.contextPath}${videojuego.urlImagen}" 
                              alt="Portada de ${videojuego.nombre}" 
                              class="img-producto"
-                             style="object-fit: cover;"
                              onerror="this.src='${pageContext.request.contextPath}/imgs/iconoImagen.png'">
                     </div>
                 </div>
@@ -37,75 +36,76 @@
 
                     <input type="hidden" name="idVideojuego" value="${videojuego.idVideojuego}">
 
-                    <div class="form-div">
-                        <label for="nombre">Nombre</label>
-                        <input type="text" id="nombre" name="nombre" value="${videojuego.nombre}" required>
-                    </div>
+                    <div class="form-div-container">
+                        <div id="form-nombre" class="form-div">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" id="nombre" name="nombre" value="${videojuego.nombre}" required>
+                        </div>
 
-                    <div class="form-div">
-                        <label for="plataforma">Plataforma</label>
-                        <select id="plataforma" name="plataforma">
-                            <option value="PC" ${videojuego.plataforma == 'PC' ? 'selected' : ''}>PC</option>
-                            <option value="PlayStation" ${videojuego.plataforma == 'PlayStation' ? 'selected' : ''}>PlayStation</option>
-                            <option value="Xbox" ${videojuego.plataforma == 'Xbox' ? 'selected' : ''}>Xbox</option>
-                            <option value="Nintendo" ${videojuego.plataforma == 'Nintendo' ? 'selected' : ''}>Nintendo</option>
-                        </select>
-                    </div>
+                        <div id="form-plataforma" class="form-div">
+                            <label for="plataforma">Plataforma</label>
+                            <select id="plataforma" name="plataforma">
+                                <option value="PC" ${videojuego.plataforma == 'PC' ? 'selected' : ''}>PC</option>
+                                <option value="PlayStation" ${videojuego.plataforma == 'PlayStation' ? 'selected' : ''}>PlayStation</option>
+                                <option value="Xbox" ${videojuego.plataforma == 'Xbox' ? 'selected' : ''}>Xbox</option>
+                                <option value="Nintendo" ${videojuego.plataforma == 'Nintendo' ? 'selected' : ''}>Nintendo</option>
+                            </select>
+                        </div>
 
-                    <div class="form-div">
-                        <label for="descripcion">Descripción</label>
-                        <textarea id="descripcion" name="descripcion" rows="4" required>${videojuego.descripcion}</textarea>
-                    </div>
+                        <div id="form-descripcion" class="form-div">
+                            <label for="descripcion">Descripción</label>
+                            <textarea id="descripcion" name="descripcion" rows="4" required>${videojuego.descripcion}</textarea>
+                        </div>
 
-                    <div class="form-div">
-                        <label for="desarrollador">Desarrollador</label>
-                        <input type="text" id="desarrollador" name="desarrollador" value="${videojuego.desarrollador}" required>
-                    </div>
+                        <div id="form-desarrollador" class="form-div">
+                            <label for="desarrollador">Desarrollador</label>
+                            <input type="text" id="desarrollador" name="desarrollador" value="${videojuego.desarrollador}" required>
+                        </div>
 
-                    <div class="form-div">
-                        <label for="precio">Precio</label>
-                        <input type="number" id="precio" name="precio" value="${videojuego.precio}" step="0.01" required>
-                    </div>
+                        <div id="form-precio" class="form-div">
+                            <label for="precio">Precio</label>
+                            <input type="number" id="precio" name="precio" value="${videojuego.precio}" step="0.01" required>
+                        </div>
 
-                    <div class="form-div">
-                        <label for="existencias">Existencias</label>
-                        <input type="number" id="existencias" name="existencias" value="${videojuego.existencias}" required>
-                    </div>
+                        <div id="form-existencias" class="form-div">
+                            <label for="existencias">Existencias</label>
+                            <input type="number" id="existencias" name="existencias" value="${videojuego.existencias}" required>
+                        </div>
 
-                    <div class="form-div">
-                        <label for="lanzamiento">Fecha de lanzamiento</label>
-                        <input type="date" id="lanzamiento" name="lanzamiento" value="${videojuego.fechaLanzamiento}" required>
-                    </div>
+                        <div id="form-lanzamiento" class="form-div">
+                            <label for="lanzamiento">Fecha de lanzamiento</label>
+                            <input type="date" id="lanzamiento" name="lanzamiento" value="${videojuego.fechaLanzamiento}" required>
+                        </div>
 
-                    <div class="form-div">
-                        <label for="genero">Género (Categoría)</label>
-                        <select id="genero" name="categoria">
-                            <c:forEach var="cat" items="${categoriasDisponibles}">
-                                <c:set var="isSelected" value="false"/>
-                                <c:forEach var="catJuego" items="${videojuego.categorias}">
-                                    <c:if test="${catJuego.idCategoria == cat.idCategoria}">
-                                        <c:set var="isSelected" value="true"/>
-                                    </c:if>
+                        <div id="form-genero" class="form-div">
+                            <label for="genero">Género (Categoría)</label>
+                            <select id="genero" name="categoria">
+                                <c:forEach var="cat" items="${categoriasDisponibles}">
+                                    <c:set var="isSelected" value="false"/>
+                                    <c:forEach var="catJuego" items="${videojuego.categorias}">
+                                        <c:if test="${catJuego.idCategoria == cat.idCategoria}">
+                                            <c:set var="isSelected" value="true"/>
+                                        </c:if>
+                                    </c:forEach>
+
+                                    <option value="${cat.nombre}" ${isSelected ? 'selected' : ''}>${cat.nombre}</option>
                                 </c:forEach>
+                            </select>
+                        </div>
 
-                                <option value="${cat.nombre}" ${isSelected ? 'selected' : ''}>${cat.nombre}</option>
-                            </c:forEach>
-                        </select>
+                        <div id="form-file" class="form-div">
+                            <label for="imagenFile">Cambiar Imagen (Opcional)</label>
+                            <input type="file" id="imagenFile" name="imagenFile" accept="image/*">
+                        </div>
+
+                        <div id="button-div" class="button-div">
+                            <button type="submit" class="btn-crear">Guardar Cambios</button>
+
+                            <a href="${pageContext.request.contextPath}/admin/productos/confirmar-eliminar?nombre=${videojuego.nombre}">
+                                <button type="button" class="btn-eliminar">ELIMINAR</button>
+                            </a>
+                        </div>
                     </div>
-
-                    <div class="form-div">
-                        <label for="imagenFile">Cambiar Imagen (Opcional)</label>
-                        <input type="file" id="imagenFile" name="imagenFile" accept="image/*">
-                    </div>
-
-                    <div class="button-div">
-                        <button type="submit" class="btn-crear">Guardar Cambios</button>
-
-                        <a href="${pageContext.request.contextPath}/admin/productos/confirmar-eliminar?nombre=${videojuego.nombre}">
-                            <button type="button" class="btn-eliminar">ELIMINAR</button>
-                        </a>
-                    </div>
-
                 </form>
             </div>
         </main>  
