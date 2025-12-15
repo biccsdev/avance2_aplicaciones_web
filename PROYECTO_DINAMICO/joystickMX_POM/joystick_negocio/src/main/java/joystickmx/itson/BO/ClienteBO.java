@@ -44,6 +44,30 @@ public class ClienteBO implements IClienteBO {
                 throw new NegocioException("El correo ya se encuentra registrado.");
             }
 
+            if (dto == null) {
+                throw new NegocioException("Los datos del cliente son obligatorios.");
+            }
+
+            if (dto.getNombres() == null || dto.getNombres().trim().isEmpty()) {
+                throw new NegocioException("El nombre es obligatorio.");
+            }
+
+            if (dto.getApellidoPaterno() == null || dto.getApellidoPaterno().trim().isEmpty()) {
+                throw new NegocioException("El apellido paterno es obligatorio.");
+            }
+
+            if (dto.getEmail() == null || dto.getEmail().trim().isEmpty()) {
+                throw new NegocioException("El correo es obligatorio.");
+            }
+
+            if (dto.getContrasenia() == null || dto.getContrasenia().length() < 4) {
+                throw new NegocioException("La contraseña debe tener al menos 4 caracteres.");
+            }
+
+            if (!dto.getEmail().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+                throw new NegocioException("El formato del correo es inválido.");
+            }
+
             Cliente nuevoCliente = DTOMapeadores.toClienteEntity(dto);
 
             nuevoCliente.setContrasenia(PasswordUtil.hashPassword(dto.getContrasenia()));
@@ -96,10 +120,20 @@ public class ClienteBO implements IClienteBO {
     @Override
     public UsuarioDTO actualizarCliente(ClienteDTO dto) throws NegocioException {
         try {
+
+            if (dto == null || dto.getIdUsuario() == null) {
+                throw new NegocioException("Datos del cliente inválidos.");
+            }
+
             Cliente cliente = this.clienteDAO.buscarPorId(dto.getIdUsuario());
             if (cliente == null) {
                 throw new NegocioException("Cliente no encontrado.");
             }
+
+            if (dto.getEmail() == null || dto.getEmail().trim().isEmpty()) {
+                throw new NegocioException("El correo no puede estar vacío.");
+            }
+
 
             cliente.setNombres(dto.getNombres());
             cliente.setApellidoPaterno(dto.getApellidoPaterno());
@@ -117,6 +151,11 @@ public class ClienteBO implements IClienteBO {
     @Override
     public UsuarioDTO buscarPorId(Long idCliente) throws NegocioException {
         try {
+            
+            if (idCliente == null) {
+                throw new NegocioException("Id del cliente a buscar no proporcionada");
+            }
+            
             Cliente cliente = this.clienteDAO.buscarPorId(idCliente);
             if (cliente == null) {
                 throw new NegocioException("Cliente no encontrado.");
@@ -130,6 +169,11 @@ public class ClienteBO implements IClienteBO {
     @Override
     public UsuarioDTO buscarPorEmail(String email) throws NegocioException {
         try {
+
+            if (email == null || email.trim().isEmpty()) {
+                throw new NegocioException("El correo es obligatorio.");
+            }
+
             Cliente cliente = this.clienteDAO.buscarPorEmail(email);
             if (cliente == null) {
                 return null;
