@@ -31,6 +31,14 @@ import joystickmx.itson.Fachada.FachadaBO;
 @RequestScoped
 public class CarritoResource {
 
+    /**
+     * Obtiene el carrito de compras actual de un usuario específico. Recupera
+     * la información del carrito y la lista de items asociados.
+     *
+     * @param idUsuario El ID del usuario (cliente) dueño del carrito.
+     * @return Response con el objeto {@link CarritoDTO} si se encuentra, 404 si
+     * no existe carrito activo, o 500 en caso de error interno.
+     */
     @GET
     @Path("usuario/{idUsuario}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -51,6 +59,16 @@ public class CarritoResource {
         }
     }
 
+    /**
+     * Agrega un nuevo item (videojuego) al carrito del usuario. Si el carrito
+     * no existe, retorna un error.
+     *
+     * @param idUsuario El ID del usuario al que pertenece el carrito.
+     * @param item Objeto {@link ItemCarritoDTO} con la información del
+     * videojuego y cantidad.
+     * @return Response 200 OK con mensaje de éxito, 404 si no hay carrito, o
+     * 500 si ocurre un error al agregar.
+     */
     @POST
     @Path("usuario/{idUsuario}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -65,6 +83,7 @@ public class CarritoResource {
             }
 
             item.setIdCarrito(carrito.getIdCarrito());
+
             FachadaBO.agregarItemACarrito(carrito.getIdCarrito(), item);
 
             return Response.ok(Collections.singletonMap("mensaje", "Producto agregado al carrito")).build();
@@ -76,6 +95,14 @@ public class CarritoResource {
         }
     }
 
+    /**
+     * Actualiza la cantidad de un item específico dentro del carrito.
+     *
+     * @param idItem El ID del item de carrito a modificar.
+     * @param cantidad La nueva cantidad deseada (recibida como QueryParam).
+     * @return Response 200 OK si se actualiza correctamente, o 400 Bad Request
+     * si falla.
+     */
     @PUT
     @Path("item/{idItem}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -90,6 +117,13 @@ public class CarritoResource {
         }
     }
 
+    /**
+     * Elimina un item específico del carrito de compras.
+     *
+     * @param idItem El ID del item de carrito a eliminar.
+     * @return Response 200 OK con mensaje de éxito, o 500 si ocurre un error
+     * interno.
+     */
     @DELETE
     @Path("item/{idItem}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -104,6 +138,13 @@ public class CarritoResource {
         }
     }
 
+    /**
+     * Vacía completamente el carrito de un usuario, eliminando todos los items.
+     *
+     * @param idUsuario El ID del usuario dueño del carrito.
+     * @return Response 200 OK si se vacía correctamente, 404 si no existe el
+     * carrito, o 500 en caso de error.
+     */
     @DELETE
     @Path("usuario/{idUsuario}/vaciar")
     @Produces(MediaType.APPLICATION_JSON)
@@ -127,6 +168,16 @@ public class CarritoResource {
         }
     }
 
+    /**
+     * Verifica si un videojuego específico ya existe en el carrito del usuario.
+     * Útil para validar duplicados antes de agregar o para mostrar estado en la
+     * UI.
+     *
+     * @param idUsuario El ID del usuario.
+     * @param idVideojuego El ID del videojuego a buscar.
+     * @return Response 200 OK con el {@link ItemCarritoDTO} si existe, o 404
+     * Not Found si no está en el carrito o hay error.
+     */
     @GET
     @Path("item/{idUsuario}/verificar/{idVideojuego}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -143,6 +194,15 @@ public class CarritoResource {
         }
     }
 
+    /**
+     * Valida si hay stock suficiente para todos los productos en el carrito del
+     * usuario.
+     *
+     * @param idUsuario El ID del usuario cuyo carrito se validará.
+     * @return Response 200 OK con un objeto JSON {"valido": true} si hay stock,
+     * o una lista de mensajes de error (Strings) si algún producto supera las
+     * existencias. Retorna 500 en caso de error interno.
+     */
     @GET
     @Path("usuario/{idUsuario}/validar-stock")
     @Produces(MediaType.APPLICATION_JSON)
@@ -162,5 +222,6 @@ public class CarritoResource {
                     .build();
         }
     }
-
+    
+    
 }
