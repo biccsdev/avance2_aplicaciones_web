@@ -26,7 +26,7 @@ main{
     display: flex;
     width: 100%;
     height: 100%;
-    margin-left: auto; 
+    margin-left: auto;
     margin-right: auto;
     overflow: auto;
 }
@@ -88,7 +88,7 @@ main{
     align-items: center;
     gap: var(--space-2);
     text-align: start;
-    
+
 }
 
 .form-producto {
@@ -208,7 +208,7 @@ main{
     width: 80%;
     height: fit-content;
     border: none;
-    background-color: #11d911; 
+    background-color: #11d911;
     color: var(--gray-900);
     padding: var(--space-3) var(--space-6);
     font-size: var(--font-size-large);
@@ -223,7 +223,7 @@ main{
 
 .btn-eliminar {
     border: none;
-    background-color: #000000; 
+    background-color: #000000;
     color: white;
     padding: var(--space-3) var(--space-6);
     font-size: var(--font-size-large);
@@ -243,15 +243,15 @@ a {
 
 /* Responsive */
 @media (min-width: 768px) and (max-width: 992px) {
-    
+
     body{
         height: auto;
     }
 
-    .form-main { 
-        gap: var(--space-8); 
-        padding: 0 var(--space-6); 
-        flex-direction: column; 
+    .form-main {
+        gap: var(--space-8);
+        padding: 0 var(--space-6);
+        flex-direction: column;
         align-items: center;
     }
 
@@ -297,10 +297,10 @@ a {
         height: auto;
     }
 
-    .form-main { 
-        gap: var(--space-8); 
-        padding: 0 var(--space-6); 
-        flex-direction: column; 
+    .form-main {
+        gap: var(--space-8);
+        padding: 0 var(--space-6);
+        flex-direction: column;
         align-items: center;
     }
 
@@ -354,10 +354,10 @@ a {
         height: auto;
     }
 
-    .form-main { 
-        gap: var(--space-8); 
-        padding: 0 var(--space-6); 
-        flex-direction: column; 
+    .form-main {
+        gap: var(--space-8);
+        padding: 0 var(--space-6);
+        flex-direction: column;
         align-items: center;
     }
 
@@ -410,3 +410,36 @@ a {
         font-size: 1em;
     }
 }
+
+
+
+.alert-container {
+    width: 90%;
+    max-width: 600px; 
+    margin: 20px auto 0 auto; 
+    padding: 15px 25px;
+    background-color: #ffffff; 
+    color: #dc2626; 
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15); 
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.alert-container h3 {
+    margin: 0 0 5px 0;
+    font-size: 1.2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.alert-container p {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #4b5563; 
+}
+
+

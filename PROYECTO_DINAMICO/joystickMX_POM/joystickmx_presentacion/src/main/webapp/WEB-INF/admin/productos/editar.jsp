@@ -17,13 +17,15 @@
         <jsp:include page="/WEB-INF/includes/header.jsp"/>
 
         <main>
+            <c:if test="${not empty error}">
+                <div class="alert-container">
+                    <h3>Ocurrió un error</h3>
+                    <p>${error}</p>
+                </div>
+            </c:if>
+
             <div class="form-main">
-                <c:if test="${not empty error}">
-                    <div class="alert-container">
-                        <h3>Ocurrió un error</h3>
-                        <p>${error}</p>
-                    </div>
-                </c:if>
+
 
 
                 <div class="sidebar-image">
