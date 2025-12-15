@@ -75,9 +75,9 @@
                 </div>
 
                 <div>
-                  <label class="form-label" for="registro">Teléfono (Opcional)</label>
+                  <label class="form-label" for="registro">Teléfono</label>
                   <input class="input" id="telefono" name="telefono" type="tel" inputmode="tel" autocomplete="tel"
-                    placeholder="+52">
+                    placeholder="+52" required>
                 </div>
 
                 <div class="terms">
