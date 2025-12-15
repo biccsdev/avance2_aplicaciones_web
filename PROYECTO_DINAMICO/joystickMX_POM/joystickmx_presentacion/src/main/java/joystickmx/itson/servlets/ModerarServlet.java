@@ -75,7 +75,7 @@ public class ModerarServlet extends HttpServlet {
                 
                 // Busca el videojuego por su nombre exacto
                 // Nota: Usamos el método de la fachada (respetando el nombre actual en FachadaBO)
-                VideojuegoDTO videojuego = FachadaBO.buscarVideojuegoPorNombeExacto(nombre);
+                List<VideojuegoDTO> videojuego = FachadaBO.buscarVideojuegosPorNombreParcial(nombre);
                 
                 // Busca las reseñas asociadas a ese nombre de videojuego
                 List<ResenaDTO> resenas = FachadaBO.buscarResenasPorNombreVideojuego(nombre);
