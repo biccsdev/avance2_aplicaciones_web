@@ -102,8 +102,12 @@
                                                         onerror="this.src='${pageContext.request.contextPath}/imgs/iconoImagen.png'">
                                                 </div>
                                                 <div class="videojuego-info">
-                                                    <h3 class="videojuego-nombre">${String.format("%s (%s)", juego.getNombre(), juego.getPlataforma())}</h3>
-                                                    <h2 class="videojuego-precio">$${String.format("%.2f", juego.getPrecio())}</h2>
+                                                    <div class="videojuego-nombre info">
+                                                        <h3>${String.format("%s (%s)", juego.getNombre(), juego.getPlataforma())}</h3>
+                                                    </div>
+                                                    <div class="videojuego-precio info">
+                                                        <h2>$${String.format("%.2f", juego.getPrecio())}</h2>
+                                                    </div>
                                                     <div class="botones-admin">
                                                         <form action="${pageContext.request.contextPath}/admin/productos/editar" method="get">
                                                             <button 
@@ -152,13 +156,13 @@
                                                         onerror="this.src='${pageContext.request.contextPath}/imgs/iconoImagen.png'">
                                                 </div>
                                                 <div class="videojuego-info">
-                                                    <div class="videojuego-nombre">
+                                                    <div class="videojuego-nombre info">
                                                         <h3>${String.format("%s (%s)", juego.getNombre(), juego.getPlataforma())}</h3>
                                                     </div>
-                                                    <div class="videojuego-precio">
+                                                    <div class="videojuego-precio info">
                                                         <h2>$${String.format("%.2f", juego.getPrecio())}</h2>
                                                     </div>
-                                                    <div class="videojuego-existencias">
+                                                    <div class="videojuego-existencias info">
                                                         <h3>Existencias: ${juego.getExistencias()}</h3>
                                                     </div>
                                                 </div>
