@@ -133,3 +133,69 @@ a {
     color: inherit;
 }
 
+@media (max-width: 992px) {
+    body{
+        height: auto;
+    }
+
+    .form-main{
+        flex-direction: column;
+        align-items: center;
+        padding: 0 var(--space-6);
+        gap: var(--space-8);
+    }
+
+    .sidebar-image,
+    .form-producto{
+        width: 90%;
+    }
+
+    .img-producto img{
+        max-width: 60%;
+    }
+
+    .form-div,
+    .button-div{
+        width: 80%;
+        padding: 2%;
+    }
+
+    .form-div-container{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 576px) {
+    body{
+        height: auto;
+    }
+
+    .sidebar-image,
+    .form-producto{
+        width: 100%;
+    }
+
+    .img-producto img{
+        max-width: 80%;
+    }
+
+    .form-div label,
+    .form-producto input,
+    .form-producto select,
+    .btn-crear{
+        font-size: 1em;
+    }
+
+    .form-div textarea{
+        height: 15em;
+    }
+}
+
+@media (max-width: 576px) {
+    .btn-crear {
+        width: 100%;
+        max-width: 300px;
+    }
+}
