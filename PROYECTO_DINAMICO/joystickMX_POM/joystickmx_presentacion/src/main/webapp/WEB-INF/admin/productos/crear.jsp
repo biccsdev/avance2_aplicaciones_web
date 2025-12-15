@@ -13,7 +13,6 @@
     </head>
     <body class="app-bg-animated">
         <jsp:include page="/WEB-INF/includes/header.jsp"/>
-
         <main>
             <div class="form-main">
                 <div class="sidebar-image">
@@ -38,7 +37,13 @@
                       >
                     <div class="form-div">
                         <label for="nombre">Nombre</label>
-                        <input type="text" id="nombre" name="nombre" placeholder="Nombre del videojuego" required>
+                        <input 
+                            type="text" 
+                            id="nombre" 
+                            name="nombre" 
+                            placeholder="Nombre del videojuego" 
+                            maxlength="100" 
+                            required>
                     </div>
 
                     <div class="form-div">
@@ -57,22 +62,47 @@
 
                     <div class="form-div">
                         <label for="descripcion">Descripción</label>
-                        <textarea id="descripcion" name="descripcion" placeholder="Escribe una breve descripción del videojuego..." rows="4" required></textarea>
+                        <textarea 
+                            id="descripcion" 
+                            name="descripcion" 
+                            placeholder="Escribe una breve descripción del videojuego..." 
+                            rows="4"
+                            maxlength="500"
+                            required></textarea>
                     </div>
 
                     <div class="form-div">
                         <label for="desarrollador">Desarrollador</label>
-                        <input type="text" id="desarrollador" name="desarrollador" placeholder="Desarrollador del juego" required>
+                        <input 
+                            type="text" 
+                            id="desarrollador" 
+                            name="desarrollador" 
+                            placeholder="Desarrollador del juego" 
+                            maxlength="100"
+                            required>
                     </div>
 
                     <div class="form-div">
                         <label for="precio">Precio</label>
-                        <input type="number" id="precio" name="precio" placeholder="0.00" step="0.01" min="0" required>
+                        <input 
+                            type="number" 
+                            id="precio" 
+                            name="precio" 
+                            placeholder="0.00" 
+                            step="0.01" 
+                            min="0" 
+                            required>
                     </div>
 
                     <div class="form-div">
                         <label for="existencias">Existencias</label>
-                        <input type="number" id="existencias" name="existencias" placeholder="0" min="0" required>
+                        <input 
+                            type="number" 
+                            id="existencias" 
+                            name="existencias" 
+                            placeholder="0" 
+                            min="0" 
+                            required>
                     </div>
 
                     <div class="form-div">
@@ -93,7 +123,12 @@
 
                     <div class="form-div">
                         <label for="imagenFile">Subir Imagen:</label>
-                        <input type="file" id="imagenFile" name="imagenFile" accept="image/png, image/jpeg, image/jpg" required>
+                        <input 
+                            type="file" 
+                            id="imagenFile" 
+                            name="imagenFile" 
+                            accept="image/png, image/jpeg, image/jpg" 
+                            required>
                     </div>
 
                     <c:if test="${not empty success}">
