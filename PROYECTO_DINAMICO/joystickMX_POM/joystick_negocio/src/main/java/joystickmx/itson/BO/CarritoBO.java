@@ -6,6 +6,7 @@ import joystickmx.itson.DAOS.ClienteDAO;
 import joystickmx.itson.DAOS.VideojuegoDAO;
 import joystickmx.itson.DTO.CarritoDTO;
 import joystickmx.itson.DTO.ItemCarritoDTO;
+import joystickmx.itson.DTO.VideojuegoDTO;
 import joystickmx.itson.DependencyInjectorBO.InjectorBO;
 import joystickmx.itson.Excepciones.PersistenciaException;
 import joystickmx.itson.Mappers.DTOMapeadores;
@@ -35,6 +36,11 @@ public class CarritoBO implements ICarritoBO {
     @Override
     public void crearCarrito(CarritoDTO dto) throws NegocioException {
         try {
+            
+            if (dto == null) {
+                throw new NegocioException("La información del carrito no puede ser nula.");
+            }
+            
             this.carritoDAO.crearCarrito(DTOMapeadores.toCarritoEntity(dto));
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al crear carrito: " + e.getMessage(), e);
@@ -44,6 +50,11 @@ public class CarritoBO implements ICarritoBO {
     @Override
     public CarritoDTO actualizarCarrito(CarritoDTO dto) throws NegocioException {
         try {
+            
+            if (dto == null || dto.getIdCarrito() == null) {
+                throw new NegocioException("Se requieren datos válidos para actualizar el carrito.");
+            }
+            
             Carrito entidad = DTOMapeadores.toCarritoEntity(dto);
             Carrito actualizado = this.carritoDAO.actualizarCarrito(entidad);
             return Mapeadores.toCarritoDTO(actualizado);
@@ -55,6 +66,15 @@ public class CarritoBO implements ICarritoBO {
     @Override
     public CarritoDTO buscarPorId(Long idCarrito) throws NegocioException {
         try {
+            
+            if (idCarrito == null) {
+                throw new NegocioException("El ID del carrito es requerido.");
+            }
+            Carrito carrito = this.carritoDAO.buscarPorId(idCarrito);
+            if (carrito == null) {
+                throw new NegocioException("Carrito no encontrado");
+            }
+            
             return Mapeadores.toCarritoDTO(this.carritoDAO.buscarPorId(idCarrito));
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al buscar carrito por ID: " + e.getMessage(), e);
@@ -64,6 +84,11 @@ public class CarritoBO implements ICarritoBO {
     @Override
     public CarritoDTO buscarPorCliente(Long idCliente) throws NegocioException {
         try {
+            
+            if (idCliente == null) {
+                throw new NegocioException("El ID del cliente es requerido.");
+            }
+            
             Cliente cliente = new Cliente();
             cliente.setIdUsuario(idCliente);
             Carrito carrito = this.carritoDAO.buscarPorCliente(cliente);
@@ -77,6 +102,22 @@ public class CarritoBO implements ICarritoBO {
     @Override
     public void agregarItem(Long idCarrito, ItemCarritoDTO itemDTO) throws NegocioException {
         try {
+            
+            if (idCarrito == null) {
+                throw new NegocioException("El ID del carrito es requerido.");
+            }
+            if (itemDTO == null || itemDTO.getIdVideojuego() == null) {
+                throw new NegocioException("La información del producto a agregar es invalida.");
+            }
+            if (itemDTO.getCantidad() <= 0) {
+                throw new NegocioException("La cantidad debe ser mayor a 0.");
+            }
+            
+            VideojuegoDTO videojuego = InjectorBO.buildVideojuegoBO().buscarPorId(itemDTO.getIdVideojuego());
+            if (videojuego == null || !Boolean.TRUE.equals(videojuego.isHabilitado())) {
+                throw new NegocioException("El videojuego no existe o no está disponible para la venta.");
+            }
+            
             Carrito carritoEntidad = new Carrito();
             carritoEntidad.setIdCarrito(idCarrito);
             List<ItemCarrito> itemsActuales = this.carritoDAO.obtenerItemsCarrito(carritoEntidad);
@@ -108,6 +149,11 @@ public class CarritoBO implements ICarritoBO {
     @Override
     public void eliminarItem(Long idItemCarrito) throws NegocioException {
         try {
+            
+            if (idItemCarrito == null) {
+                throw new NegocioException("El ID del item es requerido.");
+            }
+            
             this.carritoDAO.eliminarItem(idItemCarrito);
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al eliminar item del carrito: " + e.getMessage(), e);
@@ -117,6 +163,11 @@ public class CarritoBO implements ICarritoBO {
     @Override
     public void vaciarCarrito(Long idCarrito) throws NegocioException {
         try {
+            
+            if (idCarrito == null) {
+                throw new NegocioException("El ID del carrito es requerido.");
+            }
+            
             this.carritoDAO.vaciarCarrito(idCarrito);
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al vaciar el carrito: " + e.getMessage(), e);
@@ -126,6 +177,11 @@ public class CarritoBO implements ICarritoBO {
     @Override
     public void eliminarCarrito(Long idCarrito) throws NegocioException {
         try {
+            
+            if (idCarrito == null) {
+                throw new NegocioException("El ID del carrito es requerido.");
+            }
+            
             this.carritoDAO.eliminarCarrito(idCarrito);
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al eliminar el carrito: " + e.getMessage(), e);
@@ -226,6 +282,11 @@ public class CarritoBO implements ICarritoBO {
     @Override
     public ItemCarritoDTO buscarItemPorId(Long idItemCarrito) throws NegocioException{
         try {
+            
+            if(idItemCarrito == null){
+                throw new NegocioException("ID item requerido");
+            }
+            
             return Mapeadores.toItemCarritoDTO(this.carritoDAO.buscarItemPorId(idItemCarrito));
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al consultar el item: " + e.getMessage(), e);
@@ -235,6 +296,10 @@ public class CarritoBO implements ICarritoBO {
     @Override
     public ItemCarritoDTO buscarVideojuegoEnCarrito(Long idCarrito, Long idVideojuego) throws NegocioException{
         try {
+            
+            if(idCarrito == null || idVideojuego == null) 
+                throw new NegocioException("IDs de carrito y videojuego son requeridos");
+            
             return Mapeadores.toItemCarritoDTO(this.carritoDAO.buscarVideojuegoEnCarrito(idCarrito, idVideojuego));
         } catch (PersistenciaException e) {
             throw new NegocioException("Error al verificar la existencia del videojuego en el carrito: " + e.getMessage(), e);
