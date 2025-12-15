@@ -65,53 +65,58 @@ public class ModerarServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        // Obtenemos el nombre del videojuego desde los parámetros (ej. desde index.jsp)
+        String nombre = request.getParameter("nombre");
+        
         try {
-            // En caso de que seleccione un videojuego en el catálogo
-            if(request.getParameter("idVideojuego") != null){
-                String idVideojuego = request.getParameter("idVideojuego");
-                // Extrae el ID del videojuego
-                Long idVideojuegoLong = Long.valueOf(idVideojuego);
-                // Busca el videojuego
-                VideojuegoDTO videojuego = FachadaBO.buscarVideojuegoPorId(idVideojuegoLong);
-                // Busca las resenas del videojuego
-                List<ResenaDTO> resenas = FachadaBO.buscarResenasPorVideojuego(idVideojuegoLong);
-                // Lista con los detalles de la reseña
+            // En caso de que seleccione un videojuego en el catálogo (Búsqueda por Nombre)
+            if (nombre != null && !nombre.isEmpty()) {
+                
+                // Busca el videojuego por su nombre exacto
+                // Nota: Usamos el método de la fachada (respetando el nombre actual en FachadaBO)
+                VideojuegoDTO videojuego = FachadaBO.buscarVideojuegoPorNombeExacto(nombre);
+                
+                // Busca las reseñas asociadas a ese nombre de videojuego
+                List<ResenaDTO> resenas = FachadaBO.buscarResenasPorNombreVideojuego(nombre);
+                
+                // Lista con los detalles completos de la reseña (incluyendo nombre de usuario)
                 List<VideojuegoResenaDTO> resenasVideojuegos = obtenerResenas(resenas);
                 
-                // Agrega ambos valores a la petición
+                // Agrega ambos valores a la petición para usarlos en el JSP
                 request.setAttribute("videojuego", videojuego);
                 request.setAttribute("resenas", resenasVideojuegos);
-                // Envía la petición al JSP
-                request.getRequestDispatcher("/WEB-INF/admin/resenas/moderar.jsp").forward(request, response);
-            } else if(request.getParameter("nombreVideojuego") != null){
                 
-                String nombreVideojuego = request.getParameter("nombreVideojuego");
-                List<ResenaDTO> resenas = FachadaBO.buscarResenasPorNombreVideojuego(nombreVideojuego);
-                // Lista con los detalles de la reseña
-                List<VideojuegoResenaDTO> resenasVideojuegos = obtenerResenas(resenas);
-                
-                request.setAttribute("resenas", resenasVideojuegos);
+                // Envía la petición al JSP de moderación
                 request.getRequestDispatcher("/WEB-INF/admin/resenas/moderar.jsp").forward(request, response);
                 
             } else if(request.getParameter("calificacion") != null){
+                // Caso de filtrado por calificación
                 String calificacion = request.getParameter("calificacion");
-                Float calificacionLong = Float.valueOf(calificacion);
-                List<ResenaDTO> resenas = FachadaBO.buscarResenasPorCalificacion(calificacionLong);
+                Float calificacionFloat = Float.valueOf(calificacion);
+                
+                List<ResenaDTO> resenas = FachadaBO.buscarResenasPorCalificacion(calificacionFloat);
+                
                 // Lista con los detalles de la reseña
                 List<VideojuegoResenaDTO> resenasVideojuegos = obtenerResenas(resenas);
                 
                 request.setAttribute("resenas", resenasVideojuegos);
                 request.getRequestDispatcher("/WEB-INF/admin/resenas/moderar.jsp").forward(request, response);
-            } else{
+                
+            } else {
+                // Caso por defecto: Mostrar todas las reseñas si no hay filtros
                 List<ResenaDTO> resenas = FachadaBO.buscarTodasLasResenas();
+                
                 // Lista con los detalles de la reseña
                 List<VideojuegoResenaDTO> resenasVideojuegos = obtenerResenas(resenas);
                 
                 request.setAttribute("resenas", resenasVideojuegos);
                 request.getRequestDispatcher("/WEB-INF/admin/resenas/moderar.jsp").forward(request, response);
             }
+            
         } catch (ServletException | IOException | NumberFormatException | NegocioException e) {
-            request.setAttribute("mensaje", "Error durante la consulta de las reseñas.");
+            e.printStackTrace();
+            request.setAttribute("mensaje", "Error durante la consulta de las reseñas: " + e.getMessage());
             request.getRequestDispatcher("/index.jsp").forward(request, response);
         }
     }

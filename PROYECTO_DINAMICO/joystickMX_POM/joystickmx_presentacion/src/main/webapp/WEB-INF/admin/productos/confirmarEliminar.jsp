@@ -25,7 +25,8 @@
                     <img src="${pageContext.request.contextPath}${videojuego.urlImagen}" 
                          alt="Portada" 
                          class="img-producto"
-                         style="object-fit: cover;">
+                         style="object-fit: cover;"
+                         onerror="this.src='${pageContext.request.contextPath}/imgs/iconoImagen.png'">
                 </div>
             </div>
 
@@ -78,13 +79,13 @@
                     Dejará de estar disponible para su venta de ahora en adelante.
                 </span>
                 <div class="confirmation-buttons">
-                    
+
                     <form action="${pageContext.request.contextPath}/admin/productos/confirmar-eliminar" method="POST">
                         <input type="hidden" name="idVideojuego" value="${videojuego.idVideojuego}">
                         <button type="submit" class="eliminar-button">ELIMINAR</button>
                     </form>
 
-                    <a href="${pageContext.request.contextPath}/admin/productos/editar?idVideojuego=${videojuego.idVideojuego}">
+                    <a href="${pageContext.request.contextPath}/admin/productos/editar?nombre=${videojuego.nombre}">
                         <button class="cancelar-button">Regresar</button>
                     </a>
                 </div>

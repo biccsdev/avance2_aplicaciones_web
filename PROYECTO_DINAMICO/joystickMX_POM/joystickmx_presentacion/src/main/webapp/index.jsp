@@ -125,16 +125,16 @@
                                                             <button 
                                                                 type="submit" 
                                                                 class="btn-carrito btn-dark btn-admin" 
-                                                                name="idVideojuego" 
-                                                                value="${juego.getIdVideojuego()}"> 
+                                                                name="nombre" 
+                                                                value="${juego.getNombre()}">
                                                                 Editar 
                                                             </button>
                                                         </form>
                                                         <form name="moderar" action="${pageContext.request.contextPath}/admin/moderar" method="get">
                                                             <button 
                                                                 class="btn-carrito btn-dark btn-admin" 
-                                                                name="idVideojuego" 
-                                                                value="${juego.getIdVideojuego().toString()}">
+                                                                name="nombre" 
+                                                                value="${juego.getNombre()}">
                                                                 Reseñas
                                                             </button>
                                                         </form>
@@ -148,8 +148,8 @@
                                         <li 
                                             id="videojuego-item" 
                                             class="videojuego-item" 
-                                            onmouseover="this.style.cursor='pointer';" 
-                                            onmouseout="this.style.cursor='default';"
+                                            onmouseover="this.style.cursor ='pointer';" 
+                                            onmouseout="this.style.cursor ='default';"
                                             onclick ="document.getElementById('videojuego-form-${estado.index}').submit(); return false;"
                                         >
                                             <form 

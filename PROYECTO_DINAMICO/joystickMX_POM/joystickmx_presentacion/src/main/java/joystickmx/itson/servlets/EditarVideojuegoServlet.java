@@ -62,31 +62,24 @@ public class EditarVideojuegoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String idStr = request.getParameter("idVideojuego");
-
+        String nombre = request.getParameter("nombre");
+        
         try {
-            if (idStr == null || idStr.isEmpty()) {
-                throw new NegocioException("ID de videojuego no proporcionado.");
+            if (nombre != null && !nombre.isEmpty()) {
+                VideojuegoDTO videojuego = FachadaBO.buscarVideojuegoPorNombeExacto(nombre);
+                
+                if (videojuego != null) {
+                    request.setAttribute("videojuego", videojuego);
+                    request.getRequestDispatcher("/WEB-INF/admin/productos/editar.jsp").forward(request, response);
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/home?error=NoEncontrado");
+                }
+            } else {
+                response.sendRedirect(request.getContextPath() + "/home");
             }
-
-            Long idVideojuego = Long.parseLong(idStr);
-
-            VideojuegoDTO videojuego = FachadaBO.buscarVideojuegoPorId(idVideojuego);
-            if (videojuego == null) {
-                throw new NegocioException("Videojuego no encontrado.");
-            }
-
-            List<CategoriaDTO> categorias = FachadaBO.buscarTodasCategorias();
-
-            request.setAttribute("videojuego", videojuego);
-            request.setAttribute("categoriasDisponibles", categorias);
-
-            request.getRequestDispatcher("/WEB-INF/admin/productos/editar.jsp").forward(request, response);
-
-        } catch (NegocioException | NumberFormatException e) {
-            LOG.log(Level.SEVERE, "Error al cargar edición", e);
-            response.sendRedirect(request.getContextPath() + "/home?error=" + e.getMessage());
+        } catch (NegocioException e) {
+            e.printStackTrace();
+            response.sendRedirect(request.getContextPath() + "/home?error=ErrorInterno");
         }
     }
 

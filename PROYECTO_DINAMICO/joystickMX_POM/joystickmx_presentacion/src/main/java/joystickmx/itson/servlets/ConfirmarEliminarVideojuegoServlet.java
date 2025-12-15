@@ -40,15 +40,15 @@ public class ConfirmarEliminarVideojuegoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String idStr = request.getParameter("idVideojuego");
+        String nombre = request.getParameter("nombre");
 
         try {
-            if (idStr == null || idStr.isEmpty()) {
-                throw new NegocioException("ID de videojuego no proporcionado.");
+            if (nombre == null || nombre.isEmpty()) {
+                throw new NegocioException("Nombre de videojuego no proporcionado.");
             }
-            Long idVideojuego = Long.parseLong(idStr);
 
-            VideojuegoDTO videojuego = FachadaBO.buscarVideojuegoPorId(idVideojuego);
+            VideojuegoDTO videojuego = FachadaBO.buscarVideojuegoPorNombeExacto(nombre);
+            
             if (videojuego == null) {
                 throw new NegocioException("El videojuego no existe.");
             }
@@ -91,7 +91,6 @@ public class ConfirmarEliminarVideojuegoServlet extends HttpServlet {
             FachadaBO.deshabilitarVideojuego(idVideojuego);
 
             request.setAttribute("videojuego", videojuego);
-
             request.setAttribute("categoriasDisponibles", FachadaBO.buscarTodasCategorias());
 
             request.getRequestDispatcher("/WEB-INF/admin/productos/productoEliminado.jsp").forward(request, response);

@@ -27,14 +27,11 @@
                              class="img-producto"
                              style="object-fit: cover;"
                              onerror="this.src='${pageContext.request.contextPath}/imgs/iconoImagen.png'">
-                             
-                             
-                        
                     </div>
                 </div>
 
                 <form class="form-producto" 
-                      action="${pageContext.request.contextPath}/admin/productos/editar?idVideojuego=${videojuego.idVideojuego}" 
+                      action="${pageContext.request.contextPath}/admin/productos/editar?nombre=${videojuego.nombre}" 
                       method="POST" 
                       enctype="multipart/form-data">
 
@@ -104,7 +101,7 @@
                     <div class="button-div">
                         <button type="submit" class="btn-crear">Guardar Cambios</button>
 
-                        <a href="${pageContext.request.contextPath}/admin/productos/confirmar-eliminar?idVideojuego=${videojuego.idVideojuego}">
+                        <a href="${pageContext.request.contextPath}/admin/productos/confirmar-eliminar?nombre=${videojuego.nombre}">
                             <button type="button" class="btn-eliminar">ELIMINAR</button>
                         </a>
                     </div>
