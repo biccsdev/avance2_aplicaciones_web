@@ -24,16 +24,22 @@
                     <img id="videojuego-imagen" class="videojuego-imagen" src="">
                 </div>
                 <div class="videojuego-info">
-                    <h3 id="videojuego-nombre" class="videojuego-nombre"></h3>
-                    <h4 id="videojuego-existencias" class="videojuego-existencias">Existencias: </h4>
+                    <div class="videojuego-nombre detalle">
+                        <h3 id="videojuego-nombre"></h3>
+                    </div>
+                    <div class="videojuego-existencias detalle">
+                        <h4 id="videojuego-existencias">Existencias: </h4>
+                    </div>
                     <div class="videojuego-precio-carrito">
-                        <h2 id="videojuego-precio" class="videojuego-precio">$</h2>
+                        <h2 id="videojuego-precio">$</h2>
                         <button id="btn-carrito" class="btn-carrito btn-dark">
                             Agregar al carrito
                             <img src="${pageContext.request.contextPath}/imgs/carrito.png">
                         </button>
                     </div>
-                    <p id="videojuego-descripcion" class="videojuego-descripcion"></p>
+                    <div class="videojuego-descripcion detalle">
+                        <p id="videojuego-descripcion"></p>
+                    </div>
                 </div>
                 <div class="videojuego-especificaciones">
                     <h3>Especificaciones técnicas</h3>
