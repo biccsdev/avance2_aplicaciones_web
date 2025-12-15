@@ -52,6 +52,28 @@ a {
     color: inherit;
 }
 
+.input-large.selected {
+    border: 2px solid #000;
+    outline: none;
+    background-color: #fff;
+}
+
+.input-large.error {
+    border: 2px solid #ff4444;
+    background-color: #fff0f0;
+}
+
+.input-large {
+    transition: all 0.3s ease;
+    border: 1px solid #ccc;
+}
+
+/* Valido (Verde) - NUEVO */
+.input-large.valid {
+    border: 2px solid #28a745; /* Verde bonito */
+    background-color: #f0fff4;
+}
+
 /* Desktop */
 @media (min-width: 768px) {
   .profile-container {
@@ -70,5 +92,68 @@ a {
     grid-template-columns: 1fr 1fr;
     gap: var(--space-5);
   }
+  
+  .profile-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+}
+
+.profile-title-big {
+    font-size: 48px;
+    text-align: center;
+    margin-bottom: 40px;
+    color: white;
+}
+
+.profile-card-simple {
+    width: 100%;
+    max-width: 600px;
+    background: transparent;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.form-label {
+    font-size: 16px;
+    color: white;
+}
+
+.input-large {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 4px;
+    border: none;
+    font-size: 15px;
+}
+
+.form-row-2 {
+    display: flex;
+    gap: 20px;
+}
+
+.btn-black-big {
+    width: 260px;
+    padding: 14px;
+    background: black;
+    color: white;
+    font-size: 18px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.form-actions-center {
+    display: flex;
+    justify-content: center;
+}
+  
 }
 

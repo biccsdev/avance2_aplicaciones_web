@@ -10,6 +10,14 @@
     margin-bottom: 5px;
 }
 
+
+.lista-productos-resumen{
+    margin-bottom: 20px; 
+    font-size: 0.9em; 
+    color: #FFFFFF;
+}
+
+
 .resumen {
     display: flex;
     justify-content: center;
@@ -48,6 +56,11 @@
     text-align: right;
     min-width: 70px;
     font-weight: 600;
+}
+
+.lbl-metodo-pago{
+    font-size: 0.8rem;
+    color: #333333;
 }
 
 .total-item>span:last-child {

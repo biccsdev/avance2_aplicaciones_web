@@ -1,13 +1,16 @@
-@import url("../global.css");
-@import url("../Header/header.css");
+@import url("./global.css");
+@import url("./header.css");
 
 body{
+    margin: 0;
+    padding: 0;
+    width: 100vw;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-header{
-    height: fit-content;
-}
+header{ height: fit-content; }
 
 .grid-container{
     width: 100%;
@@ -20,6 +23,7 @@ header{
     display: grid;
     grid-template-columns: 25% 75%;
     grid-template-rows: 100%;
+    overflow: auto;
 }
 
 .seccion-productos{
@@ -30,12 +34,14 @@ header{
 
 .filtro-busqueda{
     width: 80%;
+    height: 23.68vw;
     background-color: var(--gray-100);
     align-self: start;
     justify-self: center;
     display: flex;
     flex-direction: column;
-    margin-top: 25%;
+    justify-content: space-evenly;
+    margin-top: 2vw;
     padding: 10%;
     border-radius: 0.8em;
 }
@@ -49,23 +55,25 @@ header{
 
 .filtro-titulo, .filtro-cantidad{
     color: var(--text-primary);
-    font-size: 0.8em;
+    font-size: 1em;
     font-weight: 500;
 }
 
-.filtro-rango{
-    width: 100%;
-}
+.filtro-rango{ width: 100%; }
 
 .filtro-select{
-    width: 60%;
+    width: 100%;
+    height: 12%;
     background: var(--surface);
     color: var(--text-primary);
     border: 0.1em solid var(--border-color);
     border-radius: 0.5em;
-    font-size: 0.7em;
+    font-family: var(--font-sans-nunito);
+    font-size: 0.8em;
     font-weight: 500;
+    text-wrap: wrap;
     margin-top: 0.7em;
+    padding: 1%;
 }
 
 .videojuego-lista{
@@ -83,14 +91,16 @@ header{
     overflow: auto;
 }
 
-.videojuego-item{
+.videojuego-item {
     background-color: var(--gray-100);
     border-radius: 3%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.videojuego-item:hover{
-    cursor: pointer;
-    
+.videojuego-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 10;
 }
 
 .videojuego{
@@ -98,7 +108,7 @@ header{
     width: 100%;
     height: 100%;
     grid-template-columns: 100%;
-    grid-template-rows: 75% 25%;
+    grid-template-rows: 60% 40%;
     padding: 2%;
 }
 
@@ -109,36 +119,72 @@ header{
     grid-row-end: 3;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-around;
     padding: 4%;
     overflow: hidden;
-    text-overflow: ellipsis;
 }
 
-.videojuego-info > .videojuego-nombre{
+.videojuego-info > .info{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     max-width: 100%;
-    font-size: 0.8em;
-    font-weight: 400;
+    overflow: hidden;
+}
+
+.videojuego-nombre{
+    height: 50%;
     margin: 0px;
 }
 
-.videojuego-info > .videojuego-precio{
-    max-width: 100%;
-    font-size: 90%;
+.videojuego-nombre > h3{
+    font-size: 0.95em;
+    font-weight: 500;
+}
+
+.videojuego-precio{
+    height: 25%;
     margin: 0px;
+}
+
+.videojuego-precio > h2{
+    font-size: 1.15em;
     font-weight: 700;
 }
 
+.videojuego-existencias{ height: 25%; }
+
+.videojuego-existencias > h3{
+    font-size: 0.95em;
+    font-weight: 400;
+}
+
+.botones-admin{
+    max-width: 100%;
+    height: 25%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 100%;
+    justify-content: center;
+}
+
 .btn-carrito{
-    display: none;
-    width: fit-content;
+    width: 100%;
+    height: 15%;
     padding: 5%;
     font-weight: bold;
-    font-size: 3vw;
+    font-size: 0.9em;
+    font-family: var(--font-sans-nunito);
     border: 0;
     border-radius: 0.7em;
     cursor: pointer;
     transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+}
+
+.btn-admin{
+    width: 90%;
+    height: 100%;
+    font-size: 0.8em;
 }
 
 .videojuego-imagen{
@@ -163,7 +209,20 @@ a {
     color: inherit;
 }
 
-@media (min-width: 768px) and (max-width: 992px){
+@media (min-width: 1280px) and (max-width: 1440px){
+
+    .videojuego-nombre > h3{ font-size: 1vw; }
+
+    .videojuego-precio > h2{ font-size: 1.2vw; }
+
+    .videojuego-existencias > h3{ font-size: 1vw; }
+    
+    .btn-carrito{ font-size: 1vw; }
+
+}
+
+@media (min-width: 992px) and (max-width: 1280px){
+    
     .videojuego-lista{
         display: grid;
         grid-template-columns: repeat(4, 22%);
@@ -172,13 +231,47 @@ a {
         padding: 1.92vw 0%;
     }
 
-    .videojuego-info > .videojuego-nombre{
-        font-size: 0.66em;
+    .filtro-busqueda{ height: 30.288vw; }
+
+    .filtro-titulo, .filtro-cantidad{ font-size: 0.9em; }
+
+    .filtro-select{ font-size: 0.75em; }
+
+    .videojuego-nombre > h3{ font-size: 1.2vw; }
+
+    .videojuego-precio > h2{ font-size: 1.4vw; }
+
+    .videojuego-existencias > h3{ font-size: 1.2vw; }
+    
+    .btn-carrito{ font-size: 0.75em; }
+
+}
+
+@media (min-width: 768px) and (max-width: 992px){
+
+    .videojuego-lista{
+        display: grid;
+        grid-template-columns: repeat(3, 30%);
+        grid-auto-rows: 40.3636vw;
+        row-gap: 2vw;
     }
 
-    .videojuego-info > .videojuego-precio{
-        font-size: 80%;
+    .filtro-busqueda{ height: 40.3636vw; }
+
+    .filtro-titulo, .filtro-cantidad{ font-size: 0.9em; }
+
+    .filtro-select{
+        font-size: 0.7em;
+        height: 40px;
     }
+
+    .videojuego-nombre > h3{ font-size: 1.5vw; }
+
+    .videojuego-precio > h2{ font-size: 2vw; }
+    
+    .videojuego-existencias > h3{ font-size: 1.5vw; }
+
+    .btn-carrito{ font-size: 0.75em; }
 
 }
 
@@ -190,18 +283,32 @@ a {
         grid-auto-rows: 40.3636vw;
         row-gap: 2vw;
     }
+    
+    .filtro-busqueda{ height: 40.3636vw; }
 
-    .videojuego-info > .videojuego-nombre{
+    .filtro-titulo, .filtro-cantidad{ font-size: 0.9em; }
+
+    .filtro-select{
         font-size: 0.6em;
+        height: 40px;
     }
 
-    .videojuego-info > .videojuego-precio{
-        font-size: 70%;
-    }
+    .videojuego-nombre > h3{ font-size: 11px; }
+
+    .videojuego-precio > h2{ font-size: 13px; }
+    
+    .videojuego-existencias > h3{ font-size: 11px; }
+
+    .btn-carrito{ font-size: 0.65em; }
 
 }
 
 @media (max-width: 576px){
+
+    body{
+        width: auto;
+        height: auto;
+    }
 
     .videojuego-container{
         display: flex;
@@ -210,19 +317,18 @@ a {
 
     .filtro-busqueda{
         width: 80%;
+        height: auto;
         padding: 2.5%;
         margin: 2.5% 0%;
         align-self: center;
     }
 
-    .filtro-titulo, .filtro-cantidad{
-        font-size: 0.6em;
-    }
+    .filtro-titulo, .filtro-cantidad{ font-size: 3vw; }
 
     .filtro-select{
         border: 0.1em solid var(--border-color);
         border-radius: 0.5em;
-        font-size: 0.5em;
+        font-size: 2.5vw;
     }
 
     .videojuego-lista{
@@ -232,9 +338,7 @@ a {
         row-gap: 5vw;
     }
 
-    .videojuego-item{
-        border-radius: 0.5em;
-    }
+    .videojuego-item{ border-radius: 0.5em; }
 
     .videojuego{
         grid-template-columns: 30% 70%;
@@ -249,9 +353,7 @@ a {
         padding: 3%;
     }
 
-    .videojuego-imagen > img{
-        border-radius: 0.5em;
-    }
+    .videojuego-imagen > img{ border-radius: 0.5em; }
 
     .videojuego-info{
         grid-column-start: 2;
@@ -260,17 +362,45 @@ a {
         grid-row-end: 2;
         justify-content: space-evenly;
     }
-
-    .videojuego-info > .videojuego-nombre{
-        font-size: 2.8vw;
+    
+    .botones-admin{
+        display:grid;
+        grid-template-columns: 47.5% 47.5%;
+        column-gap: 5%;
+        grid-auto-rows: 100%;
     }
+    
+    .videojuego-nombre{ height: 33.3333%; }
 
-    .videojuego-info > .videojuego-precio{
-        font-size: 3vw;
+    .videojuego-nombre > h3{ font-size: 2.8vw; }
+
+    .videojuego-precio{ height: 33.3333%; }
+
+    .videojuego-precio > h2{ font-size: 3vw; }
+    
+    .videojuego-existencias{ height: 33.3333%; }
+
+    .videojuego-existencias > h3{
+        font-size: 2.8vw;
+        font-weight: 400;
     }
 
     .btn-carrito{
-        display: block;
+        width: fit-content;
+        height: fit-content;
+        font-size: 3vw;
+    }
+    
+    .botones-admin{
+        height: 33.3333%;
+    }
+
+    .btn-admin{
+        width: 100%;
+        height: fit-content;
+        border-radius: 0.5em;
+        padding: 5%;
+        font-size: 2.8vw;
     }
 
 }

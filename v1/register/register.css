@@ -1,48 +1,79 @@
 
-.auth-title { margin-bottom: var(--space-6); }
-
-.field-row {
-  display: grid;
-  gap: var(--space-4);
+.auth-title {
+    margin-bottom: var(--space-6);
 }
 
-.field { display: grid; gap: var(--space-2); }
+.field-row {
+    display: grid;
+    gap: var(--space-4);
+}
+
+.field {
+    display: grid;
+    gap: var(--space-2);
+}
 
 @media (min-width: 520px) {
-  .field-row { grid-template-columns: 1fr 1fr; }
+    .field-row {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 .terms {
-  display: grid;
-  grid-template-columns: 20px 1fr;
-  align-items: start;
-  gap: var(--space-3);
-  color: var(--text-secondary);
-  font-size: 0.85rem;
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    align-items: start;
+    gap: var(--space-3);
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+}
+
+
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
 }
 
 .terms input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  margin: 0;
-  accent-color: var(--primary-500);
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    accent-color: var(--primary-500);
 }
 
 .header-brand {
-  font-size: var(--font-size-large) !important;
-  display:flex !important;
-  align-items: center !important;
-  padding-left: 12px !important;
-  justify-content: center !important;
+    font-size: var(--font-size-large) !important;
+    display:flex !important;
+    align-items: center !important;
+    padding-left: 12px !important;
+    justify-content: center !important;
 }
 
-.brand-title { color: var(--color-white); }
+.brand-title {
+    color: var(--color-white);
+}
 
 @media (min-width: 800px) {
-  .brand-header { padding-top: 12px !important; }
-  .auth-card { height: auto !important; margin-top:  calc(-1 * var(--space-8)) !important; padding-top:10px; padding-bottom:10px }
+    .brand-header {
+        padding-top: 12px !important;
+    }
+    .auth-card {
+        height: auto !important;
+        margin-top:  calc(-1 * var(--space-8)) !important;
+        padding-top:10px;
+        padding-bottom:10px
+    }
 }
 
-.login-card { padding-bottom: max(var(--space-6), var(--safe-bottom)); }
+.login-card {
+    padding-bottom: max(var(--space-6), var(--safe-bottom));
+}
 
 

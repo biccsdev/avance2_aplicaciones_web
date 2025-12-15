@@ -32,7 +32,7 @@
 
 .productos-header {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     background-color: transparent;
     color: white;
     padding: 0px 24px 12px 24px;
@@ -196,8 +196,33 @@
     transition: background-color 0.3s ease;
 }
 
+.btn-vaciar {
+    background-color: #212121;
+    color: var(--color-white);
+    border: none;
+    border-radius: 12px;
+    padding: 15px;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+}
+
+.btn-vaciar:hover {
+    background-color: #000000;
+}
+
 .btn-pago:hover {
     background-color: var(--primary-600);
+}
+
+.btn-disabled {
+    opacity: 0.4;
+    pointer-events: none;
+    cursor: default !important;
+    filter: grayscale(100%);
 }
 
 a {
@@ -327,4 +352,28 @@ a {
         padding: 12px;
         font-size: 15px;
     }
+}
+
+
+
+
+.item-deshabilitado {
+    background-color: #f8d7da;
+    border: 2px solid #f5c6cb;
+    opacity: 0.8;
+}
+
+.error-msg-item {
+    color: #721c24;
+    font-weight: bold;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    background-color: rgba(255,255,255,0.5);
+    padding: 2px 5px;
+    border-radius: 4px;
+}
+
+.btn-warning {
+    background-color: #ffc107 !important;
+    color: #212529 !important;
 }

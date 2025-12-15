@@ -3,11 +3,11 @@
 .div-main {
     margin-top: var(--space-8);
     display: flex;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     gap: var(--space-12);
     max-width: 1400px;
     padding: 0 var(--space-6);
-    margin-left: auto; 
+    margin-left: auto;
     margin-right: auto;
     align-items: flex-start;
 }
@@ -45,11 +45,11 @@
 }
 
 .main-users {
-    flex: 2; 
+    flex: 2;
     min-width: 400px;
     display: flex;
     flex-direction: column;
-    gap: var(--space-4); 
+    gap: var(--space-4);
 }
 
 .user-item {
@@ -58,7 +58,7 @@
     border-radius: var(--radius-md);
     display: flex;
     flex-direction: row;
-    align-items: center; 
+    align-items: center;
     gap: var(--space-4);
     background-color: #D1A7FF;
     color: #000;
@@ -81,7 +81,7 @@
 
 .user-data h4, .user-data h6 {
     margin: 0;
-    line-height: 1.4; 
+    line-height: 1.4;
 }
 
 .user-data h4 {
@@ -130,7 +130,7 @@
     min-width: 100px;
     text-align: center;
     transition: opacity 0.2s;
-    
+
 }
 
 .btn-activar:hover, .btn-desactivar:hover, .btn-eliminar:hover {
@@ -138,23 +138,44 @@
 }
 
 
-.btn-activar { 
+.btn-activar {
     background-color: #11d911;
     color: #000;
-    }
+}
 
 
-.btn-desactivar { 
-    background-color: #ff4d4f; 
-    color: #000; 
-    }
+.btn-desactivar {
+    background-color: #ff4d4f;
+    color: #000;
+}
 
 
 .btn-eliminar {
-     background-color: #000000;
-      color: white
+    background-color: #000000;
+    color: white
 
-    }
+}
+
+.user-actions {
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    gap: var(--space-2);
+}
+
+.user-action-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+button:disabled,
+button[disabled] {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
 
 /* Responsive */
 @media (max-width: 768px) {
