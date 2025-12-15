@@ -1,10 +1,22 @@
-
+/**
+ * @file pago.js
+ * @description Gestiona la lógica de la pantalla de selección de método de pago.
+ * Controla la visualización del formulario de tarjeta, valida los inputs de pago,
+ * verifica el stock disponible antes de proceder y redirige a la confirmación.
+ * @author Ariel y Sebas
+ */
 
 document.addEventListener("DOMContentLoaded", () => {
     cargarResumenPago();
     mostrarFormularioTarjeta();
 });
 
+/**
+ * Controla la visibilidad del formulario de tarjeta de crédito/débito.
+ * Si el usuario selecciona "TARJETA", muestra los campos y los hace obligatorios.
+ * Si selecciona otro método, oculta el formulario y limpia los campos.
+ * @function mostrarFormularioTarjeta
+ */
 function mostrarFormularioTarjeta() {
     const metodoSeleccionado = document.querySelector("input[name='metodoPago']:checked").value;
     const seccionTarjeta = document.getElementById("seccion-tarjeta");
@@ -24,17 +36,24 @@ function mostrarFormularioTarjeta() {
     }
 }
 
+/**
+ * Obtiene el resumen del carrito desde el servidor para mostrar los montos antes de pagar.
+ * Calcula el subtotal, agrega el costo de envío fijo y actualiza el DOM.
+ * @async
+ * @function cargarResumenPago
+ * @returns {Promise<void>}
+ */
 async function cargarResumenPago() {
     const contenedorItems = document.getElementById("lista-resumen-items");
     const lblSubtotal = document.getElementById("lbl-subtotal");
     const lblTotal = document.getElementById("lbl-total-final");
     const lblCantidad = document.getElementById("lbl-cantidad-productos");
     const btnConfirmar = document.getElementById("btn-confirmar-pedido");
+
     const COSTO_ENVIO = 100.00;
 
     try {
         const urlApi = `${CONTEXT_PATH}/resources/carrito/usuario/${ID_USUARIO_ACTUAL}`;
-
         const response = await fetch(urlApi);
 
         if (!response.ok)
@@ -43,6 +62,7 @@ async function cargarResumenPago() {
         const carrito = await response.json();
         const items = carrito.items || [];
 
+        // Limpiamos los contenedores
         contenedorItems.innerHTML = "";
         let subtotal = 0;
         let cantidadTotalItems = 0;
@@ -57,6 +77,7 @@ async function cargarResumenPago() {
         if (btnConfirmar)
             btnConfirmar.disabled = false;
 
+        // ForEach para el subtotal y la lista de manera visual
         items.forEach(item => {
             const nombre = item.videojuego ? item.videojuego.nombre : "Producto";
             const precio = item.videojuego ? item.videojuego.precio : 0;
@@ -65,6 +86,7 @@ async function cargarResumenPago() {
             subtotal += totalItem;
             cantidadTotalItems += item.cantidad;
 
+            // Template literal para la fila del producto en el resumen
             const htmlItem = `
                 <div class="detalles-item-carrito">
                     <span>${nombre} (x${item.cantidad})</span>
@@ -92,6 +114,14 @@ async function cargarResumenPago() {
     }
 }
 
+/**
+ * Ejecuta la validación final y la transición a la confirmación de pedido.
+ * Valida los datos de tarjeta (si aplica), verifica el stock en el servidor
+ * y guarda la información necesaria en sessionStorage.
+ * @async
+ * @function procesarPago
+ * @returns {Promise<void>}
+ */
 async function procesarPago() {
     const metodo = document.querySelector("input[name='metodoPago']:checked")?.value;
 
@@ -106,6 +136,7 @@ async function procesarPago() {
         const expiracion = document.getElementById("fechaExpiracion").value.trim();
         const cvv = document.getElementById("cvv").value.trim();
 
+                //validaciones tarjeta
         if (!validarNumeroTarjeta(numero)) {
             alert("Número de tarjeta inválido");
             return;
@@ -123,17 +154,18 @@ async function procesarPago() {
             return;
         }
 
-        // DUMMY
         sessionStorage.setItem("datosPagoDetalle", JSON.stringify({numero: numero.slice(-4), nombre: nombre}));
     } else {
         sessionStorage.removeItem("datosPagoDetalle");
     }
 
     const btnConfirmar = document.getElementById("btn-confirmar-pedido");
+
     try {
         if (btnConfirmar)
             btnConfirmar.disabled = true;
 
+        // checamos existencias con la api
         const urlValidacion = `${CONTEXT_PATH}/resources/carrito/usuario/${ID_USUARIO_ACTUAL}/validar-stock`;
         const response = await fetch(urlValidacion);
 
@@ -142,6 +174,7 @@ async function procesarPago() {
 
         const resultado = await response.json();
 
+        
         if (Array.isArray(resultado) && resultado.length > 0) {
             let mensajeAlerta = "NO SE PUEDE CONTINUAR ️\n\nAlgunos productos superan las existencias disponibles:\n\n";
 
@@ -159,11 +192,10 @@ async function procesarPago() {
         console.error("Error validando stock:", error);
         alert("Ocurrió un error al verificar las existencias. Intente nuevamente.");
         return;
-    } finally {
+    } finally { 
         if (btnConfirmar)
             btnConfirmar.disabled = false;
     }
-
 
     sessionStorage.setItem("metodoPagoSeleccionado", metodo);
 
@@ -173,18 +205,31 @@ async function procesarPago() {
     }
 }
 
-// Valida formato 16 dígitos
+
+/**
+ * Valida que la tarjeta tenga entre 13 y 19 dígitos numéricos.
+ * @param {string} numero - Número de tarjeta.
+ * @returns {boolean}
+ */
 function validarNumeroTarjeta(numero) {
     const limpio = numero.replace(/\s+/g, "");
     return /^[0-9]{13,19}$/.test(limpio);
 }
 
-// Valida nombre
+/**
+ * Valida que el nombre solo contenga letras y espacios.
+ * @param {string} nombre - Nombre del titular.
+ * @returns {boolean}
+ */
 function validarNombreTitular(nombre) {
     return /^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$/.test(nombre.trim());
 }
 
-// Valida MM/AA y que no este vencida
+/**
+ * Valida el formato MM/AA y que la tarjeta no esté vencida.
+ * @param {string} fecha - Fecha en formato MM/AA.
+ * @returns {boolean}
+ */
 function validarFechaExpiracion(fecha) {
     fecha = fecha.trim();
     if (!/^\d{2}\/\d{2}$/.test(fecha))
@@ -197,10 +242,9 @@ function validarFechaExpiracion(fecha) {
     if (mes < 1 || mes > 12)
         return false;
 
-    // Obtener fecha actual
     const hoy = new Date();
-    const mesActual = hoy.getMonth() + 1;
-    const anioActual = hoy.getFullYear() % 100;
+    const mesActual = hoy.getMonth() + 1; 
+    const anioActual = hoy.getFullYear() % 100; // Últimos 2 dígitos del año
 
     if (anio < anioActual)
         return false;
@@ -211,8 +255,11 @@ function validarFechaExpiracion(fecha) {
     return true;
 }
 
-// Valida CVV
+/**
+ * Valida que el CVV tenga 3 o 4 dígitos.
+ * @param {string} cvv - Código de seguridad.
+ * @returns {boolean}
+ */
 function validarCVV(cvv) {
     return /^[0-9]{3,4}$/.test(cvv);
 }
-
