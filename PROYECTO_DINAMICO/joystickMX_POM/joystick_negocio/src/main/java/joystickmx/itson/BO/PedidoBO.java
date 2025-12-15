@@ -44,9 +44,9 @@ public class PedidoBO implements IPedidoBO {
     private final IVideojuegoDAO videojuegoDAO;
 
     public PedidoBO(
-            IPedidoDAO pedidoDAO, 
-            IClienteDAO clienteDAO, 
-            ICarritoDAO carritoDAO, 
+            IPedidoDAO pedidoDAO,
+            IClienteDAO clienteDAO,
+            ICarritoDAO carritoDAO,
             IVideojuegoDAO videojuegoDAO
     ) {
         this.pedidoDAO = pedidoDAO;
@@ -54,13 +54,13 @@ public class PedidoBO implements IPedidoBO {
         this.carritoDAO = carritoDAO;
         this.videojuegoDAO = videojuegoDAO;
     }
-    
+
     private void validarPedidoNoFinalizado(Long idPedido) throws NegocioException, PersistenciaException {
         Pedido pedido = pedidoDAO.buscarPorId(idPedido);
         if (pedido == null) {
             throw new NegocioException("El pedido no existe.");
         }
-        
+
         if (pedido.getEstadoPedido() == EstadoPedido.ENTREGADO || pedido.getEstadoPedido() == EstadoPedido.CANCELADO) {
             throw new NegocioException("No se puede modificar un pedido que ya está " + pedido.getEstadoPedido() + ".");
         }
@@ -69,13 +69,24 @@ public class PedidoBO implements IPedidoBO {
     @Override
     public PedidoDTO registrarPedido(Long idCliente, DireccionDTO direccionEnvioDTO, PagoDTO pagoDTO) throws NegocioException {
         try {
+            if (idCliente == null) {
+                throw new NegocioException("El ID del cliente es obligatorio.");
+            }
+            if (direccionEnvioDTO == null) {
+                throw new NegocioException("La dirección de envío es obligatoria.");
+            }
+            if (pagoDTO == null || pagoDTO.getMetodoPago() == null) {
+                throw new NegocioException("La información de pago es obligatoria.");
+            }
+
             Cliente cliente = clienteDAO.buscarPorId(idCliente);
             if (cliente == null) {
                 throw new NegocioException("Cliente no encontrado.");
             }
+
             Carrito carrito = carritoDAO.buscarPorCliente(cliente);
             if (carrito == null || carrito.getItems().isEmpty()) {
-                throw new NegocioException("El carrito está vacío.");
+                throw new NegocioException("El carrito está vacío. Agrega productos antes de realizar un pedido.");
             }
 
             float totalCalculado = 100;
@@ -87,6 +98,11 @@ public class PedidoBO implements IPedidoBO {
 
                 if (videojuego.getExistencias() < item.getCantidad()) {
                     throw new NegocioException("Stock insuficiente para: " + videojuego.getNombre());
+                }
+
+                if (videojuego.getExistencias() < item.getCantidad()) {
+                    throw new NegocioException(String.format("Stock insuficiente para: %s. Solicitado: %d, Disponible: %d",
+                            videojuego.getNombre(), item.getCantidad(), videojuego.getExistencias()));
                 }
 
                 videojuego.setExistencias(videojuego.getExistencias() - item.getCantidad());
@@ -106,7 +122,7 @@ public class PedidoBO implements IPedidoBO {
 
             Pago pago = DTOMapeadores.toPagoEntity(pagoDTO);
             pago.setMonto(totalCalculado);
-            
+
             if (pago.getMetodoPago() == MetodoPago.CONTRA_PAGO) {
                 pago.setEstadoPago(EstadoPago.PENDIENTE);
             } else {
@@ -156,6 +172,11 @@ public class PedidoBO implements IPedidoBO {
     @Override
     public List<DetallePedidoDTO> obtenerDetallesPedido(Long idPedido) throws NegocioException {
         try {
+
+            if (idPedido == null) {
+                throw new NegocioException("ID de pedido requerido.");
+            }
+
             return this.pedidoDAO.obtenerDetallesPedido(idPedido).stream()
                     .map(Mapeadores::toDetallePedidoDTO)
                     .collect(Collectors.toList());
@@ -167,6 +188,11 @@ public class PedidoBO implements IPedidoBO {
     @Override
     public PedidoDTO buscarPorId(Long idPedido) throws NegocioException {
         try {
+
+            if (idPedido == null) {
+                throw new NegocioException("ID de pedido requerido.");
+            }
+
             Pedido pedido = pedidoDAO.buscarPorId(idPedido);
             if (pedido == null) {
                 return null;
@@ -220,6 +246,11 @@ public class PedidoBO implements IPedidoBO {
     @Override
     public List<PedidoDTO> buscarPorNombreClienteParcial(String nombreParcial) throws NegocioException {
         try {
+
+            if (nombreParcial == null) {
+                nombreParcial = "";
+            }
+
             List<Pedido> pedidosEncontrados = this.pedidoDAO.buscarPorNombreClienteParcial(nombreParcial);
 
             return pedidosEncontrados.stream()
@@ -234,6 +265,11 @@ public class PedidoBO implements IPedidoBO {
     @Override
     public List<PedidoDTO> buscarPorCliente(Long idCliente) throws NegocioException {
         try {
+            
+            if (idCliente == null) {
+                throw new NegocioException("ID de cliente requerido.");
+            }
+            
             Cliente cliente = clienteDAO.buscarPorId(idCliente);
             if (cliente == null) {
                 throw new NegocioException("Cliente no encontrado.");
